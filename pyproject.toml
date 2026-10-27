@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68,<85"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voicecart"
+version = "0.1.0"
+description = "Deterministic catalogue foundation for a local voice shopping assistant"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff==0.14.2"]
+
+[tool.setuptools.packages.find]
+include = ["voicecart*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]

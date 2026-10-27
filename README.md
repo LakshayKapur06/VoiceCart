@@ -1,6 +1,6 @@
 # VoiceCart — Voice-First Shopping Assistant
 
-> **Project status: Pre-implementation.** No application components have been implemented yet. This document establishes the project requirements, selected target architecture, development constraints, and architecture-review process. The technologies and workflows described below are design decisions or proposals, not evidence of working software.
+> **Project status: Sprint 1 deterministic foundation.** The repository now contains typed catalogue contracts, an in-memory authoritative snapshot, exact lookup, structured eligibility/cheapest selection, a versioned ranking interface and automated tests. The voice pipeline, PostgreSQL/pgvector adapter, hybrid retrieval, ranking weights and cart mutations are planned, not implemented. See [Sprint 1 details](docs/SPRINT_1.md) and [the implementation plan](IMPLEMENTATION_PLAN.md).
 
 ---
 
@@ -148,15 +148,11 @@ The current scope includes add-to-cart, so the application must implement the mi
 
 ## 3.1 Actual implementation status
 
-**Nothing has been implemented yet.**
+The repository was re-inspected on **27 October 2026**, starting from `7b90f48`. It contained only `README.md` and `Suggestions.md`, with a clean working tree and no AGENTS.md, source, dependencies or tests. No implementation had appeared since the review.
 
-There is no verified working application, integrated inference pipeline, functioning retrieval system, or tested add-to-cart flow at this stage.
+Sprint 1 adds the pure Python catalogue foundation and tests described in [docs/SPRINT_1.md](docs/SPRINT_1.md). It can prove supported structured selection on synthetic snapshots independently of models. It is not an integrated shopping application: microphone input, ASR/NLU/TTS, PostgreSQL, embeddings, hybrid discovery, sessions and add-to-cart execution remain planned. No voice latency, human relevance or accessibility benchmark has been completed.
 
-The architecture described in this README is the selected target design for beginning implementation. Its suitability remains open to independent research and review.
-
-Unless subsequent repository inspection establishes otherwise, treat all application components as unimplemented.
-
-The reviewing agent must inspect the repository and report any actual files, dependencies, prototypes, or partial implementations it discovers. It must not assume that an empty or pre-existing project structure constitutes a working implementation.
+The owner’s integration task accepts the architectural verdict as the current implementation reference while preserving its experimental qualifications. `Suggestions.md` remains the unchanged review of the earlier README/commit, including its historical pre-implementation observations. This README describes current requirements/status; [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) tracks delivery. Release decisions D01–D15 remain explicit below.
 
 ## 3.2 Terminology used in this document
 
@@ -188,7 +184,7 @@ It incorporates the durable requirements previously maintained in `AGENTS.md`, i
 - Development approach.
 - Instructions for coding agents.
 
-The architecture-review deliverable, `Suggestions.md`, will record research and recommendations. It does not automatically override this README.
+The architecture-review record, `Suggestions.md`, preserves the research and historical baseline. The owner has now authorized integration of its verdict through the current task; this README and the implementation plan record the accepted reference and remaining gates. Experimental benefits and D14 presentation are not thereby proven or approved.
 
 The project owner must approve material architectural changes before they become binding implementation decisions.
 
@@ -229,121 +225,61 @@ The initial user-facing workflow covers:
 
 ## 5.1 Architecture overview
 
-The current target is a local-first, Python-based application using local inference for speech recognition, language understanding, embeddings, and text-to-speech, with Qdrant providing vector retrieval.
+Use a local-first modular Python application with local inference and no paid inference APIs. **PostgreSQL + pgvector is the reference storage architecture**, accepted for implementation subject to device/workload validation (D15/E11), not a measured performance or relevance winner. The Sprint 1 in-memory adapter proves the domain contract; database integration belongs to Sprint 4.
 
-The current design does not use paid inference APIs.
-
-The selected target components are:
-
-| Layer | Selected technology | Intended responsibility |
+| Layer | Reference configuration | Responsibility / implementation status |
 |---|---|---|
-| Speech-to-text | `whisper.cpp` | Transcribe incoming speech locally. |
-| Language model | Qwen3 4B Instruct through Ollama | Interpret natural-language requests and generate grounded responses when useful. |
-| Embeddings | `BAAI/bge-small-en-v1.5` | Convert queries and product text into vector representations. |
-| Vector database | Qdrant | Retrieve semantically relevant catalogue candidates. |
-| Application and orchestration | Python | Coordinate processing, validate inputs and outputs, enforce rules, manage required state, and execute approved actions. |
-| Text-to-speech | Piper as the selected local TTS direction | Convert responses into spoken audio. |
-| Product catalogue | Authoritative structured product data | Supply valid product identifiers and structured product attributes. |
-| Add-to-cart handling | Application-controlled logic and appropriate state storage | Execute and verify the minimum cart operation required by the current scope. |
+| Audio/ASR | Explicit turns, half-duplex, whisper.cpp | Finalized speech transcription; checkpoint/backend depends on D01/D02. Planned Sprint 2. |
+| NLU | Qwen3-4B-Instruct-2507 through Ollama; artifact `qwen3:4b-instruct-2507-q4_K_M` | Bounded schema extraction plus independent semantic validation; record immutable digest/template at integration. Planned Sprint 3; not a proven model winner. |
+| Catalogue and state | PostgreSQL | Authority for variants, prices, stock, coverage, revisions, minimal session cart and immutable receipts. Planned Sprints 4/5. |
+| Lexical search | PostgreSQL text search | Explicit configurations, safe query construction and lexical candidates. Planned Sprint 4. Built-in ranking is not FTS5 BM25. |
+| Embeddings | BAAI/bge-small-en-v1.5 via a local adapter | Provisional English reference: 384 dimensions; version preprocessing/serializer and re-embed on changes. Planned Sprint 4. No multilingual claim. |
+| Vector retrieval | pgvector in the same database | Exact cosine-distance search first; ANN only after recall/resource/latency gates. Planned Sprint 4. |
+| Validation/retrieval policy | Python typed contracts and deterministic rules | Exact lookup, complete structured filtering and minimum selection implemented in memory; hybrid discovery remains planned. |
+| Ranking | Versioned policy interface | Qualification precedes query-fit/preference/price scoring; no final weights or default semantic scorer implemented. |
+| Actions/session control | Explicit state machine and transactional repositories | Stable IDs, serialized validated operations and verified outcomes. Planned Sprint 5. |
+| Responses/TTS | Templates; optional grounded generation; continuing OHF Piper candidate | Runtime/voice artifacts, language suitability and licence eligibility need D02/D05/D11 tests. Planned Sprints 2/6. |
 
-The exact authoritative catalogue storage technology, persistence mechanism, interfaces, and deployment topology have not been finalized.
+The storage rationale and alternatives are recorded in [ADR-001](docs/decisions/0001-reference-storage.md) and Suggestions.md §4.4. One database reduces cross-store synchronization/recovery work; it does not remove asynchronous embedding generation or source freshness problems. SQLite with in-process vectors and Qdrant remain E11 alternatives. Qdrant has client local/embedded deployment modes: do not claim that every SQLite + Qdrant design requires a server.
 
-The architecture review must investigate these choices rather than assume a particular SQL database or deployment model.
+## 5.2 Responsibility and decision boundaries
 
-## 5.2 Technology distinctions
-
-- **Qwen3 4B Instruct** is the selected language model.
-- **Ollama** is the local model runtime, not the model itself.
-- **BGE-small-en-v1.5** is the embedding model. It creates vectors; it does not generate conversational responses.
-- **Qdrant** is the vector database. It supports vector retrieval and payload filtering but is not automatically the authoritative source of product or cart state.
-- **whisper.cpp** performs speech recognition.
-- **Piper** is the selected direction for local text-to-speech. Its exact model, runtime, licence, and integration must be determined before implementation.
-
-These technologies are the baseline for evaluation, not proof that they are optimal for every requirement.
-
-The architecture review must assess whether they should be retained, reconfigured, replaced, or supplemented.
+- Models interpret language or create vectors/audio; they never own catalogue facts or mutation authority.
+- PostgreSQL owns published structured facts and derived search rows in the later adapter. A merchant’s truth would still require a real authoritative integration (D04).
+- Python compiles allowlisted queries, validates hard predicates and scope, controls sessions/actions, and renders verified outcomes.
+- Exact/structured requests do not require embeddings or a product-comparison LLM call.
+- Reference model/runtime choices are provisional. Compare alternatives with controlled task tests, not general benchmark headlines.
 
 ## 5.3 Logical architecture diagram
 
-The following diagram represents the intended logical flow. It does not represent an implemented system.
+The diagram is the target, not a claim that all boxes are implemented. Sprint 1 covers the deterministic contracts and in-memory equivalent of the structured catalogue path only.
 
-```text
-                          USER
-                            |
-                            v
-                  Microphone / Audio Input
-                            |
-                            v
-                       whisper.cpp
-                    Local Speech-to-Text
-                            |
-                            v
-                      Transcribed Text
-                            |
-                            v
-                Python Application Layer
-                            |
-                            v
-                   Qwen3 4B Instruct
-                     Served by Ollama
-                            |
-                            v
-               Intent and Parameter Extraction
-                            |
-                            v
-                  Application Validation
-                            |
-                            v
-                   Retrieval Coordinator
-                            |
-                    +-------+-------+
-                    |               |
-                    v               v
-               BGE Embeddings   Structured Filters
-                    |
-                    v
-                   Qdrant
-               Vector Retrieval
-                    |
-                    v
-              Retrieved Candidates
-                    |
-                    v
-             Post-Retrieval Processing
-                    |
-          +---------+----------------+
-          |                          |
-          v                          v
-  Deterministic Validation     Grounded Comparison
-  and Hard Constraints         or Explanation, if useful
-          |                          |
-          +------------+-------------+
-                       |
-                       v
-             Validated Product Selection
-                       |
-                       v
-              Controlled Add-to-Cart
-                       |
-                       v
-              Result Verification
-                       |
-                       v
-               Response Construction
-                       |
-                       v
-                    Piper TTS
-                       |
-                       v
-                Spoken Response
-                       |
-                       v
-                      USER
+```mermaid
+flowchart TD
+    U[Speech and accessible controls] --> A[Explicit audio turns and finalized ASR]
+    A --> N[Bounded schema NLU or narrow exact reference path]
+    N --> V[Python validation and route planning]
+    V --> R{Retrieval route}
+    R --> X[Exact authoritative identifier lookup]
+    R --> S[Complete structured eligibility and minimum]
+    R --> H[Lexical plus dense plus qualified low-price candidates]
+    DB[(One PostgreSQL database with pgvector)] --> X
+    DB --> S
+    DB --> H
+    H --> Q[Qualification and versioned relevance preference price ranking]
+    X --> C[Scoped result or clarification]
+    S --> C
+    Q --> C
+    C --> M[Explicit validated add: session serialization and SQL transaction]
+    M --> DB
+    M --> O[Verify immutable operation receipt]
+    C --> T[Response templates or optional grounded explanation]
+    O --> T
+    T --> P[Local TTS and playback with accessible status fallback]
+    P --> U
 ```
 
-Not every request needs to traverse every stage. For example, a simple confirmation can use a deterministic response template rather than invoking the LLM again.
-
-The architecture may use different internal module boundaries if the repository or subsequent research justifies them, provided the required responsibility and safety boundaries remain intact.
+Search-only requests bypass mutation. Unknown facts, unsupported requests or ambiguous identity lead to qualified results/clarification, never a silently relaxed action. Retrieval snapshots close before model inference/playback; actions revalidate in a fresh guarded transaction.
 
 ---
 
@@ -397,14 +333,15 @@ Suppose the user says:
 
 The intended processing is:
 
-1. Interpret the request and extract the category, colour, budget, and selection criterion.
-2. Retrieve relevant backpack candidates from Qdrant.
-3. Apply the required colour, price, and availability constraints using structured product data.
-4. Select the cheapest valid candidate using deterministic sorting.
-5. Ask for clarification if the request cannot be fulfilled reliably.
-6. Execute the add-to-cart operation through application-controlled logic.
-7. Verify the resulting state.
-8. Speak a concise confirmation.
+1. Interpret and independently validate category, colour, strict budget operator, currency, quantity and explicit add intent.
+2. Choose structured selection; do not use a semantic top-K as the eligible universe.
+3. Establish complete source coverage and known/current required facts for potentially matching records. Unknown eligibility blocks a global minimum/no-match claim.
+4. Evaluate **all** eligible variants, with `< 200000` paise for “under ₹2,000,” then order by unit price and stable variant ID. “₹2,000 or less” uses `<= 200000` instead.
+5. Clarify unsupported/incomplete eligibility or offer an explicitly narrower verified-record scope. A found scoped candidate is not automatically permission to add it under a global-cheapest command.
+6. In the future action transaction, revalidate current facts/completeness, recompute an authorized query minimum if appropriate, check aggregate quantity and store the increment plus immutable receipt atomically.
+7. Verify the committed receipt; only then speak a success template. This is a local demonstration cart unless D04 establishes an actual merchant integration.
+
+Only steps for the deterministic lookup/filter/minimum foundation exist in Sprint 1; interpretation, cart and voice steps remain planned.
 
 The LLM must not select a product that violates the explicit budget merely because it describes that product as a better option.
 
@@ -423,34 +360,15 @@ Retrieval-Augmented Generation combines retrieval from an external information s
 ## 7.1 Conceptual RAG flow
 
 ```text
-User Request
-     |
-     v
-Query Interpretation
-     |
-     v
-Query Embedding
-     |
-     v
-Vector Retrieval
-     |
-     v
-Relevant Product Records
-     |
-     v
-Context Construction
-     |
-     v
-LLM Generation, When Useful
-     |
-     v
-Application Validation
-     |
-     v
-Response or Controlled Action
+Validated request
+  -> exact authoritative lookup OR complete structured selection
+  -> otherwise: lexical + dense + qualifying low-price retrieval
+  -> hard eligibility and supported relevance qualification
+  -> versioned ranking and separately scoped cheapest role
+  -> evidence-backed response / clarification / controlled action
 ```
 
-This is a conceptual flow. The actual implementation may differ depending on whether a request requires conversational generation, deterministic processing, or both.
+This is a target flow. Structured evidence satisfies retrieval-first grounding without a vector call; generation is optional. Exact vector search is still a candidate-ranking mechanism, not proof of semantic relevance or a minimum under a composite score.
 
 ## 7.2 Embedding generation
 
@@ -464,30 +382,15 @@ Its intended responsibilities are to:
 
 The model is English-focused. The architecture review must investigate whether its language coverage is sufficient for the intended users and whether a multilingual model would provide a meaningful improvement.
 
-The review must also verify vector dimensionality, preprocessing consistency, similarity configuration, and compatibility with the Qdrant collection design.
+The review must also verify vector dimensionality, preprocessing consistency, similarity configuration, and compatibility with the versioned pgvector representation.
 
-## 7.3 Vector retrieval
+## 7.3 Three retrieval routes
 
-Qdrant is responsible for retrieving semantically relevant candidates.
+1. **Exact lookup:** canonical variant IDs/SKUs, product IDs or supported model numbers use equality in authority. A model/product identifier may resolve to multiple purchasable variants; do not silently select another colour/size. Sprint 1 implements typed identifier lookup.
+2. **Structured selection:** evaluate supported hard category/colour/size/currency/price/availability/quantity predicates over the complete eligible catalogue. Stable price/variant-ID ordering determines a structured cheapest result only when source coverage and required facts justify it. Sprint 1 implements this on an immutable snapshot.
+3. **Hybrid discovery:** PostgreSQL lexical search, local BGE/pgvector exact dense search and a qualifying low-price branch form a candidate union. Hydrate canonical facts, apply hard and semantic qualification, then rank. Planned Sprint 4; Sprint 1 explicitly reports discovery as unsupported.
 
-Product payloads may contain:
-
-- Product ID or SKU.
-- Product name.
-- Product description.
-- Category.
-- Brand.
-- Colour.
-- Size or variant.
-- Price.
-- Availability metadata.
-- Other attributes needed for filtering and comparison.
-
-The actual schema must be established during implementation.
-
-Use stable product identifiers. Where variants differ in price, size, availability, or other purchasable attributes, retrieval and selection must resolve to the correct variant.
-
-Vector similarity is a candidate-generation mechanism, not a substitute for validating structured business constraints.
+Keep embeddings separate from current price/stock fields; join canonical facts in one consistent SQL snapshot. Do not turn an empty ANN shortlist or unknown attribute into “no catalogue match.” If ANN is later enabled, compare selective-filter recall with exact search. Do not accept model-generated SQL or unrestricted lexical query grammar.
 
 ## 7.4 Grounding and data freshness
 
@@ -501,6 +404,8 @@ Therefore:
 - Missing evidence must lead to clarification, a qualified response, or a safe failure.
 - Product updates and deletions must be reflected in retrieval results.
 - Critical facts must be validated outside the LLM.
+
+Publish canonical changes and matching search representations atomically with source/content revision checks. Prepare embeddings outside write transactions; reject stale jobs and switch encoder generations only after reconciliation. Urgent corrections with pending semantic data must expose semantic-not-ready state, while structured reads can continue. Multi-statement retrieval uses a consistent snapshot, not independently changing Read Committed statements. Revalidate actions against a fresh snapshot.
 
 Fine-tuning is not a substitute for retrieving current catalogue information.
 
@@ -542,14 +447,22 @@ Any model-generated comparison must be grounded in supplied catalogue evidence.
 
 | Request | Preferred handling |
 |---|---|
-| “Cheapest black backpack under ₹2,000” | Retrieve candidates, enforce structured constraints, and select deterministically. |
-| “Show me blue shirts” | Retrieve candidates and enforce the colour requirement against structured attributes. |
+| “Cheapest black backpack under ₹2,000” | Complete structured eligible set plus coverage/freshness gate; never just semantic top-K. |
+| “Show me blue shirts” | Enforce category/colour, rank qualified matches by query fit/preferences/price, and identify a scoped cheapest match. |
 | “Which of these is better for college?” | Use grounded comparison when the catalogue contains enough relevant information. |
 | “Add the second one” | Resolve the reference against the current session's results, validate the product, and execute the operation. |
 | Ambiguous product request | Ask for clarification when ambiguity affects the result or action. |
 | Simple cart confirmation | Use a deterministic template if it communicates the verified result adequately. |
 
 Use the least complex processing path that reliably satisfies the request.
+
+## 8.4 Relevance, price and result roles
+
+Every supported product search must attempt the cheapest qualifying role, with an explicit limitation if it cannot be established. Keep `ranked_matches`/`overall_match` distinct from `cheapest_qualifying_match`; an explicitly named ID or ordinal cannot be replaced merely because another item is cheaper. Ordinary search uses relevance, supported preferences and price together. Price-first selection is reserved for an explicit cheapest objective, not every query.
+
+Hard eligibility precedes ranking. Sprint 1 provides a versioned ranking protocol and validates that a supplied policy returns a permutation of already-qualified IDs. It supplies no default relevance scorer or weights; without one, overall relevance is unevaluated. Fixture policies test this boundary and are not production recommendations. Sprint 4 will evaluate the §9.6 Suggestions.md feature/scoring proposal using E04/E10, including middle-price candidates missed by both semantic and cheap-only shortlists.
+
+**D14 remains open:** separately identifying the cheapest option alongside normal ranked results is the working proposal, not an approved presentation policy. Do not silently make cheapest first or omit the required cheapest role. Subjective qualification and human-best relevance remain empirical; no “most relevant for every possible query” guarantee is claimed.
 
 ---
 
@@ -595,6 +508,12 @@ A conventional Python implementation using explicit functions, schemas, a dispat
 
 Do not assume that a framework is required for the architecture to work.
 
+## 9.2 Turn and operation contracts (planned)
+
+Use explicit ready/listening/finalizing/interpreting/retrieving/results/clarification/action/verified/speaking/error states. Partial transcripts cannot authorize mutations. Bind callbacks and references to application-owned session, turn and result-list IDs; ignore stale completions. Serialize conflicting session actions and preserve an operation ID/fingerprint across retries.
+
+Commit cart increments and immutable receipts together. Check for the original receipt before query reselection; repeat replays speech, not an add. Retry whole failed transactions within bounds; reconcile uncertain commits through the original receipt. A historical receipt does not assert that the cart has not changed since. No external exactly-once or merchant-cart claim is available without the actual external API contract. These action features are Sprint 5 work, not Sprint 1 behaviour.
+
 ---
 
 # 10. Local Inference and Cost Constraints
@@ -606,11 +525,11 @@ The selected local-inference direction is:
 | Capability | Current target |
 |---|---|
 | Speech recognition | `whisper.cpp` |
-| Language-model inference | Qwen3 4B Instruct through Ollama |
+| Language-model inference | Pinned Qwen3-4B-Instruct-2507 reference through Ollama |
 | Text embeddings | `BAAI/bge-small-en-v1.5` |
-| Vector retrieval | Local Qdrant |
+| Vector retrieval | Local PostgreSQL + pgvector, exact search first (planned) |
 | Application logic | Python |
-| Text-to-speech | Piper local TTS |
+| Text-to-speech | Continuing OHF Piper reference candidate; runtime/voice terms and suitability pending |
 
 Local inference means avoiding per-request inference API charges. It does not mean the system has zero operating cost.
 
@@ -635,6 +554,10 @@ The project has a target of **under 1.5 seconds from the end of the user's utter
 This is a design target, not an achieved result.
 
 It must not be reported as measured performance unless supported by actual experiments.
+
+Measure from the end of the **actual utterance**, established by annotated audio/control replay, to **actual meaningful audible playback**, not VAD’s later endpoint or the first generated PCM byte. Record acknowledgements, meaningful answers and verified action confirmations separately. Include endpoint delay, buffering and queues. Publish median/P95 by device/language/route/warm/cold profile, plus all-turn deadline success/failure rates. Timeouts, crashes and missing audio stay in the denominator; early endpointing is a correctness failure, not a latency win.
+
+D06 still governs the exact acceptance interpretation: Suggestions.md’s warm-workload P95 proposal is not an approved relaxation of the under-1.5-second goal. D01/D02 hardware/languages and noncritical D13 thresholds remain unresolved. No stage budget or achieved timing is claimed.
 
 ## 11.1 Sources of latency
 
@@ -708,15 +631,11 @@ Comprehensive cart management, durable cross-session cart persistence, full tran
 
 ## 12.2 Data ownership
 
-Qdrant is the retrieval system, not automatically the authoritative product or cart database.
+PostgreSQL is the reference authority for published catalogue facts, minimal local session cart and operation receipts; pgvector/text-search representations are derived. Sprint 1 uses an in-memory fixture authority only. No cart operation exists yet.
 
-The implementation must establish an authoritative source for the structured product information required to validate selection and add-to-cart operations.
+The later adapter must enforce constraints, source coverage and revision checks. Short snapshot-consistent reads and guarded write transactions prevent mixed publications and unsafe read/check/write actions. Define expiry and outcome-recovery policy (D12) before promising restart/durable-session recovery. Adding to a local demonstration cart is not a stock reservation, order, payment or merchant action.
 
-The storage technology and persistence requirements must be decided based on the repository, data model, and intended deployment.
-
-For a future production implementation, evaluate durable cart state, transaction safety, idempotency, concurrency control, and recovery according to the actual persistence model.
-
-Do not introduce a full transactional subsystem without a requirement that justifies it.
+Idempotency, immutable receipts, aggregate quantity validation and cancellation/commit races are required for the minimal safe MVP add, not optional future extras. Comprehensive cart editing/history, durable identity and checkout remain future scope.
 
 ---
 
@@ -734,8 +653,10 @@ VoiceCart is an action-oriented application. The model must not be treated as a 
 6. Success is reported only after the outcome has been verified.
 7. Invalid or ambiguous requests fail safely.
 8. Session data remains isolated.
-9. Audio and conversational data are not retained unnecessarily.
+9. Raw audio/transcripts stay in memory by default; do not persist sensitive-content logs without an explicit purpose, consent/requirement and retention policy (D12).
 10. Any future payment processing remains outside the LLM's authority.
+
+Restrict local database/model listeners and use appropriate local access controls. Test offline operation and actual network behaviour after artifact provisioning; local inference alone does not prove privacy.
 
 Prompt instructions alone are not a security boundary.
 
@@ -782,13 +703,19 @@ The application must not claim that a product was added when the operation faile
 
 When the system cannot safely determine the user's intent, it should ask for clarification rather than guessing.
 
-Accessibility must be validated throughout development, not postponed until the end.
+Begin with half-duplex capture/playback and discoverable keyboard/assistive end-turn, stop and repeat controls. Voice barge-in waits for echo/turn-boundary tests. Stop can cancel future work/playback but cannot undo an already committed add; repeat never re-executes a mutation.
+
+If neural TTS fails, try cached local error speech and expose equivalent assistive-technology status plus an accessible retry control. Failed playback cannot be solved by a visual toast alone. Avoid overlapping app and screen-reader speech. Validate normal and failure paths with representative blind/low-vision users (D11/E08).
+
+Accessibility must be validated throughout development, not postponed until the end. These interaction components are planned; passing Sprint 1 tests is not an accessibility-conformance claim.
 
 ---
 
 # 15. Testing and Evaluation
 
 Testing must cover individual components and the complete user workflow.
+
+Sprint 1’s executable tests cover the deterministic foundation only; see [the test commands](#23-development-and-sprint-1-commands). The rest of this section defines later evaluation, mapped to E01–E11 in IMPLEMENTATION_PLAN.md. Do not describe an entire experiment as complete because its pure-domain subset passes.
 
 ## 15.1 Speech recognition
 
@@ -853,30 +780,27 @@ The project should follow an **iterative and incremental SDLC**.
 
 Build a working increment, validate it using tests and realistic voice/accessibility conditions, and refine the next increment. Validate safety and accessibility continuously.
 
-The following progression is proposed:
+Use **one-week sprints as a provisional planning assumption**, with no invented staffing/calendar commitment. The authoritative backlog, dependencies, acceptance criteria, risk register and Definition of Done are in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md).
 
-| Increment | Focus |
+| Sprint | Goal / status |
 |---|---|
-| Sprint 0 | Architecture, repository structure, interfaces, and implementation plan. |
-| Sprint 1 | Product catalogue representation, ingestion, embeddings, and retrieval. |
-| Sprint 2 | Intent interpretation, parameter extraction, validation, and orchestration. |
-| Sprint 3 | Product filtering, selection, and the minimum add-to-cart functionality. |
-| Sprint 4 | Speech recognition and text-to-speech integration. |
-| Sprint 5+ | End-to-end testing, accessibility evaluation, and performance optimization. |
+| 1 | Deterministic contracts, exact/structured catalogue selection and test harness. Delivered in this increment; no models/database/cart. |
+| 2 | Early local audio/ASR/TTS feasibility slice and real playback timing. Planned. |
+| 3 | Schema-constrained NLU plus semantic validation. Planned. |
+| 4 | PostgreSQL/pgvector, atomic publication, hybrid retrieval and experimental price-aware ranking. Planned. |
+| 5 | Sessions/result identity, safe local cart mutations and immutable receipts. Planned. |
+| 6 | Integrated accessible voice workflow, failure recovery and provisional result-role presentation. Planned; D14 approval remains a gate. |
+| 7 | Combined evaluation, resource/storage comparison and release readiness. Planned. |
 
-This progression is a proposal, not a statement that any sprint has been completed.
-
-The implementation order may change if the architecture review identifies a more effective way to reduce risk or validate assumptions.
-
-Do not implement future checkout or payment functionality as part of the initial increments.
+This supersedes the old README’s later audio integration. Database setup from the review’s immediate roadmap is deferred to Sprint 4 under the owner’s current Sprint 1 scope, so domain correctness can be tested without services. Audio remains early in Sprint 2. No future sprint is implemented in this run, and no checkout/payment expansion is authorized.
 
 ---
 
-# 17. Future Production Considerations
+# 17. Later Integration and Production Considerations
 
 The initial implementation should remain appropriately scoped.
 
-Potential future improvements include:
+Later MVP sprints must deliver ingestion/publication, minimal operation safety, diagnostics and local recovery. Broader production options still require a demonstrated need. Consider:
 
 - A defined API boundary between the client and application.
 - Durable cart and session persistence.
@@ -901,11 +825,13 @@ Every additional architectural layer must solve a specific problem and justify i
 
 ---
 
-# 18. Mandatory Architecture Review by ChatGPT Pro
+# 18. Architecture-Review Procedure (Historical and Reusable)
+
+**Review phase completed:** Suggestions.md records the 19 October 2026 review and original pre-implementation baseline. Sections 18–20 preserve the useful review procedure. Their review-only editing restrictions apply when conducting an architecture review; they do not prohibit this separately authorized integration/Sprint 1 task. Current architecture/status are §§3–16 and the implementation plan; the review record is not rewritten.
 
 ## 18.1 Objective
 
-The project will be handed to a teammate who will use ChatGPT Pro to independently review the architecture before implementation.
+The original task asked a teammate to independently review the pre-implementation architecture. Future reviews should use the same evidence discipline while inspecting the then-current implementation.
 
 The reviewing agent must conduct a thorough, evidence-based assessment of the selected models, runtimes, data stores, component boundaries, application flow, and potential architectural improvements.
 
@@ -934,7 +860,7 @@ Do not invent implementation details.
 
 If a critical fact cannot be established, identify the uncertainty and explain how it affects the review.
 
-The current baseline is pre-implementation, but the agent must still inspect the repository rather than assuming its state.
+The original reviewed baseline was pre-implementation; future agents must inspect the current repository rather than assuming that historical state still applies.
 
 ## 18.3 Conduct thorough external research
 
@@ -996,7 +922,7 @@ Compare candidates against the actual workload, not only general-purpose speech 
 
 ### B. Language model
 
-Current selection: Qwen3 4B Instruct through Ollama.
+Current reference: Qwen3-4B-Instruct-2507 through Ollama, pending task-specific validation.
 
 Investigate:
 
@@ -1024,7 +950,7 @@ Investigate:
 - Model size and inference latency.
 - English-only versus multilingual requirements.
 - Alternative embedding models.
-- Compatibility with the intended similarity metric and Qdrant configuration.
+- Compatibility with the intended similarity metric and pgvector configuration.
 - Consistency between indexing and query preprocessing.
 - Whether product names, attributes, descriptions, and queries need different preprocessing.
 - Whether query rewriting or hybrid retrieval would improve results.
@@ -1033,7 +959,7 @@ Consider the consequences of changing embedding models, including vector dimensi
 
 ### D. Vector database and retrieval
 
-Current selection: Qdrant.
+Current reference: PostgreSQL + pgvector with built-in text search. Qdrant was the original reviewed choice and remains a storage-comparison alternative, including embedded deployment modes.
 
 Investigate:
 
@@ -1067,7 +993,7 @@ Separate model quality from runtime performance. A better runtime does not neces
 
 ### F. Text-to-speech
 
-Current direction: Piper local TTS.
+Current reference candidate: continuing OHF Piper local TTS; runtime/voice eligibility and suitability remain unresolved.
 
 Investigate:
 
@@ -1229,7 +1155,7 @@ Prefer the simplest architecture that satisfies the requirements, but do not use
 
 # 19. Mandatory Architecture-Review Deliverable: `Suggestions.md`
 
-The architecture-review agent must create a new file named `Suggestions.md` in the project root.
+The original architecture-review task required `Suggestions.md` in the project root. It now exists and remains the historical source; do not alter its findings to imply later implementation or measurements.
 
 **The agent must not modify this README, implement proposed changes, or modify unrelated project files as part of the review.**
 
@@ -1584,7 +1510,7 @@ Before making code changes:
 
 Do not treat proposed recommendations in `Suggestions.md` as implemented architecture.
 
-The project owner must review and approve architectural recommendations before they become binding implementation decisions.
+The current owner task accepts the reference verdict while leaving the recorded release/model/presentation gates open. Further material architecture changes still require owner direction or the stated experimental decision gate.
 
 Do not assume that every technology listed in this README has already been integrated into the repository.
 
@@ -1613,4 +1539,31 @@ Every implementation and architecture decision should preserve the following pri
 13. **Simplicity with justification:** Avoid both unnecessary architectural complexity and oversimplification that compromises correctness or reliability.
 14. **Explicit approval:** Keep architectural recommendations separate from approved implementation decisions.
 
-**The immediate objective is to establish and validate the best practical architecture, then implement the product-search-to-add-to-cart workflow incrementally. No component should be considered implemented until it exists in the repository and has been verified.**
+**Continue through the Agile plan in verified increments. Only Sprint 1 is delivered here; the reference architecture’s models, database, voice workflow and safe local add still require their planned integration and tests.**
+
+---
+
+# 23. Development and Sprint 1 Commands
+
+Use **Python 3.11 or newer**. Choose an installed interpreter explicitly; the macOS system `python3` may be too old. No runtime dependencies, database, model downloads, credentials or network services are needed for Sprint 1 tests.
+
+```sh
+python3.12 -m venv .venv  # or another installed Python >=3.11
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python -m compileall -q voicecart tests
+```
+
+Optional packaging/lint setup uses bounded setuptools and a pinned Ruff version in pyproject.toml:
+
+```sh
+.venv/bin/python -m pip install -e '.[dev]'
+.venv/bin/ruff check .
+.venv/bin/ruff format --check .
+git diff --check
+```
+
+Dependency installation may use the network; the actual domain tests do not. Ruff checks lint/format, not static type correctness. See [Sprint 1 contracts, examples and limitations](docs/SPRINT_1.md) for supported fields, claim scopes and the future-adapter contract. No commit, push or deployment is part of this task.
+
+# 24. Open Implementation Decisions
+
+All D01–D15 remain visible in [the plan’s decision register](IMPLEMENTATION_PLAN.md#risks-and-open-decisions); detailed historical options/evidence remain in Suggestions.md §12. Sprint 1 uses synthetic INR fixtures and asserted snapshot coverage/freshness only. These are development assumptions, not confirmation of the real catalogue, supported device, release languages, data retention, voice eligibility or latency target interpretation.
