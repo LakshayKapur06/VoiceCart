@@ -142,3 +142,8 @@ At sprint end demonstrate the actual increment, review failures and user feedbac
 F-01–06 are implemented and verified for the Sprint 1 slice on CPython 3.12.14. The first push (`048421c`) deferred final verification at the owner’s request; the subsequent verification task completed the checks, fixed ranking-version drift and added its regression test. The source and fresh installed-wheel suites each pass 54 tests; the site-packages-disabled suite, doctest, lint, format, compilation, dependency, packaging and document/diff checks also pass. See [docs/SPRINT_1.md](docs/SPRINT_1.md) for exact commands, evidence and limits.
 
 The domain-story scope is complete; E01’s database/publication work and E02–E11 runtime/quality benchmarks remain future work. Python 3.11 and a static type checker were not exercised, and no model/database/voice/accessibility/performance win is claimed. Sprints 2–7 and D01–D15 remain as planned/open above.
+
+## Sprint 2 delivery record
+
+A-01–03 are implemented and verified for the early audio feasibility slice on CPython 3.12.14. This delivers the half-duplex turn controller, accessible nonvisual controls (`stop`, `repeat`, `end_turn`, `pause`, `resume`), partial transcript action-gating, assistive status reporting, dual-failure session safety, the ASR → template → TTS slice with cached speech fallback, pinned speech model metadata (`whisper.cpp`, `OHF Piper`), comprehension fixtures for critical shopping slots, and audible onset latency telemetry with full-denominator failure accounting. The total test suite now contains 74 automated tests; all pass without third-party runtime dependencies, alongside doctest and compilation checks. See [docs/SPRINT_2.md](docs/SPRINT_2.md).
+

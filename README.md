@@ -1,6 +1,6 @@
 # VoiceCart — Voice-First Shopping Assistant
 
-> **Project status: Sprint 1 deterministic foundation.** The repository now contains typed catalogue contracts, an in-memory authoritative snapshot, exact lookup, structured eligibility/cheapest selection, a versioned ranking interface and automated tests. The voice pipeline, PostgreSQL/pgvector adapter, hybrid retrieval, ranking weights and cart mutations are planned, not implemented. See [Sprint 1 details](docs/SPRINT_1.md) and [the implementation plan](IMPLEMENTATION_PLAN.md).
+> **Project status: Sprint 2 early audio feasibility.** The repository contains typed catalogue contracts, an in-memory authoritative snapshot, exact lookup, structured selection, a versioned ranking interface, a half-duplex turn controller, accessible nonvisual controls, partial-transcript action gating, an ASR → verified template → TTS slice, pinned speech model metadata, and audible latency telemetry. NLU interpretation, the PostgreSQL/pgvector adapter, hybrid retrieval and cart mutations are planned. See [Sprint 1 details](docs/SPRINT_1.md), [Sprint 2 details](docs/SPRINT_2.md) and [the implementation plan](IMPLEMENTATION_PLAN.md).
 
 ---
 
@@ -229,7 +229,7 @@ Use a local-first modular Python application with local inference and no paid in
 
 | Layer | Reference configuration | Responsibility / implementation status |
 |---|---|---|
-| Audio/ASR | Explicit turns, half-duplex, whisper.cpp | Finalized speech transcription; checkpoint/backend depends on D01/D02. Planned Sprint 2. |
+| Audio/ASR | Explicit turns, half-duplex, whisper.cpp | Half-duplex turn controller, accessible controls, and ASR/TTS contracts implemented in Sprint 2; whisper.cpp checkpoint/backend validation depends on D01/D02. |
 | NLU | Qwen3-4B-Instruct-2507 through Ollama; artifact `qwen3:4b-instruct-2507-q4_K_M` | Bounded schema extraction plus independent semantic validation; record immutable digest/template at integration. Planned Sprint 3; not a proven model winner. |
 | Catalogue and state | PostgreSQL | Authority for variants, prices, stock, coverage, revisions, minimal session cart and immutable receipts. Planned Sprints 4/5. |
 | Lexical search | PostgreSQL text search | Explicit configurations, safe query construction and lexical candidates. Planned Sprint 4. Built-in ranking is not FTS5 BM25. |
