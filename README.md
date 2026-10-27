@@ -1293,7 +1293,7 @@ If a proposed change depends on an unverified assumption, label it as conditiona
 
 If no change is justified for a component, say so in the assessment rather than manufacturing a diff.
 
-Because the project is pre-implementation, the diff should be against the selected target architecture in this README, not against a fictional implemented system.
+For the original pre-implementation review, compare against the selected README target at its recorded commit. Future reviews must inspect the then-current code and compare against that actual baseline; do not invent an implementation or assume the historical empty repository still applies.
 
 ## 19.6 Reasons behind the diff
 

@@ -35,6 +35,8 @@ def rank_qualified(
     except (TypeError, ValueError) as error:
         raise RankingContractError(str(error)) from error
     ordered = policy.rank(request, qualified)
+    if policy.version != version:
+        raise RankingContractError("policy version changed during ranking")
     if not isinstance(ordered, tuple) or any(not isinstance(x, str) for x in ordered):
         raise RankingContractError(
             "policy must return a tuple of qualified variant IDs"

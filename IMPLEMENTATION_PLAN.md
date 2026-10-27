@@ -139,4 +139,6 @@ At sprint end demonstrate the actual increment, review failures and user feedbac
 
 ## Sprint 1 delivery record
 
-F-01–06 are the only stories implemented by this task. The initial 53-test suite passed; the owner then requested immediate commit/push and explicitly skipped remaining final checks. The code is implemented and initially tested, with final verification/review pending rather than every Definition of Done gate closed. See [docs/SPRINT_1.md](docs/SPRINT_1.md) for exact commands/outcomes and limits. E01’s domain subset and E10’s interface/role checks are covered; no full E01 database/publication experiment or E02–E11 runtime/quality benchmark is implied. Sprints 2–7 remain planned.
+F-01–06 are implemented and verified for the Sprint 1 slice on CPython 3.12.14. The first push (`048421c`) deferred final verification at the owner’s request; the subsequent verification task completed the checks, fixed ranking-version drift and added its regression test. The source and fresh installed-wheel suites each pass 54 tests; the site-packages-disabled suite, doctest, lint, format, compilation, dependency, packaging and document/diff checks also pass. See [docs/SPRINT_1.md](docs/SPRINT_1.md) for exact commands, evidence and limits.
+
+The domain-story scope is complete; E01’s database/publication work and E02–E11 runtime/quality benchmarks remain future work. Python 3.11 and a static type checker were not exercised, and no model/database/voice/accessibility/performance win is claimed. Sprints 2–7 and D01–D15 remain as planned/open above.

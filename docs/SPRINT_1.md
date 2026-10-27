@@ -45,7 +45,7 @@ Every supported structured/exact search computes the cheapest qualifying role ev
 
 ## Ranking seam and D14
 
-An optional RankingPolicy receives only already-qualified immutable CatalogueItems and the typed request. It must expose a nonblank version and return every qualified variant ID exactly once. Invalid, missing, duplicate or foreign IDs raise RankingContractError; canonical facts are hydrated from the original records, not supplied by a scorer.
+An optional RankingPolicy receives only already-qualified immutable CatalogueItems and the typed request. It must expose a nonblank version and return every qualified variant ID exactly once. Invalid, missing, duplicate or foreign IDs raise RankingContractError; canonical facts are hydrated from the original records, not supplied by a scorer. A policy that changes its version during rank() is also rejected so that results cannot silently record an outdated policy identity. This check does not make arbitrary policy code thread-safe; implementations must still preserve immutable version/configuration contracts.
 
 `ranked_matches`/`overall_match` are separate from `cheapest_qualifying_match`. Without a policy, ranked_matches is empty and overall_match is None, accurately reflecting unevaluated relevance. Tests inject explicit fixture judgments to show that a better-fitting higher-priced match can rank first while a cheaper match remains separately available; this is not an implemented optimal production formula or a human relevance measurement.
 
@@ -104,24 +104,27 @@ Package installation can contact the package index; no model/runtime service was
 
 ### Verification record
 
-The development interpreter is CPython 3.12.14; Python 3.11 is the declared minimum but is not independently exercised on this machine. Ruff 0.14.2 is pinned. No static type checker is configured; lint and compilation are not reported as type-check verification.
+**Follow-up completed on 27 October 2026.** The first Sprint 1 push (`048421c`) deliberately deferred final checks at the owner’s request. This follow-up completes those checks and fixes a reproduced ranking-version audit bug: if a policy changes version during rank(), the result is now rejected rather than labelled with the old version. A regression test covers that case.
 
-| Command executed | Actual outcome |
+The development interpreter is CPython 3.12.14. Python 3.11 is the declared minimum but was not independently exercised on this machine. Ruff 0.14.2 is pinned; the offline wheel build used the bundled Python with setuptools 84.1.0, within the declared build bounds. No static type checker is configured; lint and compilation are not type-check verification.
+
+| Check / command executed | Actual outcome |
 |---|---|
-| `.venv/bin/python -m unittest discover -s tests -v` | 53 tests passed, including generated full-catalogue oracle checks. This run preceded formatting-only changes. |
-| `.venv/bin/python -m pip install --no-cache-dir -e '.[dev]'` | Editable package built/installed and Ruff 0.14.2 installed successfully. |
-| `.venv/bin/ruff check .` | Initially found one extraneous-parentheses issue. |
-| `.venv/bin/ruff format --check .` | Initially reported seven files needing formatting. |
-| `.venv/bin/ruff check --fix voicecart tests` | Fixed the one lint issue; exited successfully. |
-| `.venv/bin/ruff format voicecart tests` | Reformatted seven files; two unchanged. |
-| `.venv/bin/python -m doctest docs/SPRINT_1.md` | Executable example passed. |
-| `.venv/bin/python -m compileall -q voicecart tests` | Compilation passed. |
+| `.venv/bin/python -m unittest discover -s tests -v` | All **54 tests passed** after the ranking guard and regression test. |
+| `.venv/bin/python -S -m unittest discover -s tests -q` | All **54 tests passed** with site-packages disabled. |
+| `.venv/bin/ruff check .` | Passed; no lint findings. |
+| `.venv/bin/ruff format --check .` | Passed; all nine Python files already formatted. |
+| `.venv/bin/python -m doctest -v docs/SPRINT_1.md` | All **11 example checks passed**. |
+| `.venv/bin/python -m compileall -q voicecart tests` | Passed. |
 | `.venv/bin/python -m pip check` | No broken requirements found. |
-| `.venv/bin/python -I -c 'import voicecart; print(voicecart.__file__)'` | Editable package imported successfully without relying on the working-directory import path. |
+| Offline wheel build using `pip wheel --no-build-isolation --no-deps --no-index --no-cache-dir` | Passed; the wheel’s four application modules matched current source byte-for-byte, with no tests, caches or virtual-environment code included. |
+| Fresh temporary venv: `pip install --no-index --no-deps <wheel>`, isolated `-I` import, full unittest suite, doctest and pip check | Passed outside the checkout, importing the installed wheel from site-packages; **54 tests and 11 example checks passed**. |
+| Document structure/local-link audit | Markdown table widths, fences, local file links, README section order and E01–E11/D01–D15 register coverage passed. Suggestions.md remained byte-identical to the original review commit. |
+| Dependency/import and change review | Application imports remain stdlib/local only; no inference/network/process adapter was added. The final diff and whitespace review found no unrelated changes; a limited tracked-file secret-pattern scan found no matching keys/tokens. |
 
-The owner subsequently requested an immediate commit/push and explicitly asked to skip remaining final checks. Accordingly, the final post-format test/lint/format recheck, `-S` test run, document consistency audit and final diff/whitespace review were not run. They remain pending; no final all-checks-passed claim is made. No model/database/accessibility/performance experiment was run.
+No Sprint 1 check remains deferred from the fast push. This evidence covers the deterministic slice on the stated interpreter, not the future voice/database application, every supported Python version or universal real-world correctness. The wheel/install checks used only local files; they are not a full offline voice/privacy experiment.
 
-The suite includes a deliberately omitted cheapest semantic candidate, exact lookup namespaces, variant colour/size/price/stock isolation, price ties under input permutations, missing/unknown/stale facts, currency, zero price, coverage default/partial/complete, empty/no-match scopes, hard qualification before ranking, and overall-versus-cheapest roles. An independent full-source oracle checks 25 seeded generated catalogues under both LT and LTE. This is deterministic fixture evidence, not universal correctness or product relevance benchmarking.
+The suite includes a deliberately omitted cheapest semantic candidate, exact lookup namespaces, variant colour/size/price/stock isolation, price ties under input permutations, missing/unknown/stale facts, currency, zero price, coverage default/partial/complete, empty/no-match scopes, hard qualification before ranking, overall-versus-cheapest roles and rejection of policy-version changes during ranking. An independent full-source oracle checks 25 seeded generated catalogues under both LT and LTE. This is deterministic fixture evidence, not universal correctness or product relevance benchmarking.
 
 ## Not delivered or measured
 

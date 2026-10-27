@@ -90,6 +90,17 @@ class RankingBoundaryTests(unittest.TestCase):
             with self.subTest(policy=policy), self.assertRaises(RankingContractError):
                 self.db.search(request(), ranking_policy=policy)
 
+    def test_policy_version_change_cannot_mislabel_a_result(self):
+        class ChangingVersion(FixtureOrder):
+            def rank(self, request, qualified):
+                ordered = super().rank(request, qualified)
+                self.version = "changed-during-ranking"
+                return ordered
+
+        policy = ChangingVersion(("better-fit", "cheap"))
+        with self.assertRaisesRegex(RankingContractError, "version changed"):
+            self.db.search(request(), ranking_policy=policy)
+
 
 if __name__ == "__main__":
     unittest.main()
