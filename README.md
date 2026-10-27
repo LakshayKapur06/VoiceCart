@@ -1,6 +1,6 @@
 # VoiceCart — Voice-First Shopping Assistant
 
-> **Project status: Sprint 2 early audio feasibility.** The repository contains typed catalogue contracts, an in-memory authoritative snapshot, exact lookup, structured selection, a versioned ranking interface, a half-duplex turn controller, accessible nonvisual controls, partial-transcript action gating, an ASR → verified template → TTS slice, pinned speech model metadata, and audible latency telemetry. NLU interpretation, the PostgreSQL/pgvector adapter, hybrid retrieval and cart mutations are planned. See [Sprint 1 details](docs/SPRINT_1.md), [Sprint 2 details](docs/SPRINT_2.md) and [the implementation plan](IMPLEMENTATION_PLAN.md).
+> **Project status: Sprint 2 audio protocol foundation; device feasibility pending.** The repository contains typed catalogue contracts, an in-memory authoritative snapshot, exact lookup, structured selection, a versioned ranking interface, tested turn/cancellation controls, an ASR → template → output protocol slice and latency accounting. Speech artifacts remain unpinned candidates. Real ASR/TTS devices, accessible host controls and audible latency measurements still need validation. NLU, PostgreSQL/pgvector, hybrid retrieval and cart mutations are planned. See [Sprint 1 details](docs/SPRINT_1.md), [Sprint 2 fixes and readiness](docs/SPRINT_2.md) and [the implementation plan](IMPLEMENTATION_PLAN.md).
 
 ---
 
@@ -229,7 +229,7 @@ Use a local-first modular Python application with local inference and no paid in
 
 | Layer | Reference configuration | Responsibility / implementation status |
 |---|---|---|
-| Audio/ASR | Explicit turns, half-duplex, whisper.cpp | Half-duplex turn controller, accessible controls, and ASR/TTS contracts implemented in Sprint 2; whisper.cpp checkpoint/backend validation depends on D01/D02. |
+| Audio/ASR | Explicit turns, half-duplex, whisper.cpp | Turn/cancellation and ASR/TTS/output contracts tested with mocks; real devices, accessible host controls and checkpoint/backend validation remain pending (D01/D02/D11). |
 | NLU | Qwen3-4B-Instruct-2507 through Ollama; artifact `qwen3:4b-instruct-2507-q4_K_M` | Bounded schema extraction plus independent semantic validation; record immutable digest/template at integration. Planned Sprint 3; not a proven model winner. |
 | Catalogue and state | PostgreSQL | Authority for variants, prices, stock, coverage, revisions, minimal session cart and immutable receipts. Planned Sprints 4/5. |
 | Lexical search | PostgreSQL text search | Explicit configurations, safe query construction and lexical candidates. Planned Sprint 4. Built-in ranking is not FTS5 BM25. |
@@ -785,7 +785,7 @@ Use **one-week sprints as a provisional planning assumption**, with no invented 
 | Sprint | Goal / status |
 |---|---|
 | 1 | Deterministic contracts, exact/structured catalogue selection and test harness. Delivered in this increment; no models/database/cart. |
-| 2 | Early local audio/ASR/TTS feasibility slice and real playback timing. Planned. |
+| 2 | Audio protocol foundation implemented and audited; real local ASR/TTS, accessibility and playback timing acceptance remain in progress. |
 | 3 | Schema-constrained NLU plus semantic validation. Planned. |
 | 4 | PostgreSQL/pgvector, atomic publication, hybrid retrieval and experimental price-aware ranking. Planned. |
 | 5 | Sessions/result identity, safe local cart mutations and immutable receipts. Planned. |
