@@ -254,6 +254,18 @@ class OllamaProtocolIntegrationTests(unittest.TestCase):
         self.assertFalse(self.server.payload["format"]["additionalProperties"])
         self.assertEqual(self.server.payload["options"]["num_predict"], 768)
 
+    def test_embedding_http_shape_and_generation_are_checked(self):
+        from voicecart.embeddings import EncoderSpec, OllamaEncoder
+
+        self.server.result = {"embeddings": [[3, 4]]}
+        spec = EncoderSpec("fixture-model", "a" * 64, 2)
+        encoder = OllamaEncoder(self.client, spec)
+        self.assertEqual(encoder.encode(["college backpack"]), [(0.6, 0.8)])
+        self.assertFalse(self.server.payload["truncate"])
+        self.server.result = {"embeddings": [[1]]}
+        with self.assertRaises(LocalServiceError):
+            encoder.encode(["backpack"])
+
     def test_wrong_digest_or_truncated_generation_never_returns_plan(self):
         with self.assertRaises(LocalServiceError):
             OllamaInterpreter(self.client, "fixture-model", "b" * 64).interpret(

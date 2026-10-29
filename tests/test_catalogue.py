@@ -62,6 +62,15 @@ class StructuredSelectionTests(unittest.TestCase):
         self.assertTrue(result.can_claim_catalogue_minimum)
         self.assertEqual(result.catalogue_revision, "synthetic-snapshot-v1")
 
+    def test_active_product_without_variants_blocks_complete_claim(self):
+        db = catalogue(
+            [variant()], [product(), product("missing", category="backpack")]
+        )
+        self.assertFalse(db.search(request()).can_claim_catalogue_minimum)
+        self.assertEqual(db.search(request()).status, SearchStatus.INCOMPLETE)
+        db = catalogue([variant()], [product(), product("unrelated", category="shirt")])
+        self.assertTrue(db.search(request()).can_claim_catalogue_minimum)
+
     def test_strict_and_inclusive_price_boundaries(self):
         db = catalogue([variant("at", price=200_000), variant("over", price=200_001)])
         strict = db.search(request(operator=PriceOperator.LT))

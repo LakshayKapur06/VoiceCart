@@ -140,6 +140,12 @@ class InMemoryCatalogue:
             items[variant.variant_id] = CatalogueItem(
                 product_map[variant.product_id], variant
             )
+        parents_with_variants = {item.product.product_id for item in items.values()}
+        self._products_without_variants = tuple(
+            product
+            for product in product_map.values()
+            if product.product_id not in parents_with_variants
+        )
         self._items = MappingProxyType(items)
         self._revision = revision
         self._coverage = coverage
@@ -192,6 +198,39 @@ class InMemoryCatalogue:
             universe = tuple(self._items[key] for key in sorted(self._items))
         qualified: list[CatalogueItem] = []
         issues: list[SearchIssue] = []
+        for product in self._products_without_variants:
+            if not product.active:
+                continue
+            if (
+                request.constraints.category is not None
+                and product.category is not None
+                and product.category != request.constraints.category
+            ):
+                continue
+            if request.identifier is not None:
+                if (
+                    request.identifier.kind is IdentifierKind.PRODUCT_ID
+                    and request.identifier.value != product.product_id
+                ):
+                    continue
+                if (
+                    request.identifier.kind is IdentifierKind.MODEL_NUMBER
+                    and product.model_number is not None
+                    and request.identifier.value != product.model_number
+                ):
+                    continue
+                if (
+                    request.identifier.kind
+                    in (IdentifierKind.VARIANT_ID, IdentifierKind.SKU)
+                    and universe
+                ):
+                    continue
+            issues.append(
+                SearchIssue(
+                    IssueCode.UNKNOWN_ATTRIBUTE,
+                    "An active potentially matching product lacks variant data",
+                )
+            )
         for item in universe:
             assessment = qualify(item, request.constraints)
             if assessment.state is Eligibility.QUALIFIED:
