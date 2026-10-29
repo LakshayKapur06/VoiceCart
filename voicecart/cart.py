@@ -9,6 +9,7 @@ import hashlib
 import json
 import threading
 import time
+import weakref
 from dataclasses import asdict, dataclass, replace
 from datetime import datetime
 
@@ -132,7 +133,9 @@ class CartService:
     def __init__(self, database: Database):
         self.database = database
         self.sessions = SessionStore(database)
-        self._locks: dict[str, threading.Lock] = {}
+        self._locks: weakref.WeakValueDictionary[str, threading.Lock] = (
+            weakref.WeakValueDictionary()
+        )
         self._guard = threading.Lock()
 
     def _lock(self, session_id: str):

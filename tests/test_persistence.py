@@ -205,6 +205,67 @@ class PostgreSQLIntegrationTests(unittest.TestCase):
         self.assertFalse(result.can_claim_catalogue_minimum)
         self.assertEqual(result.status, SearchStatus.INCOMPLETE)
 
+    def test_price_aware_winner_outside_text_top_k_gets_its_real_dense_feature(self):
+        import math
+
+        class ExhaustiveFixtureEncoder(FixtureEncoder):
+            def encode(self, texts, *, query=False):
+                if query:
+                    return [(1.0, 0.0) for _ in texts]
+                return [
+                    (0.99, math.sqrt(1 - 0.99**2))
+                    if "middle" in text
+                    else (-1.0, 0.0)
+                    if "cheapest" in text
+                    else (1.0, 0.0)
+                    for text in texts
+                ]
+
+        raw = fabricated_document()
+        raw["products"], raw["variants"] = [], []
+        for index in range(62):
+            name = (
+                "Backpack middle"
+                if index == 60
+                else "Backpack cheapest"
+                if index == 61
+                else f"Backpack {index}"
+            )
+            price = 10000 if index == 60 else 0 if index == 61 else 1000000
+            identifier = f"fixture-{index}"
+            raw["products"].append(
+                {
+                    "product_id": identifier,
+                    "name": name,
+                    "category": "backpack",
+                    "description": "college backpack",
+                }
+            )
+            raw["variants"].append(
+                {
+                    "variant_id": identifier,
+                    "product_id": identifier,
+                    "price": {"minor_units": price, "currency": "INR"},
+                    "available": True,
+                    "stock_quantity": 5,
+                    "price_freshness": "current",
+                }
+            )
+        encoder = ExhaustiveFixtureEncoder()
+        self.publish(raw, encoder)
+        result = PostgresCatalogue(self.database, encoder).search(
+            SearchRequest(
+                HardConstraints("INR", category="backpack"),
+                RetrievalRoute.DISCOVERY,
+                semantic_query="college backpack",
+            )
+        )
+        self.assertEqual(result.overall_match.variant.variant_id, "fixture-60")
+        self.assertEqual(
+            result.cheapest_qualifying_match.variant.variant_id, "fixture-61"
+        )
+        self.assertFalse(result.can_claim_catalogue_minimum)
+
     def test_unconfigured_or_mismatched_semantics_is_not_silent_no_match(self):
         self.publish()
         request = SearchRequest(

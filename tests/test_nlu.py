@@ -173,6 +173,17 @@ class InterpretationTests(unittest.TestCase):
         self.assertEqual(result.ordinal, 2)
         self.assertIsNone(result.search)
 
+    def test_action_evidence_cannot_be_a_substring_of_address(self):
+        raw = extraction(
+            intent="add",
+            query=None,
+            category=None,
+            add_evidence="add",
+            identifier={"kind": "sku", "value": "SKU-BEST", "evidence": "SKU-BEST"},
+        )
+        with self.assertRaises(InterpretationError):
+            validate_interpretation(raw, "SKU-BEST address", VOCAB)
+
     def test_unknown_currency_and_ambiguous_bounds_need_clarification(self):
         for text in (
             "backpack under 20 dollars",
@@ -301,3 +312,23 @@ class OllamaProtocolIntegrationTests(unittest.TestCase):
                 OllamaInterpreter(self.client, "fixture-model", "a" * 64).interpret(
                     "find backpack", VOCAB
                 )
+
+
+class LiteralSchemaTests(unittest.TestCase):
+    def test_evidence_enums_are_independent_and_base_schema_is_unchanged(self):
+        from voicecart.nlu import SCHEMA, extraction_schema
+
+        schema = extraction_schema(
+            "red bags under 1,000 rupees",
+            {"category": {"bags": "bag"}, "colour": {"red": "red"}},
+        )
+        fields = schema["properties"]
+        self.assertEqual(fields["category"]["properties"]["evidence"]["enum"], ["bags"])
+        self.assertEqual(fields["category"]["properties"]["value"]["enum"], ["bag"])
+        self.assertEqual(
+            fields["price"]["anyOf"][0]["properties"]["amount"]["enum"], ["1,000"]
+        )
+        self.assertNotIn(
+            "enum",
+            SCHEMA["properties"]["category"]["anyOf"][0]["properties"]["evidence"],
+        )

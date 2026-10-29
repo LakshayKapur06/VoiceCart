@@ -21,3 +21,7 @@ models/
 coverage.xml
 .coverage
 htmlcov/
+# Owner source records and exports must be explicitly managed outside Git.
+data/
+catalogues/
+backups/

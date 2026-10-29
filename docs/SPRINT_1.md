@@ -1,6 +1,8 @@
+> Historical sprint contract/evidence. Current runnable behavior and release limitations are in README and HANDOFF.
+
 # Sprint 1: deterministic catalogue foundation
 
-This increment implements **F-01–F-06** from [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md). It is an offline pure-Python domain slice, not a working voice shopping application. The PostgreSQL/pgvector reference and all model integrations remain planned. [Suggestions.md](../Suggestions.md) is unchanged historical research; its pre-implementation statements describe its recorded review commit.
+This increment implements **F-01–F-06** from [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md). It is an offline pure-Python domain slice, not a working voice shopping application. The PostgreSQL/pgvector reference and all model integrations remain planned. [ARCHITECTURE.md](ARCHITECTURE.md) is unchanged historical research; its pre-implementation statements describe its recorded review commit.
 
 ## Implemented surface
 
@@ -119,7 +121,7 @@ The development interpreter is CPython 3.12.14. Python 3.11 is the declared mini
 | `.venv/bin/python -m pip check` | No broken requirements found. |
 | Offline wheel build using `pip wheel --no-build-isolation --no-deps --no-index --no-cache-dir` | Passed; the wheel’s four application modules matched current source byte-for-byte, with no tests, caches or virtual-environment code included. |
 | Fresh temporary venv: `pip install --no-index --no-deps <wheel>`, isolated `-I` import, full unittest suite, doctest and pip check | Passed outside the checkout, importing the installed wheel from site-packages; **54 tests and 11 example checks passed**. |
-| Document structure/local-link audit | Markdown table widths, fences, local file links, README section order and E01–E11/D01–D15 register coverage passed. Suggestions.md remained byte-identical to the original review commit. |
+| Document structure/local-link audit | Markdown table widths, fences, local file links, README section order and E01–E11/D01–D15 register coverage passed. ARCHITECTURE.md remained byte-identical to the original review commit. |
 | Dependency/import and change review | Application imports remain stdlib/local only; no inference/network/process adapter was added. The final diff and whitespace review found no unrelated changes; a limited tracked-file secret-pattern scan found no matching keys/tokens. |
 
 No Sprint 1 check remains deferred from the fast push. This evidence covers the deterministic slice on the stated interpreter, not the future voice/database application, every supported Python version or universal real-world correctness. The wheel/install checks used only local files; they are not a full offline voice/privacy experiment.

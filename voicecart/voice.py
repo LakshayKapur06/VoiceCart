@@ -264,6 +264,9 @@ class SoundDeviceOutput:
                     stream.start()
                 if audio_format != (chunk.sample_rate_hz, chunk.channels):
                     raise VoiceError("PCM format changed during a response")
+                if job.cancelled.is_set():
+                    stream.abort()
+                    break
                 stream.write(chunk.pcm_data)
             if stream is not None:
                 stream.abort() if job.cancelled.is_set() else stream.stop()
@@ -338,7 +341,15 @@ class SoundDeviceOutput:
                 except queue.Empty:
                     break
             if job.stream is not None:
-                job.stream.abort()
+                stream = job.stream
+
+                def abort():
+                    try:
+                        stream.abort()
+                    except Exception as exc:
+                        job.error = exc  # Drain reports failed native cancellation.
+
+                threading.Thread(target=abort, daemon=True).start()
         if not job.finished.wait(0.5):
             raise VoiceError("Device did not acknowledge stop; recovery required")
         with self._lock:

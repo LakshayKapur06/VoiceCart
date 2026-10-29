@@ -66,6 +66,7 @@ def isolated_postgres():
     import fasteners
     import pgserver
     import psycopg
+    from pgserver._commands import POSTGRES_BIN_PATH
     from pgserver.postgres_server import PostgresServer
     from psycopg import sql
 
@@ -93,13 +94,34 @@ def isolated_postgres():
             (root / ".voicecart-test-owner").write_text(test_name)
             old = {
                 name: os.environ.get(name)
-                for name in ("VOICECART_TEST_ROOT", "VOICECART_TEST_DSN")
+                for name in (
+                    "VOICECART_TEST_ROOT",
+                    "VOICECART_TEST_DSN",
+                    "VOICECART_TEST_PG_BIN",
+                )
             }
             os.environ["VOICECART_TEST_ROOT"] = str(root)
+            os.environ["VOICECART_TEST_PG_BIN"] = str(POSTGRES_BIN_PATH)
             os.environ["VOICECART_TEST_DSN"] = server.get_uri(database=test_name)
             empty = Database(server.get_uri(database=empty_name))
             empty.migrate()
             empty.check_ready()
+            startup_env = dict(
+                os.environ, VOICECART_DATABASE_URL=server.get_uri(database=empty_name)
+            )
+            startup = subprocess.run(
+                [sys.executable, "-m", "voicecart", "run"],
+                cwd=ROOT,
+                env=startup_env,
+                input="/quit\n",
+                text=True,
+                capture_output=True,
+                timeout=20,
+            )
+            if startup.returncode != 0:
+                raise RuntimeError(
+                    "Fresh empty application startup failed: " + startup.stdout
+                )
             if empty.inspect()["product_count"] != 0:
                 raise RuntimeError("Fresh application schema contains products")
             try:

@@ -86,6 +86,14 @@ class ShoppingApplication:
             self._turns[session_id] = turn
             return turn
 
+    def forget(self, session_id: str) -> None:
+        """Release in-memory response/context when a session ends or expires."""
+        with self._guard:
+            if event := self._events.pop(session_id, None):
+                event.set()
+            self._turns.pop(session_id, None)
+            self._last.pop(session_id, None)
+
     def remember(self, response: Response) -> Response:
         with self._guard:
             if (

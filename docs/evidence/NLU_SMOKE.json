@@ -1,0 +1,71 @@
+{
+  "recorded_at": "2026-10-29T10:11:48.149909+00:00",
+  "prompt_version": "extract-v5-literal-schema-action-examples",
+  "method": "Real local models; three development smoke cases per model; no held-out accuracy claim. No device playback or product writes.",
+  "results": [
+    {
+      "model": "qwen3:4b-instruct-2507-q4_K_M",
+      "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "synthetic_test_request": "Find a black backpack under 2,000 rupees.",
+      "outcome": "accepted",
+      "intent": "search",
+      "objective": "best_match",
+      "correct": true,
+      "route": "structured",
+      "seconds": 13.4019
+    },
+    {
+      "model": "qwen3:4b-instruct-2507-q4_K_M",
+      "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "synthetic_test_request": "Find the cheapest black backpack under 2000 rupees and add it to my cart.",
+      "outcome": "accepted",
+      "intent": "search_and_add",
+      "objective": "cheapest",
+      "correct": true,
+      "route": "structured",
+      "seconds": 7.9245
+    },
+    {
+      "model": "qwen3:4b-instruct-2507-q4_K_M",
+      "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "synthetic_test_request": "Search for blue shirts. Do not add anything to the cart.",
+      "outcome": "accepted",
+      "intent": "search",
+      "objective": "best_match",
+      "correct": true,
+      "route": "discovery",
+      "seconds": 7.8147
+    },
+    {
+      "model": "qwen3:0.6b",
+      "digest": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+      "synthetic_test_request": "Find a black backpack under 2,000 rupees.",
+      "outcome": "rejected",
+      "correct": false,
+      "cause": "Price amount or boundary disagrees with the request",
+      "seconds": 2.9037
+    },
+    {
+      "model": "qwen3:0.6b",
+      "digest": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+      "synthetic_test_request": "Find the cheapest black backpack under 2000 rupees and add it to my cart.",
+      "outcome": "accepted",
+      "intent": "search_and_add",
+      "objective": "cheapest",
+      "correct": true,
+      "route": "structured",
+      "seconds": 1.1934
+    },
+    {
+      "model": "qwen3:0.6b",
+      "digest": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+      "synthetic_test_request": "Search for blue shirts. Do not add anything to the cart.",
+      "outcome": "accepted",
+      "intent": "search",
+      "objective": "best_match",
+      "correct": true,
+      "route": "discovery",
+      "seconds": 0.8795
+    }
+  ]
+}

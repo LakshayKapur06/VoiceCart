@@ -1,3 +1,5 @@
+> Historical sprint contract/evidence. Current runnable behavior and release limitations are in README and HANDOFF.
+
 # Sprint 2: audio contracts and simulated integration
 
 The audit of `83ea1bb` found that the original 20 audio tests passed despite broken cancellation, premature playback completion, fake fallback bytes and invalid latency samples passing the target. The corrected increment provides a tested protocol foundation for **A-01–A-03**. **Sprint 2 device feasibility is not yet signed off.** Actual ASR/TTS adapters, microphone/speaker measurements and accessible host controls remain unverified.
@@ -79,7 +81,7 @@ This example demonstrates contract gating without claiming device playback:
 
 On CPython 3.12.14 the corrected suite contains **44 audio tests and 98 total tests**. Coverage includes final/partial/blank/stale events, cancellation during ASR/synthesis/enqueue/drain, an old drain returning during a newer playback, failed device stop, capture failure, assistive delivery failure, partial-stream fallback, output failure, missing onset, malformed WAV and full-denominator latency statistics. Scripted PCM keys now run through ASR → template → TTS → output, checking preservation of price operators, rupee values, SKU and negation. These are protocol regressions with synthetic PCM, **not a speech-comprehension benchmark**.
 
-Verification on 2026-10-27 passed for the source suite, the site-packages-disabled suite, both sprint doctests, compilation, Ruff lint/format and diff checks. A fresh wheel was built with setuptools 84.1.0, checked for the current audio source and zero mandatory runtime dependencies, installed without network/dependencies into a clean Python 3.12 environment, and passed the same 98-test suite. Relative documentation links are valid; `Suggestions.md` and the Sprint 1 implementation remain unchanged. Python 3.11 and a static type checker were not exercised.
+Verification on 2026-10-27 passed for the source suite, the site-packages-disabled suite, both sprint doctests, compilation, Ruff lint/format and diff checks. A fresh wheel was built with setuptools 84.1.0, checked for the current audio source and zero mandatory runtime dependencies, installed without network/dependencies into a clean Python 3.12 environment, and passed the same 98-test suite. Relative documentation links are valid; `ARCHITECTURE.md` and the Sprint 1 implementation remain unchanged. Python 3.11 and a static type checker were not exercised.
 
 Run from the repository root using supported Python >=3.11:
 

@@ -25,7 +25,7 @@ from voicecart.local_http import LocalServiceError
 from voicecart.ranking import RankingPolicy, rank_qualified
 
 STOP_WORDS = set(
-    "a an the me my please find show search for and or to in of with good best cheapest lowest price least expensive under below less than at most up no more not add put it them cart rupee rupees inr rs each per unit item total altogether combined".split()
+    "cheap affordable inexpensive budget a an the me my please find show search for and or to in of with good best cheapest lowest price least expensive under below less than at most up no more not add put it them cart rupee rupees inr rs each per unit item total altogether combined".split()
 )
 
 
@@ -44,7 +44,7 @@ def item_price(item: CatalogueItem) -> int:
 
 
 class PostgresCatalogue:
-    POLICY_VERSION = "experimental-exact-hybrid-v1-price-scale-100000"
+    POLICY_VERSION = "experimental-exhaustive-hybrid-v2-price-scale-100000"
 
     def __init__(self, database: Database, encoder: OllamaEncoder | None = None):
         self.database, self.encoder = database, encoder
@@ -112,7 +112,7 @@ class PostgresCatalogue:
                     dense = {
                         row["variant_id"]: float(row["similarity"])
                         for row in connection.execute(
-                            "SELECT variant_id,1-(embedding <=> %s::vector) AS similarity FROM variant_search WHERE generation=%s ORDER BY embedding <=> %s::vector,variant_id LIMIT 50",
+                            "SELECT variant_id,1-(embedding <=> %s::vector) AS similarity FROM variant_search WHERE generation=%s ORDER BY embedding <=> %s::vector,variant_id",
                             (
                                 vector_literal(vector),
                                 self.encoder.spec.generation,
@@ -128,7 +128,7 @@ class PostgresCatalogue:
             words = query_terms(documents.get(identifier, ""))
             coverage = len(terms & words) / len(terms)
             # The low-price branch cannot introduce an unrelated zero-evidence item.
-            if coverage == 0 and identifier not in dense:
+            if coverage == 0 and dense.get(identifier, 0.0) <= 0:
                 continue
             if coverage == 1:
                 literal_matches.append(item)

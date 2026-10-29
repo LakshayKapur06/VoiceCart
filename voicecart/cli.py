@@ -6,6 +6,7 @@ import argparse
 import json
 import queue
 import threading
+import time
 from dataclasses import asdict
 from pathlib import Path
 
@@ -137,7 +138,29 @@ def interactive(
             print("Type /ack when you have read the full list.", flush=True)
 
     def worker():
+        next_cleanup = time.monotonic() + 60
         while not shutdown.is_set():
+            if time.monotonic() >= next_cleanup:
+                next_cleanup = time.monotonic() + 60
+                try:
+                    app.sessions.cleanup_expired()
+                    with app.database.connect() as connection:
+                        app.sessions.require(connection, session)
+                except SessionError:
+                    app.forget(session)
+                    latest[0] = None
+                    controller.stop()
+                    shutdown.set()
+                    print(
+                        "Session expired; its local cart/context was cleared. Quit and start a new session.",
+                        flush=True,
+                    )
+                    return
+                except Exception:
+                    print(
+                        "Session cleanup is temporarily unavailable; database recovery is required.",
+                        flush=True,
+                    )
             try:
                 item = jobs.get(timeout=0.1)
             except queue.Empty:
@@ -323,6 +346,8 @@ def interactive(
         if microphone:
             microphone.stop_capture()
         thread.join(2)
+        app.forget(session)
+        latest[0] = None
 
 
 def main(argv: list[str] | None = None) -> int:

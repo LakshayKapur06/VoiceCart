@@ -1,0 +1,27 @@
+{
+  "method": "Actual synthetic Piper file -> explicit linear 22050-to-16000 resampling -> CPU Whisper -> real Qwen plus independent validation -> real isolated PostgreSQL cart/receipt -> actual Piper confirmation synthesis. Actual MiniLM publication/discovery also exercised. No microphone/speaker/acoustic-onset/human acceptance. Fabricated fixtures only in runner-owned disposable test DB.",
+  "synthetic_request": "Find the cheapest black backpack under two thousand rupees and add it to my cart.",
+  "actual_transcript": "Find the cheapest black backpack under 2000 rupees and add it to my cart.",
+  "response": "Added 1 of Backpack to your local cart for 500 rupees. Quantity after this operation was 1. This does not reserve stock.",
+  "receipt_variant": "v-cheap",
+  "final_cart": {
+    "v-cheap": 1
+  },
+  "duplicate_final_added_again": false,
+  "semantic_dimensions": 384,
+  "semantic_generation": "bbe2a782bf12a75edc7cfd0431203e42a764f9b59675fac06dbc91f55f40178e",
+  "discovery_match_count": 2,
+  "loading_seconds": 2.3228,
+  "embedding_publication_seconds": 17.2177,
+  "discovery_seconds": 0.0217,
+  "input_tts_seconds": 0.2911,
+  "asr_seconds": 1.3044,
+  "interpret_validate_search_commit_seconds": 59.1698,
+  "confirmation_tts_seconds": 1.0752,
+  "confirmation_pcm_bytes": 355840,
+  "model_digests": {
+    "qwen3:0.6b": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+    "all-minilm:latest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+    "qwen3:4b-instruct-2507-q4_K_M": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0"
+  }
+}
