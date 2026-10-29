@@ -73,7 +73,7 @@ Ordinary implementation increments use the existing `main` / `https://github.com
 | S4 storage/search | `5b67ba20891bb15c25e9e40ede3609845b983ab5` | 127 source/wheel tests; pushed, remote verified |
 | S5 cart | `ef4acec04a674cbe83053c052210287083143c1c` | 143 source/wheel tests; pushed, remote verified |
 | S6 runnable speech app | `233ad714e7d8c5d973ed83b4dc59b06099e7536e` | 155 source/wheel tests; pushed, remote verified |
-| S7 final verification/docs | See final execution record and `git log -1` | 159 source/wheel tests; ordinary push verified before local history rewrite |
+| S7 final verification/docs | `67e526e252f4f2e00ffb8fd9421be8a96061accc` | 159 source/wheel tests; pushed and origin/main verified |
 
 README was consolidated, necessary review knowledge moved into ARCHITECTURE/ADR, obsolete review-only restrictions removed and Suggestions.md deleted from the working tree. Source/tests/config/migrations were preserved. Owner data/models/recordings/secrets/build/cache directories are ignored. No AI trailers were found in original reachable history; human authors remain unchanged. History removal changes hashes despite identical final source content.
 
