@@ -70,18 +70,45 @@ def whole_number(text: str) -> int:
         words = text.replace("-", " ").split()
         if not words:
             raise InterpretationError("A number is missing")
-        for word in words:
+        previous_number = None
+        previous_scale = 100000000
+        hundred_seen = False
+        for index, word in enumerate(words):
             if word == "and":
+                if (
+                    index == 0
+                    or index == len(words) - 1
+                    or words[index - 1] not in SCALES
+                ):
+                    raise InterpretationError("Ambiguous spoken number")
                 continue
             if word in NUMBERS:
-                current += NUMBERS[word]
-            elif word == "hundred" and current:
+                number = NUMBERS[word]
+                if previous_number is not None and not (
+                    previous_number >= 20
+                    and previous_number % 10 == 0
+                    and 1 <= number <= 9
+                ):
+                    raise InterpretationError("Ambiguous adjacent number words")
+                current += number
+                previous_number = number
+            elif word == "hundred" and 1 <= current <= 9 and not hundred_seen:
                 current *= 100
-            elif word in SCALES and current:
+                previous_number = None
+                hundred_seen = True
+            elif (
+                word in SCALES
+                and word != "hundred"
+                and current
+                and SCALES[word] < previous_scale
+            ):
                 total += current * SCALES[word]
+                previous_scale = SCALES[word]
                 current = 0
+                previous_number = None
+                hundred_seen = False
             else:
-                raise InterpretationError("Unsupported spoken number")
+                raise InterpretationError("Unsupported or ambiguous spoken number")
         result = total + current
     require_integer(result, "number")
     return result
@@ -163,6 +190,7 @@ class Intent:
     ordinal: int | None = None
     objective: str = "best_match"
     explicit_add: bool = False
+    constraints: HardConstraints | None = None
 
 
 def check_shape(value, schema: dict) -> None:
@@ -277,7 +305,11 @@ def validate_interpretation(
     quantity = 1
     if raw["quantity"] is not None:
         quantity = raw["quantity"]["value"]
-        if whole_number(evidence(raw["quantity"]["evidence"])) != quantity:
+        quantity_span = evidence(raw["quantity"]["evidence"])
+        parsed_quantity = (
+            1 if quantity_span in ("a", "an") else whole_number(quantity_span)
+        )
+        if parsed_quantity != quantity:
             raise InterpretationError("Quantity evidence disagrees")
         require_integer(quantity, "quantity", 1)
         if quantity > 99:
@@ -397,7 +429,9 @@ def validate_interpretation(
             RetrievalRoute.STRUCTURED if structured else RetrievalRoute.DISCOVERY,
             semantic_query=None if structured else transcript,
         )
-    return Intent(intent, search, quantity, ordinal, objective, explicit_add)
+    return Intent(
+        intent, search, quantity, ordinal, objective, explicit_add, constraints
+    )
 
 
 class OllamaInterpreter:

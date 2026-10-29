@@ -117,6 +117,13 @@ def verify_model(client: LocalJSONClient, model: str, digest: str) -> None:
     if not isinstance(models, list):
         raise LocalServiceError("Invalid local model inventory")
     expected = digest.removeprefix("sha256:")
+    if any(
+        isinstance(item, dict)
+        and item.get("name") == model
+        and (item.get("remote_host") or item.get("remote_model"))
+        for item in models
+    ):
+        raise LocalServiceError("Remote inference models are excluded")
     if not any(
         isinstance(item, dict)
         and item.get("name") == model

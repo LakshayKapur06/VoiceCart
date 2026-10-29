@@ -79,10 +79,25 @@ class SessionStore:
         with self.database.connect() as connection:
             self.require(connection, session_id, lock=True)
             connection.execute(
-                "UPDATE sessions SET active_turn=%s WHERE session_id=%s",
+                "UPDATE sessions SET active_turn=%s,accepted_turn=NULL WHERE session_id=%s",
                 (turn_id, session_id),
             )
         return turn_id
+
+    def claim_final(self, session_id: str, turn_id: str) -> bool:
+        uuid_text(turn_id)
+        with self.database.connect() as connection:
+            session = self.require(connection, session_id, lock=True)
+            if (
+                str(session["active_turn"]) != turn_id
+                or str(session["accepted_turn"]) == turn_id
+            ):
+                return False
+            connection.execute(
+                "UPDATE sessions SET accepted_turn=%s WHERE session_id=%s",
+                (turn_id, session_id),
+            )
+            return True
 
     def is_active(self, session_id: str, turn_id: str) -> bool:
         uuid_text(turn_id)
@@ -169,8 +184,8 @@ class SessionStore:
             ):
                 return False
             row = connection.execute(
-                "UPDATE result_lists SET presented=true WHERE list_id=%s AND session_id=%s AND turn_id=%s AND expires_at>now() RETURNING list_id",
-                (list_id, session_id, turn_id),
+                "UPDATE result_lists SET presented=true WHERE list_id=%s AND session_id=%s AND expires_at>now() RETURNING list_id",
+                (list_id, session_id),
             ).fetchone()
             return row is not None
 

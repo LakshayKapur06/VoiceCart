@@ -1,0 +1,29 @@
+{
+  "runtime_versions": {
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0"
+  },
+  "model_hashes": {
+    "ggml-base.en.bin": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "en_US-ljspeech-medium.onnx": "6f52a751e2349abe7a76735eb09dc1875298c77ea2342ffd2fef79ff81b87f22",
+    "ollama-v0.40.13-darwin.tgz": "bae29252232b9e1358cf5801a7d65a07442af18fb5467cb68c7fc3711f59c511",
+    "en_US-ljspeech-medium.onnx.json": "141d612cc0a95ed7efc1ca936b845c2364967f2e9217c5dbfcf69fc4d6c65860"
+  },
+  "method": "Synthetic file-only Piper -> explicit linear 22050-to-16000 resampling -> CPU Whisper. No microphone, speaker or audible-onset measurement.",
+  "cases": [
+    {
+      "synthetic_spoken_test_request": "Find a black backpack under two thousand rupees.",
+      "actual_transcript": "Find a black backpack under 2,000 rupees.",
+      "tts_wall_seconds": 1.3145,
+      "asr_wall_seconds": 0.6147,
+      "generated_audio_seconds": 3.2856235827664397
+    },
+    {
+      "synthetic_spoken_test_request": "Search for blue shirts. Do not add anything to the cart.",
+      "actual_transcript": "Search for blue shirts. Do not add anything to the cart.",
+      "tts_wall_seconds": 0.2302,
+      "asr_wall_seconds": 0.6159,
+      "generated_audio_seconds": 3.517823129251701
+    }
+  ]
+}

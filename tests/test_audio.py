@@ -672,7 +672,7 @@ class AudioValueContractTests(unittest.TestCase):
         for pcm in (b"", b"odd"):
             with self.assertRaises(ValueError):
                 AudioChunk(pcm, 16000)
-        for value in (-1, float("nan"), float("inf"), True):
+        for value in (-1, float("nan"), float("inf"), True, 10**1000):
             with self.assertRaises(ValueError):
                 AudioChunk(b"\0\0", 16000, timestamp_s=value)
             with self.assertRaises(ValueError):

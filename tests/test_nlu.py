@@ -73,7 +73,16 @@ class InterpretationTests(unittest.TestCase):
                 result.search.constraints.price_limit.operator, PriceOperator(operator)
             )
         self.assertEqual(rupees_to_minor("1,50,000.25"), 15000025)
-        for invalid in ("12,34", "1.001", "NaN", "-1", "one million"):
+        for invalid in (
+            "12,34",
+            "1.001",
+            "NaN",
+            "-1",
+            "one million",
+            "one two",
+            "one hundred hundred",
+            "two thousand one lakh",
+        ):
             with (
                 self.subTest(invalid=invalid),
                 self.assertRaises((ValueError, TypeError)),

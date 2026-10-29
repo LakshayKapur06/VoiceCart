@@ -17,12 +17,12 @@ from voicecart.domain import require_integer, require_text
 
 
 def _finite_time(value: object) -> TypeGuard[float]:
-    return (
-        isinstance(value, (int, float))
-        and not isinstance(value, bool)
-        and math.isfinite(value)
-        and value >= 0
-    )
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        return False
+    try:
+        return math.isfinite(value) and value >= 0
+    except OverflowError:
+        return False
 
 
 def _interval(start: float | None, end: float | None) -> float | None:
@@ -577,6 +577,31 @@ class HalfDuplexTurnController:
             self._emit_status(f"Heard: {transcript.text}")
             return self.is_active(transcript.turn_id, TurnState.PROCESSING)
 
+    def start_system_response(self, response_text: str, *, turn_id: str) -> bool:
+        """Gate a complete application response, including ASR/validation errors.
+
+        This consumes an audio turn only; it grants no application/cart authority.
+        """
+        require_text(response_text, "response_text")
+        require_text(turn_id, "turn_id")
+        with self._lock:
+            if not self.is_session_usable() or self._state in (
+                TurnState.SPEAKING,
+                TurnState.PAUSED,
+                TurnState.FAILED,
+            ):
+                return False
+            if turn_id in self._used_turn_ids:
+                raise ValueError("Response turn IDs must be unique")
+            self._retire(TurnState.PROCESSING)
+            if not self._halt_ports():
+                self._state = TurnState.FAILED
+                return False
+            self._used_turn_ids.add(turn_id)
+            self._current_turn_id = turn_id
+            self._consumed = True
+            return self.start_speaking(response_text, turn_id=turn_id)
+
     def start_speaking(self, response_text: str, *, turn_id: str) -> bool:
         require_text(response_text, "response_text")
         with self._lock:
@@ -717,6 +742,8 @@ class HalfDuplexTurnController:
 class AudioPipelineSlice:
     """Synchronous protocol integration; chunks returned are already sent to output.
 
+    ASR/template failures in this feasibility helper are assistive-only. The
+    runnable app uses ResponseSpeaker for all response and error playback.
     template_fn must only render verified text, with no business mutations.
     Cancellation fences output; it cannot forcibly interrupt a blocking ASR/TTS
     backend call. Those adapters must impose their own deadlines/cancellation.
