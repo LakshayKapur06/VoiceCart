@@ -83,6 +83,12 @@ class Database:
             )
             with psycopg.connect(**parameters, row_factory=dict_row) as connection:
                 yield connection
+        except (
+            psycopg.errors.SerializationFailure,
+            psycopg.errors.DeadlockDetected,
+            psycopg.errors.LockNotAvailable,
+        ):
+            raise
         except psycopg.OperationalError as exc:
             raise DatabaseUnavailable(
                 "Local database unavailable; operation outcome may require reconciliation"

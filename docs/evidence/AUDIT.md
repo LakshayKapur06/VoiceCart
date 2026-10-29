@@ -25,7 +25,7 @@ Remediation checklist:
 - [x] Correct source type errors and configure reproducible type/security checks.
 - [x] Add bounded local NLU transport and independent critical-field validation.
 - [x] Add real PostgreSQL/pgvector migrations, atomic validated ingestion, consistent search and empty-catalogue outcomes.
-- [ ] Add transaction-safe session cart, stable result references, immutable receipts and idempotent recovery.
+- [x] Add transaction-safe session cart, stable result references, immutable receipts and idempotent recovery.
 - [ ] Add runnable application and real local speech adapters; make all response/error paths explicit.
 - [ ] Exercise isolated real-service integration, system/acceptance scenarios, package installation and failure cases.
 - [ ] Consolidate durable architecture knowledge, catalogue/model setup and owner decisions; remove obsolete Suggestions requirement/file.
