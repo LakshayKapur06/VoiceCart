@@ -12,7 +12,7 @@ VariantId = NewType("VariantId", str)
 MAX_MINOR_UNITS = 2**63 - 1
 
 
-def require_text(value: str, field: str) -> None:
+def require_text(value: object, field: str) -> None:
     if not isinstance(value, str):
         raise TypeError(f"{field} must be a string")
     if not value.strip():

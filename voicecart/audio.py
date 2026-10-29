@@ -11,13 +11,18 @@ from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from statistics import median
 from threading import RLock
-from typing import Protocol
+from typing import Protocol, TypeGuard
 
 from voicecart.domain import require_integer, require_text
 
 
-def _finite_time(value: object) -> bool:
-    return type(value) in (int, float) and math.isfinite(value) and value >= 0
+def _finite_time(value: object) -> TypeGuard[float]:
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(value)
+        and value >= 0
+    )
 
 
 def _interval(start: float | None, end: float | None) -> float | None:
@@ -275,7 +280,8 @@ class LatencyTrace:
 
     @property
     def meets_1500ms_target(self) -> bool:
-        return self.is_successful and self.audible_onset_latency_s < 1.5
+        latency = self.audible_onset_latency_s
+        return self.is_successful and latency is not None and latency < 1.5
 
 
 @dataclass(frozen=True)
@@ -594,6 +600,8 @@ class HalfDuplexTurnController:
             if not self.is_active(turn_id, TurnState.SPEAKING):
                 return False
             self._audio_enqueued = True
+            if self._output is None:
+                raise RuntimeError("Playback output is not bound")
             self._output.play_chunk(chunk)
             return True
 
@@ -604,6 +612,8 @@ class HalfDuplexTurnController:
             if not self._audio_enqueued:
                 raise RuntimeError("Cannot finish an empty playback")
             output = self._output
+            if output is None:
+                raise RuntimeError("Playback output is not bound")
         onset = output.drain(turn_id)  # Stop can run while this stream drains.
         with self._lock:
             if not self.is_active(turn_id, TurnState.SPEAKING):
@@ -633,6 +643,8 @@ class HalfDuplexTurnController:
         with self._lock:
             if not self.is_active(turn_id, TurnState.SPEAKING):
                 return False
+            if self._output is None:
+                raise RuntimeError("Playback output is not bound")
             self._output.stop_playback()
             if not self.is_active(turn_id, TurnState.SPEAKING):
                 return False
@@ -874,7 +886,11 @@ class LatencyBenchmarkRecorder:
         traces = self.traces
         total = len(traces)
         successful = [t for t in traces if t.is_successful]
-        latencies = sorted(t.audible_onset_latency_s for t in successful)
+        latencies = sorted(
+            latency
+            for t in successful
+            if (latency := t.audible_onset_latency_s) is not None
+        )
         # Outcomes are disjoint: cancellation, then timeout, then other failure.
         cancelled = sum(t.cancelled for t in traces)
         timeouts = sum(t.timed_out and not t.cancelled for t in traces)

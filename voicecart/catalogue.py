@@ -184,13 +184,14 @@ class InMemoryCatalogue:
                 ),
             )
         # Sorting IDs stabilizes presentation without claiming relevance ranking.
-        universe = (
-            self.lookup(request.identifier)
-            if request.route is RetrievalRoute.EXACT
-            else tuple(self._items[key] for key in sorted(self._items))
-        )
-        qualified = []
-        issues = []
+        if request.route is RetrievalRoute.EXACT:
+            if request.identifier is None:
+                raise ValueError("Exact lookup requires an identifier")
+            universe = self.lookup(request.identifier)
+        else:
+            universe = tuple(self._items[key] for key in sorted(self._items))
+        qualified: list[CatalogueItem] = []
+        issues: list[SearchIssue] = []
         for item in universe:
             assessment = qualify(item, request.constraints)
             if assessment.state is Eligibility.QUALIFIED:
@@ -218,9 +219,15 @@ class InMemoryCatalogue:
                 if request.route is RetrievalRoute.EXACT
                 else ClaimScope.COMPLETE_CATALOGUE
             )
+
+        def price_key(item: CatalogueItem) -> tuple[int, str]:
+            if item.variant.price is None:
+                raise ValueError("Qualified item must have a price")
+            return item.variant.price.minor_units, item.variant.variant_id
+
         cheapest = min(
             matches,
-            key=lambda item: (item.variant.price.minor_units, item.variant.variant_id),
+            key=price_key,
             default=None,
         )
         version, ranked = (

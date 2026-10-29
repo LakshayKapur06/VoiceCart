@@ -1,97 +1,29 @@
-# VoiceCart implementation plan
+# VoiceCart execution plan
 
-Planning baseline: **27 October 2026**, repository commit `7b90f48`. Inspection found only README.md and Suggestions.md, a clean main branch, and no implementation, tests or AGENTS.md. This task authorizes documentation integration and **Sprint 1 only**. No commit, push, deployment, paid resource or external-service modification is authorized by this plan.
+Updated 29 October 2026. The owner authorizes completion of all feasible engineering work, isolated test services, normal per-sprint commits/pushes and backed-up local history cleanup. Remote history rewriting requires separate final approval. Normal product tables must remain empty until the owner supplies real catalogue data. No seeding, checkout, payment or merchant-cart claims.
 
-Use **one-week sprints provisionally**. Staffing, throughput, dates, story points and release dates are unknown; this is an ordering/acceptance plan, not a delivery promise. The owner accepts the reviewed architecture as the reference, while untested benefits and D01–D15 remain open. [Suggestions.md](Suggestions.md) is an unchanged historical review, not a delivery log. [README.md](README.md) describes current requirements and implemented status.
+## Execution sequence and gates
 
-## Product goal and scope
+| Sprint | Goal / stories | Dependencies / ready | Engineering acceptance and tests | Deliverables / status |
+|---|---|---|---|---|
+| 1–2 existing | Preserve deterministic catalogue and audio contracts | Starting `f58709c`; 98 passing tests | Recheck baseline; existing cancellation, money, coverage and ranking invariants stay green | Existing implementation retained; actual voice acceptance open |
+| 3 | Local NLU adapter and strict interpretation (N-01/02) | Typed contracts, loopback runtime API, explicit artifact identity | Unit critical evidence/negation/amount/operator tests; real HTTP protocol integration; malformed/truncated/time-out output cannot dispatch. Model quality acceptance requires provisioned artifacts and held-out language cases | In progress |
+| 4 | PostgreSQL/pgvector persistence, validated ingestion, lexical/dense/price search (R-01–04) | Validated plans; isolated PostgreSQL test service | Real migrations, no seeds, rollback/duplicate/stale publication, snapshot/conformance tests; scoped minimum separate from relevance; empty/unavailable/stale states distinct | Pending |
+| 5 | Session references and safe persistent cart (C-01–03) | Persistent facts and transactions | Real DB concurrency/idempotency/session/aggregate-stock/changed-offer/receipt/restart/uncertain-commit tests; success only after committed receipt lookup | Pending |
+| 6 | Runnable accessible text/voice integration (U-01/02, A-01–03 remediation) | Search, NLU and cart | System search/add/clarification/cancel/repeat/error paths; real adapter execution where artifacts/devices are available; never equate queued audio with heard speech | Pending |
+| 7 | Operational verification, docs, cleanup and handoff (E-01–03) | Integrated application | Full unit/integration/system/automatable acceptance gates, lint/format/type/security/compile/build/clean install; fresh app DB zero products; exact owner/model/device/manual gates documented | Pending |
 
-Deliver a local, accessible voice-first shopping workflow that can search a catalogue, explain suitable options from actual evidence, identify the cheapest qualifying option and safely add an explicitly selected item to a **local session demonstration cart**. The LLM interprets; deterministic application logic owns eligibility, facts and mutations. Ordinary search balances query fit, supported preferences and price; it does not always sort by price. Cheapest and overall best-ranked matches remain distinct roles.
+Each engineering sprint runs its applicable unit, real-boundary integration, system and automated story acceptance checks plus full regression, lint, type, security, compile and package checks before commit/push. Manual/hardware/quality gates unavailable in this environment remain explicitly open; an implementation checkpoint is not product release acceptance. No invented numerical relevance floors, multilingual guarantees or sub-1.5-second achievement.
 
-Preserve local inference, no paid inference APIs, templates for straightforward confirmations, retrieval before grounded explanation, nonvisual controls/recovery, session isolation and no persistent audio/transcript logs by default. PostgreSQL + pgvector is the reasoned storage reference, with exact vectors first and E11 validation still required. ASR, NLU, encoder and TTS candidates remain provisional.
+Definition of ready: bounded story, existing dependencies, canonical inputs/outputs, isolated fixture/service plan and expected failures. Definition of engineering done: actual code integrated, meaningful automated checks pass, limitations recorded, diff/secret/product-data checks clear, commit pushed and remote verified. Definition of release done additionally requires real catalogue/source freshness, exact artifacts/terms, approved language/hardware and human accessibility/quality acceptance.
 
-The MVP excludes comprehensive cart editing/history, checkout, payment, merchant order placement, order tracking, a general autonomous-agent framework, extensive admin/analytics and shared multi-user deployment. A real merchant cart needs its own approved authoritative integration; a local receipt must never imply it happened.
+Security/privacy/reliability requirements for every sprint: loopback local inference; parameterized SQL; model output never authorizes facts or writes; no raw-content logs; no product fixtures outside tests; bounded operations and explicit errors; stable session and operation identity; accessible text equivalent and truthful audio delivery status.
 
-Sprint 1 deliberately delivers only a pure deterministic foundation. It does not deliver a voice application, semantic search, database service or cart mutation.
+## Evidence and remediation
 
-## Working assumptions
+Baseline and checklist: [AUDIT.md](docs/evidence/AUDIT.md). Existing experiment/decision register below remains relevant until consolidated into final README/HANDOFF. Superseded instructions limiting this task to Sprint 1, retaining Suggestions.md forever, or prohibiting authorized commit/push do not apply to the current owner request.
 
-- Use Python >=3.11 for development; this is not an approved minimum end-user device specification (D01).
-- Use one process and immutable synthetic catalogue snapshots. Coverage and price freshness are explicit assertions on a fixture; nothing imports or verifies real merchant data yet (D03).
-- Use canonical case-sensitive IDs/attributes, INR examples and explicitly typed price operators. No natural-language parser, fuzzy matching, currency conversion or multilingual claim is included (D02/D09).
-- Unknown coverage is the default. Unknown/missing facts never become matches. A known contradiction can exclude a record even if another unrelated fact is missing; only potentially qualifying unknowns block a complete claim.
-- D14’s separate cheapest-role presentation is a working proposal only. The backend result-role distinction can be built now; owner/user presentation acceptance is a later gate.
-- Ranking has a versioned interface/evaluation seam; no production relevance formula/weights are invented in Sprint 1.
-
-## Product backlog
-
-P0 means required correctness, accessibility or feasibility work. P1 means the next required integration/evaluation work after its dependencies; it does not mean optional product safety. Experiments/optimizations are P2 and enter a sprint only for a demonstrated problem. IDs below are local backlog identifiers, not newly created external issues.
-
-| Epic | Outcome | Review changes |
-|---|---|---|
-| F — deterministic foundation | Validated money/identity/constraints and complete structured selection | ARCH-001/002; contracts for ARCH-009 |
-| A — early audio feasibility | Observable local turns, ASR/TTS and actual audible timing | ARCH-006/007/008 |
-| N — interpretation | Bounded schema NLU with independent semantic checks | ARCH-004 |
-| R — catalogue and discovery | SQL authority, atomic publication, hybrid retrieval and evaluated ranking | ARCH-002/003/009 |
-| C — safe local action | Session/reference identity and transactional idempotent cart increments | ARCH-005 |
-| U — usable integrated workflow | Nonvisual interaction, grounded responses and recovery | ARCH-006/007 |
-| E — evidence and release | Combined quality/resource/storage/accessibility gates | ARCH-008; all changes |
-
-| Story | Priority | User story / engineering outcome | Dependencies | Testable acceptance criteria | Risks / decisions |
-|---|---|---|---|---|---|
-| F-01 | P0 | Establish a small Python package and reproducible local tests. | None | Python requirement and dependencies declared; stdlib test command runs without models/services; package/lint commands documented. | D01; avoid framework scaffolding. |
-| F-02 | P0 | Represent canonical products/variants, integer money and typed requests/results. | F-01 | Reject floats/bools as money, invalid identifiers/operators and contradictory construction; unknowns remain explicit; no currency conversion. | D03; future PostgreSQL bigint compatibility. |
-| F-03 | P0 | Find the cheapest supported structured match across a whole snapshot. | F-02 | Full-set independent oracle agrees on price/ID ties; strict/inclusive bounds differ; missing/stale required facts or unknown/partial coverage prevent complete minimum/no-match claims. | D03; three-valued logic and scope. |
-| F-04 | P0 | Resolve an explicit typed identifier without fuzzy substitution. | F-02 | Variant ID/SKU/product ID/model lookup uses exact equality; variants stay separate; unknown IDs and ambiguous multi-variant identity are exposed; invalid/duplicate records fail snapshot creation. | D03; model number need not identify one variant. |
-| F-05 | P0 | Keep ranking and minimum roles independent with a versioned evaluation seam. | F-03/F-04 | Only qualified records reach a supplied ranking policy; invalid output is rejected; overall match can differ from cheapest; absent policy means unevaluated relevance; discovery explicitly unsupported. | D09/D13/D14; no default weights. |
-| F-06 | P0 | Publish coherent architecture, tests and domain limitations. | F-01–05 | All required Sprint 1 edge cases pass; README/ADR/plan distinguish planned code from measured behaviour; Suggestions.md unchanged. | Historical review restrictions must stay scoped. |
-| A-01 | P0 | End/stop/repeat and partial/final boundaries are discoverable. | F-01 | Half-duplex turn adapter tests pauses, stop, silence and stale events; partials never authorize actions; explicit keyboard/assistive controls usable. | D01/D02/D11. |
-| A-02 | P0 | Run a local ASR → fixed verified template → local TTS slice. | A-01 | Pin tested artifacts/backends; critical-word and rupee/SKU comprehension fixtures; TTS/playback failure exposes cached speech/assistive status. | D02/D05/D11; voice terms before distribution. |
-| A-03 | P0 | Measure actual audio onset with visible failure accounting. | A-02 | Record annotated utterance end, VAD, remaining inference, PCM and audible onset; cold/warm/resources and timeout/no-audio samples retained; no target-achieved claim without data. | D01/D06/D13. |
-| N-01 | P0 | Extract bounded schema interpretations with reference Qwen/Ollama. | F-02, A-03 timing seam | Pin digest/template/runtime; strict schema, token/time bounds and bounded repair; malformed/truncated/extra-field output cannot dispatch actions. | D08; grammar is not semantic proof. |
-| N-02 | P0 | Independently validate numbers, intent, negation and supported constraints. | N-01/F-03 | “Under”/“at most,” quantity/budget basis, “don’t add,” unknown taxonomy and corrections match held-out expected plans or clarify. | D02/D03/D13. |
-| N-03 | P1 | Compare small-model challengers only under controlled gates. | N-01/N-02/A-03 | Same schema/data/quantization controls; critical regressions block promotion; record latency/resources and reasoned model decision. | D08; no automatic newer-model switch. |
-| R-01 | P0 | Port deterministic authority to PostgreSQL through the catalogue contract. | F-01–06 | Pin compatible server/extension/driver; enforce schema constraints; run adapter conformance/oracle tests; local access, timeouts and clean-host backup/restore tested. | D01/D03/D07/D15. |
-| R-02 | P0 | Publish facts and matching search data consistently. | R-01 | Reject stale embedding jobs; atomic content/coverage publication and generation switches; concurrent readers see one snapshot; pending semantics never becomes no-match. | D03; crash/rebuild windows. |
-| R-03 | P1 | Retrieve exact lexical+dense+qualifying low-price candidates. | R-01/R-02/N-02 | Exact BGE/pgvector baseline, explicit text config, safe query construction, Recall/Precision/nDCG by query/filter strata; exact IDs remain binding. | D02/D09/D10; filtered ANN not yet enabled. |
-| R-04 | P1 | Evaluate a versioned query-fit/preference/price scorer. | F-05/R-03 | Hard eligibility first; equal-fit cheaper and higher-price better-fit pairs; human judgments plus candidate-union/exhaustive composite-score comparison; scoped cheapest retrieval for every supported search. | D13/D14; tune on development labels, freeze held-out policy. |
-| C-01 | P0 | Bind turns and spoken references to stable session/list IDs. | N-02/R-03 | New/refined/partly spoken lists and late callbacks cannot redirect “second”; session isolation and documented expiry tests. | D11/D12. |
-| C-02 | P0 | Apply authorized local cart increments once per operation identity. | C-01/R-01/F-03 | Same ID/fingerprint retries replay immutable receipt; new intentional adds get new IDs; aggregate quantities, selected revisions and scoped minimum rechecked transactionally. | D04/D12; no inventory reservation/merchant claim. |
-| C-03 | P0 | Reconcile cancellation, concurrent writes and uncertain commits. | C-02 | Serialization/deadlock/unique-key/connection-loss faults preserve correct quantity and receipt; no blind retry or success guess; repeat only replays audio. | D07/D12; external semantics still unapproved. |
-| U-01 | P0 | Integrate nonvisual search, clarification, selection and safe local add. | A/N/R/C slices | All critical paths work with keyboard/screen reader and speech; templates use verified facts; optional explanation cannot invent claims or mutate. | D02/D05/D11. |
-| U-02 | P0 | Present overall-ranked and cheapest roles understandably. | R-04/C-01/U-01 | Deduplicate roles, preserve announced order for ordinals, test misunderstanding and interruption; document provisional D14 until owner/user acceptance. | D14; do not ship a silently chosen presentation. |
-| E-01 | P0 | Run combined quality/latency/resource/offline gates. | Integrated Sprint 6 slice | Frozen data/profiles/threshold decisions; publish failures/timeouts and cold/warm distributions; all required invariants pass; unmeasured strata clearly excluded. | D01/D02/D06/D07/D13. |
-| E-02 | P1 | Validate storage fit with an equivalent-quality comparison. | R-01–04, A-03 | E11 compares exact/ANN, split and embedded modes at equal recall/quality; updates/restore/setup/resource/latency results justify retention or a scoped alternative. | D15; no universal database winner. |
-| E-03 | P0 | Review readiness with representative users and exact shipped artifacts. | U-01/U-02/E-01/E-02 | Critical accessibility defects resolved; voice/runtime licences recorded; retained data/network reviewed; residual risks/unsupported profiles and owner decisions recorded. | D01–D15; release only after actual gates. |
-| O-01 | P2 | Optimize a measured bottleneck without weakening correctness. | A failed metric with baseline | One justified change (ANN/reranker/model/runtime/store) passes paired task/resource tests and rollback drill. | D08–D10/D15; outside this task. |
-
-## Sprint plan
-
-| Sprint | Goal and deliverables | Dependencies | Exit criteria |
-|---|---|---|---|
-| **1 — deterministic foundation** | F-01–06: package, contracts, immutable in-memory authority, exact lookup, complete structured selection, ranking protocol, tests and documentation. | Review verdict plus explicit synthetic assumptions; no services/models. | Required counterexamples/boundaries/unknowns/identity/ties/coverage tests pass; independent full-fixture oracle agrees; no inferred completeness; declared checks pass and limitations are documented. |
-| **2 — early audio feasibility** | A-01–03: local audio/VAD/ASR/TTS adapters, half-duplex controls, failure/status path and actual playback timing. | Sprint 1 contracts; provisional test device/language/eligible artifacts. | Actual device audio slice and critical slots tested; accessibility controls/failures demonstrable; timings/resources and unsupported profiles recorded, not fabricated. |
-| **3 — constrained interpretation** | N-01–03: pinned reference NLU, strict output contract, independent semantic validation and controlled challenger experiment. | Typed domain plus audio/timing seams. | Critical intent/slot/operator/negation fixtures pass; repair/time limits enforced; model/runtime choice traceable to task evidence. |
-| **4 — data and hybrid retrieval** | R-01–04: PostgreSQL/pgvector exact adapter, text search, publication snapshots/generations, low-price branch and experimental scorer. | Deterministic conformance suite and validated plans; representative catalogue. | SQL oracle/consistency/fault tests pass; exact-search baseline and initial E11 resource/restore results; relevance and candidate recall evaluated; no unsupported global/semantic claim. |
-| **5 — safe local action** | C-01–03: state/list identity, transactional local cart, idempotency/receipts and recovery. | Database authority, result roles and validated add plans. | No duplicate, redirected, cross-session or invalid-quantity effect in challenge tests; uncertain outcomes reconcile; no unconfirmed merchant claim. |
-| **6 — accessible integration** | U-01/02: full voice loop, templates/optional grounded explanation, recovery, user-tested result roles. | Audio, NLU, retrieval and safe action slices. | Critical workflow/failure/control paths usable without sight; result references accurate; D14 resolved for release or presentation explicitly experimental/unreleased. |
-| **7 — evidence/readiness** | E-01–03: combined evaluation, E11 storage comparison, offline/resource/recovery and readiness review. | Integrated workflow and pre-registered profile/quality decisions. | Published actual results plus denominators/uncertainty; invariants pass; D01–D15 disposition recorded. Failed gates yield backlog changes, not a claim of completion. |
-
-Sequence rationale: prove cheapest selection without retrieval/model confounders first; test defining audio feasibility in Sprint 2 rather than the old README’s Sprint 4; integrate NLU only after clear typed seams. The review’s early database recommendation is moved to Sprint 4 to honour this task’s domain-only Sprint 1, retaining the conformance suite for the later adapter. Database performance is consequently unverified until that slice; a source or device limitation can reorder later stories after documenting why. Do not implement future sprint placeholders as fake adapters now.
-
-## Definition of Ready
-
-A story is ready when its ID, owner-selected priority, bounded outcome, dependencies, canonical inputs/outputs, relevant D decisions and testable acceptance cases are recorded. Its fixtures must distinguish known facts, unknowns and scope. Provisional assumptions may unblock a fixture/prototype; a release-only decision does not block all coding. A story touching a real model/device/data source must identify the exact experiment and eligible artifacts before running it. Mutation stories need authorization, identity, rollback/recovery and no-match/ambiguity cases defined before coding.
-
-## Definition of Done
-
-- The agreed scoped behaviour exists, including failure/unknown paths, with meaningful automated tests against explicit expected outcomes.
-- The full available suite and configured lint/format/syntax checks pass; unrun/blocked checks and environment limits are reported, never relabelled successful.
-- Documentation distinguishes implemented/tested code, unverified integration, future work, provisional references and unresolved owner decisions.
-- No hard constraint is overridden by ranking; no catalogue-wide claim follows from unknown coverage, stale/missing required facts or candidate-only scope.
-- No unsupported model quality, universal correctness, latency, accessibility-conformance, external exactly-once or merchant-action claim is introduced.
-- Privacy/accessibility/scope impacts are reviewed; no unrelated changes, sensitive logs or hidden external resources are added.
-- Suggestions.md remains the original review record. Commit/push/deploy are separate user actions, not automatic sprint completion.
+## Existing decision and experiment reference
 
 ## Testing and evaluation strategy
 
@@ -130,23 +62,3 @@ For hard invariants require exact agreement/no violations on the declared fixtur
 | **D13** | Noncritical quality thresholds/sample sizes not justified. | Deterministic fixture invariants; no invented relevance weights/floors. | Pilot judgments/error costs, pre-register gates before held-out comparisons. |
 | **D14** | How cheapest appears alongside relevance-ranked matches. | Distinct backend roles; separate presentation is provisional. | Owner/user decision and U-02/E10 inclusion/order/comprehension tests before release. |
 | **D15** | PostgreSQL/pgvector device/workload fit unmeasured. | Accepted reference; in-memory contract now, exact vectors later. | E11 including split/embedded alternatives and resource/restore costs; change only for evidence/requirements. |
-
-## Agile operating procedure
-
-Track story IDs here using **Ready → In progress → Review → Done**; keep blocked items with the missing dependency/decision rather than blocking unrelated work. At each sprint boundary choose the smallest ready set that achieves its goal; do not assume every listed story fits one person/week. Before coding, identify acceptance fixtures. During work, record material assumptions and scope changes. Tests/review/Definition of Done gate the state transition; a planning document or green mock alone is insufficient.
-
-At sprint end demonstrate the actual increment, review failures and user feedback, and update the next backlog/sprint order with evidence. Use a short written planning/review note, not mandatory meetings or a heavyweight process. Experiments can reject a model/store choice; preserve the previous reproducible configuration and explain the change. Resolve release decisions with owners/users when needed while continuing independent ready stories. External issues, messages, releases and resources require separate authorization.
-
-## Sprint 1 delivery record
-
-F-01–06 are implemented and verified for the Sprint 1 slice on CPython 3.12.14. The first push (`048421c`) deferred final verification at the owner’s request; the subsequent verification task completed the checks, fixed ranking-version drift and added its regression test. The source and fresh installed-wheel suites each pass 54 tests; the site-packages-disabled suite, doctest, lint, format, compilation, dependency, packaging and document/diff checks also pass. See [docs/SPRINT_1.md](docs/SPRINT_1.md) for exact commands, evidence and limits.
-
-The domain-story scope is complete; E01’s database/publication work and E02–E11 runtime/quality benchmarks remain future work. Python 3.11 and a static type checker were not exercised, and no model/database/voice/accessibility/performance win is claimed. Sprints 2–7 and D01–D15 remain as planned/open above.
-
-## Sprint 2 delivery record
-
-**A-01–03: In progress; protocol foundation reviewed, device acceptance pending.** The audit of `83ea1bb` exposed defects hidden by the original 20 passing audio tests: cancelled/duplicate/blank finals could be accepted, playback was finished before output, fallback bytes were not speech, invalid timing could pass, and artifact metadata conflated runtime/voice provenance.
-
-The corrected controller fences retired turns, physically invokes bound capture/output ports, drains playback before completion, handles actual stop failures, and keeps repeat free of action dispatch. The pipeline streams output with explicit error/status recovery and an optional host-provisioned speech asset. Telemetry rejects invalid/no-audio success, snapshots unique turns and retains every failure/timeout/cancellation in the denominator. Separate reference metadata no longer implies artifact pinning or commercial clearance.
-
-On CPython 3.12.14, 44 audio regressions and all 98 repository tests pass with no third-party runtime dependencies. Mock integration is not actual ASR comprehension, assistive usability or measured acoustic latency. Real local adapters, eligible pinned artifacts, a verified spoken fallback, device/accessibility checks and cold/warm timing/resource evidence remain required for A-01–03 completion. See [docs/SPRINT_2.md](docs/SPRINT_2.md) for contracts, migration, commands and the readiness verdict. A text-only Sprint 3 experiment may proceed independently; voice feasibility is not signed off and no Sprint 3 work is included here.
