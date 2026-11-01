@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from voicecart.catalogue import qualify
-from voicecart.domain import Eligibility, HardConstraints
+from voicecart.domain import Eligibility, HardConstraints, require_currency
 from voicecart.search import query_terms
 
 
@@ -36,6 +36,13 @@ class CatalogueBrowser:
             type(under) is not int or not 0 <= under <= 2**63 - 1 or not currency
         ):
             raise ValueError("Explicit currency and integer minor-unit bound required")
+        if type(inclusive) is not bool or any(
+            not isinstance(value, str) or len(value) > 100
+            for value in (brand, category)
+        ):
+            raise ValueError("Invalid filter")
+        if currency is not None:
+            require_currency(currency)
         terms = " ".join(sorted(query_terms(query)))
         with self.database.connect() as connection:
             connection.execute(

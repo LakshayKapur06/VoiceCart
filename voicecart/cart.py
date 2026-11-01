@@ -146,6 +146,15 @@ class CartService:
     def prepare(self, command: AddCommand) -> None:
         with self.database.connect() as connection:
             session = self.sessions.require(connection, command.session_id, lock=True)
+            connection.execute(
+                "SELECT pg_advisory_xact_lock(hashtextextended(%s,0))",
+                (command.operation_id,),
+            )
+            if connection.execute(
+                "SELECT 1 FROM cart_adjustments WHERE operation_id=%s",
+                (command.operation_id,),
+            ).fetchone():
+                raise CartError("operation_identity_conflict")
             existing = connection.execute(
                 "SELECT * FROM commands WHERE operation_id=%s", (command.operation_id,)
             ).fetchone()

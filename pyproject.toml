@@ -33,4 +33,4 @@ ignore_missing_imports = true
 check_untyped_defs = true
 
 [tool.setuptools.package-data]
-voicecart = ["migrations/*.sql"]
+voicecart = ["migrations/*.sql", "web/*.html", "web/*.css", "web/*.js"]

@@ -10,6 +10,7 @@ import threading
 from dataclasses import dataclass, replace
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from typing import Any
 from urllib.parse import urlsplit
 
 import psycopg
@@ -34,6 +35,9 @@ class WebApplication:
         self.limiter = RateLimiter()
         self.merchants = merchants
         self.apps = {}
+        self.speech_lock = threading.Lock()
+        self.recognizers: dict[str, Any] = {}
+        self.synthesizers: dict[str, Any] = {}
         used = set()
         for name, merchant in merchants.items():
             tenant_id(name)
@@ -118,10 +122,19 @@ class Handler(BaseHTTPRequestHandler):
         headers=None,
         content_type="application/json; charset=utf-8",
     ):
+        def precise(value):
+            if isinstance(value, dict):
+                return {key: precise(item) for key, item in value.items()}
+            if isinstance(value, (list, tuple)):
+                return [precise(item) for item in value]
+            if type(value) is int and abs(value) > 2**53 - 1:
+                return str(value)
+            return value
+
         body = (
             payload
             if isinstance(payload, bytes)
-            else json.dumps(payload, default=str, allow_nan=False).encode()
+            else json.dumps(precise(payload), default=str, allow_nan=False).encode()
         )
         self.send_response(status)
         self.send_header("Content-Type", content_type)
@@ -208,6 +221,32 @@ class Handler(BaseHTTPRequestHandler):
                     "merchant_count": len(self.server.application.apps),
                 },
             )
+        from voicecart.web_api import dispatch
+
+        if dispatch(self):
+            return None
+        if self.command == "GET" and path in (
+            "/",
+            "/admin",
+            "/app.js",
+            "/admin.js",
+            "/style.css",
+        ):
+            from importlib import resources
+
+            filename = {"/": "index.html", "/admin": "admin.html"}.get(
+                path, path.lstrip("/")
+            )
+            asset = resources.files("voicecart").joinpath("web", filename)
+            if asset.is_file():
+                content_type = (
+                    "text/html; charset=utf-8"
+                    if filename.endswith(".html")
+                    else "text/css"
+                    if filename.endswith(".css")
+                    else "text/javascript"
+                )
+                return self.reply(200, asset.read_bytes(), content_type=content_type)
         return self.reply(404, {"error": "Unknown endpoint"})
 
 
