@@ -314,5 +314,10 @@ def dispatch(handler):
     tenant = parts[1]
     if tenant not in handler.server.application.apps:
         raise AccessDenied("Unknown merchant")
-    customer(handler, tenant, "/".join(parts[2:]))
+    if parts[2] == "admin":
+        from voicecart.admin import admin
+
+        admin(handler, tenant, "/".join(parts[3:]))
+    else:
+        customer(handler, tenant, "/".join(parts[2:]))
     return True

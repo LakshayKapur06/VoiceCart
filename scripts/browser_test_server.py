@@ -23,6 +23,7 @@ with isolated_postgres():
             )
         },
         b"TEST-ONLY-CAPABILITY-SECRET-32-BYTES",
+        environment="test",
     )
     with Server(("127.0.0.1", 8089), app) as server:
         print("Disposable fixture browser server ready at 8089", flush=True)

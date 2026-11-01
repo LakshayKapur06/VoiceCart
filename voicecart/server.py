@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import threading
+import time
 from dataclasses import dataclass, replace
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -17,9 +18,12 @@ import psycopg
 
 from voicecart.cli import components
 from voicecart.database import DatabaseUnavailable
+from voicecart.domain import require_currency
+from voicecart.events import EventStore
 from voicecart.http_security import AccessDenied, Capabilities, RateLimiter, tenant_id
 from voicecart.local_http import strict_json
 from voicecart.settings import Settings
+from voicecart.telemetry import measurements
 
 
 @dataclass
@@ -30,7 +34,13 @@ class Merchant:
 
 
 class WebApplication:
-    def __init__(self, merchants: dict[str, Merchant], secret: bytes):
+    def __init__(
+        self, merchants: dict[str, Merchant], secret: bytes, environment="development"
+    ):
+        if environment not in ("test", "development", "merchant"):
+            raise ValueError("Invalid deployment environment")
+        self.environment = environment
+        self.telemetry_failures = 0
         self.auth = Capabilities(secret)
         self.limiter = RateLimiter()
         self.merchants = merchants
@@ -38,9 +48,16 @@ class WebApplication:
         self.speech_lock = threading.Lock()
         self.recognizers: dict[str, Any] = {}
         self.synthesizers: dict[str, Any] = {}
+        if not 1 <= len(merchants) <= 16:
+            raise ValueError("Configure 1–16 explicitly isolated merchants")
         used = set()
         for name, merchant in merchants.items():
             tenant_id(name)
+            require_currency(merchant.currency)
+            if len(merchant.admin_hash) != 64 or any(
+                c not in "0123456789abcdef" for c in merchant.admin_hash
+            ):
+                raise ValueError("Invalid administrator credential hash")
             database, encoder, app = components(merchant.settings)
             config = database._config
             identity = (config["host"], config.get("port", "5432"), config["dbname"])
@@ -75,7 +92,9 @@ class WebApplication:
                 hashlib.sha256(token.encode()).hexdigest(),
                 entry.get("currency", "INR"),
             )
-        return cls(merchants, secret)
+        return cls(
+            merchants, secret, os.environ.get("VOICECART_ENVIRONMENT", "development")
+        )
 
 
 class Server(ThreadingHTTPServer):
@@ -84,7 +103,36 @@ class Server(ThreadingHTTPServer):
     def __init__(self, address, application):
         self.application = application
         self.slots = threading.BoundedSemaphore(24)
+        self.next_cleanup = time.monotonic() + 60
         super().__init__(address, Handler)
+
+    def service_actions(self):
+        if time.monotonic() < self.next_cleanup:
+            return
+        self.next_cleanup = time.monotonic() + 60
+        for app in self.application.apps.values():
+            try:
+                app.sessions.cleanup_expired()
+                with app._guard:
+                    candidates = list(
+                        set(app._last) | set(app._events) | set(app._turns)
+                    )
+                if candidates:
+                    with app.database.connect() as connection:
+                        active = {
+                            str(row["session_id"])
+                            for row in connection.execute(
+                                "SELECT session_id FROM sessions WHERE session_id=ANY(%s::uuid[]) AND expires_at>now()",
+                                (candidates,),
+                            )
+                        }
+                    for identity in set(candidates) - active:
+                        app.forget(identity)
+                EventStore(app.database, self.application.environment).cleanup(
+                    int(os.environ.get("VOICECART_EVENT_RETENTION_DAYS", "7"))
+                )
+            except Exception:
+                self.application.telemetry_failures += 1
 
     def process_request(self, request, client_address):
         if not self.slots.acquire(blocking=False):
@@ -136,6 +184,7 @@ class Handler(BaseHTTPRequestHandler):
             if isinstance(payload, bytes)
             else json.dumps(precise(payload), default=str, allow_nan=False).encode()
         )
+        self.response_status = status
         self.send_response(status)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
@@ -163,6 +212,43 @@ class Handler(BaseHTTPRequestHandler):
         return raw
 
     def handle_request(self):
+        start = time.perf_counter()
+        with measurements() as trace:
+            try:
+                return self._handle_request()
+            finally:
+                parts = urlsplit(self.path).path.strip("/").split("/")
+                if (
+                    len(parts) >= 3
+                    and parts[0] == "api"
+                    and parts[1] in self.server.application.apps
+                ):
+                    resource = "/".join(parts[2:])
+                    kinds = {
+                        "search": "search",
+                        "query": "nlu",
+                        "cart/add": "cart.add",
+                        "cart/quantity": "cart.adjust",
+                        "transcribe": "asr",
+                        "speak": "tts",
+                        "admin/import": "import",
+                        "admin/login": "admin.auth",
+                    }
+                    if resource in kinds:
+                        try:
+                            EventStore(
+                                self.server.application.apps[parts[1]].database,
+                                self.server.application.environment,
+                            ).record(
+                                kinds[resource],
+                                str(getattr(self, "response_status", 503)),
+                                time.perf_counter() - start,
+                                trace.spans,
+                            )
+                        except Exception:
+                            self.server.application.telemetry_failures += 1
+
+    def _handle_request(self):
         try:
             origin = self.headers.get("Origin")
             expected = os.environ.get("VOICECART_PUBLIC_ORIGIN") or "http://" + str(
