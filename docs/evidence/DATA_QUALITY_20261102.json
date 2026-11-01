@@ -1,0 +1,23 @@
+{
+  "source_rows": 300,
+  "imported": 298,
+  "duplicates": 0,
+  "rejected": 2,
+  "known_historical_prices": 169,
+  "known_current_stock": 0,
+  "issues": [
+    {
+      "source_row": 30,
+      "code": "ValueError",
+      "reason": "Missing source identifier/title"
+    },
+    {
+      "source_row": 184,
+      "code": "ImportValidationError",
+      "reason": "Catalogue rejected: products[0]: invalid fields or values; snapshot: duplicate identifiers/SKUs, orphan variants or invalid aliases; metadata: invalid provenance, parent, brand or document size"
+    }
+  ],
+  "source_sha256": "a3b27ecae6fa5c498860b7ea9dbd706fbe7906eed0c03d7d22e965cbdeb4809b",
+  "source_url": "https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023/resolve/2b6d039ed471f2ba5fd2acb718bf33b0a7e5598e/raw/meta_categories/meta_Appliances.jsonl",
+  "source_revision": "2b6d039ed471f2ba5fd2acb718bf33b0a7e5598e"
+}

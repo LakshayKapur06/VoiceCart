@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -38,6 +38,7 @@ class CatalogueImport:
     products: tuple[Product, ...]
     variants: tuple[Variant, ...]
     aliases: dict[str, dict[str, str]]
+    metadata: dict[str, dict] = field(default_factory=dict)
 
 
 def exact_keys(value: dict, required: set[str], optional: set[str]) -> None:
@@ -64,7 +65,7 @@ def parse_import(document: dict, *, now: datetime | None = None) -> CatalogueImp
                 "products",
                 "variants",
             },
-            {"aliases"},
+            {"aliases", "metadata"},
         )
         if (
             type(document["schema_version"]) is not int
@@ -161,6 +162,24 @@ def parse_import(document: dict, *, now: datetime | None = None) -> CatalogueImp
         issues.append(
             "snapshot: duplicate identifiers/SKUs, orphan variants or invalid aliases"
         )
+    metadata = document.get("metadata", {})
+    try:
+        if not isinstance(metadata, dict) or set(metadata) - {
+            p.product_id for p in products
+        }:
+            raise ValueError("Metadata parent missing")
+        for record in metadata.values():
+            if (
+                not isinstance(record, dict)
+                or len(json.dumps(record, allow_nan=False)) > 256000
+            ):
+                raise ValueError("Invalid/oversized metadata")
+            for key in ("source_url", "source_record_id"):
+                require_text(record.get(key), key)
+            if record.get("brand") is not None:
+                require_text(record["brand"], "brand")
+    except (ValueError, TypeError):
+        issues.append("metadata: invalid provenance, parent, brand or document size")
     if issues:
         raise ImportValidationError(issues)
     return CatalogueImport(
@@ -172,6 +191,7 @@ def parse_import(document: dict, *, now: datetime | None = None) -> CatalogueImp
         tuple(products),
         tuple(variants),
         aliases,
+        metadata,
     )
 
 

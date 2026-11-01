@@ -339,6 +339,20 @@ class Database:
                         )
                     ],
                 )
+            with connection.cursor() as cursor:
+                cursor.executemany(
+                    "INSERT INTO product_metadata(product_id,payload) VALUES (%s,%s)",
+                    [(key, Jsonb(value)) for key, value in bundle.metadata.items()],
+                )
+            connection.execute(
+                "INSERT INTO import_history(revision,source,product_count,variant_count) VALUES (%s,%s,%s,%s)",
+                (
+                    bundle.revision,
+                    bundle.source,
+                    len(bundle.products),
+                    len(bundle.variants),
+                ),
+            )
             connection.execute(
                 "UPDATE catalogue_state SET revision=%s,coverage=%s,populated=true,source=%s,valid_until=%s,generation=%s,dimensions=%s,aliases=%s,published_at=now() WHERE singleton=true",
                 (
