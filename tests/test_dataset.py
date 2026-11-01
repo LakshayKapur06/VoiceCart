@@ -76,6 +76,36 @@ class BrowserDatabaseTests(unittest.TestCase):
                 "UPDATE catalogue_state SET revision='unpopulated',populated=false"
             )
 
+    def test_expired_source_never_displays_verified_availability(self):
+        self.database.publish(parse_import(fabricated_document()))
+        with self.database.connect() as connection:
+            connection.execute(
+                "UPDATE catalogue_state SET valid_until=now()-interval '1 day'"
+            )
+        result = CatalogueBrowser(self.database).search("backpack", currency="INR")
+        self.assertTrue(result["items"])
+        self.assertTrue(
+            all(
+                row["available"] is None and not row["can_add"]
+                for row in result["items"]
+            )
+        )
+        self.assertTrue(
+            all(row["price_freshness"] == "stale" for row in result["items"])
+        )
+
+    def test_metadata_hybrid_generation_and_minimum_are_scoped(self):
+        from tests.test_persistence import FixtureEncoder
+
+        encoder = FixtureEncoder()
+        self.database.publish(parse_import(fabricated_document()), encoder=encoder)
+        result = CatalogueBrowser(self.database, encoder).search(
+            "college backpack", currency="INR"
+        )
+        self.assertIn("exact semantic", result["semantic_status"])
+        self.assertFalse(result["can_claim_global_minimum"])
+        self.assertIsNotNone(result["cheapest"])
+
     def test_historical_metadata_browsable_but_cannot_add(self):
         raw = fabricated_document()
         for variant in raw["variants"]:

@@ -1,0 +1,17 @@
+{
+  "method": "Actual isolated PostgreSQL load, fabricated TEST-ONLY catalogue. No inference/audio/owner data or merchant analytics. One 2000-variant publication followed by 128 complete structured searches over 8 workers. Empirical P95 only; P99 not estimated from this sample. Client CPU/RSS excludes the separate PostgreSQL/model processes.",
+  "hardware_os": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "variants": 2000,
+  "concurrency": 8,
+  "requests": 128,
+  "failures": 0,
+  "publication_seconds": 0.10861108300741762,
+  "elapsed_seconds": 3.0984156249905936,
+  "mean_seconds": 0.18895318557861174,
+  "median_seconds": 0.19165531249018386,
+  "p95_seconds": 0.2205712499562651,
+  "p99_seconds": null,
+  "client_cpu_seconds": 3.299114,
+  "client_peak_rss_native_units": 54804480
+}

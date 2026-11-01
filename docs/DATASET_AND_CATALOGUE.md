@@ -20,3 +20,7 @@ Initial quality: 300 source rows, 298 admitted, 2 rejected, 0 duplicate IDs, 169
 ## Terms and attribution
 
 Official dataset card/site inspected 2026-11-02 contained no explicit dataset redistribution license declaration. Access is not proof of commercial redistribution rights. The owner's requested private research/development extract was downloaded; no raw dataset/voice/image assets are packaged. Redistribution/commercial deployment remains blocked on owner rights verification. Contact the dataset maintainers for terms. Attribute: Hou, Li, He, Yan, Chen and McAuley, “Bridging Language and Items for Retrieval and Recommendation,” 2024, arXiv:2403.03952. Images remain external URLs and require a separate rights/privacy decision before loading or redistributing.
+
+## Actual dense discovery check
+
+The existing encoder/pgvector adapter also published all 298 admitted real records with the opt-in metadata-prefix-256utf8bytes-v1 profile (full source/FTS text preserved), then executed an actual MiniLM+pgvector microwave query. Publication took 2.9040s and query 0.0393s in this development observation, with zero actionable historical page records. Exact model digest/generation/methodology are in DATA_SEMANTIC_20261102.json. This does not establish relevance quality or a comparable before/after speedup. Enable VOICECART_EMBED_SERIALIZER together with the pinned MiniLM model/digest/dimensions and reimport the complete snapshot using a new revision to activate this profile; changing it requires matching re-embedding. See ADR-002.

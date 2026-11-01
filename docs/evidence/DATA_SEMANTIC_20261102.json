@@ -1,0 +1,15 @@
+{
+  "method": "Actual pinned MiniLM encoder over 298 real historical metadata records in owned disposable PostgreSQL; explicit derived 256-UTF8-byte document prefix, full original text retained for FTS/provenance. Query microwave, USD. No physical audio, fixture products, live inventory or judged relevance claim.",
+  "model": "all-minilm:latest",
+  "digest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+  "generation": "5ef05bcbc285564196ac97b5fad319f51581f8ae66d7b0d3271026e41e59fe29",
+  "serializer": "metadata-prefix-256utf8bytes-v1",
+  "dimensions": 384,
+  "catalogue_records": 298,
+  "publication_seconds": 2.9040053749922663,
+  "query_seconds": 0.03929666703334078,
+  "candidate_count": 291,
+  "semantic_status": "exact semantic plus lexical; experimental ordering",
+  "can_add_on_page": 0,
+  "can_claim_global_minimum": false
+}

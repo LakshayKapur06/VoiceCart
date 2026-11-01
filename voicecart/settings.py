@@ -73,6 +73,7 @@ class Settings:
                     int(os.environ["VOICECART_EMBED_DIMENSIONS"]),
                     os.environ.get("VOICECART_QUERY_PREFIX", ""),
                     os.environ.get("VOICECART_DOCUMENT_PREFIX", ""),
+                    os.environ.get("VOICECART_EMBED_SERIALIZER", "variant-text-v1"),
                 )
             except (KeyError, ValueError) as exc:
                 raise ConfigurationError(

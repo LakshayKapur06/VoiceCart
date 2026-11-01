@@ -39,6 +39,11 @@ class EncoderSpec:
     serializer: str = "variant-text-v1"
 
     def __post_init__(self):
+        if self.serializer not in (
+            "variant-text-v1",
+            "metadata-prefix-256utf8bytes-v1",
+        ):
+            raise ValueError("Unsupported embedding serializer")
         require_integer(self.dimensions, "dimensions", 1)
         if self.dimensions > 4096:
             raise ValueError(
@@ -62,6 +67,11 @@ class OllamaEncoder:
     ) -> list[tuple[float, ...]]:
         if not texts:
             return []
+        if not query and self.spec.serializer == "metadata-prefix-256utf8bytes-v1":
+            texts = [
+                text.encode("utf-8")[:256].decode("utf-8", errors="ignore")
+                for text in texts
+            ]
         if len(texts) > 32 or any(
             not text.strip() or len(text) > 4000 for text in texts
         ):

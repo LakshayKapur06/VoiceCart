@@ -286,6 +286,23 @@ class OllamaProtocolIntegrationTests(unittest.TestCase):
         with self.assertRaises(LocalServiceError):
             encoder.encode(["backpack"])
 
+    def test_explicit_metadata_encoder_prefix_preserves_small_token_budget(self):
+        from voicecart.embeddings import EncoderSpec, OllamaEncoder
+
+        self.server.result = {"embeddings": [[3, 4]]}
+        encoder = OllamaEncoder(
+            self.client,
+            EncoderSpec(
+                "fixture-model",
+                "a" * 64,
+                2,
+                serializer="metadata-prefix-256utf8bytes-v1",
+            ),
+        )
+        encoder.encode(["document " * 1000])
+        self.assertLessEqual(len(self.server.payload["input"][0].encode()), 256)
+        self.assertFalse(self.server.payload["truncate"])
+
     def test_wrong_digest_or_truncated_generation_never_returns_plan(self):
         with self.assertRaises(LocalServiceError):
             OllamaInterpreter(self.client, "fixture-model", "b" * 64).interpret(

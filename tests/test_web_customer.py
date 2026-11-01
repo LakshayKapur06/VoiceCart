@@ -88,6 +88,18 @@ class CustomerHTTPTests(unittest.TestCase):
         self.assertEqual(self.request("cart")[1]["items"][0]["quantity"], 1)
         changed = {**body, "quantity": 2}
         self.assertEqual(self.request("cart/add", changed)[0], 409)
+        self.assertEqual(
+            self.request(
+                "cart/quantity",
+                {
+                    "operation_id": body["operation_id"],
+                    "variant_id": item["variant_id"],
+                    "quantity": 0,
+                    "currency": "INR",
+                },
+            )[0],
+            409,
+        )
         update = {
             "operation_id": str(uuid.uuid4()),
             "variant_id": item["variant_id"],
@@ -123,6 +135,72 @@ class CustomerHTTPTests(unittest.TestCase):
         )
         self.assertEqual(self.request("transcribe", {"pcm_base64": "AAAAAA=="})[0], 503)
         self.assertEqual(self.request("search", {"query": "x", "limit": 101})[0], 400)
+
+    def test_discovery_cannot_silently_drop_a_text_price_boundary(self):
+        self.request("sessions", {})
+        body = {"query": "backpack under 20 rupees", "currency": "INR"}
+        self.assertEqual(self.request("search", body)[0], 400)
+        self.assertEqual(
+            self.request("search", {**body, "under_minor": 2000, "inclusive": True})[0],
+            400,
+        )
+        self.assertEqual(
+            self.request("search", {**body, "under_minor": "2000", "inclusive": False})[
+                0
+            ],
+            200,
+        )
+
+    def test_cancelled_asr_final_cannot_reappear_or_mutate(self):
+        from dataclasses import replace
+        from pathlib import Path
+
+        from voicecart.audio import Transcript, TranscriptKind
+        from voicecart.voice import FileArtifact
+
+        entered = threading.Event()
+        cancelled_seen = threading.Event()
+
+        class BlockingRecognizer:
+            def transcribe(self, pcm, turn, *, cancelled):
+                entered.set()
+                if cancelled.wait(3):
+                    cancelled_seen.set()
+                return Transcript(TranscriptKind.FINAL, "STALE TEST TRANSCRIPT", turn)
+
+        web = self.server.application
+        web.merchants["local"].settings = replace(
+            web.merchants["local"].settings,
+            asr=FileArtifact(Path("TEST-ONLY-NOT-LOADED"), "a" * 64),
+        )
+        web.recognizers["local"] = BlockingRecognizer()
+        self.request("sessions", {})
+        cookie = self.cookie
+        result = []
+
+        def transcribe():
+            client = http.client.HTTPConnection(*self.server.server_address, timeout=5)
+            try:
+                client.request(
+                    "POST",
+                    "/api/local/transcribe",
+                    body=json.dumps({"pcm_base64": "AAAAAA=="}),
+                    headers={"Cookie": cookie, "Content-Type": "application/json"},
+                )
+                reply = client.getresponse()
+                result.append((reply.status, json.loads(reply.read())))
+            finally:
+                client.close()
+
+        thread = threading.Thread(target=transcribe)
+        thread.start()
+        self.assertTrue(entered.wait(2))
+        self.assertEqual(self.request("cancel", {})[0], 200)
+        thread.join(4)
+        self.assertTrue(cancelled_seen.is_set())
+        self.assertEqual(result[0][0], 409)
+        self.assertNotIn("STALE TEST TRANSCRIPT", str(result))
+        self.assertEqual(self.request("cart")[1]["items"], [])
 
     def test_unknown_historical_inventory_never_enables_add(self):
         with self.database.connect() as connection:

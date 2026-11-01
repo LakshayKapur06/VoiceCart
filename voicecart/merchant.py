@@ -58,7 +58,9 @@ class LocalMerchantAdapter:
         self.management = CartManagement(self.database)
 
     def search(self, query="", **filters):
-        return CatalogueBrowser(self.database).search(query, **filters)
+        return CatalogueBrowser(
+            self.database, self.application.catalogue.encoder
+        ).search(query, **filters)
 
     def lookup(self, product_id):
         if not isinstance(product_id, str) or not 1 <= len(product_id) <= 256:

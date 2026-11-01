@@ -150,9 +150,41 @@ def main() -> None:
     parser.add_argument("--package", action="store_true")
     parser.add_argument("--postgres", action="store_true")
     parser.add_argument("--audit", action="store_true")
+    parser.add_argument("--coverage", action="store_true")
     args = parser.parse_args()
     with isolated_postgres() if args.postgres else nullcontext():
-        run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q"])
+        if args.coverage:
+            run([sys.executable, "-m", "coverage", "erase"])
+            run(
+                [
+                    sys.executable,
+                    "-m",
+                    "coverage",
+                    "run",
+                    "--branch",
+                    "--source=voicecart",
+                    "-m",
+                    "unittest",
+                    "discover",
+                    "-s",
+                    "tests",
+                    "-q",
+                ]
+            )
+            run([sys.executable, "-m", "coverage", "combine"])
+            run(
+                [
+                    sys.executable,
+                    "-m",
+                    "coverage",
+                    "json",
+                    "-o",
+                    "docs/evidence/COVERAGE_20261102.json",
+                ]
+            )
+            run([sys.executable, "-m", "coverage", "report"])
+        else:
+            run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q"])
         run([sys.executable, "-m", "compileall", "-q", "voicecart", "tests", "scripts"])
         run([sys.executable, "-m", "ruff", "check", "."])
         run([sys.executable, "-m", "ruff", "format", "--check", "."])

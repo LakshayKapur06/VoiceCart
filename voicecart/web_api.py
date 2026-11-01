@@ -5,7 +5,6 @@ from __future__ import annotations
 import base64
 import io
 import os
-import uuid
 import wave
 from dataclasses import asdict
 from urllib.parse import urlsplit
@@ -13,6 +12,7 @@ from urllib.parse import urlsplit
 from voicecart.application import Response
 from voicecart.cart import CartError, OutcomeUnknown
 from voicecart.http_security import AccessDenied
+from voicecart.nlu import BOUND, rupees_to_minor
 from voicecart.sessions import SessionError, uuid_text
 from voicecart.voice import PiperSynthesizer, WhisperRecognizer
 
@@ -95,6 +95,26 @@ def customer(handler, tenant, resource):
                         "error": "Resolve the original pending operation before a new search."
                     },
                 )
+            query = body.get("query", "")
+            bounds = list(BOUND.finditer(query)) if isinstance(query, str) else []
+            if bounds:
+                expected_inclusive = bounds[0][1].casefold() not in (
+                    "under",
+                    "below",
+                    "less than",
+                )
+                if (
+                    len(bounds) != 1
+                    or body.get("under_minor") is None
+                    or minor_units(body["under_minor"]) != rupees_to_minor(bounds[0][2])
+                    or body.get("inclusive", False) != expected_inclusive
+                ):
+                    return handler.reply(
+                        400,
+                        {
+                            "error": "Match the price in your words using the maximum-price and boundary controls, or select Shopping assistant. Price instructions are not silently ignored."
+                        },
+                    )
             result = adapter.search(
                 body.get("query", ""),
                 brand=body.get("brand", ""),
@@ -212,12 +232,18 @@ def customer(handler, tenant, resource):
                 return handler.reply(
                     503, {"error": "Local ASR is not configured. Use text input."}
                 )
+            turn = app.begin(identity)
+            cancellation = app.cancellation_event(identity, turn)
             with web.speech_lock:
                 recognizer = web.recognizers.setdefault(tenant, None)
                 if recognizer is None:
                     recognizer = WhisperRecognizer(settings.asr)
                     web.recognizers[tenant] = recognizer
-            transcript = recognizer.transcribe(pcm, str(uuid.uuid4()))
+            transcript = recognizer.transcribe(pcm, turn, cancelled=cancellation)
+            if cancellation.is_set() or not app.sessions.is_active(identity, turn):
+                return handler.reply(
+                    409, {"error": "Transcription cancelled. No cart action was sent."}
+                )
             return handler.reply(
                 200,
                 {
