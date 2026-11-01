@@ -1,0 +1,14 @@
+[
+ {"id":"H01","text":"Show black backpacks at most 750 rupees","kind":"search","price_minor":75000,"operator":"lte"},
+ {"id":"H02","text":"Find blue shirts below 1,250 rupees","kind":"search","price_minor":125000,"operator":"lt"},
+ {"id":"H03","text":"Find the cheapest black backpack below 900 rupees and put it in my cart","kind":"search_and_add","price_minor":90000,"operator":"lt"},
+ {"id":"H04","text":"Find blue shirts, do not add any to my cart","kind":"search"},
+ {"id":"H05","text":"Add two black backpacks under 500 rupees each","kind":"search_and_add","quantity":2},
+ {"id":"H06","text":"Find backpacks under 20 dollars","reject":true},
+ {"id":"H07","text":"Find backpacks under 20 rupees and below 15 rupees","reject":true},
+ {"id":"H08","text":"Find not black backpacks","reject":true},
+ {"id":"H09","text":"add third","kind":"add","ordinal":3},
+ {"id":"H10","text":"Find blue shirts up to one thousand rupees","kind":"search","price_minor":100000,"operator":"lte"},
+ {"id":"H11","text":"Find a backpack with waterproof pockets","kind":"search","route":"discovery"},
+ {"id":"H12","text":"Find backpacks under 99.99 rupees","kind":"search","price_minor":9999,"operator":"lt"}
+]

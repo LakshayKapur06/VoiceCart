@@ -10,6 +10,8 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
+from voicecart.telemetry import inference_metrics, timed
+
 
 class LocalServiceError(RuntimeError):
     pass
@@ -76,6 +78,7 @@ class LocalJSONClient:
             urllib.request.ProxyHandler({}), NoRedirect()
         )
 
+    @timed("http.local_request")
     def request(self, path: str, payload: dict | None = None) -> dict:
         if not path.startswith("/api/") or "?" in path or "#" in path or ".." in path:
             raise ValueError("Unsupported local endpoint")
@@ -97,6 +100,8 @@ class LocalJSONClient:
             result = strict_json(body.decode("utf-8"))
             if not isinstance(result, dict):
                 raise LocalServiceError("Local service must return a JSON object")
+            if path == "/api/generate":
+                inference_metrics(result)
             return result
         except TimeoutError:
             raise

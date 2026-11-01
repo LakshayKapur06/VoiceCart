@@ -24,6 +24,7 @@ from voicecart.local_http import LocalServiceError
 from voicecart.nlu import Intent, InterpretationError
 from voicecart.search import PostgresCatalogue
 from voicecart.sessions import ResultList, SessionError, SessionStore
+from voicecart.telemetry import timed
 
 
 def display_text(value: str, limit: int = 180) -> str:
@@ -201,6 +202,7 @@ class ShoppingApplication:
                 "The database is unavailable. The previous operation still needs verification.",
             )
 
+    @timed("application.add")
     def _add(self, session_id: str, turn_id: str, intent: Intent) -> Response:
         pending = self.cart.pending(session_id)
         if pending:
@@ -299,6 +301,7 @@ class ShoppingApplication:
                 )
             )
 
+    @timed("application.presentation")
     def present(
         self, session_id: str, turn_id: str, request: SearchRequest, prefix: str = ""
     ) -> Response:
@@ -354,6 +357,7 @@ class ShoppingApplication:
             Response("results", " ".join(parts), session_id, turn_id, listing)
         )
 
+    @timed("application.final")
     def final(self, session_id: str, transcript: Transcript) -> Response:
         turn_id = transcript.turn_id
         try:

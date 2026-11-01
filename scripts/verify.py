@@ -48,6 +48,7 @@ def package_check() -> None:
                 str(python),
                 "install",
                 "--no-cache-dir",
+                "--force-reinstall",
                 str(wheel),
             ]
         )

@@ -32,6 +32,7 @@ from voicecart.domain import (
     require_text,
 )
 from voicecart.sessions import SessionError, SessionStore, uuid_text
+from voicecart.telemetry import timed
 
 
 class CartError(ValueError):
@@ -350,6 +351,7 @@ class CartService:
         except (DatabaseUnavailable, SessionError):
             pass  # Leave prepared identity for explicit recovery; never allocate a replacement.
 
+    @timed("cart.add_verify")
     def add(
         self, command: AddCommand, *, cancelled: threading.Event | None = None
     ) -> Receipt:

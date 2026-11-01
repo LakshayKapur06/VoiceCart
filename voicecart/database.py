@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import ipaddress
 import os
+import threading
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -29,6 +30,7 @@ from voicecart.domain import (
 )
 from voicecart.embeddings import OllamaEncoder, vector_literal
 from voicecart.ingestion import CatalogueImport, content_hash, search_document
+from voicecart.telemetry import span, timed
 
 
 class DatabaseUnavailable(RuntimeError):
@@ -72,6 +74,10 @@ def parse_local_dsn(dsn: str) -> dict[str, str]:
 class Database:
     def __init__(self, dsn: str):
         self._config = parse_local_dsn(dsn)
+        self._vocabulary_cache: (
+            tuple[tuple[Any, Any], dict[str, dict[str, str]]] | None
+        ) = None
+        self._vocabulary_lock = threading.Lock()
 
     @contextmanager
     def connect(self):
@@ -81,7 +87,10 @@ class Database:
                 connect_timeout=5,
                 options="-c search_path=public -c statement_timeout=10000 -c lock_timeout=3000",
             )
-            with psycopg.connect(**parameters, row_factory=dict_row) as connection:
+            with (
+                span("database.transaction"),
+                psycopg.connect(**parameters, row_factory=dict_row) as connection,
+            ):
                 yield connection
         except (
             psycopg.errors.SerializationFailure,
@@ -135,6 +144,7 @@ class Database:
                     "pgvector extension is unavailable; run explicit migrations"
                 )
 
+    @timed("database.inspect")
     def inspect(self) -> dict:
         with self.connect() as connection:
             connection.execute(
@@ -202,6 +212,7 @@ class Database:
         items = tuple(CatalogueItem(products[v.product_id], v) for v in variants)
         return Snapshot(state, catalogue, items)
 
+    @timed("database.snapshot")
     def snapshot(self) -> Snapshot:
         with self.connect() as connection:
             connection.execute(
@@ -209,21 +220,38 @@ class Database:
             )
             return self.snapshot_in(connection)
 
+    @timed("database.vocabulary")
     def vocabulary(self) -> dict[str, dict[str, str]]:
-        snapshot = self.snapshot()
-        result: dict[str, dict[str, str]] = {"category": {}, "colour": {}, "size": {}}
-        for item in snapshot.items:
-            for name, value in (
-                ("category", item.product.category),
-                ("colour", item.variant.colour),
-                ("size", item.variant.size),
+        with self.connect() as connection:
+            connection.execute(
+                "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY"
+            )
+            state = connection.execute(
+                "SELECT revision,published_at,aliases FROM catalogue_state WHERE singleton=true"
+            ).fetchone()
+            key = (state["revision"], state["published_at"])
+            with self._vocabulary_lock:
+                if self._vocabulary_cache and self._vocabulary_cache[0] == key:
+                    return {
+                        name: dict(values)
+                        for name, values in self._vocabulary_cache[1].items()
+                    }
+            result: dict[str, dict[str, str]] = {
+                "category": {},
+                "colour": {},
+                "size": {},
+            }
+            for row in connection.execute(
+                "SELECT DISTINCT 'category' AS field,category AS value FROM products WHERE category IS NOT NULL UNION SELECT DISTINCT 'colour',colour FROM variants WHERE colour IS NOT NULL UNION SELECT DISTINCT 'size',size FROM variants WHERE size IS NOT NULL"
             ):
-                if value:
-                    result[name][value.casefold()] = value
-        for name, aliases in snapshot.state["aliases"].items():
-            result[name].update(aliases)
-        return result
+                result[row["field"]][row["value"].casefold()] = row["value"]
+            for name, aliases in state["aliases"].items():
+                result[name].update(aliases)
+        with self._vocabulary_lock:
+            self._vocabulary_cache = key, result
+        return {name: dict(values) for name, values in result.items()}
 
+    @timed("database.publish")
     def publish(
         self, bundle: CatalogueImport, *, encoder: OllamaEncoder | None = None
     ) -> str:

@@ -23,6 +23,7 @@ from voicecart.domain import (
 from voicecart.embeddings import OllamaEncoder, vector_literal
 from voicecart.local_http import LocalServiceError
 from voicecart.ranking import RankingPolicy, rank_qualified
+from voicecart.telemetry import timed
 
 STOP_WORDS = set(
     "cheap affordable inexpensive budget a an the me my please find show search for and or to in of with good best cheapest lowest price least expensive under below less than at most up no more not add put it them cart rupee rupees inr rs each per unit item total altogether combined".split()
@@ -52,6 +53,7 @@ class PostgresCatalogue:
     def lookup(self, identifier):
         return self.database.snapshot().catalogue.lookup(identifier)
 
+    @timed("search.total")
     def search(
         self, request: SearchRequest, *, ranking_policy: RankingPolicy | None = None
     ) -> SearchResult:
@@ -112,11 +114,10 @@ class PostgresCatalogue:
                     dense = {
                         row["variant_id"]: float(row["similarity"])
                         for row in connection.execute(
-                            "SELECT variant_id,1-(embedding <=> %s::vector) AS similarity FROM variant_search WHERE generation=%s ORDER BY embedding <=> %s::vector,variant_id",
+                            "SELECT variant_id,1-(embedding <=> %s::vector) AS similarity FROM variant_search WHERE generation=%s",
                             (
                                 vector_literal(vector),
                                 self.encoder.spec.generation,
-                                vector_literal(vector),
                             ),
                         )
                     }

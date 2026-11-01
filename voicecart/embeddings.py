@@ -9,6 +9,7 @@ from dataclasses import dataclass
 
 from voicecart.domain import require_integer
 from voicecart.local_http import LocalJSONClient, LocalServiceError, verify_model
+from voicecart.telemetry import timed
 
 
 def validate_vector(values, dimensions: int) -> tuple[float, ...]:
@@ -55,6 +56,7 @@ class OllamaEncoder:
     def __init__(self, client: LocalJSONClient, spec: EncoderSpec):
         self.client, self.spec = client, spec
 
+    @timed("embedding.encode")
     def encode(
         self, texts: list[str], *, query: bool = False
     ) -> list[tuple[float, ...]]:

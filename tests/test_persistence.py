@@ -131,6 +131,16 @@ class PostgreSQLIntegrationTests(unittest.TestCase):
             self.database.vocabulary()["category"]["backpacks"], "backpack"
         )
 
+    def test_vocabulary_cache_copies_and_publication_invalidation(self):
+        self.publish()
+        first = self.database.vocabulary()
+        first["category"]["injected"] = "wrong"
+        self.assertNotIn("injected", self.database.vocabulary()["category"])
+        raw = fabricated_document("fixture-2", "fixture-1")
+        raw["products"][0]["category"] = "new-category"
+        self.publish(raw)
+        self.assertIn("new-category", self.database.vocabulary()["category"])
+
     def test_full_replace_and_stale_job_compare_and_set(self):
         self.publish()
         raw = fabricated_document("fixture-2", "fixture-1")

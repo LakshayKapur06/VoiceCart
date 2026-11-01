@@ -24,6 +24,7 @@ from voicecart.local_http import (
     strict_json,
     verify_model,
 )
+from voicecart.telemetry import timed
 
 
 class InterpretationError(ValueError):
@@ -236,6 +237,7 @@ def check_shape(value, schema: dict) -> None:
         raise InterpretationError("Extraction field is too long")
 
 
+@timed("nlu.validation")
 def validate_interpretation(
     raw: dict, transcript: str, vocabulary: dict[str, dict[str, str]], *, currency="INR"
 ) -> Intent:
@@ -466,6 +468,7 @@ Example for the clear request 'find anything' with no matching vocabulary:
 """
 
 
+@timed("nlu.schema")
 def extraction_schema(transcript: str, vocabulary: dict[str, dict[str, str]]) -> dict:
     """Constrain literal evidence at decoding; still independently validate output.
 
@@ -518,6 +521,7 @@ class OllamaInterpreter:
         require_text(model, "model")
         self.client, self.model, self.digest = client, model, digest
 
+    @timed("nlu.total")
     def interpret(
         self, transcript: str, vocabulary: dict[str, dict[str, str]]
     ) -> Intent:
