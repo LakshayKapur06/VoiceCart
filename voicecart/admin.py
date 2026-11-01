@@ -127,7 +127,7 @@ def admin(handler, tenant, resource):
                 {"error": "Catalogue validation failed", "issues": list(error.issues)},
             )
         try:
-            revision = app.database.publish(bundle, encoder=app.catalogue.encoder)
+            revision = web.adapters[tenant].synchronize(bundle)
         except PublicationConflict:
             return handler.reply(
                 400,

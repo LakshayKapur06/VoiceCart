@@ -3,6 +3,7 @@
 import os
 import re
 import unittest
+from contextlib import contextmanager
 from pathlib import Path
 
 from voicecart.database import Database, parse_local_dsn
@@ -91,3 +92,28 @@ def fabricated_document(revision="fixture-1", previous="unpopulated"):
         ],
         "aliases": {"category": {"backpacks": "backpack"}},
     }
+
+
+@contextmanager
+def isolated_peer_database():
+    """Only create a peer on the already validated runner-owned test server."""
+    import uuid
+
+    from psycopg import sql
+    from psycopg.conninfo import make_conninfo
+
+    base = isolated_database()
+    name = "vc_peer_" + uuid.uuid4().hex[:16]
+    with base.connect() as connection:
+        connection.autocommit = True
+        connection.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(name)))
+    peer = Database(make_conninfo(os.environ["VOICECART_TEST_DSN"], dbname=name))
+    try:
+        peer.migrate()
+        yield peer
+    finally:
+        with base.connect() as connection:
+            connection.autocommit = True
+            connection.execute(
+                sql.SQL("DROP DATABASE {} WITH (FORCE)").format(sql.Identifier(name))
+            )

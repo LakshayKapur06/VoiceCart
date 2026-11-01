@@ -22,6 +22,7 @@ from voicecart.domain import require_currency
 from voicecart.events import EventStore
 from voicecart.http_security import AccessDenied, Capabilities, RateLimiter, tenant_id
 from voicecart.local_http import strict_json
+from voicecart.merchant import LocalMerchantAdapter
 from voicecart.settings import Settings
 from voicecart.telemetry import measurements
 
@@ -45,6 +46,7 @@ class WebApplication:
         self.limiter = RateLimiter()
         self.merchants = merchants
         self.apps = {}
+        self.adapters = {}
         self.speech_lock = threading.Lock()
         self.recognizers: dict[str, Any] = {}
         self.synthesizers: dict[str, Any] = {}
@@ -66,6 +68,7 @@ class WebApplication:
             used.add(identity)
             database.check_ready()
             self.apps[name] = app
+            self.adapters[name] = LocalMerchantAdapter(app)
 
     @classmethod
     def from_env(cls):

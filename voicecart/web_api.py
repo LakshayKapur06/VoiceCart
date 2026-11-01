@@ -11,16 +11,7 @@ from dataclasses import asdict
 from urllib.parse import urlsplit
 
 from voicecart.application import Response
-from voicecart.browse import CatalogueBrowser
-from voicecart.cart import AddCommand, CartError, OutcomeUnknown
-from voicecart.cart_management import CartManagement
-from voicecart.domain import (
-    ExactIdentifier,
-    HardConstraints,
-    IdentifierKind,
-    RetrievalRoute,
-    SearchRequest,
-)
+from voicecart.cart import CartError, OutcomeUnknown
 from voicecart.http_security import AccessDenied
 from voicecart.sessions import SessionError, uuid_text
 from voicecart.voice import PiperSynthesizer, WhisperRecognizer
@@ -92,7 +83,7 @@ def customer(handler, tenant, resource):
             headers=cookie(handler, tenant, "customer", identity),
         )
     identity = session(handler, tenant)
-    management = CartManagement(app.database)
+    adapter = web.adapters[tenant]
     operation = None
     try:
         if resource == "search" and method == "POST":
@@ -104,7 +95,7 @@ def customer(handler, tenant, resource):
                         "error": "Resolve the original pending operation before a new search."
                     },
                 )
-            result = CatalogueBrowser(app.database).search(
+            result = adapter.search(
                 body.get("query", ""),
                 brand=body.get("brand", ""),
                 category=body.get("category", ""),
@@ -173,7 +164,7 @@ def customer(handler, tenant, resource):
                 )
             return handler.reply(200, {"operations": rows})
         if resource == "cart" and method == "GET":
-            return handler.reply(200, management.overview(identity))
+            return handler.reply(200, adapter.cart(identity))
         if resource == "cart/add" and method == "POST":
             body = handler.body()
             operation = uuid_text(body["operation_id"])
@@ -181,49 +172,23 @@ def customer(handler, tenant, resource):
             quantity = body.get("quantity", 1)
             if type(quantity) is not int or not 1 <= quantity <= 99:
                 raise ValueError("Quantity 1–99 required")
-            try:
-                command = app.cart.load_command(identity, operation)
-                if (
-                    command.variant_id,
-                    command.request.constraints.currency,
-                    command.request.constraints.quantity,
-                    command.expected_revision,
-                    command.expected_unit_price_minor,
-                ) != (
-                    body["variant_id"],
-                    body["currency"],
-                    quantity,
-                    body["revision"],
-                    body["unit_price_minor"],
-                ):
-                    raise CartError("operation_identity_conflict")
-            except CartError as error:
-                if error.code != "unknown_operation":
-                    raise
-                turn = app.begin(identity)
-                request = SearchRequest(
-                    HardConstraints(body["currency"], quantity=quantity),
-                    RetrievalRoute.EXACT,
-                    ExactIdentifier(IdentifierKind.VARIANT_ID, body["variant_id"]),
-                )
-                command = AddCommand(
-                    identity,
-                    turn,
-                    operation,
-                    "exact",
-                    request,
-                    body["variant_id"],
-                    body["revision"],
-                    body["unit_price_minor"],
-                )
-                app.cart.prepare(command)
-            receipt = app.cart.add(command)
-            response = app.confirmed_receipt(identity, command.turn_id, receipt)
+            from voicecart.merchant import AddIntent
+
+            intent = AddIntent(
+                operation,
+                body["variant_id"],
+                quantity,
+                body["currency"],
+                body["revision"],
+                body["unit_price_minor"],
+            )
+            receipt = adapter.add(identity, intent)
+            response = app.confirmed_receipt(identity, receipt.turn_id, receipt)
             return handler.reply(200, asdict(response))
         if resource == "cart/quantity" and method == "POST":
             body = handler.body()
             operation = body["operation_id"]
-            receipt = management.set_quantity(
+            receipt = adapter.set_quantity(
                 identity,
                 operation,
                 body["variant_id"],
@@ -233,7 +198,7 @@ def customer(handler, tenant, resource):
             return handler.reply(200, receipt)
         if resource == "cart/retry" and method == "POST":
             operation = handler.body()["operation_id"]
-            receipt = management.receipt(identity, operation)
+            receipt = adapter.management.receipt(identity, operation)
             if receipt:
                 return handler.reply(200, receipt)
             return handler.reply(200, asdict(app.retry(identity, operation)))
@@ -314,7 +279,11 @@ def dispatch(handler):
     tenant = parts[1]
     if tenant not in handler.server.application.apps:
         raise AccessDenied("Unknown merchant")
-    if parts[2] == "admin":
+    if parts[2] == "merchant":
+        from voicecart.merchant_api import merchant
+
+        merchant(handler, tenant, "/".join(parts[3:]))
+    elif parts[2] == "admin":
         from voicecart.admin import admin
 
         admin(handler, tenant, "/".join(parts[3:]))
