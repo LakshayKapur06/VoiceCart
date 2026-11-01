@@ -48,6 +48,13 @@ class Settings:
             raise ConfigurationError(
                 "Set VOICECART_DATABASE_URL to your explicit local PostgreSQL database. No catalogue is automatically loaded."
             )
+        password_file = os.environ.get("VOICECART_DATABASE_PASSWORD_FILE")
+        if password_file:
+            from psycopg.conninfo import make_conninfo
+
+            database = make_conninfo(
+                database, password=Path(password_file).read_text().strip()
+            )
         model, digest = (
             os.environ.get("VOICECART_NLU_MODEL"),
             os.environ.get("VOICECART_NLU_DIGEST"),

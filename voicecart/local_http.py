@@ -10,6 +10,7 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
+from voicecart.network import trusted_hosts
 from voicecart.telemetry import inference_metrics, timed
 
 
@@ -49,6 +50,7 @@ class LocalJSONClient:
         try:
             loopback = (
                 parsed.hostname == "localhost"
+                or parsed.hostname in trusted_hosts("INFERENCE")
                 or ipaddress.ip_address(parsed.hostname or "").is_loopback
             )
         except ValueError:

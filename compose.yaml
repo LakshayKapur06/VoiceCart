@@ -1,0 +1,54 @@
+name: voicecart
+services:
+  db:
+    image: pgvector/pgvector:0.8.1-pg16@sha256:33198da2828a14c30348d2ccb4750833d5ed9a44c88d840a0e523d7417120337
+    environment:
+      POSTGRES_USER: voicecart
+      POSTGRES_DB: voicecart
+      POSTGRES_PASSWORD_FILE: /run/secrets/database_password
+    secrets: [database_password]
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U voicecart -d voicecart]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    build: .
+    command: [python, -m, voicecart, init-db]
+    environment: &backend_environment
+      VOICECART_DATABASE_URL: postgresql://voicecart@db/voicecart
+      VOICECART_DATABASE_PASSWORD_FILE: /run/secrets/database_password
+      VOICECART_TRUSTED_DATABASE_HOSTS: db
+      VOICECART_TRUSTED_INFERENCE_HOSTS: host.docker.internal
+      VOICECART_OLLAMA_URL: http://host.docker.internal:11434
+      VOICECART_HTTP_SECRET_FILE: /run/secrets/http_secret
+      VOICECART_ADMIN_TOKEN_FILE: /run/secrets/admin_token
+      VOICECART_PUBLIC_ORIGIN: http://localhost:8080
+      VOICECART_INFERENCE_TIMEOUT: '120'
+    secrets: [database_password, http_secret, admin_token]
+    depends_on:
+      db: {condition: service_healthy}
+  backend:
+    build: .
+    environment: *backend_environment
+    secrets: [database_password, http_secret, admin_token]
+    ports: ['127.0.0.1:8080:8080']
+    extra_hosts: ['host.docker.internal:host-gateway']
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+volumes:
+  postgres_data:
+secrets:
+  database_password: {file: .secrets/database_password}
+  http_secret: {file: .secrets/http_secret}
+  admin_token: {file: .secrets/admin_token}

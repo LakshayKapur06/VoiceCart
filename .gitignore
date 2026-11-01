@@ -25,3 +25,7 @@ htmlcov/
 data/
 catalogues/
 backups/
+.secrets/
+node_modules/
+playwright-report/
+test-results/

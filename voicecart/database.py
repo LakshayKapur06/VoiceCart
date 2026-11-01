@@ -30,6 +30,7 @@ from voicecart.domain import (
 )
 from voicecart.embeddings import OllamaEncoder, vector_literal
 from voicecart.ingestion import CatalogueImport, content_hash, search_document
+from voicecart.network import trusted_hosts
 from voicecart.telemetry import span, timed
 
 
@@ -59,7 +60,12 @@ def parse_local_dsn(dsn: str) -> dict[str, str]:
         if "," in host or os.environ.get("PGHOSTADDR") or os.environ.get("PGSERVICE"):
             raise ValueError("Ambiguous PostgreSQL host or service configuration")
         config["host"] = host or "127.0.0.1"
-        local = not host or host.startswith("/") or host == "localhost"
+        local = (
+            not host
+            or host.startswith("/")
+            or host == "localhost"
+            or host in trusted_hosts("DATABASE")
+        )
         if not local:
             local = ipaddress.ip_address(host).is_loopback
         if not local or "hostaddr" in config or config.get("service"):
