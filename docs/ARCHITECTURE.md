@@ -53,3 +53,23 @@ Keep the exact Qwen3-4B-Instruct-2507 reference until held-out shopping extracti
 | D13 | Pilot-derived relevance/task-completion floors and held-out sample sizes need owner/user error-cost judgments. |
 | D14 | Separate cheapest role alongside overall relevance implemented; owner/user presentation/comprehension acceptance pending. |
 | D15 | PostgreSQL reference selected for consistency; embedded/dedicated equal-recall resource comparison remains open. |
+
+## Continuation architecture — 2 November 2026
+
+The core decisions above remain. Historical source metadata/import history, target-quantity receipts and minimal actual events extend the schema through migrations004–006; startup checks every packaged migration hash. The HTTP boundary serves packaged customer/admin HTML and delegates writes to the same local merchant adapter/cart transactions. Registered final turn IDs and cancellation fences prevent delayed finals or superseded browser responses from restarting instructions. Recent operation history includes both add and quantity receipts for recovery.
+
+```mermaid
+flowchart LR
+ Browser[Customer and admin clients] --> HTTP[Bounded same-origin API / role and tenant guards]
+ SDK[Merchant server JS and TS SDK] --> HTTP
+ HTTP --> Adapter[Local merchant adapter]
+ HTTP --> Core[Existing application / NLU validation / sessions]
+ Core --> Adapter
+ Adapter --> SQL[(Dedicated PostgreSQL per merchant)]
+ Historical[Hash-pinned historical metadata] --> Import[Validated full snapshot / generation-pinned embeddings]
+ Import --> SQL
+ SQL --> Receipt[Immutable receipt / exact retry]
+ HTTP --> Events[Actual numeric events / scoped admin aggregates]
+```
+
+Historical read-only discovery preserves unknown offers; current commerce qualification remains strict. Exact semantic scores are optional and generation guarded; no calibrated relevance claim follows from their existence. A compact256-UTF8-byte derived model-input profile is opt-in and leaves raw source/FTS text intact. See [ADR-002](decisions/0002-historical-discovery.md). One physical database per tenant, signed role-scoped capabilities and a server-side SDK form the implemented isolation boundary. Managed operation and external platform adapters are architecture extensions, not running integrations. [API](API.md), [merchant contract](MERCHANT_SDK.md) and the [current audit](ARCHITECTURE_AUDIT.md) define the implemented interfaces and remaining gates.

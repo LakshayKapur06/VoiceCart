@@ -2598,18 +2598,31 @@
     "file": "voicecart/database.py",
     "function": "Database.check_ready",
     "start_line": 140,
-    "end_line": 151,
-    "nodes": 9,
-    "edges": 9,
+    "end_line": 170,
+    "nodes": 14,
+    "edges": 17,
     "components": 1,
-    "edge_node_complexity": 2,
-    "predicate_equivalents": 1,
-    "predicate_complexity": 2,
+    "edge_node_complexity": 5,
+    "predicate_equivalents": 4,
+    "predicate_complexity": 5,
     "planar": true,
-    "region_count": 2,
+    "region_count": 5,
     "basis_paths": [
       [
         1,
+        14,
+        13,
+        9,
+        12,
+        11,
+        10,
+        4,
+        0
+      ],
+      [
+        1,
+        14,
+        13,
         9,
         8,
         7,
@@ -2619,6 +2632,8 @@
       ],
       [
         1,
+        14,
+        13,
         9,
         8,
         7,
@@ -2626,9 +2641,36 @@
         5,
         4,
         0
+      ],
+      [
+        1,
+        14,
+        13,
+        9,
+        12,
+        11,
+        9,
+        12,
+        11,
+        10,
+        4,
+        0
+      ],
+      [
+        1,
+        14,
+        13,
+        9,
+        12,
+        9,
+        12,
+        11,
+        10,
+        4,
+        0
       ]
     ],
-    "basis_rank": 2,
+    "basis_rank": 5,
     "basis_execution": "Not inferred; concrete source tests/coverage are separate",
     "nodes_detail": {
       "0": {
@@ -2649,21 +2691,41 @@
       },
       "5": {
         "label": "raise DatabaseUnavailable('pgvector extension is unavailable; run explicit migrations')",
-        "line": 149
+        "line": 168
       },
       "6": {
         "label": "test extension",
-        "line": 148
+        "line": 167
       },
       "7": {
         "label": "extension = connection.execute(\"SELECT extversion FROM pg_extension WHERE extname='vector'\").fetchone()",
-        "line": 145
+        "line": 164
       },
       "8": {
         "label": "connection.execute('SELECT revision FROM catalogue_state WHERE singleton=true').fetchone()",
-        "line": 142
+        "line": 161
       },
       "9": {
+        "label": "loop next migration from resources.files('voicecart').joinpath('migrations').iterdir()",
+        "line": 148
+      },
+      "10": {
+        "label": "raise DatabaseUnavailable('Schema requires explicit checksummed migrations; run init-db')",
+        "line": 158
+      },
+      "11": {
+        "label": "test applied.get(migration.name) != hashlib.sha256(migration.read_text(encoding='utf-8').encode()).hexdigest()",
+        "line": 153
+      },
+      "12": {
+        "label": "test migration.name.endswith('.sql')",
+        "line": 152
+      },
+      "13": {
+        "label": "applied = {row['version']: row['sha256'] for row in connection.execute('SELECT version,sha256 FROM schema_migrations')}",
+        "line": 142
+      },
+      "14": {
         "label": "context enter self.connect()",
         "line": 141
       }
@@ -2671,7 +2733,7 @@
     "edges_detail": [
       [
         1,
-        9,
+        14,
         ""
       ],
       [
@@ -2711,7 +2773,47 @@
       ],
       [
         9,
+        12,
+        "iteration"
+      ],
+      [
+        9,
         8,
+        "done"
+      ],
+      [
+        10,
+        4,
+        ""
+      ],
+      [
+        11,
+        10,
+        "T"
+      ],
+      [
+        11,
+        9,
+        "F"
+      ],
+      [
+        12,
+        11,
+        "T"
+      ],
+      [
+        12,
+        9,
+        "F"
+      ],
+      [
+        13,
+        9,
+        ""
+      ],
+      [
+        14,
+        13,
         ""
       ]
     ]

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "voicecart"
-version = "0.1.0"
-description = "Deterministic catalogue foundation for a local voice shopping assistant"
+version = "0.2.0"
+description = "Local accessible shopping, grounded discovery and verified cart operations"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = ["psycopg[binary]==3.3.6"]

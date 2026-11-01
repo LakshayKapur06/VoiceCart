@@ -139,6 +139,25 @@ class Database:
 
     def check_ready(self) -> None:
         with self.connect() as connection:
+            applied = {
+                row["version"]: row["sha256"]
+                for row in connection.execute(
+                    "SELECT version,sha256 FROM schema_migrations"
+                )
+            }
+            for migration in (
+                resources.files("voicecart").joinpath("migrations").iterdir()
+            ):
+                if (
+                    migration.name.endswith(".sql")
+                    and applied.get(migration.name)
+                    != hashlib.sha256(
+                        migration.read_text(encoding="utf-8").encode()
+                    ).hexdigest()
+                ):
+                    raise DatabaseUnavailable(
+                        "Schema requires explicit checksummed migrations; run init-db"
+                    )
             connection.execute(
                 "SELECT revision FROM catalogue_state WHERE singleton=true"
             ).fetchone()

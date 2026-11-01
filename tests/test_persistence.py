@@ -141,6 +141,24 @@ class PostgreSQLIntegrationTests(unittest.TestCase):
         self.publish(raw)
         self.assertIn("new-category", self.database.vocabulary()["category"])
 
+    def test_readiness_rejects_missing_current_migration_marker(self):
+        from voicecart.database import DatabaseUnavailable
+
+        with self.database.connect() as connection:
+            row = connection.execute(
+                "DELETE FROM schema_migrations WHERE version='006_events.sql' RETURNING version,sha256"
+            ).fetchone()
+        try:
+            with self.assertRaises(DatabaseUnavailable):
+                self.database.check_ready()
+        finally:
+            with self.database.connect() as connection:
+                connection.execute(
+                    "INSERT INTO schema_migrations(version,sha256) VALUES (%s,%s)",
+                    (row["version"], row["sha256"]),
+                )
+        self.database.check_ready()
+
     def test_full_replace_and_stale_job_compare_and_set(self):
         self.publish()
         raw = fabricated_document("fixture-2", "fixture-1")

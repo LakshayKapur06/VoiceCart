@@ -10,6 +10,7 @@ from dataclasses import asdict
 from urllib.parse import urlsplit
 
 from voicecart.application import Response
+from voicecart.audio import Transcript, TranscriptKind
 from voicecart.cart import CartError, OutcomeUnknown
 from voicecart.http_security import AccessDenied
 from voicecart.nlu import BOUND, rupees_to_minor
@@ -86,6 +87,15 @@ def customer(handler, tenant, resource):
     adapter = web.adapters[tenant]
     operation = None
     try:
+        if resource == "turns" and method == "POST":
+            if app.cart.pending(identity):
+                return handler.reply(
+                    409,
+                    {
+                        "error": "Resolve the original pending operation before a new turn."
+                    },
+                )
+            return handler.reply(201, {"turn_id": app.begin(identity)})
         if resource == "search" and method == "POST":
             body = handler.body()
             if app.cart.pending(identity):
@@ -115,6 +125,15 @@ def customer(handler, tenant, resource):
                             "error": "Match the price in your words using the maximum-price and boundary controls, or select Shopping assistant. Price instructions are not silently ignored."
                         },
                     )
+            turn = (
+                uuid_text(body["turn_id"])
+                if body.get("turn_id")
+                else app.begin(identity)
+            )
+            if not app.sessions.is_active(identity, turn):
+                return handler.reply(
+                    409, {"error": "Search cancelled; start a new turn."}
+                )
             result = adapter.search(
                 body.get("query", ""),
                 brand=body.get("brand", ""),
@@ -148,7 +167,10 @@ def customer(handler, tenant, resource):
                         "variant_semantics",
                     )
                 }
-            turn = app.begin(identity)
+            if not app.sessions.is_active(identity, turn):
+                return handler.reply(
+                    409, {"error": "Search cancelled; no result was published."}
+                )
             message = f"Found {result['total']} matching imported records. Prices and availability are labelled; historical data cannot authorize a cart add."
             app.remember(Response("results", message, identity, turn))
             return handler.reply(200, {**result, "message": message})
@@ -159,7 +181,15 @@ def customer(handler, tenant, resource):
                 or not 1 <= len(body["text"]) <= 4000
             ):
                 raise ValueError("Invalid text")
-            return handler.reply(200, asdict(app.text(identity, body["text"])))
+            turn = uuid_text(body["turn_id"])
+            return handler.reply(
+                200,
+                asdict(
+                    app.final(
+                        identity, Transcript(TranscriptKind.FINAL, body["text"], turn)
+                    )
+                ),
+            )
         if resource == "cancel" and method == "POST":
             return handler.reply(200, asdict(app.cancel(identity)))
         if resource == "repeat" and method == "POST":
@@ -178,8 +208,8 @@ def customer(handler, tenant, resource):
             with app.database.connect() as connection:
                 rows = list(
                     connection.execute(
-                        "SELECT operation_id,status,created_at FROM commands WHERE session_id=%s ORDER BY created_at DESC LIMIT 10",
-                        (identity,),
+                        "SELECT operation_id,status,created_at FROM commands WHERE session_id=%s UNION ALL SELECT operation_id,'committed',committed_at AS created_at FROM cart_adjustments WHERE session_id=%s ORDER BY created_at DESC LIMIT 10",
+                        (identity, identity),
                     )
                 )
             return handler.reply(200, {"operations": rows})

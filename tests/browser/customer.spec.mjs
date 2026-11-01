@@ -1,6 +1,17 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+test('cancel fences a delayed search response from the visible results',async({page})=>{
+ await page.goto('/');await expect(page.getByRole('status')).toContainText('Found');
+ let release,arrived;const requested=new Promise(resolve=>arrived=resolve);
+ await page.route('**/search',async route=>{arrived();await new Promise(resolve=>release=resolve);try{await route.fulfill({json:{items:[],total:999,coverage:'STALE',message:'STALE RESULT'}});}catch{}});
+ await page.getByRole('button',{name:'Find products'}).click();await requested;
+ await page.getByRole('button',{name:'Cancel / stop',exact:true}).click();release();
+ await expect(page.getByRole('status')).toContainText('Stopped');
+ await expect(page.locator('#result-summary')).not.toContainText('999');
+ await expect(page.getByRole('status')).not.toContainText('STALE');
+});
+
 test('customer search, details, add, quantity, remove and reload recovery',async({page})=>{
  await page.goto('/');
  await expect(page.getByRole('heading',{name:'Products to explore'})).toBeVisible();
@@ -54,5 +65,8 @@ test('scripted-capture/ASR review and late-transcript cancellation never add',as
  await page.route('**/transcribe',async route=>{arrived();await new Promise(resolve=>release=resolve);try{await route.fulfill({json:{text:'STALE TEST TRANSCRIPT'}});}catch{}});
  await page.getByRole('button',{name:'Start voice input',exact:true}).click();await expect(page.getByRole('button',{name:'End voice input'})).toBeVisible();await page.waitForTimeout(200);await page.getByRole('button',{name:'End voice input'}).click();await requested;
  await page.getByRole('button',{name:'Cancel / stop',exact:true}).click();release();await page.waitForTimeout(200);
- await expect(page.locator('#review')).toBeHidden();await expect(page.locator('#cart-count')).toHaveText('0');await context.close();
+ await expect(page.locator('#review')).toBeHidden();await expect(page.locator('#cart-count')).toHaveText('0');
+ await page.unroute('**/transcribe');await page.route('**/transcribe',route=>route.fulfill({status:503,json:{error:'TEST ASR unavailable; use text.'}}));
+ await page.getByRole('button',{name:'Start voice input',exact:true}).click();await expect(page.getByRole('button',{name:'End voice input'})).toBeVisible();await page.waitForTimeout(200);await page.getByRole('button',{name:'End voice input'}).click();await expect(page.locator('#error')).toContainText('TEST ASR unavailable');
+ await context.close();
 });

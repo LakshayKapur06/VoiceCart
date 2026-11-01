@@ -1,84 +1,162 @@
-# VoiceCart operational handoff
+# VoiceCart engineering handoff — 2 November 2026
 
-29 October 2026. Engineering implementation is runnable; release acceptance remains conditional on owner data, device/language/accessibility and quality decisions. Scope is search plus a local session cart, with no checkout, payment, order tracking or merchant write integration.
+Version0.2.0 continuation of the existing project. Engineering implementation and the tests listed below are complete; product release acceptance is conditional on the explicit quality, environment, device, user and rights gates. This report supersedes the29 October operational summary; historical sprint/model evidence remains in Git and docs/evidence.
 
-## Implementation and evidence
+## 1. Executive summary
 
-Completed modules: validated domain/money/coverage; loopback Ollama NLU with independently checked literal evidence; full-snapshot ingestion and checksummed migrations; real PostgreSQL FTS/pgvector exact retrieval; separate relevance and minimum roles; persistent sessions/presented lists; atomic idempotent cart/immutable receipts; console orchestration; real optional CPU Whisper/Piper/sounddevice adapters; explicit error/stop/repeat/retry and text equivalents.
+VoiceCart now has real customer/admin browser clients, a bounded authenticated HTTP API, historical Amazon metadata ingestion with provenance, optional lexical/exact-vector discovery, transactional cart quantity/removal/recovery, actual-event analytics and a shared local merchant adapter with a server-side JavaScript/TypeScript SDK. Existing PostgreSQL/pgvector, Ollama, Whisper/Piper and deterministic core were preserved. No checkout, live Amazon inventory, external platform adapter or operated cloud service is claimed.
 
-Confirmed defects fixed include unsafe/missing final-turn boundaries, misleading audio delivery/latency accounting, unspoken error-path assumptions, incomplete SQL/search/cart/entry-point integration, dropped/malformed model slots, action substrings masquerading as evidence, expired in-memory session retention, native stop blocking and missing semantic scores beyond the dense top-50. Regression evidence is in tests and [Sprint 7](docs/evidence/SPRINT_7.md). This does not establish absence of all possible bugs.
+Final verification: **193 source tests +193 fresh installed-wheel tests**, five Chromium browser tests, two actual local Node SDK tests and strict TS declaration checks passed. Measured Python statement coverage80.90%, branch coverage68.92%. Actual local speech HTTP, real historical catalogue browsing and semantic publication/query were exercised separately. Model quality and audible latency remain material limits.
 
-Final automated command: `python scripts/verify.py --postgres --package --audit`: **159 source tests + 159 fresh installed-wheel tests**, real isolated SQL/publication/concurrency/cart/retry/restore/CLI cases, compilation, Ruff lint/format, configured production mypy, Bandit, pip check, diff checks and advisory scan. No known advisory found in audited installed dependencies; editable source is separately checked. Foundation/audio/HTTP/device fault tests include explicitly scripted adapters; they are not model quality or hardware acceptance.
+## 2. Initial audit findings and resolution
 
-Actual local model evidence: [speech file smoke](docs/evidence/MODEL_SMOKE.json), [NLU reference/challenger](docs/evidence/NLU_SMOKE.json) and [full model system smoke](docs/evidence/FULL_MODEL_SMOKE.json). These use synthetic development requests and guarded fabricated test records only. They do not represent a real catalogue or held-out accuracy benchmark. Initial extraction failures were safely rejected; prompt/literal decoding was repaired rather than weakening semantic validation. Qwen4B remains reference; a faster challenger is not promoted merely for speed.
+The archive auditor's missing psycopg and global moviepy/Pillow conflict were environmental: a dedicated declared-dependency environment reproduced159+159 baseline tests, real isolated SQL, package/static/security/advisory checks. No global environment repair was needed. The absent .git in the archive was not a repository defect; this checkout has ordinary sprint history and the configured GitHub remote.
 
-No microphone/speaker/acoustic-onset, representative blind/low-vision study or Hindi/Hinglish acceptance was completed. The integrated cold/model-switch run took 59.1698 seconds in interpretation/validation/search/commit; ASR took 1.3044 seconds and confirmation synthesis 1.0752 seconds. Model residency/contention needs diagnosis on the approved deployment. Actual file-stage timings do not satisfy the under-1.5-second goal. The owner must define the workload/percentile and measure full meaningful audible output with cold/warm runs, failure/timeout counts, sample sizes and actual device configurations. Exact exhaustive retrieval is correct for the declared scorer/fixtures, not proof of universally best human relevance or production capacity.
+Confirmed gaps were unbroken59.17-second application timing, full-catalogue vocabulary hydration, unnecessary dense SQL ordering, no web/admin/merchant/Compose surfaces, increment-only cart and no historical source workflow. Added instrumentation and revision-keyed defensive vocabulary copies, retained complete dense score coverage, and delivered the missing boundaries. No pooling/model replacement was justified by the observations. Final review also fixed delayed final/cancel handling, stale browser response publication, schema readiness against all packaged migrations and recovery visibility for quantity operations. Full details: [audit](docs/ARCHITECTURE_AUDIT.md) and [performance](HANDOFF_PERFORMANCE.md).
 
-## Setup and operation
+## 3. Current architecture and decisions
 
-1. Install Python >=3.11 (verified 3.12.14), maintained patched local PostgreSQL and compatible pgvector. Create a dedicated owner database/role and arrange backups. The old bundled test server is disposable infrastructure only.
-2. From the repository: `python3.12 -m venv .venv`, activate it, then `python -m pip install -e '.[dev,voice]'`. Omit `voice` for text-only use. Review distribution terms before bundling runtimes/weights; the repository has no owner-selected LICENSE.
-3. Copy `.env.example` to ignored `.env`, edit explicit `VOICECART_DATABASE_URL` and provisioned model groups. Load with `set -a; source .env; set +a`. No automatic dotenv loader exists.
-4. Run `voicecart init-db` then `voicecart db-status`. These create/check schema and metadata, never product seeds. Startup does not implicitly migrate.
-5. After real data import, use `voicecart run` or `voicecart run --voice --speak`. Commands: `/listen`, `/end`, `/stop`, `/repeat`, `/ack`, `/retry OPERATION_ID`, `/cart`, `/quit`. Read/ack the full text list before an ordinal selection. Completed primary speech can acknowledge it; fallback/interrupted output cannot.
-6. Retain session/operation IDs. Retry the original ID after uncertainty; never generate a replacement to resolve an unknown outcome. Restart with `voicecart run --session-id ID` only while unexpired. One-hour default sessions and five-minute lists have explicit expiry; old carts/receipts are removed by cleanup. Cart is not a stock reservation.
+One PostgreSQL snapshot/transaction boundary owns source publication, relational eligibility, FTS/pgvector, sessions/cart and immutable receipts. This reduces cross-store consistency/recovery work; it is not a measured speed victory over SQLite/Qdrant. Local models propose schema-constrained intent; independent literal/semantic validation and deterministic Python authorize actions. Unknown facts never become stock/current offers.
 
-Exact artifact sources, SHA-256 values, model digests and setting groups are in [README](README.md#local-inference-and-speech-configuration) and `.env.example`. Provision from those pinned sources separately: English Whisper base.en, LJ Speech medium ONNX/config and local Ollama Qwen4B; embedding is optional and generation-pinned. This host's tested assets are ignored under `.local/artifacts`, runtime under `.local/runtime`, model blobs under `.local/ollama-models`. They are not shipped in Git. The task's private Ollama 11439 process is stopped after tests; restart explicitly if using that profile:
+Customer/admin clients and merchant SDK delegate to the same local adapter/core. Registered final turns, session locks, canonical operation identities, fingerprint checks and fresh-connection receipt verification protect mutation/retry. Cancellation cannot roll back a committed write. Tenant configuration requires distinct physical databases and credentials. Historical discovery is separately labelled and never weakens commerce qualification. No major core replacement occurred. [Architecture](docs/ARCHITECTURE.md), [storage ADR](docs/decisions/0001-reference-storage.md), [historical ADR](docs/decisions/0002-historical-discovery.md).
+
+## 4. Implementation inventory and status
+
+| Component | Status and boundary |
+|---|---|
+| Domain/catalogue/ranking/search | Implemented and verified: integer constraints, complete structured minimum, separate relevance/price roles, exact vector coverage. Human relevance uncalibrated. |
+| Database/ingestion/embeddings | Implemented and verified: six checksummed migrations, CAS full snapshots, provenance, import history, optional generation-pinned vectors. Maintained-server deployment still required. |
+| NLU/local HTTP | Implemented but not fully verified: pinned Qwen, strict validation; actual holdout11/12, safe H05 rejection. |
+| Sessions/application/cart/quantity | Implemented and verified: final-once turns, expiry, reference acknowledgement, atomic idempotency/receipts, target quantity0–99, recovery. Local cart only. |
+| Native/browser audio | Implemented but not fully verified: actual Whisper/Piper file/HTTP inference and scripted capture/fault checks. Physical audio and users Not Run. |
+| HTTP/customer/admin | Implemented and verified in tested native/Chromium states: roles/origins/limits, search/details/cart, CAS management and actual metrics. No certification/whole-browser guarantee. |
+| Merchant adapter/JS/TS SDK | Implemented and verified actual local path; external platform adapters, webhooks and managed operation planned. |
+| Compose | Implemented but not fully verified: configuration/static checks; runtime unavailable. |
+| Telemetry/testing/docs | Implemented and verified to the recorded scope; source CFG/path analysis and coverage do not establish universal path coverage. |
+
+## 5. Eight workstreams
+
+| Workstream | Delivered / remaining |
+|---|---|
+| Audit/performance/hardening | Fresh baseline, structured numeric spans, actual Qwen/resource/load observations, safe optimizations; audio target not met/accepted. |
+| Comprehensive documentation | Expanded README, actual API, architecture/ADRs, security/licensing/data/deployment/SDK/testing and this handoff. |
+| Amazon historical metadata | Reproducible pinned extract, normalization/provenance/quality, actual SQL/vector/browser path; redistribution terms unresolved. |
+| Compose/environment | Nonroot/read-only backend, private PG volume/secrets, health/migrate dependency and host inference; container/runtime/platform acceptance Not Run. |
+| Customer frontend | Desktop/mobile text/search/details, voice review/cancel, cart/quantity/remove/reload/retry, keyboard/status controls; users/devices pending. |
+| Admin frontend | Authenticated real catalogue/variants/import/deactivate/history/provenance, actual analytics/health; full JSON snapshots, no CSV promise. |
+| Merchant integration | Shared protocol/local adapter, server-side typed SDK, actual end-to-end and tenant isolation; external adapters planned. |
+| Comprehensive testing | Executable partitions/boundaries/tables, cause-effect mapping, real CFG/three complexity methods/basis paths, coverage, loops/interfaces/integration/load/install/smoke; manual gates explicitly Not Run. |
+
+## 6. Catalogue: source, results and integrity
+
+Official McAuley-Lab Amazon Reviews2023 Appliances metadata revision `2b6d039ed471f2ba5fd2acb718bf33b0a7e5598e`, first300 rows, extract SHA256 `a3b27ecae6fa5c498860b7ea9dbd706fbe7906eed0c03d7d22e965cbdeb4809b`. Actual normalization admitted298, rejected2, duplicated0;169 known historical USD prices, zero known current-stock records. Title/features/known brand/attributes/images/raw facts/original price/provenance are preserved locally. Parent metadata is an explicitly unspecified discovery representation, not an invented purchasable variant. No USD→INR conversion or stock fabrication occurs.
+
+Raw/normalized data and models are ignored private assets; committed evidence contains counts/hashes, not redistributed records. Historical prices remain stale and stock unknown, so preview add buttons are disabled. Repeating an unchanged import conflicts rather than duplicating records. [Workflow/quality/terms](docs/DATASET_AND_CATALOGUE.md), [quality evidence](docs/evidence/DATA_QUALITY_20261102.json), [actual semantic evidence](docs/evidence/DATA_SEMANTIC_20261102.json). Normal initialization/startup was separately checked to contain zero products. No owner DSN/data was used.
+
+## 7. Install, configure, start and operate
+
+Clone explicitly into lowercase `voicecart`; this checkout's original case was corrected with owner-delegated judgment and all history/files preserved.
 
 ```sh
-OLLAMA_MODELS="$PWD/.local/ollama-models" OLLAMA_NO_CLOUD=1 OLLAMA_NUM_PARALLEL=1 OLLAMA_MAX_LOADED_MODELS=1 .local/runtime/ollama serve
-```
-
-That command uses Ollama's default loopback 11434; configure `VOICECART_OLLAMA_URL` consistently. Set `OLLAMA_HOST=127.0.0.1:11439` explicitly to reproduce the recorded smoke port. Do not expose inference publicly or enable remote model substitution. Whisper adapter is English CPU; Piper runtime is GPL-3.0 and voice/data terms are distinct. Approve intended distribution and project license before release.
-
-## Real catalogue: owner action required
-
-The normal application database intentionally has no product records until the owner supplies/imports them. No owner database DSN was configured or inspected during this task; only guarded temporary test databases received fixtures. A separate fresh application database was initialized and actually started, retaining **zero products/variants**. Synthetic fixture imports must never be used in normal operation.
-
-Required SQL groups are `products` (product ID/name/category/model/description/activity), `variants` (variant/parent/SKU/colour/size/integer price/currency/availability/stock/freshness/activity), `variant_search` (versioned derived text/vector features), `catalogue_state` (revision/coverage/source/expiry/aliases/generation). Session/cart/command/receipt tables are separate. [Packaged migrations](voicecart/migrations) are the exact SQL authority.
-
-Input is UTF-8 full-snapshot JSON with schema version 1, new revision, expected previous revision, explicit source/coverage, future timezone-aware expiry, products/variants arrays and optional lowercase alias maps. First previous revision is `unpopulated`. Stable case-sensitive product/variant IDs must be unique; parent IDs must exist and non-null SKUs must be unique. Required/optional fields and types are fully enumerated in [README's import contract](README.md#real-catalogue-contract-and-import). Money is nonnegative integer minor units with explicit uppercase currency; missing prices/stock/attributes remain unknown. Current price, affirmative availability and sufficient known stock are required for action; stale/incomplete source blocks stronger minimum claims.
-
-Resolve source ownership, taxonomy, stock authority, currency policy, refresh SLA, category completeness and expiry before claiming real coverage. Supply real records, validate aliases, back up prior source/database, then:
-
-```sh
+git clone https://github.com/LakshayKapur06/VoiceCart.git voicecart
+cd voicecart
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev,voice]'
+cp .env.example .env
+chmod 600 .env
+# Configure a dedicated maintained PostgreSQL+pgvector DB and explicit model/file pins.
+set -a; source .env; set +a
 voicecart init-db
 voicecart db-status
-voicecart import-catalogue /absolute/path/to/owner-catalogue.json
-voicecart db-status
-voicecart search --category CATEGORY --currency INR --under-minor 200000
+# Import actual owner facts using the documented schema; no seed step exists.
+voicecart import-catalogue /absolute/path/to/owner-snapshot.json
+python scripts/init_secrets.py
+# Set HTTP_SECRET_FILE, ADMIN_TOKEN_FILE and PUBLIC_ORIGIN using .env.example names.
+python -m voicecart.server
 ```
 
-Import rejects the entire snapshot on indexed invalid fields, duplicates, orphan variants, stale manifests or revision conflicts. It never partly publishes. A full replacement removes omitted records. Configured embeddings are prepared locally before an atomic facts/index publication; service failures preserve the old revision. Without encoder config, lexical/structured operation remains available. On model/digest/dimensions/prefix/serializer change, re-import the full real source using a new revision and matching query config. Do not mix vector spaces. Parser maxima are not measured capacity limits.
+Use README for complete configuration names/artifact pins and the [actual API](docs/API.md). The text-only default needs no models; optional voice/NLU require explicitly verified local assets. For a disposable real historical preview, run the download/normalization workflow then `PYTHONPATH=. python scripts/preview.py`; it owns an ephemeral private DB and serves loopback8080. Credential path is `.local/preview-secrets/admin_token`; never print/commit its value. Ctrl+C discards only that preview DB. This helper uses legacy bundled PG16.2 for local development, not production hosting.
 
-Without owner data, unit/synthetic service/model safety and empty-startup behavior can be verified. Real coverage, upstream freshness, relevance/cheapest usefulness, real prices/SKUs and target-language user success require the owner's catalogue and judgments.
+Compose: `python scripts/init_secrets.py`, `docker compose config --quiet`, `docker compose up --build`. DB is private, web loopback8080, migrations explicit before backend, large models outside images. Secrets have0700 parent and read-only files for the unprivileged mount. **Docker executable/daemon absent: actual container boot, restart persistence, secret mounts, GPU/platform and clean Compose installation Not Run.** [DOCKER_SETUP.md](docs/DOCKER_SETUP.md) is the operating/checklist authority.
 
-## Recovery, privacy and manual acceptance
+CLI remains `voicecart run` or `voicecart run --voice --speak`; /listen,/end,/stop,/repeat,/ack,/retry ID,/cart,/quit. Retain original operation IDs after uncertainty. Back up into private storage and restore a separate DB before a real switch; guarded logical dump/restore passed, owner deployment drills remain necessary. Session/event retention is configured, not a promise that WAL/backups are erased immediately. Never reset needed volumes.
 
-For an outage, restore the local DB/model/device and retry the same operation ID. Receipt verification, not speech success, determines whether an add committed. `/stop` cannot reverse a completed add. `/repeat` does not add again. Expired sessions require a new session; no durable user-account recovery is promised. Wrong model/file hashes require fixing provisioned configuration, not disabling integrity checks. Stale catalogue requires an authoritative refreshed full snapshot.
+## 8. Customer frontend and accessibility
 
-For database recovery use a matching maintained PostgreSQL toolchain and a dedicated destination database. Back up with `pg_dump --format=custom --dbname="$VOICECART_DATABASE_URL" --file=/private/path/voicecart.dump`; restore into a separate empty destination with `pg_restore --exit-on-error --dbname=LOCAL_RESTORE_DSN /private/path/voicecart.dump`, then run `db-status` and verify the revision/receipt/cart data before switching application configuration. Never restore over live owner data blindly. Automated dump/restore of schema/catalogue metadata ran only on the guarded test server. Existing cart/restart/recovery tests cover committed receipt replay; production backups and retention need an owner drill.
+Actual customer flow covers search/filter/pagination, historical labels, details/provenance, opt-in images, explicit add for current offers, quantity/removal/subtotals, recent operation verification and reload recovery. Audio is half duplex with explicit start/end, final transcript review/discard and text fallback; stop fences late speech/search/query work. Five Chromium tests cover functional cart/reload, keyboard/dialog/axe/mobile states, scripted ASR review/late cancellation and cancelled delayed search responses. Real historical browser evidence confirmed298 records and zero actionable historical buttons. Automated axe and scripted capture are not physical microphone, screen reader or target-user acceptance.
 
-Normal execution does not persist raw audio/transcripts. Session logical deletion does not securely erase WAL/backups. Protect local IDs, DB, service logs and backups; approve retention. Current console is a local single-device capability surface, not a shared authenticated service.
+## 9. Admin frontend
 
-Owner release checklist: provide real source/coverage/update SLA; approve English versus Hindi/Hinglish and supported hardware; approve project/runtime/voice terms; test VoiceOver/keyboard controls, real microphone permissions/noise/echo, interrupted lists, stop/repeat/error recovery and rupee/SKU comprehension with representative users; collect judged relevance cases before tuning weights; measure device latency/resource contention and equal-recall storage alternatives before performance claims. [D01–D15](docs/ARCHITECTURE.md#open-decisions-preserved-from-the-review) preserves unresolved decisions.
+Scoped authentication, catalogue/provenance views, create/edit/variant/deactivate through validated full-snapshot CAS publication, JSON import/export, actual import history, health and numeric event aggregates work. Invalid or stale imports fail atomically. Metrics distinguish test/development/merchant environment; no fake popular searches, checkout revenue or conversion exists. Browser edit/auth and SQL/API isolation tests passed. Admin credentials remain server-side/HttpOnly; no unrestricted storefront admin key.
 
-## Commits, cleanup and history approval
+## 10. Merchant adapter and SDK
 
-Ordinary implementation increments use the existing `main` / `https://github.com/LakshayKapur06/VoiceCart.git` remote, human authorship and no AI co-author trailers:
+`MerchantAdapter`/`LocalMerchantAdapter` expose discovery, lookup, synchronization, offer refresh, sessions/cart/add/target quantity and operation reconciliation. Actual JS SDK→HTTP→PostgreSQL create/search/add/replay/receipt/refresh/lookup/remove passed; strict TS checks enforce required identities. The SDK refuses insecure remote origins/redirect credential forwarding and does not auto-retry writes. Local refresh only rereads local facts. A merchant BFF must authenticate end customers and retain operation IDs. Self-hosted and dedicated-database-per-tenant managed topology are documented; Shopify/WooCommerce/Magento, external stock/cart webhooks, a published npm package and operated hosting remain planned. [Contract](docs/MERCHANT_SDK.md).
 
-| Sprint | Ordinary commit | Verification and push |
-|---|---|---|
-| S3 NLU | `62f4a758a64edb5f470db7693dbddfcdb38fa0cc` | 111 source/wheel tests; pushed, remote verified |
-| S4 storage/search | `5b67ba20891bb15c25e9e40ede3609845b983ab5` | 127 source/wheel tests; pushed, remote verified |
-| S5 cart | `ef4acec04a674cbe83053c052210287083143c1c` | 143 source/wheel tests; pushed, remote verified |
-| S6 runnable speech app | `233ad714e7d8c5d973ed83b4dc59b06099e7536e` | 155 source/wheel tests; pushed, remote verified |
-| S7 final verification/docs | `67e526e252f4f2e00ffb8fd9421be8a96061accc` | 159 source/wheel tests; pushed and origin/main verified |
+## 11. Performance investigation and results
 
-README was consolidated, necessary review knowledge moved into ARCHITECTURE/ADR, obsolete review-only restrictions removed and Suggestions.md deleted from the working tree. Source/tests/config/migrations were preserved. Owner data/models/recordings/secrets/build/cache directories are ignored. No AI trailers were found in original reachable history; human authors remain unchanged. History removal changes hashes despite identical final source content.
+The historical59.1698s combined stage cannot be retrospectively split. Current actual12-case Qwen holdout had32.063s first request,18.953s mean and18.721s median. First runtime counters:2.812s load,8.541s prompt,20.621s generation; warm cases remained slow. These different profiles are not a controlled speedup comparison. Safe vocabulary/query optimizations reduce avoidable work without weakening exact coverage/transactions; model replacement/pooling/async mutation was not justified.
 
-History artifacts are prepared **after** final ordinary commits/pushes in the sibling `history-backups` directory (outside the repository): `voicecart-pre-cleanup.bundle`, `refs-before.txt`, `manifest.json`, `voicecart-cleaned.git`, `voicecart-cleaned-review`, and `HISTORY_HANDOFF.md`. The final external handoff records verified backup SHA-256, original/rewritten refs, author/message/path checks, commit map and post-rewrite tests. This avoids committing a self-referential final commit hash. After explicit owner approval (“haa krdo”), the reviewed history cleanup was pushed with the exact recorded lease and verified at `201530af4f2135b9977d1fc15d5ea4ff7abe4463`. The clean primary checkout was synchronized without changing working files. The bundle retains the original ordinary history. A subsequent documentation-only commit records completion.
+Actual2000-variant,128-query/eight-worker isolated SQL load: zero failures, mean0.189s, exploratory empiricalP95 0.221s, P99 unestimated. Real298-record MiniLM publication2.904s/query0.0393s used the explicit compact derived profile. Actual final HTTP ASR0.6415s/TTS1.2488s measured separate stages with synthetic spoken input and real local inference, not human audible turnaround. [Performance report](HANDOFF_PERFORMANCE.md) records reproduction, resources, measurement limits and inference bottleneck. Sub-1.5s is unachieved/unverified.
 
-Recovery: `git bundle verify ../history-backups/voicecart-pre-cleanup.bundle`; `git clone ../history-backups/voicecart-pre-cleanup.bundle ../voicecart-recovered`. This restores backed-up refs without touching the live checkout. Original human authors/emails/dates and unrelated trailers must remain intact in the separate rewrite. Suggestions.md is the only requested historical file purge; no other source is purged.
+## 12. Testing and reproduction
 
-Remote history synchronization affected **refs/heads/main only** (no tags/other branches at preparation). It completed after the owner’s explicit approval required by prompt §12.3; GitHub main was verified at the reviewed rewritten commit before this completion record. Existing collaborator clones now have diverging hashes; coordinate a fresh clone or explicit recovery/cherry-pick of their independent work. Suggestions.md is absent from every commit reachable through the rewritten main; GitHub may retain unreachable objects, cached views or pull-request refs outside this branch cleanup. Human author/committer metadata and messages were preserved. The exact executed lease command, complete backup, commit map and verification are recorded in sibling HISTORY_HANDOFF.md and manifest.json.
+```sh
+python scripts/verify.py --postgres --package --audit --coverage
+PYTHONPATH=. python scripts/test_report.py
+python scripts/cfg_analysis.py
+PYTHONPATH=. python scripts/stress.py
+npm ci
+npx playwright install chromium
+PYTHONPATH=. python scripts/browser_test_server.py
+# Separate terminal while that guarded fixture driver is active:
+npm run test:browser
+npm run test:sdk
+npx tsc --strict --noEmit --module nodenext --target es2022 sdk/typecheck.mts
+```
+
+Final source193/193 and isolated installed-wheel193/193 passed without service skips; Ruff lint/format, compilation, production mypy, Bandit, pip check, diff and Python/npm advisory checks passed. Five browser and two Node SDK tests passed. Coverage3210/3968 statements (80.90%),918/1332 branches (68.92%),62 excluded lines visible. Thirteen actual-source CFGs verify E−N+2P, predicate+1 and actual planar regions; GF2 structural basis independence does not establish feasibility/execution of every path. Tests exercise boundaries/partitions/tables/cause-effect mappings, loops, interfaces, stubs/drivers, top-down/bottom-up/back-to-back/system/install/smoke/load cases. [Testing guide](docs/TESTING_GUIDE.md), [complete case records](docs/TEST_CASES.md), [CFG analysis](docs/CFG_ANALYSIS.md).
+
+Seven manual/external acceptance records are Not Run; the actual NLU H05 quality expectation is separately **Fail**, safely rejected without dispatch. Physical mic/speaker/noise/acoustic onset, VoiceOver/target users, real deployment/container/platform/GPU/owner recovery and rights gates are not converted into passes. Frozen holdout11/12 is a small bank, not general accuracy. [Final evidence](docs/evidence/SPRINT_15.md).
+
+## 13. Security, privacy and licensing
+
+Enforced: parameterized SQL, bounded workers/body/timeouts/ratelimiter, fixed Host/Origin/no wildcard CORS, signed role/tenant/expiry capabilities, constant-time hashed admin credentials, separate tenant databases, private configuration, no model authority over facts/writes, no raw queries/audio/IP/token event storage. Numeric telemetry failures do not change transaction outcomes. Remote hosting requires HTTPS/TLS, secret rotation, maintained server, operator backups/retention/monitoring and a deployment review. No vulnerability scan proves absence of flaws.
+
+Pinned runtime/voice/data inventories and exact terms are in [LICENSING.md](docs/LICENSING.md). Piper1.8.0 is GPL3-or-later; the selected LJ card declares dataset public-domain facts, which do not settle every distribution obligation. No explicit Amazon dataset-wide redistribution grant was located; raw data/models were not shipped. Project LICENSE is owner-undecided. Do not infer commercial clearance from public downloads or install success. [Security/privacy](docs/SECURITY_AND_PRIVACY.md).
+
+## 14. Documentation inventory
+
+Expanded README is the primary professional project overview/setup/architecture/trade-off/testing/showcase entry point. Current supporting files: ARCHITECTURE_AUDIT, ARCHITECTURE and ADRs, API, DATASET_AND_CATALOGUE, DOCKER_SETUP, MERCHANT_SDK, SECURITY_AND_PRIVACY, LICENSING, TESTING_GUIDE, TEST_CASES, CFG_ANALYSIS, IMPLEMENTATION_PLAN, HANDOFF_PERFORMANCE and dated sprint/evidence JSON. Earlier useful sprint/model evidence is preserved; no historical benchmark was relabelled as fresh. Generated caches/build/browser reports are ignored and removable; source, evidence, private models/data and environment must not be confused during cleanup.
+
+## 15. Git and sprint delivery
+
+Remote: https://github.com/LakshayKapur06/VoiceCart.git; branch main. Ordinary sequential continuation commits:
+
+| Commit | Delivery |
+|---|---|
+| 8cb367e | Fresh baseline/audit and continuation plan |
+| 685f5c3 | S8 instrumentation and safe performance hardening |
+| e4e4204 | S9 real historical metadata/provenance/discovery |
+| 22b5a5f | S10 HTTP/security/Compose foundation |
+| 9b8fe51 | S11 customer/cart flows |
+| 2ea2ab4 | S12 admin/actual events |
+| 2493342 | S13 shared adapter and actual typed SDK path |
+| 4a4fed6 | S14 testing syllabus/CFG/coverage/load and discovery hardening |
+| Final sprint commit containing this handoff | S15 integrated193+193 checks, final race/readiness/recovery fixes, actual HTTP voice and documentation |
+
+Use `git log -10 --oneline` and `git rev-parse HEAD` for the exact self-containing final commit, then `git ls-remote origin refs/heads/main` and `git status --short` to verify push/cleanliness. Prior separately approved history cleanup is historical; **no force-push or history rewrite was performed in this continuation**. Local ignored data/models/secrets are intentionally not Git deliverables.
+
+## 16. Known limitations and impact
+
+NLU H05 safe false rejection and slow actual inference limit convenience/latency. Relevance weights and optional dense ordering lack representative human judgments; no universal best-product guarantee. Partial historical catalogue lacks live stock/current offers and cannot support real checkout/cart adds. English/INR interpretation and tested English CPU voice do not establish Hindi/Hinglish acceptance. Physical audio/accessibility, container/platform/GPU, maintained deployment and production capacity remain unverified. Licensed distribution and owner current-source policy are unresolved. Local carts are not reservations; expired sessions/unknown outcomes require explicit recovery. Dedicated per-tenant DBs simplify isolation but impose operational overhead.
+
+## 17. Prioritized next work
+
+1. Obtain authoritative current merchant facts/coverage/update SLA and license/distribution decisions; historical metadata cannot safely substitute for inventory.
+2. Correct NLU quantity failures using separate development cases, then freeze a new holdout; preserve critical-slot/action guards. Profile pinned inference with controlled cold/warm/residency/concurrency conditions before changing model architecture.
+3. Run actual maintained PostgreSQL/Compose clean boot/restart/volume/secret/TLS/backup drills and platform/GPU checks; native/test success cannot prove container operation.
+4. Measure end-of-user-speech to meaningful audible output with approved devices/languages, failures and adequate samples; test prices/negation/noise/interruption with real people.
+5. Evaluate VoiceOver and representative blind/low-vision users; collect judged product relevance/task success before tuning weights or selecting rerankers/ANN.
+6. Add one external merchant adapter only with its real authentication, stock/cart authority, refresh/webhook/idempotency/reconciliation contract and conformance tests.

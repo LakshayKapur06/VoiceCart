@@ -969,9 +969,9 @@ Structural independent basis (execution status as above):
 
 ## database.py: Database.check_ready
 
-Source: [voicecart/database.py:140](../voicecart/database.py#L140), through line 151.
+Source: [voicecart/database.py:140](../voicecart/database.py#L140), through line 170.
 
-N=9, E=9, P=1. **E−N+2P = 9−9+2 = 2**. Predicate equivalents 1; **predicates+1 = 2**. Planar embedding has **2 regions** including the exterior.
+N=14, E=17, P=1. **E−N+2P = 17−14+2 = 5**. Predicate equivalents 4; **predicates+1 = 5**. Planar embedding has **5 regions** including the exterior.
 
 Input/design bank: Migrated pgvector database versus missing schema/extension; real service tests and explicit startup checks. Missing-extension injection on maintained deployment is Not Run.
 
@@ -987,17 +987,27 @@ flowchart TD
 
  n4["L141: context exit: explicit error"]
 
- n5["L149: raise DatabaseUnavailable('pgvector extension is unavailable; run explicit migrations')"]
+ n5["L168: raise DatabaseUnavailable('pgvector extension is unavailable; run explicit migrations')"]
 
- n6["L148: test extension"]
+ n6["L167: test extension"]
 
- n7["L145: extension = connection.execute('SELECT extversion FROM pg_extension WHERE extname='vector'').fetchone()"]
+ n7["L164: extension = connection.execute('SELECT extversion FROM pg_extension WHERE extname='vector'').fetchone()"]
 
- n8["L142: connection.execute('SELECT revision FROM catalogue_state WHERE singleton=true').fetchone()"]
+ n8["L161: connection.execute('SELECT revision FROM catalogue_state WHERE singleton=true').fetchone()"]
 
- n9["L141: context enter self.connect()"]
+ n9["L148: loop next migration from resources.files('voicecart').joinpath('migrations').iterdir()"]
 
- n1 -->|next| n9
+ n10["L158: raise DatabaseUnavailable('Schema requires explicit checksummed migrations; run init-db')"]
+
+ n11["L153: test applied.get(migration.name) != hashlib.sha256(migration.read_text(encoding='utf-8').encode()).hexdigest()"]
+
+ n12["L152: test migration.name.endswith('.sql')"]
+
+ n13["L142: applied = {row['version']: row['sha256'] for row in connection.execute('SELECT version,sha256 FROM schema_migrations')}"]
+
+ n14["L141: context enter self.connect()"]
+
+ n1 -->|next| n14
 
  n2 -->|next| n0
 
@@ -1013,15 +1023,37 @@ flowchart TD
 
  n8 -->|next| n7
 
- n9 -->|next| n8
+ n9 -->|iteration| n12
+
+ n9 -->|done| n8
+
+ n10 -->|next| n4
+
+ n11 -->|T| n10
+
+ n11 -->|F| n9
+
+ n12 -->|T| n11
+
+ n12 -->|F| n9
+
+ n13 -->|next| n9
+
+ n14 -->|next| n13
 
 ```
 
 Structural independent basis (execution status as above):
 
-- B1: n1 → n9 → n8 → n7 → n6 → n2 → n0
+- B1: n1 → n14 → n13 → n9 → n12 → n11 → n10 → n4 → n0
 
-- B2: n1 → n9 → n8 → n7 → n6 → n5 → n4 → n0
+- B2: n1 → n14 → n13 → n9 → n8 → n7 → n6 → n2 → n0
+
+- B3: n1 → n14 → n13 → n9 → n8 → n7 → n6 → n5 → n4 → n0
+
+- B4: n1 → n14 → n13 → n9 → n12 → n11 → n9 → n12 → n11 → n10 → n4 → n0
+
+- B5: n1 → n14 → n13 → n9 → n12 → n9 → n12 → n11 → n10 → n4 → n0
 
 
 ## merchant.py: LocalMerchantAdapter.synchronize

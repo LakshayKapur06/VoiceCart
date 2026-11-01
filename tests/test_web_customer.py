@@ -111,6 +111,7 @@ class CustomerHTTPTests(unittest.TestCase):
         update = {**update, "operation_id": str(uuid.uuid4()), "quantity": 0}
         self.assertEqual(self.request("cart/quantity", update)[1]["quantity"], 0)
         self.assertEqual(self.request("cart")[1]["items"], [])
+        self.assertGreaterEqual(len(self.request("operations")[1]["operations"]), 3)
         self.assertEqual(
             CartManagement(self.database).receipt(
                 session["session_id"], update["operation_id"]
@@ -135,6 +136,19 @@ class CustomerHTTPTests(unittest.TestCase):
         )
         self.assertEqual(self.request("transcribe", {"pcm_base64": "AAAAAA=="})[0], 503)
         self.assertEqual(self.request("search", {"query": "x", "limit": 101})[0], 400)
+
+    def test_registered_final_cancelled_before_arrival_cannot_execute(self):
+        self.request("sessions", {})
+        status, registration = self.request("turns", {})
+        self.assertEqual(status, 201)
+        self.request("cancel", {})
+        status, result = self.request(
+            "query",
+            {"turn_id": registration["turn_id"], "text": "add a black backpack"},
+        )
+        self.assertEqual(status, 200)
+        self.assertEqual(result["code"], "cancelled")
+        self.assertEqual(self.request("cart")[1]["items"], [])
 
     def test_discovery_cannot_silently_drop_a_text_price_boundary(self):
         self.request("sessions", {})

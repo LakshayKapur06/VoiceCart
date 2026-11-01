@@ -59,3 +59,19 @@ The new mandate expands the delivered S1–S7 prototype. It supersedes the earli
 | S15 / 8 | Final integrated regression, security/package/browser checks, expanded professional README and final handoffs. | All independent stages verified. Accurate endpoints/commands/data/terms/status, no secrets/fixtures in production, reviewable ordinary sprint commits/pushes and exact remaining gates. |
 
 Shared Definition of Ready: inspected source, explicit story and bounded contract, dependency availability, isolated fixture plan, failure expectations and data/permission scope. Shared Definition of Done: meaningful unit, integration, system and automatable acceptance tests plus full applicable regressions; lint/format/types/security/package checks; reviewed changes; documented evidence and limits; normal commit/push verified. No sprint is a release acceptance substitute. Privacy/security: local model authority boundary, parameterized SQL, authenticated admin, scoped sessions, no raw-content analytics, bounded requests and explicit errors. Accessibility: semantic controls/text equivalent, keyboard/focus/status tests, honest device/user gaps. New evidence is dated separately from S1–S7.
+
+## Continuation completion record
+
+| Increment | Ordinary pushed commit | Verified delivery / remaining gate |
+|---|---|---|
+| Baseline | 8cb367e | Fresh159+159 reproduction and bounded audit/plan |
+| S8 | 685f5c3 | Instrumentation/caches/frozen NLU protocol; actual11/12 quality, latency target open |
+| S9 | e4e4204 | Real historical provenance/ingestion/read-only discovery; no live stock |
+| S10 | 22b5a5f | HTTP/security/Compose configuration; Docker runtime Not Run |
+| S11 | 9b8fe51 | Customer UI, safe cart quantity/remove; device/user gates open |
+| S12 | 2ea2ab4 | Admin CAS edits/import/history and actual analytics |
+| S13 | 2493342 | Shared adapter, actual local JS/TS SDK path and tenant guards; external adapters planned |
+| S14 | 4a4fed6 | Syllabus/CFG/coverage/load evidence;191+191 checkpoint preserved in sprint record |
+| S15 | See final sprint commit in Git log | Final193+193 regression, browser/SDK, HTTP real voice, readiness/delayed-turn fixes, comprehensive README/API/handoff. Five browser/two SDK checks; unavailable release tests explicitly Not Run. |
+
+All feasible source engineering is delivered; release acceptance remains conditional on the explicit environmental/quality/rights gates in HANDOFF.md. Normal product startup still seeds zero records; the separate historical preview imports actual approved research metadata. Earlier empty-demo/history-cleanup instructions remain historical and are superseded only as stated by the continuation.

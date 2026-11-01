@@ -1,0 +1,10 @@
+{
+  "method": "Actual Piper synthetic input -> actual CPU Whisper HTTP transcription -> explicit reviewed deterministic selection -> real isolated PostgreSQL receipt -> actual Piper HTTP WAV. Duplicate identical add stayed quantity 1. No microphone/speaker, NLU speed, audible onset or human comprehension claim.",
+  "actual_transcript": "backpack.",
+  "confirmation": "Added 1 of Backpack to your local cart for 500 rupees. Quantity after this operation was 1. This does not reserve stock.",
+  "asr_http_seconds": 0.6414856250048615,
+  "tts_http_seconds": 1.248829249991104,
+  "confirmation_frames": 182784,
+  "sample_rate_hz": 22050,
+  "duplicate_add_incremented": false
+}

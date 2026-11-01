@@ -19,7 +19,7 @@ Design technique mapping and concrete decision/partition/loop scenarios are in [
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:14.807886+00:00
+**Execution Date:** 2026-11-01T20:16:57.450317+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_create_variant_and_deactivate_preserve_source_contract](../tests/test_admin.py#L112), lines 112–148.
 
@@ -39,7 +39,7 @@ Design technique mapping and concrete decision/partition/loop scenarios are in [
 self.assertEqual(self.request('import', document, headers=headers)[0], 200); self.assertEqual(self.database.inspect()['product_count'], 4); self.assertEqual(self.request('import', updated, headers=headers)[0], 200); self.assertEqual(self.request('catalogue', {'category': 'test-only'}, headers=headers)[1]['total'], 0)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5526 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5513 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -64,7 +64,7 @@ self.assertEqual(self.request('import', document, headers=headers)[0], 200); sel
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:15.360639+00:00
+**Execution Date:** 2026-11-01T20:16:58.001753+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_duplicate_import_rolls_back_and_bearer_enforced](../tests/test_admin.py#L95), lines 95–110.
 
@@ -84,7 +84,7 @@ self.assertEqual(self.request('import', document, headers=headers)[0], 200); sel
 self.assertEqual(self.request('export', headers={'Authorization': 'Bearer bad'})[0], 403); self.assertEqual(status, 400); self.assertTrue(result['issues']); self.assertEqual(self.database.inspect()['revision'], 'fixture-1')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5629 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5664 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -109,7 +109,7 @@ self.assertEqual(self.request('export', headers={'Authorization': 'Bearer bad'})
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:15.923643+00:00
+**Execution Date:** 2026-11-01T20:16:58.568350+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_event_privacy_environment_and_retention](../tests/test_admin.py#L150), lines 150–162.
 
@@ -129,7 +129,7 @@ self.assertEqual(self.request('export', headers={'Authorization': 'Bearer bad'})
 self.assertEqual(summary['events'][0]['count'], 1); self.assertNotIn('query', str(summary['events'])); self.assertEqual(EventStore(self.database, 'merchant').summary()['events'], []); self.assertEqual(events.summary()['events'], [])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5483 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5591 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -154,7 +154,7 @@ self.assertEqual(summary['events'][0]['count'], 1); self.assertNotIn('query', st
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:16.471999+00:00
+**Execution Date:** 2026-11-01T20:16:59.127533+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_roles_login_export_atomic_edit_conflict_and_metrics](../tests/test_admin.py#L73), lines 73–93.
 
@@ -174,7 +174,7 @@ self.assertEqual(summary['events'][0]['count'], 1); self.assertNotIn('query', st
 self.assertEqual(self.request('export')[0], 403); self.assertEqual(self.request('login', {'token': 'bad'})[0], 403); self.assertEqual(self.request('login', {'token': TOKEN})[0], 200); self.assertEqual(self.request('import', document)[0], 200); self.assertEqual(self.request('import', document)[0], 400); self.assertEqual(self.database.inspect()['revision'], 'admin-test-2'); self.assertEqual(analytics['environment'], 'test'); self.assertEqual(analytics['coverage']['variants'], 3); self.assertIn('Not collected', analytics['popular_queries']); self.assertEqual(self.request('health')[1]['database'], 'ok'); self.assertGreaterEqual(len(self.request('imports')[1]['imports']), 1); self.assertEqual(self.request('export')[0], 403)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5901 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5597 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -199,7 +199,7 @@ self.assertEqual(self.request('export')[0], 403); self.assertEqual(self.request(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.073891+00:00
+**Execution Date:** 2026-11-01T20:16:59.699167+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_cancel_during_interpretation_fences_late_error_response](../tests/test_application.py#L144), lines 144–156.
 
@@ -219,7 +219,7 @@ self.assertEqual(self.request('export')[0], 403); self.assertEqual(self.request(
 self.assertEqual(response.code, 'cancelled'); self.assertEqual(response.text, ''); self.assertEqual(app.cart.items(self.session), {})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0567 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0547 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -244,7 +244,7 @@ self.assertEqual(response.code, 'cancelled'); self.assertEqual(response.text, ''
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.130626+00:00
+**Execution Date:** 2026-11-01T20:16:59.753830+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_duplicate_final_is_claimed_once_in_persistent_session](../tests/test_application.py#L91), lines 91–100.
 
@@ -264,7 +264,7 @@ self.assertEqual(response.code, 'cancelled'); self.assertEqual(response.text, ''
 self.assertEqual(first.operation_id, repeated.operation_id); self.assertEqual(self.interpreter.calls, 1); self.assertEqual(self.app.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0488 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0475 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -289,7 +289,7 @@ self.assertEqual(first.operation_id, repeated.operation_id); self.assertEqual(se
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.179405+00:00
+**Execution Date:** 2026-11-01T20:16:59.801394+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_partial_blank_cancelled_and_malformed_requests_do_not_add](../tests/test_application.py#L102), lines 102–116.
 
@@ -309,7 +309,7 @@ self.assertEqual(first.operation_id, repeated.operation_id); self.assertEqual(se
 self.assertEqual(stale.code, 'cancelled'); self.assertEqual(result.code, 'clarify'); self.assertEqual(self.app.cart.items(self.session), {})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0358 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0335 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -334,7 +334,7 @@ self.assertEqual(stale.code, 'cancelled'); self.assertEqual(result.code, 'clarif
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.215268+00:00
+**Execution Date:** 2026-11-01T20:16:59.834932+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_real_cli_search_add_and_repeated_invocation_are_idempotent](../tests/test_application.py#L171), lines 171–205.
 
@@ -354,7 +354,7 @@ self.assertEqual(stale.code, 'cancelled'); self.assertEqual(result.code, 'clarif
 self.assertEqual(first, replay); self.assertEqual(self.app.cart.items(session), {'v-cheap': 1}); self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.4330 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.4221 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -379,7 +379,7 @@ self.assertEqual(first, replay); self.assertEqual(self.app.cart.items(session), 
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.648320+00:00
+**Execution Date:** 2026-11-01T20:17:00.257034+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_search_complete_list_select_add_and_repeat_without_mutation](../tests/test_application.py#L73), lines 73–89.
 
@@ -399,7 +399,7 @@ self.assertEqual(first, replay); self.assertEqual(self.app.cart.items(session), 
 self.assertEqual(result.code, 'results'); self.assertIn('rupees', result.text); self.assertTrue(self.app.sessions.mark_presented(self.session, result.listing.list_id, result.turn_id)); self.assertEqual(added.code, 'added'); self.assertEqual(added.receipt.variant_id, chosen.variant_id); self.assertEqual(self.app.text(self.session, 'repeat'), added); self.assertEqual(self.interpreter.calls, calls); self.assertEqual(self.app.cart.items(self.session), {chosen.variant_id: 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0651 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0642 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -424,7 +424,7 @@ self.assertEqual(result.code, 'results'); self.assertIn('rupees', result.text); 
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.713398+00:00
+**Execution Date:** 2026-11-01T20:17:00.321278+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_template_error_after_commit_preserves_authoritative_confirmation](../tests/test_application.py#L158), lines 158–169.
 
@@ -444,7 +444,7 @@ self.assertEqual(result.code, 'results'); self.assertIn('rupees', result.text); 
 self.assertEqual(result.code, 'added'); self.assertIsNotNone(result.receipt); self.assertIn('committed', result.text); self.assertEqual(self.app.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0397 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0393 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -469,7 +469,7 @@ self.assertEqual(result.code, 'added'); self.assertIsNotNone(result.receipt); se
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.753085+00:00
+**Execution Date:** 2026-11-01T20:17:00.360612+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_unacknowledged_list_and_other_session_cannot_redirect_add](../tests/test_application.py#L118), lines 118–128.
 
@@ -489,7 +489,7 @@ self.assertEqual(result.code, 'added'); self.assertIsNotNone(result.receipt); se
 self.assertNotEqual(rejected.code, 'added'); self.assertFalse(self.app.sessions.mark_presented(other, result.listing.list_id, result.turn_id)); self.assertEqual(self.app.cart.items(self.session), {})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0561 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0548 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -514,7 +514,7 @@ self.assertNotEqual(rejected.code, 'added'); self.assertFalse(self.app.sessions.
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.809203+00:00
+**Execution Date:** 2026-11-01T20:17:00.415406+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_unpopulated_stale_and_no_match_are_different](../tests/test_application.py#L130), lines 130–142.
 
@@ -534,7 +534,7 @@ self.assertNotEqual(rejected.code, 'added'); self.assertFalse(self.app.sessions.
 self.assertEqual(none.code, 'no_match'); self.assertEqual(stale.code, 'catalogue_stale'); self.assertEqual(empty.code, 'catalogue_not_populated'); self.assertFalse(self.app.cart.items(self.session))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0588 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0570 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -559,7 +559,7 @@ self.assertEqual(none.code, 'no_match'); self.assertEqual(stale.code, 'catalogue
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868011+00:00
+**Execution Date:** 2026-11-01T20:17:00.472458+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_full_denominator_disjoint_outcomes_and_percentiles](../tests/test_audio.py#L637), lines 637–655.
 
@@ -604,7 +604,7 @@ self.assertEqual(summary.total_turns, 7); self.assertEqual(summary.successful_tu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868179+00:00
+**Execution Date:** 2026-11-01T20:17:00.472633+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_intervals_and_zero_clock_are_valid](../tests/test_audio.py#L594), lines 594–609.
 
@@ -649,7 +649,7 @@ self.assertAlmostEqual(trace.endpoint_delay_s, 0.1); self.assertAlmostEqual(trac
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868213+00:00
+**Execution Date:** 2026-11-01T20:17:00.472666+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_missing_reversed_nonfinite_and_bool_times_never_pass](../tests/test_audio.py#L611), lines 611–635.
 
@@ -694,7 +694,7 @@ self.assertEqual(summary.successful_turns, 0); self.assertEqual(summary.failed_t
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868314+00:00
+**Execution Date:** 2026-11-01T20:17:00.472769+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_recorder_freezes_snapshots_and_rejects_duplicate_ids](../tests/test_audio.py#L657), lines 657–666.
 
@@ -739,7 +739,7 @@ self.assertEqual(recorder.summarize().successful_turns, 1); self.assertIsNone(La
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868388+00:00
+**Execution Date:** 2026-11-01T20:17:00.472843+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_asr_wrong_turn_and_unknown_fixture_cannot_reach_template](../tests/test_audio.py#L579), lines 579–590.
 
@@ -784,7 +784,7 @@ self.assertEqual(self.trace.failure_reason, 'asr_turn_mismatch'); self.assertEqu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868491+00:00
+**Execution Date:** 2026-11-01T20:17:00.472948+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_cached_asset_is_injected_and_failure_does_not_claim_original_success](../tests/test_audio.py#L419), lines 419–434.
 
@@ -829,7 +829,7 @@ self.assertEqual(response, fallback.text); self.assertEqual(chunks, [fallback.ch
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868565+00:00
+**Execution Date:** 2026-11-01T20:17:00.473026+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_deadline_and_missing_output_remain_in_denominator](../tests/test_audio.py#L521), lines 521–531.
 
@@ -874,7 +874,7 @@ self.assertTrue(self.trace.timed_out); self.assertEqual(recorder.summarize().tim
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868626+00:00
+**Execution Date:** 2026-11-01T20:17:00.473088+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_late_old_drain_cannot_finish_new_playback](../tests/test_audio.py#L463), lines 463–490.
 
@@ -919,7 +919,7 @@ self.assertFalse(worker.is_alive()); self.assertTrue(self.output.is_playing()); 
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868823+00:00
+**Execution Date:** 2026-11-01T20:17:00.473295+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_no_device_onset_is_not_a_successful_benchmark](../tests/test_audio.py#L447), lines 447–455.
 
@@ -964,7 +964,7 @@ self.assertFalse(self.trace.is_successful); self.assertEqual(recorder.summarize(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.868909+00:00
+**Execution Date:** 2026-11-01T20:17:00.473382+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_output_begin_and_drain_failures_recover](../tests/test_audio.py#L508), lines 508–519.
 
@@ -1009,7 +1009,7 @@ self.assertEqual(response, AudioPipelineSlice.ERROR_RESPONSE); self.assertEqual(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869001+00:00
+**Execution Date:** 2026-11-01T20:17:00.473473+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_output_failure_and_dead_assistive_channel_mark_session_unusable](../tests/test_audio.py#L436), lines 436–445.
 
@@ -1054,7 +1054,7 @@ self.assertEqual(self.trace.failure_reason, 'output_error'); self.assertFalse(se
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869046+00:00
+**Execution Date:** 2026-11-01T20:17:00.473519+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_partial_and_invalid_final_never_render](../tests/test_audio.py#L379), lines 379–399.
 
@@ -1099,7 +1099,7 @@ self.assertEqual(self.output.played_chunks, []); self.assertEqual(self.controlle
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869127+00:00
+**Execution Date:** 2026-11-01T20:17:00.473598+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_pause_inside_enqueue_cancels_without_finishing](../tests/test_audio.py#L310), lines 310–316.
 
@@ -1144,7 +1144,7 @@ self.assertEqual(len(self.output.played_chunks), 1); self.assertEqual(self.contr
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869169+00:00
+**Execution Date:** 2026-11-01T20:17:00.473642+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_pipeline_ends_capture_before_asr_and_rejects_consumed_turn](../tests/test_audio.py#L492), lines 492–506.
 
@@ -1189,7 +1189,7 @@ self.assertEqual(asr.calls, 1); self.assertFalse(capture.capturing)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869227+00:00
+**Execution Date:** 2026-11-01T20:17:00.473702+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_scripted_pcm_runs_through_asr_template_tts_and_output](../tests/test_audio.py#L266), lines 266–292.
 
@@ -1234,7 +1234,7 @@ self.assertEqual(len(set(responses)), 4); self.assertEqual(asr.calls, 1); self.a
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869348+00:00
+**Execution Date:** 2026-11-01T20:17:00.473826+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_status_sink_failure_then_output_failure_disables_session](../tests/test_audio.py#L564), lines 564–577.
 
@@ -1279,7 +1279,7 @@ self.assertFalse(self.controller.is_session_usable()); self.assertEqual(self.con
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869388+00:00
+**Execution Date:** 2026-11-01T20:17:00.473867+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_during_asr_does_not_render_template](../tests/test_audio.py#L344), lines 344–357.
 
@@ -1324,7 +1324,7 @@ self.assertTrue(self.trace.cancelled); self.assertEqual(self.output.played_chunk
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869437+00:00
+**Execution Date:** 2026-11-01T20:17:00.473910+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_during_drain_allows_concurrent_control_and_fences_completion](../tests/test_audio.py#L318), lines 318–342.
 
@@ -1369,7 +1369,7 @@ self.assertFalse(worker.is_alive()); self.assertEqual(len(results), 1); self.ass
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869571+00:00
+**Execution Date:** 2026-11-01T20:17:00.474028+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_during_synthesis_fences_remaining_chunks](../tests/test_audio.py#L294), lines 294–308.
 
@@ -1414,7 +1414,7 @@ self.assertEqual(response, ''); self.assertEqual(len(chunks), 1); self.assertEqu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869628+00:00
+**Execution Date:** 2026-11-01T20:17:00.474082+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_followed_by_asr_error_is_cancellation](../tests/test_audio.py#L533), lines 533–545.
 
@@ -1459,7 +1459,7 @@ self.assertEqual(response, ''); self.assertTrue(self.trace.cancelled); self.asse
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869665+00:00
+**Execution Date:** 2026-11-01T20:17:00.474119+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_success_plays_output_and_records_simulated_onset](../tests/test_audio.py#L256), lines 256–264.
 
@@ -1504,7 +1504,7 @@ self.assertEqual(transcript.text, self.asr.text); self.assertEqual(response, ver
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869715+00:00
+**Execution Date:** 2026-11-01T20:17:00.474170+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_template_failure_and_asr_failure_recover_with_status](../tests/test_audio.py#L359), lines 359–377.
 
@@ -1549,7 +1549,7 @@ self.assertEqual(self.trace.failure_reason, 'template_error'); self.assertEqual(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869769+00:00
+**Execution Date:** 2026-11-01T20:17:00.474230+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_tts_fails_after_partial_stream_flushes_before_cached_prompt](../tests/test_audio.py#L547), lines 547–562.
 
@@ -1594,7 +1594,7 @@ self.assertEqual(response, fallback.text); self.assertEqual(chunks, [fallback.ch
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869830+00:00
+**Execution Date:** 2026-11-01T20:17:00.474289+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_tts_failure_and_empty_stream_have_explicit_recovery_without_fake_audio](../tests/test_audio.py#L401), lines 401–417.
 
@@ -1639,7 +1639,7 @@ self.assertEqual(response, AudioPipelineSlice.ERROR_RESPONSE); self.assertEqual(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869896+00:00
+**Execution Date:** 2026-11-01T20:17:00.474358+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_wrong_trace_rejected_before_asr](../tests/test_audio.py#L457), lines 457–461.
 
@@ -1684,7 +1684,7 @@ self.assertEqual(self.asr.calls, 0); self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869930+00:00
+**Execution Date:** 2026-11-01T20:17:00.474391+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_capture_failure_retires_turn_and_emits_recovery](../tests/test_audio.py#L220), lines 220–232.
 
@@ -1729,7 +1729,7 @@ self.assertIsNone(self.controller.current_turn_id); self.assertFalse(self.contro
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.869957+00:00
+**Execution Date:** 2026-11-01T20:17:00.474420+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_empty_and_nonfinal_terminal_events_retire_turn](../tests/test_audio.py#L86), lines 86–104.
 
@@ -1774,7 +1774,7 @@ self.assertFalse(self.controller.process_transcript(Transcript(kind, '  ', turn_
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870045+00:00
+**Execution Date:** 2026-11-01T20:17:00.474515+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_empty_playback_cannot_be_promoted_to_repeat](../tests/test_audio.py#L214), lines 214–218.
 
@@ -1819,7 +1819,7 @@ self.assertIsNone(self.controller.repeat()); self.assertRaises(RuntimeError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870075+00:00
+**Execution Date:** 2026-11-01T20:17:00.474546+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_failed_device_stop_reports_failure_and_keeps_capture_gated](../tests/test_audio.py#L196), lines 196–212.
 
@@ -1864,7 +1864,7 @@ self.assertFalse(outcome.success); self.assertFalse(outcome.stopped_playback); s
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870111+00:00
+**Execution Date:** 2026-11-01T20:17:00.474584+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_initial_and_listening_states](../tests/test_audio.py#L60), lines 60–65.
 
@@ -1909,7 +1909,7 @@ self.assertEqual(self.controller.state, TurnState.IDLE); self.assertFalse(self.c
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870129+00:00
+**Execution Date:** 2026-11-01T20:17:00.474603+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_manual_and_vad_end_stop_capture_and_wait_for_final](../tests/test_audio.py#L67), lines 67–76.
 
@@ -1954,7 +1954,7 @@ self.assertFalse(self.capture.capturing); self.assertTrue(self.controller.is_cap
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870159+00:00
+**Execution Date:** 2026-11-01T20:17:00.474633+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_partial_does_not_authorize_or_consume_final](../tests/test_audio.py#L78), lines 78–84.
 
@@ -1999,7 +1999,7 @@ self.assertFalse(partial.can_authorize_action); self.assertFalse(self.controller
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870183+00:00
+**Execution Date:** 2026-11-01T20:17:00.474657+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_repeat_only_returns_completed_response](../tests/test_audio.py#L157), lines 157–164.
 
@@ -2044,7 +2044,7 @@ self.assertIsNone(self.controller.repeat()); self.assertIsNone(self.controller.r
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870213+00:00
+**Execution Date:** 2026-11-01T20:17:00.474688+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_speaking_gates_until_device_drain_completes](../tests/test_audio.py#L131), lines 131–141.
 
@@ -2089,7 +2089,7 @@ self.assertFalse(self.capture.capturing); self.assertTrue(completed); self.asser
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870241+00:00
+**Execution Date:** 2026-11-01T20:17:00.474718+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_stale_callbacks_have_no_effect](../tests/test_audio.py#L106), lines 106–113.
 
@@ -2134,7 +2134,7 @@ self.assertFalse(self.controller.process_transcript(final('old'))); self.assertE
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870262+00:00
+**Execution Date:** 2026-11-01T20:17:00.474740+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_status_delivery_failure_and_audio_failure_fail_closed](../tests/test_audio.py#L185), lines 185–194.
 
@@ -2179,7 +2179,7 @@ self.assertTrue(controller.is_session_usable()); self.assertEqual(controller.sta
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870284+00:00
+**Execution Date:** 2026-11-01T20:17:00.474762+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_stop_and_pause_flush_playback_and_never_undo_action](../tests/test_audio.py#L143), lines 143–155.
 
@@ -2224,7 +2224,7 @@ self.assertEqual(self.output.stop_calls, count + 1); self.assertTrue(result.stop
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870329+00:00
+**Execution Date:** 2026-11-01T20:17:00.474809+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_stop_pause_and_dead_channels_reject_late_final](../tests/test_audio.py#L115), lines 115–129.
 
@@ -2269,7 +2269,7 @@ self.assertFalse(self.controller.process_transcript(final())); self.assertEqual(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870378+00:00
+**Execution Date:** 2026-11-01T20:17:00.474859+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_unique_ids_and_explicit_resume](../tests/test_audio.py#L166), lines 166–174.
 
@@ -2314,7 +2314,7 @@ self.assertRaises(RuntimeError); self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870407+00:00
+**Execution Date:** 2026-11-01T20:17:00.474889+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_unusable_session_requires_health_recovery](../tests/test_audio.py#L176), lines 176–183.
 
@@ -2359,7 +2359,7 @@ self.assertFalse(self.controller.resume().success); self.assertRaises(RuntimeErr
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870438+00:00
+**Execution Date:** 2026-11-01T20:17:00.474921+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_candidate_runtime_and_voice_metadata_are_distinct_and_unpinned](../tests/test_audio.py#L698), lines 698–717.
 
@@ -2404,7 +2404,7 @@ self.assertEqual(REFERENCE_WHISPER_BASE_EN.licence, 'MIT'); self.assertEqual(REF
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870476+00:00
+**Execution Date:** 2026-11-01T20:17:00.474961+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_pcm_and_timestamp_validation](../tests/test_audio.py#L670), lines 670–681.
 
@@ -2449,7 +2449,7 @@ self.assertEqual(AudioChunk(b'\x00\x00' * 160, 16000).duration_s, 0.01); self.as
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870545+00:00
+**Execution Date:** 2026-11-01T20:17:00.475033+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_vad_fixture_and_reset](../tests/test_audio.py#L719), lines 719–727.
 
@@ -2494,7 +2494,7 @@ self.assertEqual([vad.process_frame(chunk).state for _ in range(3)], [VADState.S
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.870570+00:00
+**Execution Date:** 2026-11-01T20:17:00.475059+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_wav_fallback_rejects_fake_and_truncated_recordings](../tests/test_audio.py#L683), lines 683–696.
 
@@ -2539,7 +2539,7 @@ self.assertEqual(asset.chunk.duration_s, 0.01); self.assertRaises(ValueError); s
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.873139+00:00
+**Execution Date:** 2026-11-01T20:17:00.477667+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_aggregate_stock_blocks_fourth_add](../tests/test_cart.py#L117), lines 117–122.
 
@@ -2559,7 +2559,7 @@ self.assertEqual(asset.chunk.duration_s, 0.01); self.assertRaises(ValueError); s
 self.assertEqual(self.cart.items(self.session), {'v-cheap': 3}); self.assertIsNone(self.cart.pending(self.session)); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0357 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0358 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2584,7 +2584,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 3}); self.assertIsNo
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.908819+00:00
+**Execution Date:** 2026-11-01T20:17:00.513509+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_changed_offer_and_partial_coverage_never_commit](../tests/test_cart.py#L143), lines 143–151.
 
@@ -2604,7 +2604,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 3}); self.assertIsNo
 self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0352 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0351 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2629,7 +2629,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.944100+00:00
+**Execution Date:** 2026-11-01T20:17:00.548576+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_cheapest_accounts_for_existing_cart_quantity](../tests/test_cart.py#L138), lines 138–141.
 
@@ -2649,7 +2649,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 self.assertEqual(receipt.variant_id, 'v-best')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0341 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0329 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2674,7 +2674,7 @@ self.assertEqual(receipt.variant_id, 'v-best')
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:17.978223+00:00
+**Execution Date:** 2026-11-01T20:17:00.581477+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_cheapest_replay_is_before_new_query_selection](../tests/test_cart.py#L124), lines 124–136.
 
@@ -2694,7 +2694,7 @@ self.assertEqual(receipt.variant_id, 'v-best')
 self.assertEqual(replay.variant_id, first.variant_id); self.assertEqual(replay.unit_price_minor, first.unit_price_minor); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertEqual(self.cart.add(self.command(selection='cheapest')).variant_id, 'v-best')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0455 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0446 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2719,7 +2719,7 @@ self.assertEqual(replay.variant_id, first.variant_id); self.assertEqual(replay.u
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.023707+00:00
+**Execution Date:** 2026-11-01T20:17:00.626053+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_commit_reply_loss_reconciles_original_receipt](../tests/test_cart.py#L180), lines 180–189.
 
@@ -2739,7 +2739,7 @@ self.assertEqual(replay.variant_id, first.variant_id); self.assertEqual(replay.u
 self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0288 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0277 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2764,7 +2764,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.052519+00:00
+**Execution Date:** 2026-11-01T20:17:00.653803+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_commit_verified_by_immutable_receipt_and_retry_exactly_once](../tests/test_cart.py#L63), lines 63–79.
 
@@ -2784,7 +2784,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 self.assertEqual(receipt.added_quantity, 1); self.assertEqual(receipt.line_price_minor, 50000); self.assertEqual(self.cart.add(command), receipt); self.assertEqual(CartService(self.database).retry(self.session, command.operation_id), receipt); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertRaises(psycopg.Error)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0429 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0420 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2809,7 +2809,7 @@ self.assertEqual(receipt.added_quantity, 1); self.assertEqual(receipt.line_price
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.095403+00:00
+**Execution Date:** 2026-11-01T20:17:00.695780+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_late_turn_cancel_and_precommit_cancellation_do_not_add](../tests/test_cart.py#L153), lines 153–169.
 
@@ -2829,7 +2829,7 @@ self.assertEqual(receipt.added_quantity, 1); self.assertEqual(receipt.line_price
 self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError); self.assertRaises(CartError); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0436 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0427 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2854,7 +2854,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.139064+00:00
+**Execution Date:** 2026-11-01T20:17:00.738477+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_new_intentional_add_and_old_receipt_remain_distinct](../tests/test_cart.py#L92), lines 92–100.
 
@@ -2874,7 +2874,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 self.assertEqual(self.cart.items(self.session), {'v-cheap': 2}); self.assertEqual(replay.resulting_quantity, first.resulting_quantity); self.assertEqual(replay.resulting_quantity, 1); self.assertEqual(self.cart.items(self.session), {'v-cheap': 2})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0434 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0426 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2899,7 +2899,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 2}); self.assertEqua
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.182450+00:00
+**Execution Date:** 2026-11-01T20:17:00.781065+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_parallel_duplicate_workers_apply_one_increment](../tests/test_cart.py#L81), lines 81–90.
 
@@ -2919,7 +2919,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 2}); self.assertEqua
 self.assertEqual(set(receipts), {command.operation_id}); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0616 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0638 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2944,7 +2944,7 @@ self.assertEqual(set(receipts), {command.operation_id}); self.assertEqual(self.c
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.244094+00:00
+**Execution Date:** 2026-11-01T20:17:00.844892+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_pending_precommit_outage_blocks_replacement_operation](../tests/test_cart.py#L207), lines 207–219.
 
@@ -2964,7 +2964,7 @@ self.assertEqual(set(receipts), {command.operation_id}); self.assertEqual(self.c
 self.assertEqual(self.cart.pending(self.session), command.operation_id); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertRaises(OutcomeUnknown); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0387 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0372 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2989,7 +2989,7 @@ self.assertEqual(self.cart.pending(self.session), command.operation_id); self.as
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.282767+00:00
+**Execution Date:** 2026-11-01T20:17:00.882093+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_result_ordinals_require_current_complete_presentation](../tests/test_cart.py#L269), lines 269–288.
 
@@ -3034,7 +3034,7 @@ self.assertTrue(self.sessions.mark_presented(self.session, listing.list_id, self
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.316380+00:00
+**Execution Date:** 2026-11-01T20:17:00.915743+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_same_operation_different_payload_or_session_is_conflict](../tests/test_cart.py#L102), lines 102–115.
 
@@ -3054,7 +3054,7 @@ self.assertTrue(self.sessions.mark_presented(self.session, listing.list_id, self
 self.assertEqual(self.cart.items(other), {}); self.assertRaises(CartError); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0382 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0378 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3079,7 +3079,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertRaises(CartError); self
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.354548+00:00
+**Execution Date:** 2026-11-01T20:17:00.953544+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_session_isolation_and_expiry_cleanup](../tests/test_cart.py#L238), lines 238–267.
 
@@ -3099,7 +3099,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertRaises(CartError); self
 self.assertEqual(self.cart.items(other), {}); self.assertIsNone(self.cart.read_receipt(other, command.operation_id)); self.assertEqual(self.sessions.cleanup_expired(), 1); self.assertEqual(self.database.inspect()['product_count'], 3); self.assertRaises(SessionError); self.assertEqual(connection.execute('SELECT count(*) AS n FROM commands WHERE session_id=%s', (self.session,)).fetchone()['n'], 0); self.assertEqual(connection.execute('SELECT count(*) AS n FROM operation_receipts WHERE session_id=%s', (self.session,)).fetchone()['n'], 0)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0402 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0407 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3124,7 +3124,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertIsNone(self.cart.read_r
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.394737+00:00
+**Execution Date:** 2026-11-01T20:17:00.994208+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_stop_after_commit_does_not_undo_receipt](../tests/test_cart.py#L171), lines 171–178.
 
@@ -3144,7 +3144,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertIsNone(self.cart.read_r
 self.assertEqual(self.cart.read_receipt(self.session, command.operation_id), receipt); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0311 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0304 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3169,7 +3169,7 @@ self.assertEqual(self.cart.read_receipt(self.session, command.operation_id), rec
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.425837+00:00
+**Execution Date:** 2026-11-01T20:17:01.024570+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_unknown_outcome_keeps_identity_and_can_be_recovered_after_restart](../tests/test_cart.py#L191), lines 191–205.
 
@@ -3189,7 +3189,7 @@ self.assertEqual(self.cart.read_receipt(self.session, command.operation_id), rec
 self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertRaises(OutcomeUnknown)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0337 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0321 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3214,7 +3214,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.459555+00:00
+**Execution Date:** 2026-11-01T20:17:01.056642+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_whole_transaction_retry_uses_original_operation](../tests/test_cart.py#L221), lines 221–236.
 
@@ -3234,7 +3234,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 self.assertEqual(service.calls, 2); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0460 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0451 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3259,7 +3259,7 @@ self.assertEqual(service.calls, 2); self.assertEqual(self.cart.items(self.sessio
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.505618+00:00
+**Execution Date:** 2026-11-01T20:17:01.101742+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_duplicate_ids_skus_and_orphan_variants_fail_snapshot_creation](../tests/test_catalogue.py#L386), lines 386–395.
 
@@ -3304,7 +3304,7 @@ self.assertRaises(ValueError); self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.505759+00:00
+**Execution Date:** 2026-11-01T20:17:01.101886+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_lookup_resolves_each_supported_identifier_kind](../tests/test_catalogue.py#L333), lines 333–344.
 
@@ -3349,7 +3349,7 @@ self.assertEqual(ids(self.db.lookup(ExactIdentifier(kind, value))), expected)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.505838+00:00
+**Execution Date:** 2026-11-01T20:17:01.101967+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_search_still_enforces_constraints_and_scopes_identity](../tests/test_catalogue.py#L354), lines 354–367.
 
@@ -3394,7 +3394,7 @@ self.assertEqual(self.db.search(exact).status, SearchStatus.NO_MATCH); self.asse
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.505911+00:00
+**Execution Date:** 2026-11-01T20:17:01.102041+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_lookup_is_case_sensitive_and_does_not_fuzzily_substitute](../tests/test_catalogue.py#L346), lines 346–352.
 
@@ -3439,7 +3439,7 @@ self.assertEqual(self.db.lookup(ExactIdentifier(IdentifierKind.SKU, 'sku-blk')),
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.505949+00:00
+**Execution Date:** 2026-11-01T20:17:01.102079+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_raw_lookup_does_not_assert_availability](../tests/test_catalogue.py#L379), lines 379–384.
 
@@ -3484,7 +3484,7 @@ self.assertEqual(ids(db.lookup(identifier)), ('v1',)); self.assertTrue(db.search
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506005+00:00
+**Execution Date:** 2026-11-01T20:17:01.102138+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_unknown_identifier_in_complete_and_incomplete_sources](../tests/test_catalogue.py#L369), lines 369–377.
 
@@ -3529,7 +3529,7 @@ self.assertTrue(self.db.search(exact).can_claim_no_match); self.assertEqual(part
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506059+00:00
+**Execution Date:** 2026-11-01T20:17:01.102192+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_untyped_coverage_and_invalid_records_fail_instead_of_being_dropped](../tests/test_catalogue.py#L397), lines 397–401.
 
@@ -3574,7 +3574,7 @@ self.assertRaises(TypeError); self.assertRaises(TypeError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506108+00:00
+**Execution Date:** 2026-11-01T20:17:01.102240+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_active_product_without_variants_blocks_complete_claim](../tests/test_catalogue.py#L65), lines 65–72.
 
@@ -3619,7 +3619,7 @@ self.assertFalse(db.search(request()).can_claim_catalogue_minimum); self.assertE
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506179+00:00
+**Execution Date:** 2026-11-01T20:17:01.102312+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_all_verified_nonmatches_prove_no_match](../tests/test_catalogue.py#L195), lines 195–200.
 
@@ -3664,7 +3664,7 @@ self.assertEqual(result.matches, ()); self.assertTrue(result.can_claim_no_match)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506220+00:00
+**Execution Date:** 2026-11-01T20:17:01.102354+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_coverage_defaults_to_unknown_even_for_well_formed_records](../tests/test_catalogue.py#L211), lines 211–216.
 
@@ -3709,7 +3709,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIn(IssueCod
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506254+00:00
+**Execution Date:** 2026-11-01T20:17:01.102389+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_currencies_are_not_compared_or_converted](../tests/test_catalogue.py#L218), lines 218–222.
 
@@ -3754,7 +3754,7 @@ self.assertEqual(ids(result.matches), ('inr',)); self.assertTrue(result.can_clai
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506293+00:00
+**Execution Date:** 2026-11-01T20:17:01.102430+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_description_cannot_fill_a_missing_structured_colour](../tests/test_catalogue.py#L137), lines 137–141.
 
@@ -3799,7 +3799,7 @@ self.assertEqual(db.search(request()).status, SearchStatus.INCOMPLETE)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506333+00:00
+**Execution Date:** 2026-11-01T20:17:01.102465+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_discovery_is_explicitly_unsupported_not_structured_fallback](../tests/test_catalogue.py#L257), lines 257–267.
 
@@ -3844,7 +3844,7 @@ self.assertEqual(result.status, SearchStatus.UNSUPPORTED); self.assertEqual(resu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506363+00:00
+**Execution Date:** 2026-11-01T20:17:01.102495+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_empty_complete_catalogue_proves_no_match_but_not_a_minimum](../tests/test_catalogue.py#L189), lines 189–193.
 
@@ -3889,7 +3889,7 @@ self.assertEqual(result.status, SearchStatus.NO_MATCH); self.assertTrue(result.c
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506389+00:00
+**Execution Date:** 2026-11-01T20:17:01.102526+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_full_catalogue_finds_cheaper_poorly_described_item_beyond_top_k](../tests/test_catalogue.py#L40), lines 40–63.
 
@@ -3934,7 +3934,7 @@ self.assertEqual(min((v.price.minor_units for v in hypothetical_semantic_top_k))
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.506446+00:00
+**Execution Date:** 2026-11-01T20:17:01.102583+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_generated_complete_catalogues_agree_with_independent_full_set_oracle](../tests/test_catalogue.py#L269), lines 269–320.
 
@@ -3954,7 +3954,7 @@ self.assertEqual(min((v.price.minor_units for v in hypothetical_semantic_top_k))
 self.assertEqual(pair, expected[0] if expected else None); self.assertEqual(set(ids(result.matches)), {key for _, key in expected}); self.assertEqual(result.can_claim_no_match, not expected)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0110 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0116 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3979,7 +3979,7 @@ self.assertEqual(pair, expected[0] if expected else None); self.assertEqual(set(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517435+00:00
+**Execution Date:** 2026-11-01T20:17:01.114195+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_insufficient_known_stock_and_inactive_records_are_excluded](../tests/test_catalogue.py#L240), lines 240–246.
 
@@ -4024,7 +4024,7 @@ self.assertTrue(db.search(request(quantity=2)).can_claim_no_match); self.assertT
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517488+00:00
+**Execution Date:** 2026-11-01T20:17:01.114254+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_known_nonmatch_dominates_unrelated_unknown_facts](../tests/test_catalogue.py#L123), lines 123–131.
 
@@ -4069,7 +4069,7 @@ self.assertEqual(ids(result.matches), ('backpack',)); self.assertTrue(result.can
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517527+00:00
+**Execution Date:** 2026-11-01T20:17:01.114296+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_known_zero_price_is_a_valid_minimum](../tests/test_catalogue.py#L224), lines 224–228.
 
@@ -4114,7 +4114,7 @@ self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'free')
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517559+00:00
+**Execution Date:** 2026-11-01T20:17:01.114331+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_missing_price_is_unknown_and_blocks_global_claim](../tests/test_catalogue.py#L87), lines 87–96.
 
@@ -4159,7 +4159,7 @@ self.assertEqual(ids(result.matches), ('known',)); self.assertEqual(result.statu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517594+00:00
+**Execution Date:** 2026-11-01T20:17:01.114370+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_only_missing_price_is_not_a_verified_no_match](../tests/test_catalogue.py#L98), lines 98–102.
 
@@ -4204,7 +4204,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIsNone(resu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517623+00:00
+**Execution Date:** 2026-11-01T20:17:01.114404+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_paise_boundary_uses_integers_without_rounding](../tests/test_catalogue.py#L83), lines 83–85.
 
@@ -4249,7 +4249,7 @@ self.assertEqual(ids(db.search(request()).matches), ('below',))
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517656+00:00
+**Execution Date:** 2026-11-01T20:17:01.114439+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_partial_and_unknown_coverage_block_global_claims](../tests/test_catalogue.py#L202), lines 202–209.
 
@@ -4294,7 +4294,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(resul
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517734+00:00
+**Execution Date:** 2026-11-01T20:17:01.114527+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_price_ties_are_stable_for_every_input_permutation](../tests/test_catalogue.py#L182), lines 182–187.
 
@@ -4339,7 +4339,7 @@ self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'a'); self
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517839+00:00
+**Execution Date:** 2026-11-01T20:17:01.114646+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_snapshot_does_not_change_when_input_lists_change](../tests/test_catalogue.py#L248), lines 248–255.
 
@@ -4384,7 +4384,7 @@ self.assertEqual(db.search(request()).cheapest_qualifying_match.variant.variant_
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517868+00:00
+**Execution Date:** 2026-11-01T20:17:01.114681+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_stale_above_budget_price_cannot_prove_nonmatch](../tests/test_catalogue.py#L153), lines 153–158.
 
@@ -4429,7 +4429,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(resul
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517897+00:00
+**Execution Date:** 2026-11-01T20:17:01.114712+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_stale_and_unverified_prices_are_not_qualified](../tests/test_catalogue.py#L143), lines 143–151.
 
@@ -4449,7 +4449,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(resul
 self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIsNone(result.cheapest_qualifying_match); self.assertFalse(result.can_claim_no_match)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0000 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4474,7 +4474,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIsNone(resu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517944+00:00
+**Execution Date:** 2026-11-01T20:17:01.114766+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_strict_and_inclusive_price_boundaries](../tests/test_catalogue.py#L74), lines 74–81.
 
@@ -4519,7 +4519,7 @@ self.assertEqual(strict.status, SearchStatus.NO_MATCH); self.assertTrue(strict.c
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.517985+00:00
+**Execution Date:** 2026-11-01T20:17:01.114811+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_unknown_availability_and_multi_unit_stock_block_claims](../tests/test_catalogue.py#L230), lines 230–238.
 
@@ -4564,7 +4564,7 @@ self.assertTrue(single.can_claim_catalogue_minimum); self.assertEqual(result.sta
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.518053+00:00
+**Execution Date:** 2026-11-01T20:17:01.114879+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_unknown_required_category_colour_or_size_never_matches](../tests/test_catalogue.py#L104), lines 104–117.
 
@@ -4609,7 +4609,7 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.518124+00:00
+**Execution Date:** 2026-11-01T20:17:01.114957+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_unknown_unrequested_size_does_not_block_selection](../tests/test_catalogue.py#L119), lines 119–121.
 
@@ -4654,7 +4654,7 @@ self.assertTrue(result.can_claim_catalogue_minimum)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.518150+00:00
+**Execution Date:** 2026-11-01T20:17:01.114986+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_variant_identity_does_not_borrow_other_colour_price_or_stock](../tests/test_catalogue.py#L160), lines 160–180.
 
@@ -4674,7 +4674,7 @@ self.assertTrue(result.can_claim_catalogue_minimum)
 self.assertTrue(small.can_claim_no_match); self.assertEqual(ids(any_size.matches), ('black-large',)); self.assertEqual(any_size.cheapest_qualifying_match.variant.price.minor_units, 170000)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0000 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4699,7 +4699,7 @@ self.assertTrue(small.can_claim_no_match); self.assertEqual(ids(any_size.matches
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.518201+00:00
+**Execution Date:** 2026-11-01T20:17:01.115041+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_wrong_colour_dominates_unknown_category](../tests/test_catalogue.py#L133), lines 133–135.
 
@@ -4744,7 +4744,7 @@ self.assertIs(qualify(item, request().constraints).state, Eligibility.REJECTED)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.520677+00:00
+**Execution Date:** 2026-11-01T20:17:01.117590+00:00
 
 **Description:** Executable contract [tests.test_dataset.BrowserDatabaseTests.test_expired_source_never_displays_verified_availability](../tests/test_dataset.py#L79), lines 79–95.
 
@@ -4764,7 +4764,7 @@ self.assertIs(qualify(item, request().constraints).state, Eligibility.REJECTED)
 self.assertTrue(result['items']); self.assertTrue(all((row['available'] is None and (not row['can_add']) for row in result['items']))); self.assertTrue(all((row['price_freshness'] == 'stale' for row in result['items'])))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0160 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0149 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4789,7 +4789,7 @@ self.assertTrue(result['items']); self.assertTrue(all((row['available'] is None 
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.536722+00:00
+**Execution Date:** 2026-11-01T20:17:01.132469+00:00
 
 **Description:** Executable contract [tests.test_dataset.BrowserDatabaseTests.test_historical_metadata_browsable_but_cannot_add](../tests/test_dataset.py#L109), lines 109–142.
 
@@ -4809,7 +4809,7 @@ self.assertTrue(result['items']); self.assertTrue(all((row['available'] is None 
 self.assertGreater(result['total'], 1); self.assertEqual(len(result['items']), 1); self.assertFalse(result['items'][0]['can_add']); self.assertFalse(result['can_claim_global_minimum']); self.assertIsNotNone(result['cheapest']); self.assertEqual(CatalogueBrowser(self.database).search('', brand='Fixture', currency='INR')['total'], 1); self.assertEqual(CatalogueBrowser(self.database).search('', brand='Fixture')['total'], 1); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0189 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0186 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4834,7 +4834,7 @@ self.assertGreater(result['total'], 1); self.assertEqual(len(result['items']), 1
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.555620+00:00
+**Execution Date:** 2026-11-01T20:17:01.151084+00:00
 
 **Description:** Executable contract [tests.test_dataset.BrowserDatabaseTests.test_metadata_hybrid_generation_and_minimum_are_scoped](../tests/test_dataset.py#L97), lines 97–107.
 
@@ -4854,7 +4854,7 @@ self.assertGreater(result['total'], 1); self.assertEqual(len(result['items']), 1
 self.assertIn('exact semantic', result['semantic_status']); self.assertFalse(result['can_claim_global_minimum']); self.assertIsNotNone(result['cheapest'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0144 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0142 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4879,7 +4879,7 @@ self.assertIn('exact semantic', result['semantic_status']); self.assertFalse(res
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.570012+00:00
+**Execution Date:** 2026-11-01T20:17:01.165265+00:00
 
 **Description:** Executable contract [tests.test_dataset.DatasetTests.test_historical_amount_equivalence_and_minor_boundaries](../tests/test_dataset.py#L16), lines 16–29.
 
@@ -4924,7 +4924,7 @@ self.assertEqual(historical_usd(value), expected)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.570099+00:00
+**Execution Date:** 2026-11-01T20:17:01.165357+00:00
 
 **Description:** Executable contract [tests.test_dataset.DatasetTests.test_real_schema_normalization_provenance_duplicates_unknowns_and_hash](../tests/test_dataset.py#L31), lines 31–63.
 
@@ -4944,7 +4944,7 @@ self.assertEqual(historical_usd(value), expected)
 self.assertEqual((report['imported'], report['duplicates'], report['rejected']), (1, 1, 1)); self.assertEqual(snapshot['variants'][0]['price']['currency'], 'USD'); self.assertIsNone(snapshot['variants'][0]['available']); self.assertEqual(snapshot['variants'][0]['price_freshness'], 'stale'); self.assertEqual(snapshot['metadata']['TEST-ONLY']['raw_price'], '4.25'); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0007 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0008 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4969,7 +4969,7 @@ self.assertEqual((report['imported'], report['duplicates'], report['rejected']),
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.570856+00:00
+**Execution Date:** 2026-11-01T20:17:01.166142+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_conflicting_budget_currency_is_rejected](../tests/test_domain.py#L50), lines 50–55.
 
@@ -5014,7 +5014,7 @@ self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.570893+00:00
+**Execution Date:** 2026-11-01T20:17:01.166176+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_contracts_are_immutable](../tests/test_domain.py#L95), lines 95–98.
 
@@ -5059,7 +5059,7 @@ self.assertRaises(FrozenInstanceError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.570928+00:00
+**Execution Date:** 2026-11-01T20:17:01.166208+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_currency_is_explicit_and_not_silently_normalized](../tests/test_domain.py#L33), lines 33–36.
 
@@ -5104,7 +5104,7 @@ self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.570977+00:00
+**Execution Date:** 2026-11-01T20:17:01.166258+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_descriptive_text_cannot_be_silently_treated_as_structured](../tests/test_domain.py#L123), lines 123–127.
 
@@ -5149,7 +5149,7 @@ self.assertRaises(ValueError); self.assertRaises(TypeError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571002+00:00
+**Execution Date:** 2026-11-01T20:17:01.166284+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_exact_route_requires_typed_identifier](../tests/test_domain.py#L104), lines 104–110.
 
@@ -5194,7 +5194,7 @@ self.assertRaises(ValueError); self.assertRaises(TypeError); self.assertRaises(V
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571024+00:00
+**Execution Date:** 2026-11-01T20:17:01.166307+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_identity_attributes_and_boolean_fields_are_validated](../tests/test_domain.py#L72), lines 72–89.
 
@@ -5239,7 +5239,7 @@ self.assertRaises(ValueError); self.assertRaises((TypeError, ValueError))
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571110+00:00
+**Execution Date:** 2026-11-01T20:17:01.166392+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_money_is_nonnegative_bounded_integer](../tests/test_domain.py#L26), lines 26–31.
 
@@ -5284,7 +5284,7 @@ self.assertEqual(Money(0, 'INR').minor_units, 0); self.assertEqual(Money(MAX_MIN
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571138+00:00
+**Execution Date:** 2026-11-01T20:17:01.166422+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_money_rejects_float_bool_and_string](../tests/test_domain.py#L21), lines 21–24.
 
@@ -5329,7 +5329,7 @@ self.assertRaises(TypeError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571173+00:00
+**Execution Date:** 2026-11-01T20:17:01.166459+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_price_operators_have_different_boundary_semantics](../tests/test_domain.py#L38), lines 38–42.
 
@@ -5374,7 +5374,7 @@ self.assertFalse(PriceLimit(amount, PriceOperator.LT).permits(amount)); self.ass
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571190+00:00
+**Execution Date:** 2026-11-01T20:17:01.166476+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_quantity_must_be_positive_integer](../tests/test_domain.py#L57), lines 57–60.
 
@@ -5419,7 +5419,7 @@ self.assertRaises((TypeError, ValueError))
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571234+00:00
+**Execution Date:** 2026-11-01T20:17:01.166524+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_route_mismatch_and_unsupported_fields_fail_explicitly](../tests/test_domain.py#L112), lines 112–121.
 
@@ -5464,7 +5464,7 @@ self.assertRaises(ValueError); self.assertRaises(TypeError); self.assertRaises(T
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571257+00:00
+**Execution Date:** 2026-11-01T20:17:01.166548+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_unknowns_stay_explicit_and_default_freshness_is_unknown](../tests/test_domain.py#L62), lines 62–70.
 
@@ -5509,7 +5509,7 @@ self.assertIsNone(item.price); self.assertIsNone(item.colour); self.assertIsNone
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571275+00:00
+**Execution Date:** 2026-11-01T20:17:01.166566+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_untyped_operator_or_money_is_rejected](../tests/test_domain.py#L44), lines 44–48.
 
@@ -5554,7 +5554,7 @@ self.assertRaises(TypeError); self.assertRaises(TypeError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571293+00:00
+**Execution Date:** 2026-11-01T20:17:01.166583+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_variant_cannot_be_joined_to_wrong_parent](../tests/test_domain.py#L100), lines 100–102.
 
@@ -5599,7 +5599,7 @@ self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.571312+00:00
+**Execution Date:** 2026-11-01T20:17:01.166604+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_zero_stock_cannot_be_asserted_available](../tests/test_domain.py#L91), lines 91–93.
 
@@ -5644,7 +5644,7 @@ self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.573828+00:00
+**Execution Date:** 2026-11-01T20:17:01.169103+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.HTTPFoundationTests.test_duplicate_database_tenants_rejected](../tests/test_http_foundation.py#L109), lines 109–118.
 
@@ -5664,7 +5664,7 @@ self.assertRaises(ValueError)
 self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0100 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0106 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5689,7 +5689,7 @@ self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:18.583859+00:00
+**Execution Date:** 2026-11-01T20:17:01.179669+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.HTTPFoundationTests.test_health_origin_host_and_no_fake_endpoints](../tests/test_http_foundation.py#L68), lines 68–107.
 
@@ -5709,7 +5709,7 @@ self.assertRaises(ValueError)
 self.assertEqual(reply.status, 200); self.assertEqual(json.loads(reply.read())['status'], 'ok'); self.assertEqual(reply.status, 403); self.assertEqual(reply.status, 403)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5150 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5191 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5734,7 +5734,7 @@ self.assertEqual(reply.status, 200); self.assertEqual(json.loads(reply.read())['
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:19.098990+00:00
+**Execution Date:** 2026-11-01T20:17:01.698954+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.SecurityTests.test_capability_equivalence_tampering_roles_tenants_and_expiry](../tests/test_http_foundation.py#L20), lines 20–37.
 
@@ -5754,7 +5754,7 @@ self.assertEqual(reply.status, 200); self.assertEqual(json.loads(reply.read())['
 self.assertEqual(auth.verify(token, 'one', 'customer'), 'session'); self.assertRaises(ValueError); self.assertRaises(AccessDenied)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0007 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0011 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5779,7 +5779,7 @@ self.assertEqual(auth.verify(token, 'one', 'customer'), 'session'); self.assertR
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:19.099688+00:00
+**Execution Date:** 2026-11-01T20:17:01.700105+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.SecurityTests.test_rate_limit_boundaries_and_bounded_storage](../tests/test_http_foundation.py#L39), lines 39–46.
 
@@ -5799,7 +5799,7 @@ self.assertEqual(auth.verify(token, 'one', 'customer'), 'session'); self.assertR
 self.assertTrue(rate.allow(('test',), 1, now=0)); self.assertFalse(rate.allow(('test',), 1, now=59.999)); self.assertTrue(rate.allow(('test',), 1, now=60)); self.assertLessEqual(len(rate.windows), 4096)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0098 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0118 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5824,7 +5824,7 @@ self.assertTrue(rate.allow(('test',), 1, now=0)); self.assertFalse(rate.allow(('
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:19.109562+00:00
+**Execution Date:** 2026-11-01T20:17:01.711920+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.SecurityTests.test_trusted_service_hosts_are_explicit_and_not_default](../tests/test_http_foundation.py#L48), lines 48–59.
 
@@ -5844,7 +5844,7 @@ self.assertTrue(rate.allow(('test',), 1, now=0)); self.assertFalse(rate.allow(('
 self.assertRaises(ValueError); self.assertEqual(parse_local_dsn('postgresql://db/test')['host'], 'db'); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0130 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0118 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5869,7 +5869,7 @@ self.assertRaises(ValueError); self.assertEqual(parse_local_dsn('postgresql://db
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:19.128621+00:00
+**Execution Date:** 2026-11-01T20:17:01.729492+00:00
 
 **Description:** Executable contract [tests.test_merchant.MerchantTests.test_adapter_exact_snapshot_add_replay_refresh_and_operation](../tests/test_merchant.py#L43), lines 43–61.
 
@@ -5889,7 +5889,7 @@ self.assertRaises(ValueError); self.assertEqual(parse_local_dsn('postgresql://db
 self.assertEqual(first, second); self.assertEqual(adapter.cart(session)['items'][0]['quantity'], 1); self.assertEqual(adapter.operation(session, operation)['status'], 'committed'); self.assertEqual(adapter.lookup('p-best')['revision'], 'fixture-1'); self.assertEqual(adapter.refresh_offers(['v-best'])[0]['offer']['price']['minor_units'], 150000); self.assertEqual(adapter.operation(session, str(uuid.uuid4()))['status'], 'unknown')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0713 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0698 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5914,7 +5914,7 @@ self.assertEqual(first, second); self.assertEqual(adapter.cart(session)['items']
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:19.199894+00:00
+**Execution Date:** 2026-11-01T20:17:01.799335+00:00
 
 **Description:** Executable contract [tests.test_merchant.MerchantTests.test_real_tenant_database_auth_session_and_catalogue_isolation](../tests/test_merchant.py#L63), lines 63–131.
 
@@ -5934,7 +5934,7 @@ self.assertEqual(first, second); self.assertEqual(adapter.cart(session)['items']
 self.assertEqual(request('two', 'sessions', {}, TOKEN)[0], 403); self.assertEqual(status, 201); self.assertEqual(request('two', 'cart', {'session_id': result['session_id']}, second_token)[0], 409); self.assertEqual(request('two', 'lookup', {'product_id': 'p-best'}, second_token)[1]['product']['name'], 'Other tenant test-only product'); self.assertEqual(request('one', 'lookup', {'product_id': 'p-best'}, TOKEN)[1]['product']['name'], 'College backpack')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.8244 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.8137 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5959,7 +5959,7 @@ self.assertEqual(request('two', 'sessions', {}, TOKEN)[0], 403); self.assertEqua
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.024322+00:00
+**Execution Date:** 2026-11-01T20:17:02.613085+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_action_evidence_cannot_be_a_substring_of_address](../tests/test_nlu.py#L176), lines 176–185.
 
@@ -5979,7 +5979,7 @@ self.assertEqual(request('two', 'sessions', {}, TOKEN)[0], 403); self.assertEqua
 self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6004,7 +6004,7 @@ self.assertRaises(InterpretationError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.024491+00:00
+**Execution Date:** 2026-11-01T20:17:02.613166+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_bool_extra_keys_and_fabricated_evidence_are_rejected](../tests/test_nlu.py#L121), lines 121–129.
 
@@ -6049,7 +6049,7 @@ self.assertRaises(InterpretationError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.024723+00:00
+**Execution Date:** 2026-11-01T20:17:02.613322+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_control_requests_are_narrow_and_do_not_reuse_search_state](../tests/test_nlu.py#L196), lines 196–203.
 
@@ -6069,7 +6069,7 @@ self.assertRaises(InterpretationError)
 self.assertEqual(result.kind, 'cancel'); self.assertIsNone(result.search); self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0000 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6094,7 +6094,7 @@ self.assertEqual(result.kind, 'cancel'); self.assertIsNone(result.search); self.
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.024782+00:00
+**Execution Date:** 2026-11-01T20:17:02.613372+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_critical_field_loss_and_operator_drift_are_rejected](../tests/test_nlu.py#L92), lines 92–106.
 
@@ -6139,7 +6139,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError); 
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.025106+00:00
+**Execution Date:** 2026-11-01T20:17:02.613651+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_exact_identifier_and_ordinal_require_literal_evidence](../tests/test_nlu.py#L148), lines 148–174.
 
@@ -6159,7 +6159,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError); 
 self.assertEqual(result.search.identifier.value, 'SKU-BLK-101'); self.assertEqual(result.ordinal, 2); self.assertIsNone(result.search); self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6184,7 +6184,7 @@ self.assertEqual(result.search.identifier.value, 'SKU-BLK-101'); self.assertEqua
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.025377+00:00
+**Execution Date:** 2026-11-01T20:17:02.613900+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_integer_money_and_strict_inclusive_bounds](../tests/test_nlu.py#L58), lines 58–90.
 
@@ -6204,7 +6204,7 @@ self.assertEqual(result.search.identifier.value, 'SKU-BLK-101'); self.assertEqua
 self.assertEqual(rupees_to_minor('1,50,000.25'), 15000025); self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 200000); self.assertEqual(result.search.constraints.price_limit.operator, PriceOperator(operator)); self.assertRaises((ValueError, TypeError))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6229,7 +6229,7 @@ self.assertEqual(rupees_to_minor('1,50,000.25'), 15000025); self.assertEqual(res
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.025757+00:00
+**Execution Date:** 2026-11-01T20:17:02.614228+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_negation_cannot_authorize_add_or_invert_colour](../tests/test_nlu.py#L108), lines 108–119.
 
@@ -6274,7 +6274,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.025861+00:00
+**Execution Date:** 2026-11-01T20:17:02.614315+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_quantity_and_total_budget_semantics](../tests/test_nlu.py#L131), lines 131–146.
 
@@ -6294,7 +6294,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError)
 self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 5001); self.assertRaises(InterpretationError); self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6319,7 +6319,7 @@ self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 5001)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.026127+00:00
+**Execution Date:** 2026-11-01T20:17:02.614557+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_structured_and_discovery_scopes_remain_distinct](../tests/test_nlu.py#L44), lines 44–56.
 
@@ -6339,7 +6339,7 @@ self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 5001)
 self.assertEqual(result.search.route, RetrievalRoute.STRUCTURED); self.assertEqual(result.search.route, RetrievalRoute.DISCOVERY); self.assertEqual(result.search.route, RetrievalRoute.DISCOVERY); self.assertIn('waterproof', result.search.semantic_query)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6364,7 +6364,7 @@ self.assertEqual(result.search.route, RetrievalRoute.STRUCTURED); self.assertEqu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.026287+00:00
+**Execution Date:** 2026-11-01T20:17:02.614704+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_unknown_currency_and_ambiguous_bounds_need_clarification](../tests/test_nlu.py#L187), lines 187–194.
 
@@ -6409,7 +6409,7 @@ self.assertRaises(InterpretationError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.026395+00:00
+**Execution Date:** 2026-11-01T20:17:02.614803+00:00
 
 **Description:** Executable contract [tests.test_nlu.LiteralSchemaTests.test_evidence_enums_are_independent_and_base_schema_is_unchanged](../tests/test_nlu.py#L335), lines 335–351.
 
@@ -6454,7 +6454,7 @@ self.assertEqual(fields['category']['properties']['evidence']['enum'], ['bags'])
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.026617+00:00
+**Execution Date:** 2026-11-01T20:17:02.615009+00:00
 
 **Description:** Executable contract [tests.test_nlu.LocalTransportTests.test_external_url_credentials_paths_and_nonfinite_timeouts_rejected](../tests/test_nlu.py#L207), lines 207–221.
 
@@ -6474,7 +6474,7 @@ self.assertEqual(fields['category']['properties']['evidence']['enum'], ['bags'])
 self.assertRaises(ValueError); self.assertRaises(ValueError); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6499,7 +6499,7 @@ self.assertRaises(ValueError); self.assertRaises(ValueError); self.assertRaises(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.033674+00:00
+**Execution Date:** 2026-11-01T20:17:02.621401+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_actual_transport_schema_and_independent_validation](../tests/test_nlu.py#L270), lines 270–275.
 
@@ -6519,7 +6519,7 @@ self.assertRaises(ValueError); self.assertRaises(ValueError); self.assertRaises(
 self.assertEqual(interpreter.interpret('find backpack', VOCAB).kind, 'search'); self.assertFalse(self.server.payload['stream']); self.assertFalse(self.server.payload['format']['additionalProperties']); self.assertEqual(self.server.payload['options']['num_predict'], 768)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0020 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0017 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6544,7 +6544,7 @@ self.assertEqual(interpreter.interpret('find backpack', VOCAB).kind, 'search'); 
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.035656+00:00
+**Execution Date:** 2026-11-01T20:17:02.623152+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_embedding_http_shape_and_generation_are_checked](../tests/test_nlu.py#L277), lines 277–287.
 
@@ -6564,7 +6564,7 @@ self.assertEqual(interpreter.interpret('find backpack', VOCAB).kind, 'search'); 
 self.assertEqual(encoder.encode(['college backpack']), [(0.6, 0.8)]); self.assertFalse(self.server.payload['truncate']); self.assertRaises(LocalServiceError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0015 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0013 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6589,7 +6589,7 @@ self.assertEqual(encoder.encode(['college backpack']), [(0.6, 0.8)]); self.asser
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.037123+00:00
+**Execution Date:** 2026-11-01T20:17:02.624442+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_explicit_metadata_encoder_prefix_preserves_small_token_budget](../tests/test_nlu.py#L289), lines 289–304.
 
@@ -6609,7 +6609,7 @@ self.assertEqual(encoder.encode(['college backpack']), [(0.6, 0.8)]); self.asser
 self.assertLessEqual(len(self.server.payload['input'][0].encode()), 256); self.assertFalse(self.server.payload['truncate'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0008 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0006 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6634,7 +6634,7 @@ self.assertLessEqual(len(self.server.payload['input'][0].encode()), 256); self.a
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.037924+00:00
+**Execution Date:** 2026-11-01T20:17:02.625062+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_malformed_model_json_and_extra_fields_never_returns_plan](../tests/test_nlu.py#L321), lines 321–331.
 
@@ -6654,7 +6654,7 @@ self.assertLessEqual(len(self.server.payload['input'][0].encode()), 256); self.a
 self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0034 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0029 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6679,7 +6679,7 @@ self.assertRaises(InterpretationError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.041359+00:00
+**Execution Date:** 2026-11-01T20:17:02.627974+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_wrong_digest_or_truncated_generation_never_returns_plan](../tests/test_nlu.py#L306), lines 306–319.
 
@@ -6699,7 +6699,7 @@ self.assertRaises(InterpretationError)
 self.assertRaises(LocalServiceError); self.assertRaises(LocalServiceError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0026 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0022 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6724,7 +6724,7 @@ self.assertRaises(LocalServiceError); self.assertRaises(LocalServiceError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.546187+00:00
+**Execution Date:** 2026-11-01T20:17:03.132782+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_complete_valid_fixture_and_unknown_values_remain_explicit](../tests/test_persistence.py#L24), lines 24–30.
 
@@ -6744,7 +6744,7 @@ self.assertRaises(LocalServiceError); self.assertRaises(LocalServiceError)
 self.assertIsNone(bundle.variants[0].price); self.assertIsNone(bundle.variants[0].available)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0009 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6769,7 +6769,7 @@ self.assertIsNone(bundle.variants[0].price); self.assertIsNone(bundle.variants[0
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.546587+00:00
+**Execution Date:** 2026-11-01T20:17:03.133713+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_database_config_cannot_redirect_to_remote_hosts](../tests/test_persistence.py#L53), lines 53–60.
 
@@ -6789,7 +6789,7 @@ self.assertIsNone(bundle.variants[0].price); self.assertIsNone(bundle.variants[0
 self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0005 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0010 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6814,7 +6814,7 @@ self.assertRaises(ValueError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.547072+00:00
+**Execution Date:** 2026-11-01T20:17:03.134775+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_reject_duplicate_ids_skus_bad_prices_orphans_and_unknown_fields](../tests/test_persistence.py#L32), lines 32–45.
 
@@ -6834,7 +6834,7 @@ self.assertRaises(ValueError)
 self.assertRaises(ImportValidationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0006 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0017 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6859,7 +6859,7 @@ self.assertRaises(ImportValidationError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.547668+00:00
+**Execution Date:** 2026-11-01T20:17:03.136519+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_vector_dimension_nonfinite_zero_and_mixed_types_rejected](../tests/test_persistence.py#L47), lines 47–51.
 
@@ -6879,7 +6879,7 @@ self.assertRaises(ImportValidationError)
 self.assertEqual(validate_vector([3, 4], 2), (0.6, 0.8)); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0010 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6904,9 +6904,9 @@ self.assertEqual(validate_vector([3, 4], 2), (0.6, 0.8)); self.assertRaises(Valu
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.556749+00:00
+**Execution Date:** 2026-11-01T20:17:03.147666+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_empty_import_can_only_assert_its_declared_source](../tests/test_persistence.py#L290), lines 290–301.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_empty_import_can_only_assert_its_declared_source](../tests/test_persistence.py#L308), lines 308–319.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -6924,7 +6924,7 @@ self.assertEqual(validate_vector([3, 4], 2), (0.6, 0.8)); self.assertRaises(Valu
 self.assertTrue(state['populated']); self.assertEqual(state['product_count'], 0); self.assertTrue(result.can_claim_no_match); self.assertEqual(self.database.snapshot().catalogue.coverage, Coverage.COMPLETE)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0322 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0329 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6949,9 +6949,9 @@ self.assertTrue(state['populated']); self.assertEqual(state['product_count'], 0)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.588923+00:00
+**Execution Date:** 2026-11-01T20:17:03.180604+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_expired_source_and_unknown_prices_block_action_claims](../tests/test_persistence.py#L190), lines 190–199.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_expired_source_and_unknown_prices_block_action_claims](../tests/test_persistence.py#L208), lines 208–217.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -6969,7 +6969,7 @@ self.assertTrue(state['populated']); self.assertEqual(state['product_count'], 0)
 self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(result.can_claim_catalogue_minimum)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0208 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0212 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6994,9 +6994,9 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.609720+00:00
+**Execution Date:** 2026-11-01T20:17:03.201843+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_failed_publication_rolls_back_every_branch](../tests/test_persistence.py#L157), lines 157–166.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_failed_publication_rolls_back_every_branch](../tests/test_persistence.py#L175), lines 175–184.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -7014,7 +7014,7 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 self.assertEqual(state['revision'], 'fixture-1'); self.assertEqual(state['product_count'], 3); self.assertEqual(state['search_count'], 3); self.assertRaises(TypeError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0191 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0193 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7039,9 +7039,9 @@ self.assertEqual(state['revision'], 'fixture-1'); self.assertEqual(state['produc
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.628799+00:00
+**Execution Date:** 2026-11-01T20:17:03.221126+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_full_replace_and_stale_job_compare_and_set](../tests/test_persistence.py#L144), lines 144–155.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_full_replace_and_stale_job_compare_and_set](../tests/test_persistence.py#L162), lines 162–173.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -7059,7 +7059,7 @@ self.assertEqual(state['revision'], 'fixture-1'); self.assertEqual(state['produc
 self.assertEqual(state['variant_count'], 1); self.assertEqual(state['search_count'], 1); self.assertEqual(state['revision'], 'fixture-2'); self.assertRaises(PublicationConflict)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0179 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0185 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7084,7 +7084,7 @@ self.assertEqual(state['variant_count'], 1); self.assertEqual(state['search_coun
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.646722+00:00
+**Execution Date:** 2026-11-01T20:17:03.239687+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_migrations_idempotent_empty_and_startup_inserts_no_products](../tests/test_persistence.py#L95), lines 95–107.
 
@@ -7104,7 +7104,7 @@ self.assertEqual(state['variant_count'], 1); self.assertEqual(state['search_coun
 self.assertEqual(self.database.migrate(), []); self.assertEqual(state['product_count'], 0); self.assertEqual(state['variant_count'], 0); self.assertFalse(state['populated']); self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(result.can_claim_no_match); self.assertEqual(self.database.inspect()['product_count'], 0)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0163 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0164 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7129,9 +7129,9 @@ self.assertEqual(self.database.migrate(), []); self.assertEqual(state['product_c
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.663077+00:00
+**Execution Date:** 2026-11-01T20:17:03.256088+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_parallel_publishers_cannot_overwrite_each_other](../tests/test_persistence.py#L178), lines 178–188.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_parallel_publishers_cannot_overwrite_each_other](../tests/test_persistence.py#L196), lines 196–206.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -7149,7 +7149,7 @@ self.assertEqual(self.database.migrate(), []); self.assertEqual(state['product_c
 self.assertEqual(results.count('conflict'), 1); self.assertIn(self.database.inspect()['revision'], ('writer-a', 'writer-b'))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0129 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0126 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7174,9 +7174,9 @@ self.assertEqual(results.count('conflict'), 1); self.assertIn(self.database.insp
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.676021+00:00
+**Execution Date:** 2026-11-01T20:17:03.268683+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_price_aware_winner_outside_text_top_k_gets_its_real_dense_feature](../tests/test_persistence.py#L218), lines 218–277.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_price_aware_winner_outside_text_top_k_gets_its_real_dense_feature](../tests/test_persistence.py#L236), lines 236–295.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -7194,7 +7194,52 @@ self.assertEqual(results.count('conflict'), 1); self.assertIn(self.database.insp
 self.assertEqual(result.overall_match.variant.variant_id, 'fixture-60'); self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'fixture-61'); self.assertFalse(result.can_claim_catalogue_minimum)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0207 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0204 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-7C222392 — readiness rejects missing current migration marker
+
+**Test Case ID:** VC-7C222392
+
+**Test Case Name:** PostgreSQLIntegrationTests.test_readiness_rejects_missing_current_migration_marker
+
+**System/Sub-system:** tests.test_persistence
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-01T20:17:03.289050+00:00
+
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_readiness_rejects_missing_current_migration_marker](../tests/test_persistence.py#L144), lines 144–160.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `See the source method and class setUp fixture.`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_readiness_rejects_missing_current_migration_marker` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertRaises(DatabaseUnavailable)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0142 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7219,9 +7264,9 @@ self.assertEqual(result.overall_match.variant.variant_id, 'fixture-60'); self.as
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.696721+00:00
+**Execution Date:** 2026-11-01T20:17:03.303289+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_real_pgvector_lexical_price_roles_and_hard_constraints](../tests/test_persistence.py#L201), lines 201–216.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_real_pgvector_lexical_price_roles_and_hard_constraints](../tests/test_persistence.py#L219), lines 219–234.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -7239,7 +7284,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'fixture-60'); self.as
 self.assertEqual(result.overall_match.variant.variant_id, 'v-best'); self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'v-cheap'); self.assertNotIn('v-accessory', {item.variant.variant_id for item in result.matches}); self.assertFalse(result.can_claim_catalogue_minimum); self.assertEqual(result.status, SearchStatus.INCOMPLETE)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0141 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0137 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7264,7 +7309,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'v-best'); self.assert
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.710869+00:00
+**Execution Date:** 2026-11-01T20:17:03.317024+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_real_publication_exact_structured_and_cheapest_oracle](../tests/test_persistence.py#L109), lines 109–132.
 
@@ -7284,7 +7329,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'v-best'); self.assert
 self.assertEqual({item.variant.variant_id for item in result.matches}, {'v-best', 'v-cheap'}); self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'v-cheap'); self.assertTrue(result.can_claim_catalogue_minimum); self.assertEqual(catalogue.lookup(ExactIdentifier(IdentifierKind.SKU, 'SKU-BEST'))[0].variant.variant_id, 'v-best'); self.assertEqual(catalogue.lookup(ExactIdentifier(IdentifierKind.SKU, 'sku-best')), ()); self.assertEqual(self.database.vocabulary()['category']['backpacks'], 'backpack')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0190 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0196 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7309,9 +7354,9 @@ self.assertEqual({item.variant.variant_id for item in result.matches}, {'v-best'
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.729862+00:00
+**Execution Date:** 2026-11-01T20:17:03.336597+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_repeatable_read_does_not_mix_old_and_new_publication](../tests/test_persistence.py#L168), lines 168–176.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_repeatable_read_does_not_mix_old_and_new_publication](../tests/test_persistence.py#L186), lines 186–194.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -7329,7 +7374,7 @@ self.assertEqual({item.variant.variant_id for item in result.matches}, {'v-best'
 self.assertEqual(self.database.snapshot().state['revision'], 'fixture-2'); self.assertEqual(old.state['revision'], after.state['revision'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0193 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0192 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7354,9 +7399,9 @@ self.assertEqual(self.database.snapshot().state['revision'], 'fixture-2'); self.
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.749153+00:00
+**Execution Date:** 2026-11-01T20:17:03.355765+00:00
 
-**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_unconfigured_or_mismatched_semantics_is_not_silent_no_match](../tests/test_persistence.py#L279), lines 279–288.
+**Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_unconfigured_or_mismatched_semantics_is_not_silent_no_match](../tests/test_persistence.py#L297), lines 297–306.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -7374,7 +7419,7 @@ self.assertEqual(self.database.snapshot().state['revision'], 'fixture-2'); self.
 self.assertFalse(result.can_claim_no_match); self.assertTrue(any(('generation' in issue.detail for issue in result.issues)))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0131 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0129 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7399,7 +7444,7 @@ self.assertFalse(result.can_claim_no_match); self.assertTrue(any(('generation' i
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.762252+00:00
+**Execution Date:** 2026-11-01T20:17:03.368692+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_vocabulary_cache_copies_and_publication_invalidation](../tests/test_persistence.py#L134), lines 134–142.
 
@@ -7419,7 +7464,7 @@ self.assertFalse(result.can_claim_no_match); self.assertTrue(any(('generation' i
 self.assertNotIn('injected', self.database.vocabulary()['category']); self.assertIn('new-category', self.database.vocabulary()['category'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0197 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0203 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7444,7 +7489,7 @@ self.assertNotIn('injected', self.database.vocabulary()['category']); self.asser
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782006+00:00
+**Execution Date:** 2026-11-01T20:17:03.389034+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_absent_ranking_policy_does_not_invent_overall_relevance](../tests/test_ranking.py#L52), lines 52–57.
 
@@ -7489,7 +7534,7 @@ self.assertIsNone(result.overall_match); self.assertIsNone(result.ranking_policy
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782116+00:00
+**Execution Date:** 2026-11-01T20:17:03.389159+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_only_hard_qualified_records_reach_ranking](../tests/test_ranking.py#L47), lines 47–50.
 
@@ -7534,7 +7579,7 @@ self.assertEqual(set(policy.seen), {'cheap', 'better-fit'})
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782191+00:00
+**Execution Date:** 2026-11-01T20:17:03.389236+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_overall_ranked_match_is_distinct_from_cheapest_match](../tests/test_ranking.py#L37), lines 37–45.
 
@@ -7579,7 +7624,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'better-fit'); self.as
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782253+00:00
+**Execution Date:** 2026-11-01T20:17:03.389299+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_policy_cannot_inject_unqualified_ids_drop_or_duplicate_matches](../tests/test_ranking.py#L71), lines 71–81.
 
@@ -7624,7 +7669,7 @@ self.assertRaises(RankingContractError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782419+00:00
+**Execution Date:** 2026-11-01T20:17:03.389467+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_policy_version_change_cannot_mislabel_a_result](../tests/test_ranking.py#L93), lines 93–102.
 
@@ -7669,7 +7714,7 @@ self.assertRaisesRegex(RankingContractError, 'version changed')
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782536+00:00
+**Execution Date:** 2026-11-01T20:17:03.389586+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_ranking_order_cannot_change_the_price_minimum](../tests/test_ranking.py#L59), lines 59–69.
 
@@ -7714,7 +7759,7 @@ self.assertEqual(first.cheapest_qualifying_match, second.cheapest_qualifying_mat
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782619+00:00
+**Execution Date:** 2026-11-01T20:17:03.389656+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_unversioned_and_untyped_policy_outputs_are_rejected](../tests/test_ranking.py#L83), lines 83–91.
 
@@ -7759,7 +7804,7 @@ self.assertRaises(RankingContractError)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.782739+00:00
+**Execution Date:** 2026-11-01T20:17:03.389777+00:00
 
 **Description:** Executable contract [tests.test_restore.RestoreTests.test_real_dump_restores_schema_catalogue_and_metadata](../tests/test_restore.py#L20), lines 20–74.
 
@@ -7779,7 +7824,7 @@ self.assertRaises(RankingContractError)
 self.assertEqual(restored.inspect(), database.inspect()); self.assertEqual(config['host'], conninfo_to_dict(target)['host'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.1705 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.1625 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7804,7 +7849,7 @@ self.assertEqual(restored.inspect(), database.inspect()); self.assertEqual(confi
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.953276+00:00
+**Execution Date:** 2026-11-01T20:17:03.552354+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_artifact_hash_zero_one_two_chunks_and_failure](../tests/test_syllabus.py#L108), lines 108–120.
 
@@ -7824,7 +7869,7 @@ self.assertEqual(restored.inspect(), database.inspect()); self.assertEqual(confi
 self.assertEqual(FileArtifact(path, hashlib.sha256(data).hexdigest()).verify(), path); self.assertRaises(VoiceError); self.assertRaises(VoiceError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0041 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0036 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7849,7 +7894,7 @@ self.assertEqual(FileArtifact(path, hashlib.sha256(data).hexdigest()).verify(), 
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.957411+00:00
+**Execution Date:** 2026-11-01T20:17:03.555945+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_import_file_boundary_and_oversized_manifest_without_huge_allocation](../tests/test_syllabus.py#L61), lines 61–79.
 
@@ -7869,7 +7914,7 @@ self.assertEqual(FileArtifact(path, hashlib.sha256(data).hexdigest()).verify(), 
 self.assertEqual(load_import(source).revision, 'fixture-1'); source.read_text.assert_not_called(); self.assertRaises(ImportValidationError); self.assertRaises(ImportValidationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0005 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7894,7 +7939,7 @@ self.assertEqual(load_import(source).revision, 'fixture-1'); source.read_text.as
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.957950+00:00
+**Execution Date:** 2026-11-01T20:17:03.556392+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_money_min_max_bool_float_and_lt_lte_decision_table](../tests/test_syllabus.py#L20), lines 20–37.
 
@@ -7939,7 +7984,7 @@ self.assertEqual(Money(price, 'INR').minor_units, price); self.assertEqual(Price
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.958042+00:00
+**Execution Date:** 2026-11-01T20:17:03.556485+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_number_loop_zero_one_two_typical_scales_and_early_failure](../tests/test_syllabus.py#L39), lines 39–59.
 
@@ -7984,7 +8029,7 @@ self.assertEqual(whole_number(text), expected); self.assertRaises(Interpretation
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:20.958128+00:00
+**Execution Date:** 2026-11-01T20:17:03.556566+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_secret_provisioning_private_parent_and_container_readable_files](../tests/test_syllabus.py#L81), lines 81–106.
 
@@ -8004,7 +8049,7 @@ self.assertEqual(whole_number(text), expected); self.assertRaises(Interpretation
 self.assertEqual(stat.S_IMODE(parent.stat().st_mode), 448); self.assertNotEqual(again.returncode, 0); self.assertEqual(stat.S_IMODE(path.stat().st_mode), 292); self.assertNotIn(path.read_text().strip(), result.stdout)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0512 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0482 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8029,7 +8074,7 @@ self.assertEqual(stat.S_IMODE(parent.stat().st_mode), 448); self.assertNotEqual(
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.012678+00:00
+**Execution Date:** 2026-11-01T20:17:03.608353+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusSQLLoops.test_publication_batch_zero_one_two_32_33_and_early_encoder_failure](../tests/test_syllabus.py#L162), lines 162–196.
 
@@ -8049,7 +8094,7 @@ self.assertEqual(stat.S_IMODE(parent.stat().st_mode), 448); self.assertNotEqual(
 self.assertEqual(self.database.inspect()['revision'], before); self.assertRaises(RuntimeError); self.assertEqual(self.database.inspect()['variant_count'], count)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0589 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0579 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8074,7 +8119,7 @@ self.assertEqual(self.database.inspect()['revision'], before); self.assertRaises
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.071574+00:00
+**Execution Date:** 2026-11-01T20:17:03.666250+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusSQLLoops.test_session_min_max_and_exact_expiry_boundary](../tests/test_syllabus.py#L138), lines 138–160.
 
@@ -8094,7 +8139,7 @@ self.assertEqual(self.database.inspect()['revision'], before); self.assertRaises
 self.assertIsInstance(store.create(ttl_seconds=ttl), str); self.assertRaises((ValueError, SessionError)); self.assertEqual(str(store.require(connection, session)['session_id']), session); self.assertRaises(SessionError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0177 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0172 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8119,7 +8164,7 @@ self.assertIsInstance(store.create(ttl_seconds=ttl), str); self.assertRaises((Va
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.089334+00:00
+**Execution Date:** 2026-11-01T20:17:03.683523+00:00
 
 **Description:** Executable contract [tests.test_telemetry.TelemetryTests.test_concurrent_traces_do_not_mix](../tests/test_telemetry.py#L26), lines 26–36.
 
@@ -8164,7 +8209,7 @@ self.assertEqual(list(pool.map(record, range(20))), list(map(str, range(20))))
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.089893+00:00
+**Execution Date:** 2026-11-01T20:17:03.684098+00:00
 
 **Description:** Executable contract [tests.test_telemetry.TelemetryTests.test_nested_failure_numeric_metrics_and_context_cleanup](../tests/test_telemetry.py#L10), lines 10–24.
 
@@ -8209,7 +8254,7 @@ self.assertEqual(trace.spans[0]['outcome'], 'error'); self.assertEqual(trace.spa
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.089981+00:00
+**Execution Date:** 2026-11-01T20:17:03.684175+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_all_response_codes_share_verified_output_path](../tests/test_voice_delivery.py#L21), lines 21–54.
 
@@ -8254,7 +8299,7 @@ self.assertEqual(result.kind, 'response_completed'); self.assertGreater(len(outp
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.090257+00:00
+**Execution Date:** 2026-11-01T20:17:03.684440+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_artifact_integrity_and_resource_cleanup_without_fake_onset](../tests/test_voice_delivery.py#L97), lines 97–135.
 
@@ -8274,7 +8319,7 @@ self.assertEqual(result.kind, 'response_completed'); self.assertGreater(len(outp
 self.assertIsNone(output.drain('t')); self.assertTrue(Stream.closed); self.assertFalse(output.is_playing()); self.assertEqual(artifact.verify(), path); self.assertRaises(VoiceError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0008 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0006 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8299,7 +8344,7 @@ self.assertIsNone(output.drain('t')); self.assertTrue(Stream.closed); self.asser
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.091045+00:00
+**Execution Date:** 2026-11-01T20:17:03.685088+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_playback_failure_uses_assistive_channel_and_never_claims_audible_delivery](../tests/test_voice_delivery.py#L74), lines 74–95.
 
@@ -8319,7 +8364,7 @@ self.assertIsNone(output.drain('t')); self.assertTrue(Stream.closed); self.asser
 self.assertEqual(delivery.kind, 'assistive_only'); self.assertIsNone(delivery.audible_onset); self.assertTrue(any(('Speech unavailable' in status.text for status in controller.status_messages)))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0000 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8344,7 +8389,7 @@ self.assertEqual(delivery.kind, 'assistive_only'); self.assertIsNone(delivery.au
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.091110+00:00
+**Execution Date:** 2026-11-01T20:17:03.685138+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_tts_fallback_is_not_a_completed_product_list](../tests/test_voice_delivery.py#L56), lines 56–72.
 
@@ -8389,9 +8434,9 @@ self.assertEqual(result.kind, 'fallback_completed'); self.assertEqual(output.pla
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.094212+00:00
+**Execution Date:** 2026-11-01T20:17:03.687607+00:00
 
-**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_cancelled_asr_final_cannot_reappear_or_mutate](../tests/test_web_customer.py#L154), lines 154–203.
+**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_cancelled_asr_final_cannot_reappear_or_mutate](../tests/test_web_customer.py#L168), lines 168–217.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -8409,7 +8454,7 @@ self.assertEqual(result.kind, 'fallback_completed'); self.assertEqual(output.pla
 self.assertTrue(entered.wait(2)); self.assertEqual(self.request('cancel', {})[0], 200); self.assertTrue(cancelled_seen.is_set()); self.assertEqual(result[0][0], 409); self.assertNotIn('STALE TEST TRANSCRIPT', str(result)); self.assertEqual(self.request('cart')[1]['items'], [])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5396 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5409 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8434,9 +8479,9 @@ self.assertTrue(entered.wait(2)); self.assertEqual(self.request('cancel', {})[0]
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:21.633984+00:00
+**Execution Date:** 2026-11-01T20:17:04.228502+00:00
 
-**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_discovery_cannot_silently_drop_a_text_price_boundary](../tests/test_web_customer.py#L139), lines 139–152.
+**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_discovery_cannot_silently_drop_a_text_price_boundary](../tests/test_web_customer.py#L153), lines 153–166.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -8454,7 +8499,52 @@ self.assertTrue(entered.wait(2)); self.assertEqual(self.request('cancel', {})[0]
 self.assertEqual(self.request('search', body)[0], 400); self.assertEqual(self.request('search', {**body, 'under_minor': 2000, 'inclusive': True})[0], 400); self.assertEqual(self.request('search', {**body, 'under_minor': '2000', 'inclusive': False})[0], 200)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5763 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5444 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-D7495CCB — registered final cancelled before arrival cannot execute
+
+**Test Case ID:** VC-D7495CCB
+
+**Test Case Name:** CustomerHTTPTests.test_registered_final_cancelled_before_arrival_cannot_execute
+
+**System/Sub-system:** tests.test_web_customer
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-01T20:17:04.772964+00:00
+
+**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_registered_final_cancelled_before_arrival_cannot_execute](../tests/test_web_customer.py#L140), lines 140–151.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `status, registration = self.request('turns', {}); status, result = self.request('query', {'turn_id': registration['turn_id'], 'text': 'add a black backpack'})`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m unittest tests.test_web_customer.CustomerHTTPTests.test_registered_final_cancelled_before_arrival_cannot_execute` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(status, 201); self.assertEqual(status, 200); self.assertEqual(result['code'], 'cancelled'); self.assertEqual(self.request('cart')[1]['items'], [])
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.5853 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8479,9 +8569,9 @@ self.assertEqual(self.request('search', body)[0], 400); self.assertEqual(self.re
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:22.210451+00:00
+**Execution Date:** 2026-11-01T20:17:05.358413+00:00
 
-**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_search_add_replay_quantity_remove_and_resume](../tests/test_web_customer.py#L67), lines 67–119.
+**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_search_add_replay_quantity_remove_and_resume](../tests/test_web_customer.py#L67), lines 67–120.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -8496,10 +8586,10 @@ self.assertEqual(self.request('search', body)[0], 400); self.assertEqual(self.re
 **Expected Result:**
 
 ```python
-self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1]['session_id'], session['session_id']); self.assertEqual(status, 200); self.assertEqual(self.request('cart/add', body)[1]['code'], 'added'); self.assertEqual(self.request('cart/add', body)[1]['code'], 'added'); self.assertEqual(self.request('cart')[1]['items'][0]['quantity'], 1); self.assertEqual(self.request('cart/add', changed)[0], 409); self.assertEqual(self.request('cart/quantity', {'operation_id': body['operation_id'], 'variant_id': item['variant_id'], 'quantity': 0, 'currency': 'INR'})[0], 409); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 2); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 2); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 0); self.assertEqual(self.request('cart')[1]['items'], []); self.assertEqual(CartManagement(self.database).receipt(session['session_id'], update['operation_id'])['status'], 'committed')
+self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1]['session_id'], session['session_id']); self.assertEqual(status, 200); self.assertEqual(self.request('cart/add', body)[1]['code'], 'added'); self.assertEqual(self.request('cart/add', body)[1]['code'], 'added'); self.assertEqual(self.request('cart')[1]['items'][0]['quantity'], 1); self.assertEqual(self.request('cart/add', changed)[0], 409); self.assertEqual(self.request('cart/quantity', {'operation_id': body['operation_id'], 'variant_id': item['variant_id'], 'quantity': 0, 'currency': 'INR'})[0], 409); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 2); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 2); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 0); self.assertEqual(self.request('cart')[1]['items'], []); self.assertGreaterEqual(len(self.request('operations')[1]['operations']), 3); self.assertEqual(CartManagement(self.database).receipt(session['session_id'], update['operation_id'])['status'], 'committed')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.6394 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.6460 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8524,9 +8614,9 @@ self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1][
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:22.849939+00:00
+**Execution Date:** 2026-11-01T20:17:06.004464+00:00
 
-**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_unauthenticated_invalid_quantity_and_unknown_voice](../tests/test_web_customer.py#L121), lines 121–137.
+**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_unauthenticated_invalid_quantity_and_unknown_voice](../tests/test_web_customer.py#L122), lines 122–138.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -8544,7 +8634,7 @@ self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1][
 self.assertEqual(self.request('cart')[0], 403); self.assertEqual(self.request('cart/quantity', {'operation_id': str(uuid.uuid4()), 'variant_id': 'v-best', 'quantity': True, 'currency': 'INR'})[0], 400); self.assertEqual(self.request('transcribe', {'pcm_base64': 'AAAAAA=='})[0], 503); self.assertEqual(self.request('search', {'query': 'x', 'limit': 101})[0], 400)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5669 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5460 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8569,9 +8659,9 @@ self.assertEqual(self.request('cart')[0], 403); self.assertEqual(self.request('c
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-01T20:02:23.417007+00:00
+**Execution Date:** 2026-11-01T20:17:06.550662+00:00
 
-**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_unknown_historical_inventory_never_enables_add](../tests/test_web_customer.py#L205), lines 205–223.
+**Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_unknown_historical_inventory_never_enables_add](../tests/test_web_customer.py#L219), lines 219–237.
 
 **Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
 
@@ -8589,7 +8679,7 @@ self.assertEqual(self.request('cart')[0], 403); self.assertEqual(self.request('c
 self.assertFalse(any((row['can_add'] for row in result['items']))); self.assertEqual(self.request('cart/add', body)[0], 409); self.assertEqual(self.request('cart')[1]['items'], [])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5957 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5933 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
