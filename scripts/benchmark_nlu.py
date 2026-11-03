@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 
 from voicecart.local_http import LocalJSONClient
-from voicecart.nlu import PROMPT_VERSION, OllamaInterpreter
+from voicecart.nlu import PROMPT_VERSION, InterpretationError, OllamaInterpreter
 from voicecart.telemetry import measurements
 
 
@@ -62,9 +62,12 @@ def main():
                         and intent.search.route.value == case["route"]
                     )
                 outcome = intent.kind
-            except Exception as error:
+            except InterpretationError as error:
                 correct = bool(case.get("reject"))
                 outcome = type(error).__name__
+            except Exception as error:
+                correct = False
+                outcome = "service_or_unexpected_error:" + type(error).__name__
         row = {
             "id": case["id"],
             "correct": bool(correct),
@@ -78,29 +81,32 @@ def main():
         rows.append(row)
         print(case["id"], outcome, correct, round(row["seconds"], 3), flush=True)
     times = [row["seconds"] for row in rows]
-    args.output.write_text(
-        json.dumps(
-            {
-                "method": "Frozen continuation holdout, one pass, no prompt tuning on these results. Text-only; no audio/commerce writes. First request and subsequent requests reported separately; no p95/p99 estimate from 12 observations. Nested spans overlap and must not be summed. Runtime load/prompt/eval counters are service-reported.",
-                "prompt_version": PROMPT_VERSION,
-                "model": args.model,
-                "digest": args.digest,
-                "platform": platform.platform(),
-                "python": platform.python_version(),
-                "client_peak_rss_native_units": resource.getrusage(
-                    resource.RUSAGE_SELF
-                ).ru_maxrss,
-                "client_cpu_seconds": resource.getrusage(resource.RUSAGE_SELF).ru_utime,
-                "count": len(rows),
-                "correct": sum(row["correct"] for row in rows),
-                "mean_seconds": statistics.mean(times),
-                "median_seconds": statistics.median(times),
-                "results": rows,
-            },
-            indent=2,
+    with args.output.open("x") as target:
+        target.write(
+            json.dumps(
+                {
+                    "method": "Frozen continuation holdout, one pass, no prompt tuning on these results. Text-only; no audio/commerce writes. First request and subsequent requests reported separately; no p95/p99 estimate from 12 observations. Nested spans overlap and must not be summed. Runtime load/prompt/eval counters are service-reported.",
+                    "prompt_version": PROMPT_VERSION,
+                    "model": args.model,
+                    "digest": args.digest,
+                    "platform": platform.platform(),
+                    "python": platform.python_version(),
+                    "client_peak_rss_native_units": resource.getrusage(
+                        resource.RUSAGE_SELF
+                    ).ru_maxrss,
+                    "client_cpu_seconds": resource.getrusage(
+                        resource.RUSAGE_SELF
+                    ).ru_utime,
+                    "count": len(rows),
+                    "correct": sum(row["correct"] for row in rows),
+                    "mean_seconds": statistics.mean(times),
+                    "median_seconds": statistics.median(times),
+                    "results": rows,
+                },
+                indent=2,
+            )
+            + "\n"
         )
-        + "\n"
-    )
 
 
 if __name__ == "__main__":

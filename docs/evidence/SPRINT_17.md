@@ -1,0 +1,5 @@
+# Sprint17 — frozen quality/safety/latency evaluation
+
+Delivered32-case authored frozen bank, annotated intent/slots/action labels, reproducible actual two-model measurements and scorer integrity tests. Reference26/32; challenger21/32. No false action proposal in either run's27 nonaction cases, no service errors; limits and quality failures remain explicit. Reference retained on slot/valid-intent quality; no prompt tuning or core replacement. [Method/results](../NLU_EVALUATION_20261103.md), [five evaluator tests](20261103_S17_evaluator/RUN.json).
+
+The first new fresh-wheel run exposed a test fixture path relative to CWD; fixed to source-relative path. A subsequent broader run exposed a dev-only YAML import in a new S18 portable test; removed that unnecessary test dependency. Both initial failed runs remain under S17_regression and S17_corrected_regression. The corrected combined S17/S18 worktree regression is separately recorded in20261103_S17_S18_verified. Failures were investigated, not suppressed or overwritten. Source validation/business assertions remain strict. S18 changes receive their own commit.

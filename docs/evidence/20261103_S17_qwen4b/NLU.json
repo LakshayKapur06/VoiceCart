@@ -1,0 +1,2452 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "0ec2e40842bf88adb0f8dbbe91dd3ba25a963fc6b07329fda083cae0c0d18146",
+  "recorded_at_utc": "2026-11-03T03:33:32.984761+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "prompt_version": "extract-v5-literal-schema-action-examples",
+  "dataset_sha256": "6365c21da6ac815ad0b9df2b7edca8b4d5a114eea053336eb69d369237caeb5b",
+  "dataset": "tests/nlu_eval_v2.json",
+  "method": "One sequential frozen authored English text pass; same hardware and validation/prompt for comparisons; no cart/DB writes. Semantic rejection is distinct from service failure. Slot metrics cover annotated canonical slots only, not free-form query semantic equivalence. False action authorization means validated intent proposal, not a commerce commit. p95/p99 withheld for small sample. OS caches/thermal state/order uncontrolled. Nested spans overlap.",
+  "summary": {
+    "count": 32,
+    "exact_expectation_matches": 26,
+    "intent_exact_matches": 26,
+    "accepted": 16,
+    "semantic_rejections": 16,
+    "service_errors": 0,
+    "unexpected_errors": 0,
+    "slot_tp": 33,
+    "slot_fp": 0,
+    "slot_fn": 10,
+    "slot_micro_precision": 1.0,
+    "slot_micro_recall": 0.7674418604651163,
+    "slot_micro_f1": 0.868421052631579,
+    "slots": {
+      "price_minor": {
+        "correct": 7,
+        "annotated": 9,
+        "tp": 7,
+        "fp": 0,
+        "fn": 2
+      },
+      "operator": {
+        "correct": 7,
+        "annotated": 9,
+        "tp": 7,
+        "fp": 0,
+        "fn": 2
+      },
+      "category": {
+        "correct": 9,
+        "annotated": 11,
+        "tp": 8,
+        "fp": 0,
+        "fn": 2
+      },
+      "colour": {
+        "correct": 6,
+        "annotated": 8,
+        "tp": 5,
+        "fp": 0,
+        "fn": 2
+      },
+      "quantity": {
+        "correct": 2,
+        "annotated": 4,
+        "tp": 2,
+        "fp": 0,
+        "fn": 2
+      },
+      "ordinal": {
+        "correct": 1,
+        "annotated": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "route": {
+        "correct": 1,
+        "annotated": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "size": {
+        "correct": 1,
+        "annotated": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "identifier": {
+        "correct": 1,
+        "annotated": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "safe_rejection_rate": 0.5,
+    "false_action_authorization_count": 0,
+    "nonaction_cases": 27,
+    "false_action_authorization_rate": 0.0,
+    "mean_seconds": 6.065616061188848,
+    "p50_seconds": 6.548991520510754,
+    "p95_seconds": null,
+    "p99_seconds": null
+  },
+  "results": [
+    {
+      "id": "H01",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": "black",
+        "size": null,
+        "quantity": 1,
+        "price_minor": 75000,
+        "operator": "lte",
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "price_minor": 75000,
+        "operator": "lte",
+        "category": "backpack",
+        "colour": "black"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 13.446334375010338,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004368374997284263,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.025771666027139872,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0003207499976269901,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 13.408337708,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 2.302253333,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 3.879917,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.205532,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 13.413151834043674,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.0024052090011537075,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 13.44623479200527,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "first after explicit model eviction; OS caches uncontrolled"
+    },
+    {
+      "id": "H02",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "shirt",
+        "colour": "blue",
+        "size": null,
+        "quantity": 1,
+        "price_minor": 125000,
+        "operator": "lt",
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "price_minor": 125000,
+        "operator": "lt",
+        "category": "shirt",
+        "colour": "blue"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 7.656692415999714,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.005577708012424409,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002454750007018447,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00015604199143126607,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.643007041,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000543958,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.450895,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.182394,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.647878874966409,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00041500001680105925,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.656666374998167,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H03",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search_and_add",
+        "category": "backpack",
+        "colour": "black",
+        "size": null,
+        "quantity": 1,
+        "price_minor": 90000,
+        "operator": "lt",
+        "ordinal": null,
+        "objective": "cheapest",
+        "explicit_add": true,
+        "route": "discovery",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search_and_add",
+        "price_minor": 90000,
+        "operator": "lt",
+        "category": "backpack",
+        "colour": "black"
+      },
+      "action_allowed": true,
+      "false_action_authorization": false,
+      "seconds": 7.951996458985377,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.005394125008024275,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0027671249699778855,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00014720804756507277,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.939280542,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000593542,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.461699,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.467382,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.9430351670016535,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.0005279580364003778,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.951971708971541,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H04",
+      "outcome": "semantic_rejection",
+      "correct": false,
+      "observed": {},
+      "expected": {
+        "kind": "search",
+        "category": "shirt",
+        "colour": "blue"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.33651233301498,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.006178792042192072,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0020223750034347177,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0001442920183762908,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.324249625,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.0005385,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.458197,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 5.856558,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.32793154095998,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 9.445799514651299e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.3364805419696495,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H05",
+      "outcome": "semantic_rejection",
+      "correct": false,
+      "observed": {},
+      "expected": {
+        "kind": "search_and_add",
+        "quantity": 2,
+        "category": "backpack",
+        "colour": "black",
+        "price_minor": 50000,
+        "operator": "lt"
+      },
+      "action_allowed": true,
+      "false_action_authorization": false,
+      "seconds": 7.73875300004147,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004366292036138475,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0026894999900832772,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00014725001528859138,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.727304334,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.0006465,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.459268,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.257529,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.731212957995012,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00020750000840052962,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.7387218329822645,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H06",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.761470708006527,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004290749959181994,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0022480000043287873,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00015833403449505568,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.750823291,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000857125,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.453944,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 6.286608,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.75460570899304,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 4.32920060120523e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.761436166998465,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H07",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.788856583996676,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.00568554102210328,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0020047079888172448,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.000142207951284945,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.777101958,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000645583,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.453297,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 6.314626,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.780802666035015,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00010470801498740911,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.788825457973871,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H08",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.189405208046082,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0038467079866677523,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002143624995369464,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00013212498743087053,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.179977958,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.00066,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.448233,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 5.722291,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.183123791997787,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 6.11250288784504e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.189378959010355,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H09",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "add",
+        "category": null,
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": 3,
+        "objective": "best_match",
+        "explicit_add": true,
+        "route": null,
+        "identifier": null
+      },
+      "expected": {
+        "kind": "add",
+        "ordinal": 3,
+        "category": null
+      },
+      "action_allowed": true,
+      "false_action_authorization": false,
+      "seconds": 3.5815055000130087,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0034441669704392552,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0017799159977585077,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00010383297922089696,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.571758875,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.0007755,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.447429,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.116131,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.575769749993924,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00030216702725738287,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 3.581486540962942,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H10",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "shirt",
+        "colour": "blue",
+        "size": null,
+        "quantity": 1,
+        "price_minor": 100000,
+        "operator": "lte",
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "price_minor": 100000,
+        "operator": "lte",
+        "category": "shirt",
+        "colour": "blue"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 7.34864512499189,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004625624977052212,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0021914999815635383,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00015133299166336656,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.337437042,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000671958,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.453229,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 6.874209,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.341254208004102,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00030283298110589385,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.348624625010416,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H11",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "discovery",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "route": "discovery",
+        "category": "backpack"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 5.406261416035704,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0054937920067459345,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0019886670052073896,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00013637501979246736,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 5.394302666,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.0005825,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.452285,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 4.932506,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 5.398292415949982,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.0002411670284345746,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 5.406241249991581,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "H12",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": 9999,
+        "operator": "lt",
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "price_minor": 9999,
+        "operator": "lt",
+        "category": "backpack"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 7.292890125012491,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004266583011485636,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002009957970585674,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00013929099077358842,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.282736292,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.00065275,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.456367,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 6.816593,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.2861426250310615,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.0002209169906564057,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.292871083016507,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V13",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": null,
+        "quantity": 1
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 3.7691568750306033,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004123374994378537,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0018702500383369625,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0001159579842351377,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.759244708,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000539833,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.447961,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.30281,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.762833499989938,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00010670797200873494,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 3.769138791016303,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V14",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "shirt",
+        "colour": "blue",
+        "size": "medium",
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "category": "shirt",
+        "size": "medium",
+        "colour": "blue"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 4.255431874946225,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004739500000141561,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0018896250403486192,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00013437500456348062,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 4.245773792,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000627833,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.449996,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.786725,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 4.248446625017095,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00013629102613776922,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 4.255417625012342,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V15",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": "black",
+        "size": null,
+        "quantity": 1,
+        "price_minor": 0,
+        "operator": "lte",
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "price_minor": 0,
+        "operator": "lte"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 7.81183650001185,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0029032909660600126,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0013321670121513307,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 9.058398427441716e-05,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.80485625,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000518416,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.452215,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.345351,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.807290708005894,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00014529103646054864,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.8118242920027114,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V16",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": 1,
+        "operator": "lt",
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "structured",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search",
+        "price_minor": 1,
+        "operator": "lt"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 7.557386042026337,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002863708999939263,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0013604589621536434,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 8.783303201198578e-05,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.550005333,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000698,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.457637,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.084767,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.5528135420172475,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.0001793340197764337,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.557372790994123,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V17",
+      "outcome": "accepted",
+      "correct": false,
+      "observed": {
+        "kind": "search",
+        "category": null,
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "discovery",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "cancel"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 3.8576814170228317,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.003264083992689848,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0017273750272579491,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 9.304098784923553e-05,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.848484041,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000487958,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.446587,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.395124,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.8523254999890924,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00017679197480902076,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 3.8576628339942545,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V18",
+      "outcome": "accepted",
+      "correct": false,
+      "observed": {
+        "kind": "search",
+        "category": null,
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "discovery",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "repeat"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 3.0852775829844177,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004968791035935283,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.001943624985869974,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00012408295879140496,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.074145417,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000569459,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.447958,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 2.61748,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.077924332988914,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.0002042920095846057,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 3.0852549169794656,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V19",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "add",
+        "category": null,
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": true,
+        "route": "exact",
+        "identifier": "TEST-V-1"
+      },
+      "expected": {
+        "kind": "add",
+        "identifier": "TEST-V-1",
+        "quantity": 1
+      },
+      "action_allowed": true,
+      "false_action_authorization": false,
+      "seconds": 4.016503874969203,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004300375003367662,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0021567909861914814,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0001432910212315619,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 4.006269958,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000719458,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.474583,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.521469,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 4.009535791003145,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00026179099222645164,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 4.0164845419931225,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V20",
+      "outcome": "semantic_rejection",
+      "correct": false,
+      "observed": {},
+      "expected": {
+        "kind": "search_and_add",
+        "quantity": 3,
+        "price_minor": 30000,
+        "operator": "lt"
+      },
+      "action_allowed": true,
+      "false_action_authorization": false,
+      "seconds": 7.712964624981396,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.003796375007368624,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0025926660164259374,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0001282919547520578,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.702397834,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000620167,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.474711,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.218738,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.706216791993938,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00010262499563395977,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.712932540976908,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V21",
+      "outcome": "accepted",
+      "correct": true,
+      "observed": {
+        "kind": "search",
+        "category": "backpack",
+        "colour": "black",
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "discovery",
+        "identifier": null
+      },
+      "expected": {
+        "kind": "search"
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 4.002980416000355,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004225415992550552,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0025577909545972943,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00015895901015028358,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.992012875,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000676292,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.501824,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.480212,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.9957897079875693,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00012912502279505134,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 4.002961750025861,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V22",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 4.06973654194735,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004706709005404264,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0025044999783858657,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0001557080540806055,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 4.058402375,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000717667,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.49686,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.55178,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 4.062165875046048,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 8.37919651530683e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 4.069706167036202,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V23",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 7.932289874996059,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.005423416965641081,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0021034590317867696,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0001451660064049065,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.920785875,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000548,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.491878,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.419139,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.924364750040695,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.000112250039819628,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.9322538749547675,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V24",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 3.041590582986828,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0048987079644575715,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0024215829907916486,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00012958399020135403,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.030429833,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000635041,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.492102,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 2.529109,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.033931166981347,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 9.045895421877503e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 3.0415596670354716,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V25",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.891705457994249,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.00429637503111735,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002065250009763986,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.000140791991725564,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.881220709,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000680167,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.452762,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 6.418905,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.885043833986856,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 4.395900759845972e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.891675624996424,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V26",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 7.791641791001894,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.005023415957111865,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002041290979832411,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00014545797603204846,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 7.776825208,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000589583,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.451814,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 7.315098,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 7.784003459033556,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.0001907499972730875,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 7.791581334022339,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V27",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 3.5947108340333216,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.009319249948021024,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0015927089843899012,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00011375005124136806,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.578430333,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000548666,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.459271,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.111274,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.5832894159830175,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00027958303689956665,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 3.5946845409926027,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V28",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.955201709002722,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.005658292036969215,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0019124589744023979,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00014187500346451998,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.943218459,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.0006435,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.452722,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 6.48159,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.947238375025336,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00012762501137331128,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.955161208985373,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V29",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.7930298339924775,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004283250018488616,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002111540990881622,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00014537503011524677,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.782323584,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000944542,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.457231,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 6.315268,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.7863196669495665,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 3.38749960064888e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.792998374963645,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V30",
+      "outcome": "accepted",
+      "correct": false,
+      "observed": {
+        "kind": "search",
+        "category": null,
+        "colour": null,
+        "size": null,
+        "quantity": 1,
+        "price_minor": null,
+        "operator": null,
+        "ordinal": null,
+        "objective": "best_match",
+        "explicit_add": false,
+        "route": "discovery",
+        "identifier": null
+      },
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 4.530255874968134,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.004928625014144927,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002295584010425955,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00016704201698303223,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 4.518806167,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000659,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.496086,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 4.012793,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 4.522472792014014,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 0.00025458302116021514,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 4.530229208001401,
+          "outcome": "ok"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V31",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 6.265484792005736,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0043405829928815365,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.002054375014267862,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.0001378749730065465,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 6.254648583,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000606167,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.451704,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 5.793672,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 6.25874408299569,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 8.74160323292017e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 6.265451750019565,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    },
+    {
+      "id": "V32",
+      "outcome": "semantic_rejection",
+      "correct": true,
+      "observed": {},
+      "expected": {
+        "reject": true
+      },
+      "action_allowed": false,
+      "false_action_authorization": false,
+      "seconds": 3.6655242079868913,
+      "spans": [
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0044162910198792815,
+          "outcome": "ok"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 0.0026939159724861383,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.schema",
+          "seconds": 0.00015604100190103054,
+          "outcome": "ok"
+        },
+        {
+          "stage": "ollama.total_duration",
+          "seconds": 3.654336167,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.load_duration",
+          "seconds": 0.000712375,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.prompt_eval_duration",
+          "seconds": 0.447248,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "ollama.eval_duration",
+          "seconds": 3.197076,
+          "outcome": "runtime_reported"
+        },
+        {
+          "stage": "http.local_request",
+          "seconds": 3.658036833978258,
+          "outcome": "ok"
+        },
+        {
+          "stage": "nlu.validation",
+          "seconds": 9.462499292567372e-05,
+          "outcome": "error"
+        },
+        {
+          "stage": "nlu.total",
+          "seconds": 3.6654920000000857,
+          "outcome": "error"
+        }
+      ],
+      "condition": "subsequent request; residency measured by runtime spans"
+    }
+  ]
+}

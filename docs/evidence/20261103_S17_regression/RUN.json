@@ -1,0 +1,62 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "039aa77780d4da518cbba719624866cbcd467d34db09c0b3240850b2c861edcb",
+  "recorded_at_utc": "2026-11-03T03:34:56.159035+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S17-regression",
+  "command": [
+    ".venv/bin/python",
+    "scripts/verify.py",
+    "--postgres",
+    "--package",
+    "--audit",
+    "--output-dir",
+    "docs/evidence/20261103_S17_regression"
+  ],
+  "exit_code": 1,
+  "elapsed_seconds": 29.820868416980375,
+  "unittest_runs": [
+    {
+      "count": 202,
+      "passed": 202,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 9.936,
+      "status": "OK"
+    },
+    {
+      "count": 202,
+      "passed": 201,
+      "failed": 0,
+      "errored": 1,
+      "skipped": 0,
+      "seconds": 10.211,
+      "status": "FAILED (errors=1)"
+    }
+  ],
+  "log": "docs/evidence/20261103_S17_regression/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": []
+}

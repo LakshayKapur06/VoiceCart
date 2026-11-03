@@ -1,0 +1,10 @@
+test_false_action_proposal_is_counted_without_dispatch (tests.test_nlu_evaluation.EvaluationIntegrityTests.test_false_action_proposal_is_counted_without_dispatch) ... ok
+test_frozen_bank_ids_unique_and_explicit_action_labels (tests.test_nlu_evaluation.EvaluationIntegrityTests.test_frozen_bank_ids_unique_and_explicit_action_labels) ... ok
+test_malformed_shape_and_unsafe_action_outputs_are_independently_rejected (tests.test_nlu_evaluation.EvaluationIntegrityTests.test_malformed_shape_and_unsafe_action_outputs_are_independently_rejected) ... ok
+test_reject_label_distinguishes_validation_service_and_unknown_errors (tests.test_nlu_evaluation.EvaluationIntegrityTests.test_reject_label_distinguishes_validation_service_and_unknown_errors) ... ok
+test_slot_micro_counts_missing_wrong_extra_and_correct (tests.test_nlu_evaluation.EvaluationIntegrityTests.test_slot_micro_counts_missing_wrong_extra_and_correct) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK
