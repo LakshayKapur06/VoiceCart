@@ -1,0 +1,51 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "338402dd98bfbf6983b4be36849351fbeb459fe0ee73459bbb5b6c5a3e54e195",
+  "recorded_at_utc": "2026-11-03T03:47:17.689735+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S20-transactions",
+  "command": [
+    ".venv/bin/python",
+    "scripts/run_tests.py",
+    "tests.test_transaction_extended",
+    "tests.test_cart",
+    "tests.test_merchant"
+  ],
+  "exit_code": 1,
+  "elapsed_seconds": 3.050728000001982,
+  "unittest_runs": [
+    {
+      "count": 25,
+      "passed": 24,
+      "failed": 0,
+      "errored": 1,
+      "skipped": 0,
+      "seconds": 1.747,
+      "status": "FAILED (errors=1)"
+    }
+  ],
+  "log": "docs/evidence/20261103_S20_transactions/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": []
+}

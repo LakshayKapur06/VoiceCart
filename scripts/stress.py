@@ -21,8 +21,11 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--cart-users", type=int, default=0)
     args = parser.parse_args()
     output = args.output_dir or run_directory()
+    if not 0 <= args.cart_users <= 64:
+        parser.error("cart-users must be0–64")
     with isolated_postgres():
         database = isolated_database()
         database.migrate()
@@ -83,9 +86,74 @@ def main():
                 resource.RUSAGE_SELF
             ).ru_maxrss,
         }
+        if args.cart_users:
+            import uuid
+
+            from voicecart.cart import AddCommand, CartService
+            from voicecart.cart_management import CartManagement
+            from voicecart.sessions import SessionStore
+
+            def cart_user(index):
+                begin = time.perf_counter()
+                try:
+                    sessions = SessionStore(database)
+                    session = sessions.create()
+                    turn = sessions.begin_turn(session)
+                    command = AddCommand(
+                        session,
+                        turn,
+                        str(uuid.uuid4()),
+                        "exact",
+                        SearchRequest(HardConstraints("INR")),
+                        "TEST-LOAD-0",
+                    )
+                    service = CartService(database)
+                    first = service.add(command)
+                    replay = service.add(command)
+                    management = CartManagement(database)
+                    operation = str(uuid.uuid4())
+                    changed = management.set_quantity(
+                        session, operation, "TEST-LOAD-0", 2, "INR"
+                    )
+                    duplicate = management.set_quantity(
+                        session, operation, "TEST-LOAD-0", 2, "INR"
+                    )
+                    persisted = CartManagement(database).overview(session)
+                    search = catalogue.search(
+                        SearchRequest(HardConstraints("INR", category="backpack"))
+                    )
+                    ok = (
+                        first == replay
+                        and changed == duplicate
+                        and persisted["items"][0]["quantity"] == 2
+                        and len(search.matches) == 2000
+                    )
+                    return {"ok": ok, "seconds": time.perf_counter() - begin}
+                except Exception as error:
+                    return {
+                        "ok": False,
+                        "seconds": time.perf_counter() - begin,
+                        "error_type": type(error).__name__,
+                    }
+
+            begin = time.perf_counter()
+            cpu_start = time.process_time()
+            with ThreadPoolExecutor(max_workers=8) as pool:
+                carts = list(pool.map(cart_user, range(args.cart_users)))
+            report["cart_workload"] = {
+                "method": "Concurrent independent local sessions, actual SQL add/replay/target-quantity/replay/new-service persisted read and complete2000-record search. No stock reservation or production users.",
+                "users": args.cart_users,
+                "workers": 8,
+                "elapsed_seconds": time.perf_counter() - begin,
+                "client_cpu_seconds": time.process_time() - cpu_start,
+                "failures": sum(not row["ok"] for row in carts),
+                "rows": carts,
+                "p95": None,
+                "p99": None,
+            }
         write_new(output / "LOAD.json", {**identity(), **report})
         print(json.dumps(report))
-        if report["failures"]:
+        if report["failures"] or report.get("cart_workload", {}).get("failures"):
             raise RuntimeError("Load correctness gate failed")
 
 

@@ -1,0 +1,32 @@
+REAL SERVICE: PostgreSQL 16.2 on aarch64-apple-darwin23.5.0, compiled by Apple clang version 15.0.0 (clang-1500.0.40.1), 64-bit
+test_failure_before_commit_rolls_back_and_original_id_recovers (tests.test_transaction_extended.ExtendedTransactionTests.test_failure_before_commit_rolls_back_and_original_id_recovers) ... ok
+test_loss_after_commit_reconciles_authoritative_adjustment (tests.test_transaction_extended.ExtendedTransactionTests.test_loss_after_commit_reconciles_authoritative_adjustment) ... ok
+test_parallel_target_updates_duplicate_payload_and_immutable_replay (tests.test_transaction_extended.ExtendedTransactionTests.test_parallel_target_updates_duplicate_payload_and_immutable_replay) ... ok
+test_postcommit_receipt_outage_is_unknown_then_same_id_replays (tests.test_transaction_extended.ExtendedTransactionTests.test_postcommit_receipt_outage_is_unknown_then_same_id_replays) ... ok
+test_product_deactivation_after_search_prevents_add (tests.test_transaction_extended.ExtendedTransactionTests.test_product_deactivation_after_search_prevents_add) ... ok
+test_session_expiry_during_quantity_eligibility_blocks_write (tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_quantity_eligibility_blocks_write) ... ok
+test_session_expiry_during_snapshot_blocks_add_before_write (tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_snapshot_blocks_add_before_write) ... ok
+test_aggregate_stock_blocks_fourth_add (tests.test_cart.CartIntegrationTests.test_aggregate_stock_blocks_fourth_add) ... ok
+test_changed_offer_and_partial_coverage_never_commit (tests.test_cart.CartIntegrationTests.test_changed_offer_and_partial_coverage_never_commit) ... ok
+test_cheapest_accounts_for_existing_cart_quantity (tests.test_cart.CartIntegrationTests.test_cheapest_accounts_for_existing_cart_quantity) ... ok
+test_cheapest_replay_is_before_new_query_selection (tests.test_cart.CartIntegrationTests.test_cheapest_replay_is_before_new_query_selection) ... ok
+test_commit_reply_loss_reconciles_original_receipt (tests.test_cart.CartIntegrationTests.test_commit_reply_loss_reconciles_original_receipt) ... ok
+test_commit_verified_by_immutable_receipt_and_retry_exactly_once (tests.test_cart.CartIntegrationTests.test_commit_verified_by_immutable_receipt_and_retry_exactly_once) ... ok
+test_late_turn_cancel_and_precommit_cancellation_do_not_add (tests.test_cart.CartIntegrationTests.test_late_turn_cancel_and_precommit_cancellation_do_not_add) ... ok
+test_new_intentional_add_and_old_receipt_remain_distinct (tests.test_cart.CartIntegrationTests.test_new_intentional_add_and_old_receipt_remain_distinct) ... ok
+test_parallel_duplicate_workers_apply_one_increment (tests.test_cart.CartIntegrationTests.test_parallel_duplicate_workers_apply_one_increment) ... ok
+test_pending_precommit_outage_blocks_replacement_operation (tests.test_cart.CartIntegrationTests.test_pending_precommit_outage_blocks_replacement_operation) ... ok
+test_result_ordinals_require_current_complete_presentation (tests.test_cart.CartIntegrationTests.test_result_ordinals_require_current_complete_presentation) ... ok
+test_same_operation_different_payload_or_session_is_conflict (tests.test_cart.CartIntegrationTests.test_same_operation_different_payload_or_session_is_conflict) ... ok
+test_session_isolation_and_expiry_cleanup (tests.test_cart.CartIntegrationTests.test_session_isolation_and_expiry_cleanup) ... ok
+test_stop_after_commit_does_not_undo_receipt (tests.test_cart.CartIntegrationTests.test_stop_after_commit_does_not_undo_receipt) ... ok
+test_unknown_outcome_keeps_identity_and_can_be_recovered_after_restart (tests.test_cart.CartIntegrationTests.test_unknown_outcome_keeps_identity_and_can_be_recovered_after_restart) ... ok
+test_whole_transaction_retry_uses_original_operation (tests.test_cart.CartIntegrationTests.test_whole_transaction_retry_uses_original_operation) ... ok
+test_adapter_exact_snapshot_add_replay_refresh_and_operation (tests.test_merchant.MerchantTests.test_adapter_exact_snapshot_add_replay_refresh_and_operation) ... ok
+test_real_tenant_database_auth_session_and_catalogue_isolation (tests.test_merchant.MerchantTests.test_real_tenant_database_auth_session_and_catalogue_isolation) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 1.706s
+
+OK
+EMPTY DATABASE: fresh initialization and startup contain zero products/variants

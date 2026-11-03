@@ -1,0 +1,113 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "7ea69a71d74215c2dae2b4b43716589684992a462b9738ce3d196c9736beb38e",
+  "recorded_at_utc": "2026-11-03T03:48:00.798737+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "method": "Actual isolated PostgreSQL load, fabricated TEST-ONLY catalogue. No inference/audio/owner data or merchant analytics. One 2000-variant publication followed by 128 complete structured searches over 8 workers. Empirical P95 only; P99 not estimated from this sample. Client CPU/RSS excludes the separate PostgreSQL/model processes.",
+  "hardware_os": "macOS-26.5.2-arm64-arm-64bit",
+  "variants": 2000,
+  "concurrency": 8,
+  "requests": 128,
+  "failures": 0,
+  "publication_seconds": 0.1075608340324834,
+  "elapsed_seconds": 3.073125542025082,
+  "mean_seconds": 0.18704215593561457,
+  "median_seconds": 0.19052158301929012,
+  "p95_seconds": 0.23388187499949709,
+  "p99_seconds": null,
+  "client_cpu_seconds": 3.2586839999999997,
+  "client_peak_rss_native_units": 55558144,
+  "cart_workload": {
+    "method": "Concurrent independent local sessions, actual SQL add/replay/target-quantity/replay/new-service persisted read and complete2000-record search. No stock reservation or production users.",
+    "users": 16,
+    "workers": 8,
+    "elapsed_seconds": 1.5923192499903962,
+    "client_cpu_seconds": 1.7553900000000002,
+    "failures": 0,
+    "rows": [
+      {
+        "ok": true,
+        "seconds": 0.6649459999753162
+      },
+      {
+        "ok": true,
+        "seconds": 0.575890582986176
+      },
+      {
+        "ok": true,
+        "seconds": 0.7108633749885485
+      },
+      {
+        "ok": true,
+        "seconds": 0.7359882919699885
+      },
+      {
+        "ok": true,
+        "seconds": 0.7887307080090977
+      },
+      {
+        "ok": true,
+        "seconds": 0.7797264580149204
+      },
+      {
+        "ok": true,
+        "seconds": 0.8135074169840664
+      },
+      {
+        "ok": true,
+        "seconds": 0.7123412500368431
+      },
+      {
+        "ok": true,
+        "seconds": 0.7736937500303611
+      },
+      {
+        "ok": true,
+        "seconds": 0.81683345901547
+      },
+      {
+        "ok": true,
+        "seconds": 0.7483816249878146
+      },
+      {
+        "ok": true,
+        "seconds": 0.87787958298577
+      },
+      {
+        "ok": true,
+        "seconds": 0.7675092920544557
+      },
+      {
+        "ok": true,
+        "seconds": 0.8088541670003906
+      },
+      {
+        "ok": true,
+        "seconds": 0.7381111669819802
+      },
+      {
+        "ok": true,
+        "seconds": 0.7343264579540119
+      }
+    ],
+    "p95": null,
+    "p99": null
+  }
+}

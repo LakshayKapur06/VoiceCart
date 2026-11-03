@@ -94,6 +94,8 @@ class CartManagement:
                         or item.variant.stock_quantity is None
                     ):
                         raise CartError("current_quantity_not_eligible")
+                # Waiting on catalogue/row locks must not outlive authorization.
+                self.sessions.require(connection, session)
                 if quantity == 0:
                     connection.execute(
                         "DELETE FROM cart_items WHERE session_id=%s AND variant_id=%s",
@@ -123,7 +125,10 @@ class CartManagement:
             if receipt:
                 return receipt
             raise OutcomeUnknown() from None
-        receipt = self.receipt(session, operation)
+        try:
+            receipt = self.receipt(session, operation)
+        except (DatabaseUnavailable, psycopg.Error):
+            raise OutcomeUnknown() from None
         if receipt is None:
             raise OutcomeUnknown()
         return receipt

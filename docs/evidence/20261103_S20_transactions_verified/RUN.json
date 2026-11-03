@@ -1,0 +1,51 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "aed4d0b5fa732afbd5914929d327561f245f5cd924321ceaf130278f075eb03d",
+  "recorded_at_utc": "2026-11-03T03:48:51.859570+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S20-corrected-transactions",
+  "command": [
+    ".venv/bin/python",
+    "scripts/run_tests.py",
+    "tests.test_transaction_extended",
+    "tests.test_cart",
+    "tests.test_merchant"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 3.005372457962949,
+  "unittest_runs": [
+    {
+      "count": 25,
+      "passed": 25,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 1.706,
+      "status": "OK"
+    }
+  ],
+  "log": "docs/evidence/20261103_S20_transactions_verified/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": []
+}

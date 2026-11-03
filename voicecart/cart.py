@@ -310,6 +310,8 @@ class CartService:
                 raise CartError("offer_changed_search_or_confirm_again")
             line_price = price.minor_units * constraints.quantity
             require_integer(line_price, "line_price_minor")
+            # Authorization can expire while waiting for catalogue locks.
+            self.sessions.require(connection, command.session_id)
             if cancelled is not None and cancelled.is_set():
                 raise CartError("turn_cancelled_or_superseded")
             connection.execute(
