@@ -1,0 +1,27 @@
+REAL SERVICE: PostgreSQL 16.2 on aarch64-apple-darwin23.5.0, compiled by Apple clang version 15.0.0 (clang-1500.0.40.1), 64-bit
+test_cancelled_asr_final_cannot_reappear_or_mutate (tests.test_web_customer.CustomerHTTPTests.test_cancelled_asr_final_cannot_reappear_or_mutate) ... ok
+test_discovery_cannot_silently_drop_a_text_price_boundary (tests.test_web_customer.CustomerHTTPTests.test_discovery_cannot_silently_drop_a_text_price_boundary) ... ok
+test_registered_final_cancelled_before_arrival_cannot_execute (tests.test_web_customer.CustomerHTTPTests.test_registered_final_cancelled_before_arrival_cannot_execute) ... ok
+test_search_add_replay_quantity_remove_and_resume (tests.test_web_customer.CustomerHTTPTests.test_search_add_replay_quantity_remove_and_resume) ... ok
+test_unauthenticated_invalid_quantity_and_unknown_voice (tests.test_web_customer.CustomerHTTPTests.test_unauthenticated_invalid_quantity_and_unknown_voice) ... ok
+test_unknown_historical_inventory_never_enables_add (tests.test_web_customer.CustomerHTTPTests.test_unknown_historical_inventory_never_enables_add) ... ok
+test_body_limits_duplicate_json_and_framing_rejected (tests.test_security_extended.ExtendedSecurityTests.test_body_limits_duplicate_json_and_framing_rejected) ... ok
+test_compose_probe_matches_strict_host_policy (tests.test_security_extended.ExtendedSecurityTests.test_compose_probe_matches_strict_host_policy) ... ok
+test_cookie_scope_https_flag_origin_cors_and_expiry (tests.test_security_extended.ExtendedSecurityTests.test_cookie_scope_https_flag_origin_cors_and_expiry) ... FAIL
+test_every_protected_route_requires_correct_role (tests.test_security_extended.ExtendedSecurityTests.test_every_protected_route_requires_correct_role) ... ok
+test_health_outage_sanitized_and_missing_secrets_fail_startup (tests.test_security_extended.ExtendedSecurityTests.test_health_outage_sanitized_and_missing_secrets_fail_startup) ... ok
+test_malformed_nested_admin_import_is_400_without_publication (tests.test_security_extended.ExtendedSecurityTests.test_malformed_nested_admin_import_is_400_without_publication) ... ok
+
+======================================================================
+FAIL: test_cookie_scope_https_flag_origin_cors_and_expiry (tests.test_security_extended.ExtendedSecurityTests.test_cookie_scope_https_flag_origin_cors_and_expiry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/tests/test_security_extended.py", line 118, in test_cookie_scope_https_flag_origin_cors_and_expiry
+    self.assertEqual(self.request("cart")[0], 409)
+AssertionError: 400 != 409
+
+----------------------------------------------------------------------
+Ran 12 tests in 6.803s
+
+FAILED (failures=1)
+EMPTY DATABASE: fresh initialization and startup contain zero products/variants

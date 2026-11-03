@@ -114,7 +114,14 @@ def admin(handler, tenant, resource):
         return handler.reply(200, {"snapshot": export_catalogue(app.database)})
     if resource == "import" and handler.command == "POST":
         body = handler.body()
-        for row in body.get("variants", []):
+        variants = body.get("variants")
+        if not isinstance(variants, list):
+            raise ValueError("Variants must be an array")
+        for row in variants:
+            if not isinstance(row, dict) or (
+                row.get("price") is not None and not isinstance(row["price"], dict)
+            ):
+                raise ValueError("Variant and price must be objects")
             if row.get("price") is not None:
                 row["price"]["minor_units"] = minor_units(row["price"]["minor_units"])
             if isinstance(row.get("stock_quantity"), str):

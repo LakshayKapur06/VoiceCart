@@ -1,0 +1,13 @@
+REAL SERVICE: PostgreSQL 16.2 on aarch64-apple-darwin23.5.0, compiled by Apple clang version 15.0.0 (clang-1500.0.40.1), 64-bit
+test_body_limits_duplicate_json_and_framing_rejected (tests.test_security_extended.ExtendedSecurityTests.test_body_limits_duplicate_json_and_framing_rejected) ... ok
+test_compose_probe_matches_strict_host_policy (tests.test_security_extended.ExtendedSecurityTests.test_compose_probe_matches_strict_host_policy) ... ok
+test_cookie_scope_https_flag_origin_cors_and_expiry (tests.test_security_extended.ExtendedSecurityTests.test_cookie_scope_https_flag_origin_cors_and_expiry) ... ok
+test_every_protected_route_requires_correct_role (tests.test_security_extended.ExtendedSecurityTests.test_every_protected_route_requires_correct_role) ... ok
+test_health_outage_sanitized_and_missing_secrets_fail_startup (tests.test_security_extended.ExtendedSecurityTests.test_health_outage_sanitized_and_missing_secrets_fail_startup) ... ok
+test_malformed_nested_admin_import_is_400_without_publication (tests.test_security_extended.ExtendedSecurityTests.test_malformed_nested_admin_import_is_400_without_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 3.330s
+
+OK
+EMPTY DATABASE: fresh initialization and startup contain zero products/variants

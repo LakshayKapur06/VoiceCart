@@ -23,6 +23,7 @@ from voicecart.events import EventStore
 from voicecart.http_security import AccessDenied, Capabilities, RateLimiter, tenant_id
 from voicecart.local_http import strict_json
 from voicecart.merchant import LocalMerchantAdapter
+from voicecart.sessions import SessionError
 from voicecart.settings import Settings
 from voicecart.telemetry import measurements
 
@@ -88,8 +89,8 @@ class WebApplication:
         merchants = {}
         for name, entry in raw.items():
             token = Path(entry["admin_token_file"]).read_text().strip()
-            if len(token) < 32:
-                raise ValueError("Admin token must have at least 32 characters")
+            if not 32 <= len(token) <= 256:
+                raise ValueError("Admin token must have 32–256 characters")
             merchants[name] = Merchant(
                 replace(settings, database_url=entry["database_url"]),
                 hashlib.sha256(token.encode()).hexdigest(),
@@ -204,6 +205,13 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def body(self):
+        if (
+            self.headers.get("Transfer-Encoding")
+            or len(self.headers.get_all("Content-Length", [])) != 1
+        ):
+            raise ValueError(
+                "One explicit Content-Length and no transfer encoding required"
+            )
         length = self.headers.get("Content-Length", "")
         if not length.isdecimal() or not 0 < int(length) <= 2 * 1024 * 1024:
             raise ValueError("Request body must be 1–2097152 bytes")
@@ -269,7 +277,7 @@ class Handler(BaseHTTPRequestHandler):
             ):
                 return self.reply(429, {"error": "Rate limit; retry later"})
             return self.route()
-        except AccessDenied:
+        except (AccessDenied, SessionError):
             self.reply(403, {"error": "Access denied or session expired"})
         except (ValueError, TypeError, KeyError, UnicodeError):
             self.reply(400, {"error": "Invalid request; check fields and limits"})
