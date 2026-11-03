@@ -1,0 +1,9 @@
+test_amount_parser_and_number_loop_feasible_inputs (tests.test_practical_contracts.PracticalContracts.test_amount_parser_and_number_loop_feasible_inputs) ... ok
+test_eligibility_decision_table_rejected_dominates_unknown (tests.test_practical_contracts.PracticalContracts.test_eligibility_decision_table_rejected_dominates_unknown) ... ok
+test_money_text_three_feasible_return_paths (tests.test_practical_contracts.PracticalContracts.test_money_text_three_feasible_return_paths) ... ok
+test_price_equivalence_partitions_and_strict_inclusive_boundaries (tests.test_practical_contracts.PracticalContracts.test_price_equivalence_partitions_and_strict_inclusive_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK

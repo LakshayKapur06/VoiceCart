@@ -75,3 +75,18 @@ Shared Definition of Ready: inspected source, explicit story and bounded contrac
 | S15 | See final sprint commit in Git log | Final193+193 regression, browser/SDK, HTTP real voice, readiness/delayed-turn fixes, comprehensive README/API/handoff. Five browser/two SDK checks; unavailable release tests explicitly Not Run. |
 
 All feasible source engineering is delivered; release acceptance remains conditional on the explicit environmental/quality/rights gates in HANDOFF.md. Normal product startup still seeds zero records; the separate historical preview imports actual approved research metadata. Earlier empty-demo/history-cleanup instructions remain historical and are superseded only as stated by the continuation.
+
+## Additive S16–S21 execution — 3 November 2026
+
+Preserve S1–S15 and all November2 evidence. Each new run records SHA, dirty source fingerprint, UTC time, command, environment, outcome and limitations in a new evidence directory. Same-agent reproduction is never called independent security/human certification. No user changes at start; ordinary commits/pushes only.
+
+| Sprint | Bounded increment / acceptance |
+|---|---|
+| S16 | Fresh193+193 baseline, browser/SDK/types/static/audits/CFG/load, evidence integrity tooling, coverage triage and meaningful practical contracts. |
+| S17 | Frozen authored NLU dataset, intent/slot/action/rejection scorer, actual pinned-model comparison where local assets permit; no validator weakening or retuning on holdout. |
+| S18 | Correct deployment defects, route authorization/security/recovery checks and exact missing runtime/TLS requirements. |
+| S19 | Automated device-failure/review/focus/accessibility checks; available actual speech-stage evidence; explicit device/human protocols. |
+| S20 | Cart concurrency/expiry/deactivation/uncertainty and original-ID recovery; actual local merchant path and external integration specification. |
+| S21 | Final regression/evidence/rights/release audit, actionable human register, self-contained professor practical pack/checklist and additive report. |
+
+All feasible engineering is attempted. Each partial sprint retains its explicit external/device/user/legal gates. A plan/document is not execution evidence.

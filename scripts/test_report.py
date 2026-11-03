@@ -1,8 +1,8 @@
 """Execute real isolated tests and generate source-linked lab test case records."""
 
+import argparse
 import ast
 import hashlib
-import json
 import time
 import unittest
 from datetime import UTC, datetime
@@ -111,6 +111,12 @@ def manual_cases():
 
 
 def main():
+    from scripts.evidence import identity, run_directory, write_new
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    evidence = args.output_dir or run_directory()
     with isolated_postgres():
         suite = unittest.defaultTestLoader.discover("tests", top_level_dir=".")
         result = unittest.TextTestRunner(verbosity=1, resultclass=Results).run(suite)
@@ -123,9 +129,7 @@ def main():
         "skipped": len(result.skipped),
         "cases": result.rows,
     }
-    Path("docs/evidence/TEST_EXECUTION_20261102.json").write_text(
-        json.dumps(report, indent=2) + "\n"
-    )
+    write_new(evidence / "TEST_EXECUTION.json", {**identity(), **report})
     text = [
         "# VoiceCart test case records",
         "Generated from actual source tests and a new recorded execution. Source methods contain exact fixture arrangements, inputs and expected assertions. A case is Pass only when that method actually completed successfully; skipped/unexecuted cases are Not Run. Test data is fabricated only in explicitly guarded test files/databases. This record does not mark real-device, Docker or human acceptance as passed.",

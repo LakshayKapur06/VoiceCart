@@ -7,8 +7,8 @@ outside the intraprocedural model, not claimed exception/path coverage.
 
 from __future__ import annotations
 
+import argparse
 import ast
-import json
 from pathlib import Path
 
 import networkx as nx
@@ -241,6 +241,12 @@ def paths(graph, entry, exit_node):
 
 
 def main():
+    from scripts.evidence import identity, run_directory, write_new
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    evidence = args.output_dir or run_directory()
     output = [
         "# Source-level control-flow analysis",
         "Generated from actual current source. Nodes include explicit decisions, short-circuit Boolean tests, loops, returns/raises and context cleanup. Nested callable/comprehension frames and arbitrary implicit faults inside external calls are outside this intraprocedural convention. Declared try handlers are represented; this is not a claim of exhaustive exception/path coverage.",
@@ -334,9 +340,7 @@ def main():
                 for index, path in enumerate(basis)
             ]
     Path("docs/CFG_ANALYSIS.md").write_text("\n\n".join(output) + "\n")
-    Path("docs/evidence/CFG_20261102.json").write_text(
-        json.dumps(results, indent=2) + "\n"
-    )
+    write_new(evidence / "CFG.json", {**identity(), "functions": results})
     print(
         "Verified",
         len(results),

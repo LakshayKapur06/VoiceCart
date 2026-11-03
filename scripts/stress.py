@@ -1,5 +1,6 @@
 """Reproducible measured load using fabricated fixtures ONLY in guarded test SQL."""
 
+import argparse
 import json
 import platform
 import resource
@@ -16,6 +17,12 @@ from voicecart.search import PostgresCatalogue
 
 
 def main():
+    from scripts.evidence import identity, run_directory, write_new
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    output = args.output_dir or run_directory()
     with isolated_postgres():
         database = isolated_database()
         database.migrate()
@@ -76,9 +83,7 @@ def main():
                 resource.RUSAGE_SELF
             ).ru_maxrss,
         }
-        Path("docs/evidence/LOAD_20261102.json").write_text(
-            json.dumps(report, indent=2) + "\n"
-        )
+        write_new(output / "LOAD.json", {**identity(), **report})
         print(json.dumps(report))
         if report["failures"]:
             raise RuntimeError("Load correctness gate failed")

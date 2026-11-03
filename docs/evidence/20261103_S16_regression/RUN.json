@@ -1,0 +1,52 @@
+{
+  "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "fd82a2f1065f80aaab923b0ec953b56abe897d601f76af4abeded8666da425ff",
+  "recorded_at_utc": "2026-11-03T03:29:16.257826+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S16-regression",
+  "command": [
+    ".venv/bin/python",
+    "scripts/verify.py",
+    "--postgres",
+    "--package",
+    "--audit",
+    "--coverage",
+    "--output-dir",
+    "docs/evidence/20261103_S16_regression"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 37.11338799999794,
+  "unittest_runs": [
+    {
+      "count": 197,
+      "passed": 197,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 10.741,
+      "status": "OK"
+    },
+    {
+      "count": 197,
+      "passed": 197,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 9.78,
+      "status": "OK"
+    }
+  ],
+  "log": "docs/evidence/20261103_S16_regression/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": [
+    "Combined 5 files, skipped 1"
+  ]
+}

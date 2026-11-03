@@ -1,0 +1,28 @@
+{
+  "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "ff50c5a2993874c9a37fd8a72395f4a776ffff2e8fc60f09cc36f20b1ff8921b",
+  "recorded_at_utc": "2026-11-03T03:28:18.644427+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S16-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:browser"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 5.242543375003152,
+  "unittest_runs": [],
+  "log": "docs/evidence/20261103_S16_browser/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": [
+    "(node:25614) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+  ]
+}

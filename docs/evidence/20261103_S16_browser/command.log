@@ -1,0 +1,16 @@
+
+> voicecart-verification@0.1.0 test:browser
+> playwright test
+
+
+Running 5 tests using 1 worker
+
+(node:25614) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/browser/admin.spec.mjs:4:1 › admin authentication, actual analytics, edit and provenance (1.2s)
+  ✓  2 tests/browser/customer.spec.mjs:4:1 › cancel fences a delayed search response from the visible results (314ms)
+  ✓  3 tests/browser/customer.spec.mjs:15:1 › customer search, details, add, quantity, remove and reload recovery (577ms)
+  ✓  4 tests/browser/customer.spec.mjs:36:1 › keyboard dialogs, shortcuts, semantic accessibility and responsive layout (676ms)
+  ✓  5 tests/browser/customer.spec.mjs:48:1 › scripted-capture/ASR review and late-transcript cancellation never add (1.3s)
+
+  5 passed (4.7s)

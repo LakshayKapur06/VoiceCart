@@ -151,7 +151,14 @@ def main() -> None:
     parser.add_argument("--postgres", action="store_true")
     parser.add_argument("--audit", action="store_true")
     parser.add_argument("--coverage", action="store_true")
+    parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
+    from scripts.evidence import run_directory
+
+    output = args.output_dir or run_directory()
+    output.mkdir(parents=True, exist_ok=True)
+    if (output / "COVERAGE.json").exists():
+        parser.error("Refusing to overwrite prior coverage evidence")
     with isolated_postgres() if args.postgres else nullcontext():
         if args.coverage:
             run([sys.executable, "-m", "coverage", "erase"])
@@ -179,7 +186,7 @@ def main() -> None:
                     "coverage",
                     "json",
                     "-o",
-                    "docs/evidence/COVERAGE_20261102.json",
+                    str(output / "COVERAGE.json"),
                 ]
             )
             run([sys.executable, "-m", "coverage", "report"])
