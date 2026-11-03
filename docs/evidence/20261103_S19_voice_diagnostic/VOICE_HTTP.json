@@ -1,0 +1,31 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "608554e0ded76b04076afcc0d51d7e4959b5fa9e6717b381ea32ba05bc96488b",
+  "recorded_at_utc": "2026-11-03T03:44:54.829507+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "method": "Actual Piper synthetic input -> actual CPU Whisper HTTP transcription -> explicit reviewed deterministic selection -> real isolated PostgreSQL receipt -> actual Piper HTTP WAV. Duplicate identical add stayed quantity 1. No microphone/speaker, NLU speed, audible onset or human comprehension claim.",
+  "actual_transcript": "backpack.",
+  "confirmation": "Added 1 of Backpack to your local cart for 500 rupees. Quantity after this operation was 1. This does not reserve stock.",
+  "asr_http_seconds": 0.5019321659929119,
+  "tts_http_seconds": 1.261276499950327,
+  "confirmation_frames": 184320,
+  "sample_rate_hz": 22050,
+  "duplicate_add_incremented": false
+}

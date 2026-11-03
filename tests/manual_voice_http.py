@@ -1,5 +1,6 @@
 """Opt-in real local speech HTTP smoke; fixtures ONLY in guarded test database."""
 
+import argparse
 import base64
 import hashlib
 import http.client
@@ -23,6 +24,11 @@ from voicecart.voice import FileArtifact, PiperSynthesizer
 
 
 def main():
+    from scripts.evidence import identity, run_directory, write_new
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
     root = Path(".local/artifacts")
     hashes = json.loads((root / "verified-hashes.json").read_text())
 
@@ -97,6 +103,17 @@ def main():
                 "transcribe", {"pcm_base64": base64.b64encode(pcm).decode()}
             )
             asr = time.perf_counter() - start
+            write_new(
+                (args.output_dir or run_directory()) / "ASR_OBSERVATION.json",
+                {
+                    **identity(),
+                    "synthetic_source_text": "Backpack.",
+                    "pcm_sha256": hashlib.sha256(pcm).hexdigest(),
+                    "observed_transcript": transcript["text"],
+                    "asr_http_seconds": asr,
+                    "method": "Actual local Piper synthetic input and Whisper HTTP; no human microphone, no commerce authorized by transcript.",
+                },
+            )
             if "backpack" not in transcript["text"].casefold():
                 raise RuntimeError("Speech identity not preserved")
             if not transcript["requires_review"] or transcript["cart_mutated"]:
@@ -137,8 +154,9 @@ def main():
                 "sample_rate_hz": sample_rate,
                 "duplicate_add_incremented": False,
             }
-            Path("docs/evidence/VOICE_HTTP_20261102.json").write_text(
-                json.dumps(report, indent=2) + "\n"
+            write_new(
+                (args.output_dir or run_directory()) / "VOICE_HTTP.json",
+                {**identity(), **report},
             )
             print(json.dumps(report))
         finally:

@@ -1,0 +1,55 @@
+
+> voicecart-verification@0.1.0 test:browser
+> playwright test
+
+
+Running 8 tests using 1 worker
+
+(node:35497) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/browser/admin.spec.mjs:4:1 › admin authentication, actual analytics, edit and provenance (1.2s)
+  ✓  2 tests/browser/customer.spec.mjs:4:1 › cancel fences a delayed search response from the visible results (327ms)
+  ✓  3 tests/browser/customer.spec.mjs:15:1 › customer search, details, add, quantity, remove and reload recovery (570ms)
+  ✓  4 tests/browser/customer.spec.mjs:36:1 › keyboard dialogs, shortcuts, semantic accessibility and responsive layout (691ms)
+  ✓  5 tests/browser/customer.spec.mjs:48:1 › scripted-capture/ASR review and late-transcript cancellation never add (1.3s)
+  ✓  6 tests/browser/failure.spec.mjs:16:1 › permission denial retains text recovery and focus returns from details (702ms)
+  ✘  7 tests/browser/failure.spec.mjs:28:1 › corrected transcript is the submitted text and speech failure preserves results (30.0s)
+(node:35882) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  8 tests/browser/failure.spec.mjs:43:1 › expired capability and unavailable interpreter show recovery without cart success (351ms)
+
+
+  1) tests/browser/failure.spec.mjs:28:1 › corrected transcript is the submitted text and speech failure preserves results 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.waitForRequest: Test timeout of 30000ms exceeded.
+
+      32 |  await page.getByRole('button',{name:'Start voice input',exact:true}).click();await expect(page.getByRole('button',{name:'End voice input'})).toBeVisible();await page.waitForTimeout(150);await page.getByRole('button',{name:'End voice input'}).click();
+      33 |  await page.getByLabel('Correct the words before submitting').fill('blue shirt');
+    > 34 |  const request=page.waitForRequest(r=>r.url().endsWith('/search')&&r.method()==='POST');
+         |                     ^
+      35 |  await page.getByRole('button',{name:'Use reviewed transcript'}).click();
+      36 |  expect((await request).postDataJSON().query).toBe('blue shirt');await expect(page.locator('#review')).toBeHidden();
+      37 |  await expect(page.locator('#cart-count')).toHaveText('0');
+        at /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/tests/browser/failure.spec.mjs:34:21
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Use reviewed transcript' })
+
+
+      33 |  await page.getByLabel('Correct the words before submitting').fill('blue shirt');
+      34 |  const request=page.waitForRequest(r=>r.url().endsWith('/search')&&r.method()==='POST');
+    > 35 |  await page.getByRole('button',{name:'Use reviewed transcript'}).click();
+         |                                                                  ^
+      36 |  expect((await request).postDataJSON().query).toBe('blue shirt');await expect(page.locator('#review')).toBeHidden();
+      37 |  await expect(page.locator('#cart-count')).toHaveText('0');
+      38 |  await page.route('**/speak',route=>route.fulfill({status:503,json:{error:'TEST speaker synthesis unavailable; use text.'}}));
+        at /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/tests/browser/failure.spec.mjs:35:66
+
+    Error Context: test-results/failure-corrected-transcri-084f2-h-failure-preserves-results/error-context.md
+
+  1 failed
+    tests/browser/failure.spec.mjs:28:1 › corrected transcript is the submitted text and speech failure preserves results 
+  7 passed (36.2s)

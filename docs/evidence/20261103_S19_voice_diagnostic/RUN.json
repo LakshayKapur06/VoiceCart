@@ -1,0 +1,40 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "608554e0ded76b04076afcc0d51d7e4959b5fa9e6717b381ea32ba05bc96488b",
+  "recorded_at_utc": "2026-11-03T03:44:50.357554+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S19-voice-diagnostic",
+  "command": [
+    ".venv/bin/python",
+    "tests/manual_voice_http.py",
+    "--output-dir",
+    "docs/evidence/20261103_S19_voice_diagnostic"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 4.83182120800484,
+  "unittest_runs": [],
+  "log": "docs/evidence/20261103_S19_voice_diagnostic/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": []
+}

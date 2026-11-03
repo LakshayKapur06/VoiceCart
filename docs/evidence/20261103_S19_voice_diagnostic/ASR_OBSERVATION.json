@@ -1,0 +1,28 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "608554e0ded76b04076afcc0d51d7e4959b5fa9e6717b381ea32ba05bc96488b",
+  "recorded_at_utc": "2026-11-03T03:44:53.351428+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "synthetic_source_text": "Backpack.",
+  "pcm_sha256": "fbbbdfb20deb31cfe4f24c4f76577f43bec00200184dbdcc0682f1fdc285ffa8",
+  "observed_transcript": "backpack.",
+  "asr_http_seconds": 0.5019321659929119,
+  "method": "Actual local Piper synthetic input and Whisper HTTP; no human microphone, no commerce authorized by transcript."
+}
