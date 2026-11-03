@@ -81,7 +81,7 @@ class PracticalContracts(unittest.TestCase):
         ]:
             with self.subTest(text=text):
                 self.assertEqual(rupees_to_minor(text), expected)
-        for text in ["", "-1", "1.001", "NaN", "1,00", "x" * 101]:
+        for text in [None, "", "-1", "1.001", "NaN", "1,00", "x" * 101]:
             with (
                 self.subTest(text=text),
                 self.assertRaises((InterpretationError, ValueError)),

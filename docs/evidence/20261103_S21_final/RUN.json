@@ -1,0 +1,68 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "9fd5d5b26f7520fcd933e81997108031dcd7e99112a1c6e5a6e418bb53528ce2",
+  "recorded_at_utc": "2026-11-03T03:59:45.973910+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S21-final-source-wheel",
+  "command": [
+    "env",
+    "-u",
+    "PYTHONPATH",
+    ".venv/bin/python",
+    "scripts/verify.py",
+    "--postgres",
+    "--package",
+    "--audit",
+    "--coverage",
+    "--output-dir",
+    "docs/evidence/20261103_S21_final"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 48.95129229204031,
+  "unittest_runs": [
+    {
+      "count": 215,
+      "passed": 215,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 14.24,
+      "status": "OK"
+    },
+    {
+      "count": 215,
+      "passed": 215,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 13.407,
+      "status": "OK"
+    }
+  ],
+  "log": "docs/evidence/20261103_S21_final/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": [
+    "Combined 5 files, skipped 1"
+  ]
+}

@@ -8,7 +8,10 @@ import unittest
 from datetime import UTC, datetime
 from pathlib import Path
 
-from scripts.verify import isolated_postgres
+if __package__:
+    from scripts.verify import isolated_postgres
+else:
+    from verify import isolated_postgres
 
 
 class Results(unittest.TextTestResult):
@@ -111,7 +114,10 @@ def manual_cases():
 
 
 def main():
-    from scripts.evidence import identity, run_directory, write_new
+    if __package__:
+        from scripts.evidence import identity, run_directory, write_new
+    else:
+        from evidence import identity, run_directory, write_new
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path)
@@ -132,6 +138,7 @@ def main():
     write_new(evidence / "TEST_EXECUTION.json", {**identity(), **report})
     text = [
         "# VoiceCart test case records",
+        f"Current execution: {report['executed_at']}. Evidence: [{evidence.name}/TEST_EXECUTION.json](../{evidence}/TEST_EXECUTION.json). Source design dates are historical where known; current mappings were reviewed on {datetime.now(UTC).date()}.",
         "Generated from actual source tests and a new recorded execution. Source methods contain exact fixture arrangements, inputs and expected assertions. A case is Pass only when that method actually completed successfully; skipped/unexecuted cases are Not Run. Test data is fabricated only in explicitly guarded test files/databases. This record does not mark real-device, Docker or human acceptance as passed.",
         "Design technique mapping and concrete decision/partition/loop scenarios are in [TESTING_GUIDE.md](TESTING_GUIDE.md); white-box graphs and independent-path designs are in [CFG_ANALYSIS.md](CFG_ANALYSIS.md).",
     ]
@@ -174,12 +181,12 @@ def main():
         )
         text += [
             f"\n## {identifier} — {method.removeprefix('test_').replace('_', ' ')}",
-            f"**Test Case ID:** {identifier}\n\n**Test Case Name:** {cls}.{method}\n\n**System/Sub-system:** {module}\n\n**Designed By:** VoiceCart engineering test automation\n\n**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)\n\n**Executed By:** Python unittest runner\n\n**Execution Date:** {row['started_at']}",
+            f"**Test Case ID:** {identifier}\n\n**Test Case Name:** {cls}.{method}\n\n**System/Sub-system:** {module}\n\n**Designed By:** VoiceCart engineering test automation\n\n**Design Date:** {datetime.now(UTC).date()} (current mapping review; see Git source history for original design)\n\n**Executed By:** Python unittest runner\n\n**Execution Date:** {row['started_at']}",
             f"**Description:** Executable contract [{name}](../{path}#L{node.lineno}), lines {node.lineno}–{node.end_lineno}.\n\n**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.\n\n**Concrete input arrangement:** `{('; '.join(inputs) or 'See the source method and class setUp fixture.').replace('`', chr(39))[:1200]}`",
-            f"**Test Steps / Step Number / Action:**\n\n1. Arrange the exact source fixture and input cases linked above.\n2. Execute `python -m unittest {name}` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).\n3. Evaluate the following exact source assertions and restore owned temporary state.\n\n**Expected Result:**\n\n```python\n{expected}\n```",
+            f"**Test Steps / Step Number / Action:**\n\n1. Arrange the exact source fixture and input cases linked above.\n2. Execute `python -m scripts.run_tests {name}` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).\n3. Evaluate the following exact source assertions and restore owned temporary state.\n\n**Expected Result:**\n\n```python\n{expected}\n```",
             f"**Actual Result:** {actual} Duration {row['seconds']:.4f} seconds.\n\n**Pass/Fail/Not Run:** {row['status']}\n\n**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.\n\n**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.\n\n**Defect Reference:** None observed in this execution."
             if row["status"] == "Pass"
-            else "**Defect Reference:** See TEST_EXECUTION_20261102.json and the failed/skipped source test; unresolved status is not Pass.",
+            else f"**Defect Reference:** See {evidence}/TEST_EXECUTION.json and the failed/skipped source test; unresolved status is not Pass.",
         ]
     text += manual_cases()
     Path("docs/TEST_CASES.md").write_text("\n\n".join(text) + "\n")

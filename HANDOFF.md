@@ -1,4 +1,8 @@
-# VoiceCart engineering handoff — 2 November 2026
+# VoiceCart handoff
+
+Current S16–S21 continuation: [ADDITIVE_EXECUTION_REPORT](docs/ADDITIVE_EXECUTION_REPORT.md), [professor practical pack](docs/PROFESSOR_PRACTICAL_PACK.md), [human involvement register](docs/HUMAN_INVOLVEMENT_REQUIRED.md) and [release checklist](docs/RELEASE_READINESS_CHECKLIST.md). New runs preserve November2 JSON. The report below is the historical S1–S15 snapshot, dated2November; its counts/limitations are not relabelled current.
+
+# Historical engineering handoff — 2 November 2026
 
 Version0.2.0 continuation of the existing project. Engineering implementation and the tests listed below are complete; product release acceptance is conditional on the explicit quality, environment, device, user and rights gates. This report supersedes the29 October operational summary; historical sprint/model evidence remains in Git and docs/evidence.
 

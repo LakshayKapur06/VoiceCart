@@ -1,0 +1,207 @@
+REAL SERVICE: PostgreSQL 16.2 on aarch64-apple-darwin23.5.0, compiled by Apple clang version 15.0.0 (clang-1500.0.40.1), 64-bit
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m coverage erase
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m coverage run --branch --source=voicecart -m unittest discover -s tests -q
+----------------------------------------------------------------------
+Ran 218 tests in 14.336s
+
+OK
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m coverage combine
+Combined 5 files, skipped 1
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m coverage json -o docs/evidence/20261103_S21_engineering/COVERAGE.json
+Wrote JSON report to docs/evidence/20261103_S21_engineering/COVERAGE.json
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m coverage report
+Name                           Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------
+voicecart/__init__.py              0      0      0      0   100%
+voicecart/__main__.py              2      0      0      0   100%
+voicecart/admin.py                92      8     38      5    90%   75, 125->127, 128, 169-177, 192
+voicecart/application.py         222     53     78     20    72%   92-96, 100->109, 115-117, 129, 139->141, 153, 179-198, 209, 243-270, 293-294, 311, 326, 334, 338, 342, 389, 391, 410, 420, 422, 429, 431, 435, 452-458, 460, 473-474
+voicecart/audio.py               627     58    198     46    87%   74, 98, 122, 124, 127, 154, 196, 235, 357, 364, 434, 462-464, 486, 518-523, 526, 551-555, 570, 593, 595, 598-599, 609, 611, 617, 623, 626, 629, 641, 647, 658, 661, 670, 672, 675, 782->exit, 790-791, 800, 806, 835, 840, 844, 852, 857, 861, 873, 880, 882, 885, 886->888, 889-892
+voicecart/browse.py               50      5     18      3    88%   41, 46, 55-56, 78
+voicecart/cart.py                237     18     68     15    89%   67, 75-77, 93-94, 157, 232, 271, 280, 286, 302, 316, 371, 381, 389, 407, 409, 416
+voicecart/cart_management.py      88      7     24      5    89%   45, 74, 96, 123-124, 133, 164
+voicecart/catalogue.py           138     12     90      7    89%   123, 163, 181, 195, 203, 211-227, 264
+voicecart/cli.py                 304    214     98     10    25%   72-350, 400, 407, 409-411, 424, 434-437, 440, 444, 468, 471, 485-486, 495-526
+voicecart/database.py            175      6     42      6    94%   74, 122, 131, 168, 284, 314
+voicecart/dataset.py              88     16     28      6    81%   58, 74, 76, 79, 86->88, 168-182, 186
+voicecart/domain.py              229      6     72      6    96%   149, 151, 175, 197, 220, 245
+voicecart/embeddings.py           57      5     18      5    87%   46, 49, 69, 78, 94
+voicecart/events.py               22      2      4      2    85%   11, 53
+voicecart/http_security.py        66      5     18      3    90%   24, 37, 54, 77-78
+voicecart/ingestion.py           114     17     48     10    82%   74, 81, 91, 106, 108-109, 145, 148, 157, 170, 176, 179->171, 181-182, 203-206
+voicecart/local_http.py           75     12     26      7    81%   38, 75, 86, 101, 104, 108-111, 122, 125, 133
+voicecart/merchant.py             79      8     16      5    86%   67, 77, 103, 119, 170, 178-183
+voicecart/merchant_api.py         36     12     18      4    59%   15, 27, 31, 44-72, 76, 88
+voicecart/network.py               7      1      2      1    78%   18
+voicecart/nlu.py                 270     16    138     16    92%   127-128, 233, 237, 270, 290, 318, 321, 356->362, 388, 390, 392, 394, 404, 409, 514->516, 530, 536
+voicecart/ranking.py              23      0      6      0   100%
+voicecart/search.py               76      6     22      7    87%   43, 66, 80->88, 86-87, 110->124, 133, 134->136, 162
+voicecart/server.py              222     61     60      9    70%   43, 55, 63, 77-99, 116-139, 143-144, 147-149, 183, 259-260, 278, 291-292, 306, 325-347, 351-364, 368
+voicecart/sessions.py            128      9     28      7    90%   22-24, 111->exit, 126, 131, 148, 150-154, 218
+voicecart/settings.py             53     13     14      5    70%   21-23, 53-55, 63, 69-79, 84-85, 87
+voicecart/telemetry.py            48      0     10      1    98%   44->exit
+voicecart/voice.py               277    123     80     21    52%   54-78, 82, 91-106, 113-131, 135, 138-144, 153-160, 163-187, 190-195, 198-199, 202-211, 235-237, 247->271, 250-251, 254->265, 263, 266, 268-269, 271->277, 273-275, 278->283, 280-281, 289, 304, 306, 309-310, 317, 320-321, 323-324, 326, 328->330, 333-357, 394, 398, 405, 409, 412, 416
+voicecart/web_api.py             176     44     76     17    72%   30, 63, 92, 102, 134, 171, 183, 196, 198-199, 224, 250-254, 259, 270-271, 277-311, 313, 327, 334, 337
+--------------------------------------------------------------------------
+TOTAL                           3981    737   1338    249    79%
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m compileall -q voicecart tests scripts
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m ruff check .
+All checks passed!
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m ruff format --check .
+75 files already formatted
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m mypy voicecart
+Success: no issues found in 30 source files
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m bandit -r voicecart -q
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m pip check
+No broken requirements found.
+CHECK: git diff --check
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m build --wheel --no-isolation --outdir /var/folders/rt/fgt91kt535s808f5w_n0pf3r0000gr/T/vc-package-uvbfd20c
+* Getting build dependencies for wheel...
+running egg_info
+writing voicecart.egg-info/PKG-INFO
+writing dependency_links to voicecart.egg-info/dependency_links.txt
+writing entry points to voicecart.egg-info/entry_points.txt
+writing requirements to voicecart.egg-info/requires.txt
+writing top-level names to voicecart.egg-info/top_level.txt
+reading manifest file 'voicecart.egg-info/SOURCES.txt'
+writing manifest file 'voicecart.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+running egg_info
+writing voicecart.egg-info/PKG-INFO
+writing dependency_links to voicecart.egg-info/dependency_links.txt
+writing entry points to voicecart.egg-info/entry_points.txt
+writing requirements to voicecart.egg-info/requires.txt
+writing top-level names to voicecart.egg-info/top_level.txt
+reading manifest file 'voicecart.egg-info/SOURCES.txt'
+writing manifest file 'voicecart.egg-info/SOURCES.txt'
+installing to build/bdist.macosx-11.0-arm64/wheel
+running install
+running install_lib
+creating build/bdist.macosx-11.0-arm64/wheel
+creating build/bdist.macosx-11.0-arm64/wheel/voicecart
+copying build/lib/voicecart/merchant.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/browse.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/ingestion.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+creating build/bdist.macosx-11.0-arm64/wheel/voicecart/migrations
+copying build/lib/voicecart/migrations/004_provenance.sql -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/migrations
+copying build/lib/voicecart/migrations/005_cart_adjustments.sql -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/migrations
+copying build/lib/voicecart/migrations/001_catalogue.sql -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/migrations
+copying build/lib/voicecart/migrations/002_sessions_cart.sql -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/migrations
+copying build/lib/voicecart/migrations/003_final_turns.sql -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/migrations
+copying build/lib/voicecart/migrations/006_events.sql -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/migrations
+copying build/lib/voicecart/sessions.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/cart_management.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/cart.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/server.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/web_api.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/domain.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/merchant_api.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/events.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+creating build/bdist.macosx-11.0-arm64/wheel/voicecart/web
+copying build/lib/voicecart/web/index.html -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/web
+copying build/lib/voicecart/web/admin.html -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/web
+copying build/lib/voicecart/web/style.css -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/web
+copying build/lib/voicecart/web/admin.js -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/web
+copying build/lib/voicecart/web/app.js -> build/bdist.macosx-11.0-arm64/wheel/./voicecart/web
+copying build/lib/voicecart/database.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/telemetry.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/http_security.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/application.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/dataset.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/voice.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/embeddings.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/admin.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/cli.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/nlu.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/network.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/ranking.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/settings.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/search.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/audio.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/local_http.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/__main__.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+copying build/lib/voicecart/catalogue.py -> build/bdist.macosx-11.0-arm64/wheel/./voicecart
+running install_egg_info
+Copying voicecart.egg-info to build/bdist.macosx-11.0-arm64/wheel/./voicecart-0.2.0-py3.12.egg-info
+running install_scripts
+creating build/bdist.macosx-11.0-arm64/wheel/voicecart-0.2.0.dist-info/WHEEL
+creating '/var/folders/rt/fgt91kt535s808f5w_n0pf3r0000gr/T/vc-package-uvbfd20c/.tmp-51k5_voc/voicecart-0.2.0-py3-none-any.whl' and adding 'build/bdist.macosx-11.0-arm64/wheel' to it
+adding 'voicecart/__init__.py'
+adding 'voicecart/__main__.py'
+adding 'voicecart/admin.py'
+adding 'voicecart/application.py'
+adding 'voicecart/audio.py'
+adding 'voicecart/browse.py'
+adding 'voicecart/cart.py'
+adding 'voicecart/cart_management.py'
+adding 'voicecart/catalogue.py'
+adding 'voicecart/cli.py'
+adding 'voicecart/database.py'
+adding 'voicecart/dataset.py'
+adding 'voicecart/domain.py'
+adding 'voicecart/embeddings.py'
+adding 'voicecart/events.py'
+adding 'voicecart/http_security.py'
+adding 'voicecart/ingestion.py'
+adding 'voicecart/local_http.py'
+adding 'voicecart/merchant.py'
+adding 'voicecart/merchant_api.py'
+adding 'voicecart/network.py'
+adding 'voicecart/nlu.py'
+adding 'voicecart/ranking.py'
+adding 'voicecart/search.py'
+adding 'voicecart/server.py'
+adding 'voicecart/sessions.py'
+adding 'voicecart/settings.py'
+adding 'voicecart/telemetry.py'
+adding 'voicecart/voice.py'
+adding 'voicecart/web_api.py'
+adding 'voicecart/migrations/001_catalogue.sql'
+adding 'voicecart/migrations/002_sessions_cart.sql'
+adding 'voicecart/migrations/003_final_turns.sql'
+adding 'voicecart/migrations/004_provenance.sql'
+adding 'voicecart/migrations/005_cart_adjustments.sql'
+adding 'voicecart/migrations/006_events.sql'
+adding 'voicecart/web/admin.html'
+adding 'voicecart/web/admin.js'
+adding 'voicecart/web/app.js'
+adding 'voicecart/web/index.html'
+adding 'voicecart/web/style.css'
+adding 'voicecart-0.2.0.dist-info/METADATA'
+adding 'voicecart-0.2.0.dist-info/WHEEL'
+adding 'voicecart-0.2.0.dist-info/entry_points.txt'
+adding 'voicecart-0.2.0.dist-info/top_level.txt'
+adding 'voicecart-0.2.0.dist-info/RECORD'
+removing build/bdist.macosx-11.0-arm64/wheel
+Successfully built voicecart-0.2.0-py3-none-any.whl
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m venv --without-pip /var/folders/rt/fgt91kt535s808f5w_n0pf3r0000gr/T/vc-package-uvbfd20c/env
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m pip --python /var/folders/rt/fgt91kt535s808f5w_n0pf3r0000gr/T/vc-package-uvbfd20c/env/bin/python install --no-cache-dir --force-reinstall /var/folders/rt/fgt91kt535s808f5w_n0pf3r0000gr/T/vc-package-uvbfd20c/voicecart-0.2.0-py3-none-any.whl
+Processing /var/folders/rt/fgt91kt535s808f5w_n0pf3r0000gr/T/vc-package-uvbfd20c/voicecart-0.2.0-py3-none-any.whl
+Collecting psycopg==3.3.6 (from psycopg[binary]==3.3.6->voicecart==0.2.0)
+  Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+Collecting typing-extensions>=4.6 (from psycopg==3.3.6->psycopg[binary]==3.3.6->voicecart==0.2.0)
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting psycopg-binary==3.3.6 (from psycopg[binary]==3.3.6->voicecart==0.2.0)
+  Downloading psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl.metadata (2.7 kB)
+Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+Downloading psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl (4.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 1.7 MB/s  0:00:03
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: typing-extensions, psycopg-binary, psycopg, voicecart
+
+Successfully installed psycopg-3.3.6 psycopg-binary-3.3.6 typing-extensions-4.16.0 voicecart-0.2.0
+----------------------------------------------------------------------
+Ran 218 tests in 13.345s
+
+OK
+CHECK: /Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/.venv/bin/python -m pip_audit --skip-editable --progress-spinner off --cache-dir /var/folders/rt/fgt91kt535s808f5w_n0pf3r0000gr/T/vc-advisories-bv_lqjxx
+No known vulnerabilities found
+Name      Skip Reason
+--------- -------------------------------
+voicecart distribution marked as editable
+Automated gates passed. Device/model/human acceptance is a separate gate.
+EMPTY DATABASE: fresh initialization and startup contain zero products/variants

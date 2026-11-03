@@ -90,3 +90,16 @@ Preserve S1–S15 and all November2 evidence. Each new run records SHA, dirty so
 | S21 | Final regression/evidence/rights/release audit, actionable human register, self-contained professor practical pack/checklist and additive report. |
 
 All feasible engineering is attempted. Each partial sprint retains its explicit external/device/user/legal gates. A plan/document is not execution evidence.
+
+### S16–S21 delivered engineering / remaining acceptance
+
+| Sprint | Commit | Actual outcome |
+|---|---|---|
+|16 |4d58aa1 |Fresh193+193 baseline, four practical methods,197+197 regression, append-only evidence/triage; available engineering complete |
+|17 |6fa10f3 |32frozen authored cases, two actual pinned models, scorer integrity; quality/representativeness partial |
+|18 |eecc35a |Host/authorization/import/framing fixes, route matrix,208+208 regression; actual Docker/TLS/independent review blocked/human |
+|19 |1fc1780 |8browser checks, source208pass, actual speech fail plus diagnostic pass, detailed human register; physical/users/acoustics pending |
+|20 |8477528 |Late expiry/unknown receipt fixes,25targeted/215+215 full, actual bounded concurrent cart/search workloads; real source/external authorization missing |
+|21 |Final commit containing report |Final218+218,8browser/2SDK/TS/audits/current coverage/cases/CFG, professor pack/checklist, human/release/license/additive report and compatibility/evidence tests |
+
+All feasible requested engineering tasks attempted; unresolved quality/environment/device/participant/credential/rights gates have exact human actions. See ADDITIVE_EXECUTION_REPORT and HUMAN_INVOLVEMENT_REQUIRED. No force-push/history rewrite; all November2 JSON preserved.

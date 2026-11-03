@@ -3,7 +3,10 @@
 import hashlib
 import os
 
-from scripts.verify import isolated_postgres
+if __package__:
+    from scripts.verify import isolated_postgres
+else:
+    from verify import isolated_postgres
 from tests.database_support import fabricated_document, isolated_database
 from voicecart.ingestion import parse_import
 from voicecart.server import Merchant, Server, WebApplication

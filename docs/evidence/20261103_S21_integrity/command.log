@@ -1,0 +1,8 @@
+test_browser_node_and_static_summaries_preserve_scope (tests.test_evidence_tools.EvidenceIntegrityTests.test_browser_node_and_static_summaries_preserve_scope) ... ok
+test_evidence_write_refuses_overwrite_and_preserves_original (tests.test_evidence_tools.EvidenceIntegrityTests.test_evidence_write_refuses_overwrite_and_preserves_original) ... ok
+test_source_wheel_counts_are_executions_with_failure_skip_and_error (tests.test_evidence_tools.EvidenceIntegrityTests.test_source_wheel_counts_are_executions_with_failure_skip_and_error) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK

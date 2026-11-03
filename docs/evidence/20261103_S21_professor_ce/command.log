@@ -1,0 +1,12 @@
+REAL SERVICE: PostgreSQL 16.2 on aarch64-apple-darwin23.5.0, compiled by Apple clang version 15.0.0 (clang-1500.0.40.1), 64-bit
+test_commit_verified_by_immutable_receipt_and_retry_exactly_once (tests.test_cart.CartIntegrationTests.test_commit_verified_by_immutable_receipt_and_retry_exactly_once) ... ok
+test_same_operation_different_payload_or_session_is_conflict (tests.test_cart.CartIntegrationTests.test_same_operation_different_payload_or_session_is_conflict) ... ok
+test_commit_reply_loss_reconciles_original_receipt (tests.test_cart.CartIntegrationTests.test_commit_reply_loss_reconciles_original_receipt) ... ok
+test_postcommit_receipt_outage_is_unknown_then_same_id_replays (tests.test_transaction_extended.ExtendedTransactionTests.test_postcommit_receipt_outage_is_unknown_then_same_id_replays) ... ok
+test_session_expiry_during_snapshot_blocks_add_before_write (tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_snapshot_blocks_add_before_write) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.256s
+
+OK
+EMPTY DATABASE: fresh initialization and startup contain zero products/variants

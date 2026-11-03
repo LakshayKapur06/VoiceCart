@@ -12,6 +12,9 @@ from contextlib import contextmanager, nullcontext
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# Direct script entry points must resolve this checkout's test/tool modules.
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def run(arguments: list[str], **kwargs) -> None:
@@ -153,7 +156,10 @@ def main() -> None:
     parser.add_argument("--coverage", action="store_true")
     parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
-    from scripts.evidence import run_directory
+    if __package__:
+        from scripts.evidence import run_directory
+    else:
+        from evidence import run_directory
 
     output = args.output_dir or run_directory()
     output.mkdir(parents=True, exist_ok=True)

@@ -1,5 +1,7 @@
 # VoiceCart test case records
 
+Current execution: 2026-11-03T04:03:26.345007+00:00. Evidence: [20261103_S21_final_cases/TEST_EXECUTION.json](../docs/evidence/20261103_S21_final_cases/TEST_EXECUTION.json). Source design dates are historical where known; current mappings were reviewed on 2026-11-03.
+
 Generated from actual source tests and a new recorded execution. Source methods contain exact fixture arrangements, inputs and expected assertions. A case is Pass only when that method actually completed successfully; skipped/unexecuted cases are Not Run. Test data is fabricated only in explicitly guarded test files/databases. This record does not mark real-device, Docker or human acceptance as passed.
 
 Design technique mapping and concrete decision/partition/loop scenarios are in [TESTING_GUIDE.md](TESTING_GUIDE.md); white-box graphs and independent-path designs are in [CFG_ANALYSIS.md](CFG_ANALYSIS.md).
@@ -15,11 +17,11 @@ Design technique mapping and concrete decision/partition/loop scenarios are in [
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:47.761982+00:00
+**Execution Date:** 2026-11-03T04:03:12.560594+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_create_variant_and_deactivate_preserve_source_contract](../tests/test_admin.py#L112), lines 112–148.
 
@@ -30,7 +32,7 @@ Design technique mapping and concrete decision/partition/loop scenarios are in [
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_admin.AdminHTTPTests.test_create_variant_and_deactivate_preserve_source_contract` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_admin.AdminHTTPTests.test_create_variant_and_deactivate_preserve_source_contract` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -39,7 +41,7 @@ Design technique mapping and concrete decision/partition/loop scenarios are in [
 self.assertEqual(self.request('import', document, headers=headers)[0], 200); self.assertEqual(self.database.inspect()['product_count'], 4); self.assertEqual(self.request('import', updated, headers=headers)[0], 200); self.assertEqual(self.request('catalogue', {'category': 'test-only'}, headers=headers)[1]['total'], 0)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5552 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.6126 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -60,11 +62,11 @@ self.assertEqual(self.request('import', document, headers=headers)[0], 200); sel
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:48.317295+00:00
+**Execution Date:** 2026-11-03T04:03:13.173376+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_duplicate_import_rolls_back_and_bearer_enforced](../tests/test_admin.py#L95), lines 95–110.
 
@@ -75,7 +77,7 @@ self.assertEqual(self.request('import', document, headers=headers)[0], 200); sel
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_admin.AdminHTTPTests.test_duplicate_import_rolls_back_and_bearer_enforced` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_admin.AdminHTTPTests.test_duplicate_import_rolls_back_and_bearer_enforced` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -84,7 +86,7 @@ self.assertEqual(self.request('import', document, headers=headers)[0], 200); sel
 self.assertEqual(self.request('export', headers={'Authorization': 'Bearer bad'})[0], 403); self.assertEqual(status, 400); self.assertTrue(result['issues']); self.assertEqual(self.database.inspect()['revision'], 'fixture-1')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5627 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5601 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -105,11 +107,11 @@ self.assertEqual(self.request('export', headers={'Authorization': 'Bearer bad'})
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:48.880172+00:00
+**Execution Date:** 2026-11-03T04:03:13.733574+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_event_privacy_environment_and_retention](../tests/test_admin.py#L150), lines 150–162.
 
@@ -120,7 +122,7 @@ self.assertEqual(self.request('export', headers={'Authorization': 'Bearer bad'})
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_admin.AdminHTTPTests.test_event_privacy_environment_and_retention` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_admin.AdminHTTPTests.test_event_privacy_environment_and_retention` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -129,7 +131,7 @@ self.assertEqual(self.request('export', headers={'Authorization': 'Bearer bad'})
 self.assertEqual(summary['events'][0]['count'], 1); self.assertNotIn('query', str(summary['events'])); self.assertEqual(EventStore(self.database, 'merchant').summary()['events'], []); self.assertEqual(events.summary()['events'], [])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5567 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5542 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -150,11 +152,11 @@ self.assertEqual(summary['events'][0]['count'], 1); self.assertNotIn('query', st
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:49.436916+00:00
+**Execution Date:** 2026-11-03T04:03:14.287971+00:00
 
 **Description:** Executable contract [tests.test_admin.AdminHTTPTests.test_roles_login_export_atomic_edit_conflict_and_metrics](../tests/test_admin.py#L73), lines 73–93.
 
@@ -165,7 +167,7 @@ self.assertEqual(summary['events'][0]['count'], 1); self.assertNotIn('query', st
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_admin.AdminHTTPTests.test_roles_login_export_atomic_edit_conflict_and_metrics` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_admin.AdminHTTPTests.test_roles_login_export_atomic_edit_conflict_and_metrics` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -174,7 +176,7 @@ self.assertEqual(summary['events'][0]['count'], 1); self.assertNotIn('query', st
 self.assertEqual(self.request('export')[0], 403); self.assertEqual(self.request('login', {'token': 'bad'})[0], 403); self.assertEqual(self.request('login', {'token': TOKEN})[0], 200); self.assertEqual(self.request('import', document)[0], 200); self.assertEqual(self.request('import', document)[0], 400); self.assertEqual(self.database.inspect()['revision'], 'admin-test-2'); self.assertEqual(analytics['environment'], 'test'); self.assertEqual(analytics['coverage']['variants'], 3); self.assertIn('Not collected', analytics['popular_queries']); self.assertEqual(self.request('health')[1]['database'], 'ok'); self.assertGreaterEqual(len(self.request('imports')[1]['imports']), 1); self.assertEqual(self.request('export')[0], 403)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5794 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5851 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -195,11 +197,11 @@ self.assertEqual(self.request('export')[0], 403); self.assertEqual(self.request(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.026123+00:00
+**Execution Date:** 2026-11-03T04:03:14.885760+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_cancel_during_interpretation_fences_late_error_response](../tests/test_application.py#L144), lines 144–156.
 
@@ -210,7 +212,7 @@ self.assertEqual(self.request('export')[0], 403); self.assertEqual(self.request(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_cancel_during_interpretation_fences_late_error_response` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_cancel_during_interpretation_fences_late_error_response` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -219,7 +221,7 @@ self.assertEqual(self.request('export')[0], 403); self.assertEqual(self.request(
 self.assertEqual(response.code, 'cancelled'); self.assertEqual(response.text, ''); self.assertEqual(app.cart.items(self.session), {})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0539 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0541 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -240,11 +242,11 @@ self.assertEqual(response.code, 'cancelled'); self.assertEqual(response.text, ''
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.080011+00:00
+**Execution Date:** 2026-11-03T04:03:14.939879+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_duplicate_final_is_claimed_once_in_persistent_session](../tests/test_application.py#L91), lines 91–100.
 
@@ -255,7 +257,7 @@ self.assertEqual(response.code, 'cancelled'); self.assertEqual(response.text, ''
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_duplicate_final_is_claimed_once_in_persistent_session` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_duplicate_final_is_claimed_once_in_persistent_session` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -264,7 +266,7 @@ self.assertEqual(response.code, 'cancelled'); self.assertEqual(response.text, ''
 self.assertEqual(first.operation_id, repeated.operation_id); self.assertEqual(self.interpreter.calls, 1); self.assertEqual(self.app.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0485 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0489 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -285,11 +287,11 @@ self.assertEqual(first.operation_id, repeated.operation_id); self.assertEqual(se
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.128520+00:00
+**Execution Date:** 2026-11-03T04:03:14.988836+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_partial_blank_cancelled_and_malformed_requests_do_not_add](../tests/test_application.py#L102), lines 102–116.
 
@@ -300,7 +302,7 @@ self.assertEqual(first.operation_id, repeated.operation_id); self.assertEqual(se
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_partial_blank_cancelled_and_malformed_requests_do_not_add` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_partial_blank_cancelled_and_malformed_requests_do_not_add` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -309,7 +311,7 @@ self.assertEqual(first.operation_id, repeated.operation_id); self.assertEqual(se
 self.assertEqual(stale.code, 'cancelled'); self.assertEqual(result.code, 'clarify'); self.assertEqual(self.app.cart.items(self.session), {})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0343 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0342 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -330,11 +332,11 @@ self.assertEqual(stale.code, 'cancelled'); self.assertEqual(result.code, 'clarif
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.162850+00:00
+**Execution Date:** 2026-11-03T04:03:15.023009+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_real_cli_search_add_and_repeated_invocation_are_idempotent](../tests/test_application.py#L171), lines 171–205.
 
@@ -345,7 +347,7 @@ self.assertEqual(stale.code, 'cancelled'); self.assertEqual(result.code, 'clarif
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_real_cli_search_add_and_repeated_invocation_are_idempotent` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_real_cli_search_add_and_repeated_invocation_are_idempotent` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -354,7 +356,7 @@ self.assertEqual(stale.code, 'cancelled'); self.assertEqual(result.code, 'clarif
 self.assertEqual(first, replay); self.assertEqual(self.app.cart.items(session), {'v-cheap': 1}); self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.4384 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.4282 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -375,11 +377,11 @@ self.assertEqual(first, replay); self.assertEqual(self.app.cart.items(session), 
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.601284+00:00
+**Execution Date:** 2026-11-03T04:03:15.451232+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_search_complete_list_select_add_and_repeat_without_mutation](../tests/test_application.py#L73), lines 73–89.
 
@@ -390,7 +392,7 @@ self.assertEqual(first, replay); self.assertEqual(self.app.cart.items(session), 
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_search_complete_list_select_add_and_repeat_without_mutation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_search_complete_list_select_add_and_repeat_without_mutation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -399,7 +401,7 @@ self.assertEqual(first, replay); self.assertEqual(self.app.cart.items(session), 
 self.assertEqual(result.code, 'results'); self.assertIn('rupees', result.text); self.assertTrue(self.app.sessions.mark_presented(self.session, result.listing.list_id, result.turn_id)); self.assertEqual(added.code, 'added'); self.assertEqual(added.receipt.variant_id, chosen.variant_id); self.assertEqual(self.app.text(self.session, 'repeat'), added); self.assertEqual(self.interpreter.calls, calls); self.assertEqual(self.app.cart.items(self.session), {chosen.variant_id: 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0632 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0637 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -420,11 +422,11 @@ self.assertEqual(result.code, 'results'); self.assertIn('rupees', result.text); 
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.664509+00:00
+**Execution Date:** 2026-11-03T04:03:15.514906+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_template_error_after_commit_preserves_authoritative_confirmation](../tests/test_application.py#L158), lines 158–169.
 
@@ -435,7 +437,7 @@ self.assertEqual(result.code, 'results'); self.assertIn('rupees', result.text); 
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_template_error_after_commit_preserves_authoritative_confirmation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_template_error_after_commit_preserves_authoritative_confirmation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -444,7 +446,7 @@ self.assertEqual(result.code, 'results'); self.assertIn('rupees', result.text); 
 self.assertEqual(result.code, 'added'); self.assertIsNotNone(result.receipt); self.assertIn('committed', result.text); self.assertEqual(self.app.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0398 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0393 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -465,11 +467,11 @@ self.assertEqual(result.code, 'added'); self.assertIsNotNone(result.receipt); se
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.704337+00:00
+**Execution Date:** 2026-11-03T04:03:15.554243+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_unacknowledged_list_and_other_session_cannot_redirect_add](../tests/test_application.py#L118), lines 118–128.
 
@@ -480,7 +482,7 @@ self.assertEqual(result.code, 'added'); self.assertIsNotNone(result.receipt); se
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_unacknowledged_list_and_other_session_cannot_redirect_add` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_unacknowledged_list_and_other_session_cannot_redirect_add` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -489,7 +491,7 @@ self.assertEqual(result.code, 'added'); self.assertIsNotNone(result.receipt); se
 self.assertNotEqual(rejected.code, 'added'); self.assertFalse(self.app.sessions.mark_presented(other, result.listing.list_id, result.turn_id)); self.assertEqual(self.app.cart.items(self.session), {})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0554 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0551 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -510,11 +512,11 @@ self.assertNotEqual(rejected.code, 'added'); self.assertFalse(self.app.sessions.
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.759740+00:00
+**Execution Date:** 2026-11-03T04:03:15.609364+00:00
 
 **Description:** Executable contract [tests.test_application.ApplicationSystemTests.test_unpopulated_stale_and_no_match_are_different](../tests/test_application.py#L130), lines 130–142.
 
@@ -525,7 +527,7 @@ self.assertNotEqual(rejected.code, 'added'); self.assertFalse(self.app.sessions.
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_application.ApplicationSystemTests.test_unpopulated_stale_and_no_match_are_different` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_application.ApplicationSystemTests.test_unpopulated_stale_and_no_match_are_different` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -534,7 +536,7 @@ self.assertNotEqual(rejected.code, 'added'); self.assertFalse(self.app.sessions.
 self.assertEqual(none.code, 'no_match'); self.assertEqual(stale.code, 'catalogue_stale'); self.assertEqual(empty.code, 'catalogue_not_populated'); self.assertFalse(self.app.cart.items(self.session))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0590 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0561 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -555,11 +557,11 @@ self.assertEqual(none.code, 'no_match'); self.assertEqual(stale.code, 'catalogue
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.818843+00:00
+**Execution Date:** 2026-11-03T04:03:15.665513+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_full_denominator_disjoint_outcomes_and_percentiles](../tests/test_audio.py#L637), lines 637–655.
 
@@ -570,7 +572,7 @@ self.assertEqual(none.code, 'no_match'); self.assertEqual(stale.code, 'catalogue
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudibleLatencyTelemetryTests.test_full_denominator_disjoint_outcomes_and_percentiles` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudibleLatencyTelemetryTests.test_full_denominator_disjoint_outcomes_and_percentiles` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -600,11 +602,11 @@ self.assertEqual(summary.total_turns, 7); self.assertEqual(summary.successful_tu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819016+00:00
+**Execution Date:** 2026-11-03T04:03:15.665688+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_intervals_and_zero_clock_are_valid](../tests/test_audio.py#L594), lines 594–609.
 
@@ -615,7 +617,7 @@ self.assertEqual(summary.total_turns, 7); self.assertEqual(summary.successful_tu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudibleLatencyTelemetryTests.test_intervals_and_zero_clock_are_valid` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudibleLatencyTelemetryTests.test_intervals_and_zero_clock_are_valid` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -645,11 +647,11 @@ self.assertAlmostEqual(trace.endpoint_delay_s, 0.1); self.assertAlmostEqual(trac
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819050+00:00
+**Execution Date:** 2026-11-03T04:03:15.665723+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_missing_reversed_nonfinite_and_bool_times_never_pass](../tests/test_audio.py#L611), lines 611–635.
 
@@ -660,7 +662,7 @@ self.assertAlmostEqual(trace.endpoint_delay_s, 0.1); self.assertAlmostEqual(trac
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudibleLatencyTelemetryTests.test_missing_reversed_nonfinite_and_bool_times_never_pass` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudibleLatencyTelemetryTests.test_missing_reversed_nonfinite_and_bool_times_never_pass` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -690,11 +692,11 @@ self.assertEqual(summary.successful_turns, 0); self.assertEqual(summary.failed_t
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819153+00:00
+**Execution Date:** 2026-11-03T04:03:15.665833+00:00
 
 **Description:** Executable contract [tests.test_audio.AudibleLatencyTelemetryTests.test_recorder_freezes_snapshots_and_rejects_duplicate_ids](../tests/test_audio.py#L657), lines 657–666.
 
@@ -705,7 +707,7 @@ self.assertEqual(summary.successful_turns, 0); self.assertEqual(summary.failed_t
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudibleLatencyTelemetryTests.test_recorder_freezes_snapshots_and_rejects_duplicate_ids` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudibleLatencyTelemetryTests.test_recorder_freezes_snapshots_and_rejects_duplicate_ids` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -735,11 +737,11 @@ self.assertEqual(recorder.summarize().successful_turns, 1); self.assertIsNone(La
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819228+00:00
+**Execution Date:** 2026-11-03T04:03:15.665909+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_asr_wrong_turn_and_unknown_fixture_cannot_reach_template](../tests/test_audio.py#L579), lines 579–590.
 
@@ -750,7 +752,7 @@ self.assertEqual(recorder.summarize().successful_turns, 1); self.assertIsNone(La
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_asr_wrong_turn_and_unknown_fixture_cannot_reach_template` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_asr_wrong_turn_and_unknown_fixture_cannot_reach_template` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -780,11 +782,11 @@ self.assertEqual(self.trace.failure_reason, 'asr_turn_mismatch'); self.assertEqu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819331+00:00
+**Execution Date:** 2026-11-03T04:03:15.666020+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_cached_asset_is_injected_and_failure_does_not_claim_original_success](../tests/test_audio.py#L419), lines 419–434.
 
@@ -795,7 +797,7 @@ self.assertEqual(self.trace.failure_reason, 'asr_turn_mismatch'); self.assertEqu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_cached_asset_is_injected_and_failure_does_not_claim_original_success` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_cached_asset_is_injected_and_failure_does_not_claim_original_success` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -825,11 +827,11 @@ self.assertEqual(response, fallback.text); self.assertEqual(chunks, [fallback.ch
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819409+00:00
+**Execution Date:** 2026-11-03T04:03:15.666098+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_deadline_and_missing_output_remain_in_denominator](../tests/test_audio.py#L521), lines 521–531.
 
@@ -840,7 +842,7 @@ self.assertEqual(response, fallback.text); self.assertEqual(chunks, [fallback.ch
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_deadline_and_missing_output_remain_in_denominator` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_deadline_and_missing_output_remain_in_denominator` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -870,11 +872,11 @@ self.assertTrue(self.trace.timed_out); self.assertEqual(recorder.summarize().tim
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819470+00:00
+**Execution Date:** 2026-11-03T04:03:15.666162+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_late_old_drain_cannot_finish_new_playback](../tests/test_audio.py#L463), lines 463–490.
 
@@ -885,7 +887,7 @@ self.assertTrue(self.trace.timed_out); self.assertEqual(recorder.summarize().tim
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_late_old_drain_cannot_finish_new_playback` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_late_old_drain_cannot_finish_new_playback` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -915,11 +917,11 @@ self.assertFalse(worker.is_alive()); self.assertTrue(self.output.is_playing()); 
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819680+00:00
+**Execution Date:** 2026-11-03T04:03:15.666362+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_no_device_onset_is_not_a_successful_benchmark](../tests/test_audio.py#L447), lines 447–455.
 
@@ -930,7 +932,7 @@ self.assertFalse(worker.is_alive()); self.assertTrue(self.output.is_playing()); 
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_no_device_onset_is_not_a_successful_benchmark` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_no_device_onset_is_not_a_successful_benchmark` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -960,11 +962,11 @@ self.assertFalse(self.trace.is_successful); self.assertEqual(recorder.summarize(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819768+00:00
+**Execution Date:** 2026-11-03T04:03:15.666447+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_output_begin_and_drain_failures_recover](../tests/test_audio.py#L508), lines 508–519.
 
@@ -975,7 +977,7 @@ self.assertFalse(self.trace.is_successful); self.assertEqual(recorder.summarize(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_output_begin_and_drain_failures_recover` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_output_begin_and_drain_failures_recover` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1005,11 +1007,11 @@ self.assertEqual(response, AudioPipelineSlice.ERROR_RESPONSE); self.assertEqual(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819858+00:00
+**Execution Date:** 2026-11-03T04:03:15.666536+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_output_failure_and_dead_assistive_channel_mark_session_unusable](../tests/test_audio.py#L436), lines 436–445.
 
@@ -1020,7 +1022,7 @@ self.assertEqual(response, AudioPipelineSlice.ERROR_RESPONSE); self.assertEqual(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_output_failure_and_dead_assistive_channel_mark_session_unusable` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_output_failure_and_dead_assistive_channel_mark_session_unusable` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1050,11 +1052,11 @@ self.assertEqual(self.trace.failure_reason, 'output_error'); self.assertFalse(se
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819904+00:00
+**Execution Date:** 2026-11-03T04:03:15.666580+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_partial_and_invalid_final_never_render](../tests/test_audio.py#L379), lines 379–399.
 
@@ -1065,7 +1067,7 @@ self.assertEqual(self.trace.failure_reason, 'output_error'); self.assertFalse(se
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_partial_and_invalid_final_never_render` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_partial_and_invalid_final_never_render` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1095,11 +1097,11 @@ self.assertEqual(self.output.played_chunks, []); self.assertEqual(self.controlle
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.819986+00:00
+**Execution Date:** 2026-11-03T04:03:15.666658+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_pause_inside_enqueue_cancels_without_finishing](../tests/test_audio.py#L310), lines 310–316.
 
@@ -1110,7 +1112,7 @@ self.assertEqual(self.output.played_chunks, []); self.assertEqual(self.controlle
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_pause_inside_enqueue_cancels_without_finishing` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_pause_inside_enqueue_cancels_without_finishing` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1140,11 +1142,11 @@ self.assertEqual(len(self.output.played_chunks), 1); self.assertEqual(self.contr
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820029+00:00
+**Execution Date:** 2026-11-03T04:03:15.666702+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_pipeline_ends_capture_before_asr_and_rejects_consumed_turn](../tests/test_audio.py#L492), lines 492–506.
 
@@ -1155,7 +1157,7 @@ self.assertEqual(len(self.output.played_chunks), 1); self.assertEqual(self.contr
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_pipeline_ends_capture_before_asr_and_rejects_consumed_turn` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_pipeline_ends_capture_before_asr_and_rejects_consumed_turn` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1185,11 +1187,11 @@ self.assertEqual(asr.calls, 1); self.assertFalse(capture.capturing)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820098+00:00
+**Execution Date:** 2026-11-03T04:03:15.666761+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_scripted_pcm_runs_through_asr_template_tts_and_output](../tests/test_audio.py#L266), lines 266–292.
 
@@ -1200,7 +1202,7 @@ self.assertEqual(asr.calls, 1); self.assertFalse(capture.capturing)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_scripted_pcm_runs_through_asr_template_tts_and_output` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_scripted_pcm_runs_through_asr_template_tts_and_output` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1230,11 +1232,11 @@ self.assertEqual(len(set(responses)), 4); self.assertEqual(asr.calls, 1); self.a
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820221+00:00
+**Execution Date:** 2026-11-03T04:03:15.666887+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_status_sink_failure_then_output_failure_disables_session](../tests/test_audio.py#L564), lines 564–577.
 
@@ -1245,7 +1247,7 @@ self.assertEqual(len(set(responses)), 4); self.assertEqual(asr.calls, 1); self.a
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_status_sink_failure_then_output_failure_disables_session` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_status_sink_failure_then_output_failure_disables_session` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1275,11 +1277,11 @@ self.assertFalse(self.controller.is_session_usable()); self.assertEqual(self.con
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820263+00:00
+**Execution Date:** 2026-11-03T04:03:15.666932+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_during_asr_does_not_render_template](../tests/test_audio.py#L344), lines 344–357.
 
@@ -1290,7 +1292,7 @@ self.assertFalse(self.controller.is_session_usable()); self.assertEqual(self.con
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_stop_during_asr_does_not_render_template` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_stop_during_asr_does_not_render_template` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1320,11 +1322,11 @@ self.assertTrue(self.trace.cancelled); self.assertEqual(self.output.played_chunk
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820309+00:00
+**Execution Date:** 2026-11-03T04:03:15.666976+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_during_drain_allows_concurrent_control_and_fences_completion](../tests/test_audio.py#L318), lines 318–342.
 
@@ -1335,7 +1337,7 @@ self.assertTrue(self.trace.cancelled); self.assertEqual(self.output.played_chunk
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_stop_during_drain_allows_concurrent_control_and_fences_completion` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_stop_during_drain_allows_concurrent_control_and_fences_completion` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1365,11 +1367,11 @@ self.assertFalse(worker.is_alive()); self.assertEqual(len(results), 1); self.ass
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820432+00:00
+**Execution Date:** 2026-11-03T04:03:15.667086+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_during_synthesis_fences_remaining_chunks](../tests/test_audio.py#L294), lines 294–308.
 
@@ -1380,7 +1382,7 @@ self.assertFalse(worker.is_alive()); self.assertEqual(len(results), 1); self.ass
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_stop_during_synthesis_fences_remaining_chunks` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_stop_during_synthesis_fences_remaining_chunks` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1410,11 +1412,11 @@ self.assertEqual(response, ''); self.assertEqual(len(chunks), 1); self.assertEqu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820485+00:00
+**Execution Date:** 2026-11-03T04:03:15.667139+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_stop_followed_by_asr_error_is_cancellation](../tests/test_audio.py#L533), lines 533–545.
 
@@ -1425,7 +1427,7 @@ self.assertEqual(response, ''); self.assertEqual(len(chunks), 1); self.assertEqu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_stop_followed_by_asr_error_is_cancellation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_stop_followed_by_asr_error_is_cancellation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1455,11 +1457,11 @@ self.assertEqual(response, ''); self.assertTrue(self.trace.cancelled); self.asse
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820520+00:00
+**Execution Date:** 2026-11-03T04:03:15.667174+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_success_plays_output_and_records_simulated_onset](../tests/test_audio.py#L256), lines 256–264.
 
@@ -1470,7 +1472,7 @@ self.assertEqual(response, ''); self.assertTrue(self.trace.cancelled); self.asse
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_success_plays_output_and_records_simulated_onset` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_success_plays_output_and_records_simulated_onset` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1500,11 +1502,11 @@ self.assertEqual(transcript.text, self.asr.text); self.assertEqual(response, ver
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820571+00:00
+**Execution Date:** 2026-11-03T04:03:15.667225+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_template_failure_and_asr_failure_recover_with_status](../tests/test_audio.py#L359), lines 359–377.
 
@@ -1515,7 +1517,7 @@ self.assertEqual(transcript.text, self.asr.text); self.assertEqual(response, ver
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_template_failure_and_asr_failure_recover_with_status` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_template_failure_and_asr_failure_recover_with_status` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1545,11 +1547,11 @@ self.assertEqual(self.trace.failure_reason, 'template_error'); self.assertEqual(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820627+00:00
+**Execution Date:** 2026-11-03T04:03:15.667279+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_tts_fails_after_partial_stream_flushes_before_cached_prompt](../tests/test_audio.py#L547), lines 547–562.
 
@@ -1560,7 +1562,7 @@ self.assertEqual(self.trace.failure_reason, 'template_error'); self.assertEqual(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_tts_fails_after_partial_stream_flushes_before_cached_prompt` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_tts_fails_after_partial_stream_flushes_before_cached_prompt` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1590,11 +1592,11 @@ self.assertEqual(response, fallback.text); self.assertEqual(chunks, [fallback.ch
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820685+00:00
+**Execution Date:** 2026-11-03T04:03:15.667335+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_tts_failure_and_empty_stream_have_explicit_recovery_without_fake_audio](../tests/test_audio.py#L401), lines 401–417.
 
@@ -1605,7 +1607,7 @@ self.assertEqual(response, fallback.text); self.assertEqual(chunks, [fallback.ch
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_tts_failure_and_empty_stream_have_explicit_recovery_without_fake_audio` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_tts_failure_and_empty_stream_have_explicit_recovery_without_fake_audio` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1635,11 +1637,11 @@ self.assertEqual(response, AudioPipelineSlice.ERROR_RESPONSE); self.assertEqual(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820750+00:00
+**Execution Date:** 2026-11-03T04:03:15.667400+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioPipelineSliceTests.test_wrong_trace_rejected_before_asr](../tests/test_audio.py#L457), lines 457–461.
 
@@ -1650,7 +1652,7 @@ self.assertEqual(response, AudioPipelineSlice.ERROR_RESPONSE); self.assertEqual(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioPipelineSliceTests.test_wrong_trace_rejected_before_asr` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioPipelineSliceTests.test_wrong_trace_rejected_before_asr` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1680,11 +1682,11 @@ self.assertEqual(self.asr.calls, 0); self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820785+00:00
+**Execution Date:** 2026-11-03T04:03:15.667434+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_capture_failure_retires_turn_and_emits_recovery](../tests/test_audio.py#L220), lines 220–232.
 
@@ -1695,7 +1697,7 @@ self.assertEqual(self.asr.calls, 0); self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_capture_failure_retires_turn_and_emits_recovery` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_capture_failure_retires_turn_and_emits_recovery` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1725,11 +1727,11 @@ self.assertIsNone(self.controller.current_turn_id); self.assertFalse(self.contro
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820814+00:00
+**Execution Date:** 2026-11-03T04:03:15.667464+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_empty_and_nonfinal_terminal_events_retire_turn](../tests/test_audio.py#L86), lines 86–104.
 
@@ -1740,7 +1742,7 @@ self.assertIsNone(self.controller.current_turn_id); self.assertFalse(self.contro
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_empty_and_nonfinal_terminal_events_retire_turn` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_empty_and_nonfinal_terminal_events_retire_turn` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1770,11 +1772,11 @@ self.assertFalse(self.controller.process_transcript(Transcript(kind, '  ', turn_
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820907+00:00
+**Execution Date:** 2026-11-03T04:03:15.667550+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_empty_playback_cannot_be_promoted_to_repeat](../tests/test_audio.py#L214), lines 214–218.
 
@@ -1785,7 +1787,7 @@ self.assertFalse(self.controller.process_transcript(Transcript(kind, '  ', turn_
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_empty_playback_cannot_be_promoted_to_repeat` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_empty_playback_cannot_be_promoted_to_repeat` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1815,11 +1817,11 @@ self.assertIsNone(self.controller.repeat()); self.assertRaises(RuntimeError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820939+00:00
+**Execution Date:** 2026-11-03T04:03:15.667581+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_failed_device_stop_reports_failure_and_keeps_capture_gated](../tests/test_audio.py#L196), lines 196–212.
 
@@ -1830,7 +1832,7 @@ self.assertIsNone(self.controller.repeat()); self.assertRaises(RuntimeError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_failed_device_stop_reports_failure_and_keeps_capture_gated` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_failed_device_stop_reports_failure_and_keeps_capture_gated` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1860,11 +1862,11 @@ self.assertFalse(outcome.success); self.assertFalse(outcome.stopped_playback); s
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820978+00:00
+**Execution Date:** 2026-11-03T04:03:15.667618+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_initial_and_listening_states](../tests/test_audio.py#L60), lines 60–65.
 
@@ -1875,7 +1877,7 @@ self.assertFalse(outcome.success); self.assertFalse(outcome.stopped_playback); s
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_initial_and_listening_states` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_initial_and_listening_states` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1905,11 +1907,11 @@ self.assertEqual(self.controller.state, TurnState.IDLE); self.assertFalse(self.c
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.820997+00:00
+**Execution Date:** 2026-11-03T04:03:15.667636+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_manual_and_vad_end_stop_capture_and_wait_for_final](../tests/test_audio.py#L67), lines 67–76.
 
@@ -1920,7 +1922,7 @@ self.assertEqual(self.controller.state, TurnState.IDLE); self.assertFalse(self.c
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_manual_and_vad_end_stop_capture_and_wait_for_final` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_manual_and_vad_end_stop_capture_and_wait_for_final` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1950,11 +1952,11 @@ self.assertFalse(self.capture.capturing); self.assertTrue(self.controller.is_cap
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821028+00:00
+**Execution Date:** 2026-11-03T04:03:15.667667+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_partial_does_not_authorize_or_consume_final](../tests/test_audio.py#L78), lines 78–84.
 
@@ -1965,7 +1967,7 @@ self.assertFalse(self.capture.capturing); self.assertTrue(self.controller.is_cap
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_partial_does_not_authorize_or_consume_final` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_partial_does_not_authorize_or_consume_final` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -1995,11 +1997,11 @@ self.assertFalse(partial.can_authorize_action); self.assertFalse(self.controller
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821054+00:00
+**Execution Date:** 2026-11-03T04:03:15.667691+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_repeat_only_returns_completed_response](../tests/test_audio.py#L157), lines 157–164.
 
@@ -2010,7 +2012,7 @@ self.assertFalse(partial.can_authorize_action); self.assertFalse(self.controller
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_repeat_only_returns_completed_response` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_repeat_only_returns_completed_response` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2040,11 +2042,11 @@ self.assertIsNone(self.controller.repeat()); self.assertIsNone(self.controller.r
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821085+00:00
+**Execution Date:** 2026-11-03T04:03:15.667722+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_speaking_gates_until_device_drain_completes](../tests/test_audio.py#L131), lines 131–141.
 
@@ -2055,7 +2057,7 @@ self.assertIsNone(self.controller.repeat()); self.assertIsNone(self.controller.r
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_speaking_gates_until_device_drain_completes` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_speaking_gates_until_device_drain_completes` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2085,11 +2087,11 @@ self.assertFalse(self.capture.capturing); self.assertTrue(completed); self.asser
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821112+00:00
+**Execution Date:** 2026-11-03T04:03:15.667750+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_stale_callbacks_have_no_effect](../tests/test_audio.py#L106), lines 106–113.
 
@@ -2100,7 +2102,7 @@ self.assertFalse(self.capture.capturing); self.assertTrue(completed); self.asser
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_stale_callbacks_have_no_effect` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_stale_callbacks_have_no_effect` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2130,11 +2132,11 @@ self.assertFalse(self.controller.process_transcript(final('old'))); self.assertE
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821133+00:00
+**Execution Date:** 2026-11-03T04:03:15.667777+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_status_delivery_failure_and_audio_failure_fail_closed](../tests/test_audio.py#L185), lines 185–194.
 
@@ -2145,7 +2147,7 @@ self.assertFalse(self.controller.process_transcript(final('old'))); self.assertE
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_status_delivery_failure_and_audio_failure_fail_closed` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_status_delivery_failure_and_audio_failure_fail_closed` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2175,11 +2177,11 @@ self.assertTrue(controller.is_session_usable()); self.assertEqual(controller.sta
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821156+00:00
+**Execution Date:** 2026-11-03T04:03:15.667799+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_stop_and_pause_flush_playback_and_never_undo_action](../tests/test_audio.py#L143), lines 143–155.
 
@@ -2190,7 +2192,7 @@ self.assertTrue(controller.is_session_usable()); self.assertEqual(controller.sta
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_stop_and_pause_flush_playback_and_never_undo_action` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_stop_and_pause_flush_playback_and_never_undo_action` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2220,11 +2222,11 @@ self.assertEqual(self.output.stop_calls, count + 1); self.assertTrue(result.stop
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821207+00:00
+**Execution Date:** 2026-11-03T04:03:15.667849+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_stop_pause_and_dead_channels_reject_late_final](../tests/test_audio.py#L115), lines 115–129.
 
@@ -2235,7 +2237,7 @@ self.assertEqual(self.output.stop_calls, count + 1); self.assertTrue(result.stop
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_stop_pause_and_dead_channels_reject_late_final` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_stop_pause_and_dead_channels_reject_late_final` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2265,11 +2267,11 @@ self.assertFalse(self.controller.process_transcript(final())); self.assertEqual(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821257+00:00
+**Execution Date:** 2026-11-03T04:03:15.667901+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_unique_ids_and_explicit_resume](../tests/test_audio.py#L166), lines 166–174.
 
@@ -2280,7 +2282,7 @@ self.assertFalse(self.controller.process_transcript(final())); self.assertEqual(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_unique_ids_and_explicit_resume` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_unique_ids_and_explicit_resume` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2310,11 +2312,11 @@ self.assertRaises(RuntimeError); self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821286+00:00
+**Execution Date:** 2026-11-03T04:03:15.667936+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioTurnManagementTests.test_unusable_session_requires_health_recovery](../tests/test_audio.py#L176), lines 176–183.
 
@@ -2325,7 +2327,7 @@ self.assertRaises(RuntimeError); self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioTurnManagementTests.test_unusable_session_requires_health_recovery` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioTurnManagementTests.test_unusable_session_requires_health_recovery` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2355,11 +2357,11 @@ self.assertFalse(self.controller.resume().success); self.assertRaises(RuntimeErr
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821314+00:00
+**Execution Date:** 2026-11-03T04:03:15.667991+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_candidate_runtime_and_voice_metadata_are_distinct_and_unpinned](../tests/test_audio.py#L698), lines 698–717.
 
@@ -2370,7 +2372,7 @@ self.assertFalse(self.controller.resume().success); self.assertRaises(RuntimeErr
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioValueContractTests.test_candidate_runtime_and_voice_metadata_are_distinct_and_unpinned` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioValueContractTests.test_candidate_runtime_and_voice_metadata_are_distinct_and_unpinned` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2379,7 +2381,7 @@ self.assertFalse(self.controller.resume().success); self.assertRaises(RuntimeErr
 self.assertEqual(REFERENCE_WHISPER_BASE_EN.licence, 'MIT'); self.assertEqual(REFERENCE_PIPER_RUNTIME.licence, 'GPL-3.0'); self.assertIsNone(REFERENCE_PIPER_RUNTIME.sample_rate_hz); self.assertEqual(REFERENCE_LJ_VOICE.sample_rate_hz, 22050); self.assertTrue(replace(REFERENCE_LJ_VOICE, sha256='a' * 64).is_pinned); self.assertIsNone(ArtifactMetadata('test', 'test', 'unknown', 'en', None).is_commercial_eligible); self.assertFalse(metadata.is_pinned); self.assertIsNone(metadata.is_commercial_eligible); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0000 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2400,11 +2402,11 @@ self.assertEqual(REFERENCE_WHISPER_BASE_EN.licence, 'MIT'); self.assertEqual(REF
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821354+00:00
+**Execution Date:** 2026-11-03T04:03:15.668062+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_pcm_and_timestamp_validation](../tests/test_audio.py#L670), lines 670–681.
 
@@ -2415,7 +2417,7 @@ self.assertEqual(REFERENCE_WHISPER_BASE_EN.licence, 'MIT'); self.assertEqual(REF
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioValueContractTests.test_pcm_and_timestamp_validation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioValueContractTests.test_pcm_and_timestamp_validation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2445,11 +2447,11 @@ self.assertEqual(AudioChunk(b'\x00\x00' * 160, 16000).duration_s, 0.01); self.as
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821428+00:00
+**Execution Date:** 2026-11-03T04:03:15.668150+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_vad_fixture_and_reset](../tests/test_audio.py#L719), lines 719–727.
 
@@ -2460,7 +2462,7 @@ self.assertEqual(AudioChunk(b'\x00\x00' * 160, 16000).duration_s, 0.01); self.as
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioValueContractTests.test_vad_fixture_and_reset` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioValueContractTests.test_vad_fixture_and_reset` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2490,11 +2492,11 @@ self.assertEqual([vad.process_frame(chunk).state for _ in range(3)], [VADState.S
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.821453+00:00
+**Execution Date:** 2026-11-03T04:03:15.668184+00:00
 
 **Description:** Executable contract [tests.test_audio.AudioValueContractTests.test_wav_fallback_rejects_fake_and_truncated_recordings](../tests/test_audio.py#L683), lines 683–696.
 
@@ -2505,7 +2507,7 @@ self.assertEqual([vad.process_frame(chunk).state for _ in range(3)], [VADState.S
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_audio.AudioValueContractTests.test_wav_fallback_rejects_fake_and_truncated_recordings` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_audio.AudioValueContractTests.test_wav_fallback_rejects_fake_and_truncated_recordings` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2535,11 +2537,11 @@ self.assertEqual(asset.chunk.duration_s, 0.01); self.assertRaises(ValueError); s
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.824091+00:00
+**Execution Date:** 2026-11-03T04:03:15.670866+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_aggregate_stock_blocks_fourth_add](../tests/test_cart.py#L117), lines 117–122.
 
@@ -2550,7 +2552,7 @@ self.assertEqual(asset.chunk.duration_s, 0.01); self.assertRaises(ValueError); s
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_aggregate_stock_blocks_fourth_add` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_aggregate_stock_blocks_fourth_add` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2559,7 +2561,7 @@ self.assertEqual(asset.chunk.duration_s, 0.01); self.assertRaises(ValueError); s
 self.assertEqual(self.cart.items(self.session), {'v-cheap': 3}); self.assertIsNone(self.cart.pending(self.session)); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0361 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0367 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2580,11 +2582,11 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 3}); self.assertIsNo
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.860196+00:00
+**Execution Date:** 2026-11-03T04:03:15.707608+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_changed_offer_and_partial_coverage_never_commit](../tests/test_cart.py#L143), lines 143–151.
 
@@ -2595,7 +2597,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 3}); self.assertIsNo
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_changed_offer_and_partial_coverage_never_commit` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_changed_offer_and_partial_coverage_never_commit` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2604,7 +2606,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 3}); self.assertIsNo
 self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0362 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0351 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2625,11 +2627,11 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.896374+00:00
+**Execution Date:** 2026-11-03T04:03:15.742691+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_cheapest_accounts_for_existing_cart_quantity](../tests/test_cart.py#L138), lines 138–141.
 
@@ -2640,7 +2642,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_cheapest_accounts_for_existing_cart_quantity` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_cheapest_accounts_for_existing_cart_quantity` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2649,7 +2651,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 self.assertEqual(receipt.variant_id, 'v-best')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0350 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0333 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2670,11 +2672,11 @@ self.assertEqual(receipt.variant_id, 'v-best')
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.931398+00:00
+**Execution Date:** 2026-11-03T04:03:15.776026+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_cheapest_replay_is_before_new_query_selection](../tests/test_cart.py#L124), lines 124–136.
 
@@ -2685,7 +2687,7 @@ self.assertEqual(receipt.variant_id, 'v-best')
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_cheapest_replay_is_before_new_query_selection` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_cheapest_replay_is_before_new_query_selection` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2694,7 +2696,7 @@ self.assertEqual(receipt.variant_id, 'v-best')
 self.assertEqual(replay.variant_id, first.variant_id); self.assertEqual(replay.unit_price_minor, first.unit_price_minor); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertEqual(self.cart.add(self.command(selection='cheapest')).variant_id, 'v-best')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0448 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0447 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2715,11 +2717,11 @@ self.assertEqual(replay.variant_id, first.variant_id); self.assertEqual(replay.u
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:50.976252+00:00
+**Execution Date:** 2026-11-03T04:03:15.820731+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_commit_reply_loss_reconciles_original_receipt](../tests/test_cart.py#L180), lines 180–189.
 
@@ -2730,7 +2732,7 @@ self.assertEqual(replay.variant_id, first.variant_id); self.assertEqual(replay.u
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_commit_reply_loss_reconciles_original_receipt` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_commit_reply_loss_reconciles_original_receipt` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2739,7 +2741,7 @@ self.assertEqual(replay.variant_id, first.variant_id); self.assertEqual(replay.u
 self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0273 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0266 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2760,11 +2762,11 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.003611+00:00
+**Execution Date:** 2026-11-03T04:03:15.847366+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_commit_verified_by_immutable_receipt_and_retry_exactly_once](../tests/test_cart.py#L63), lines 63–79.
 
@@ -2775,7 +2777,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_commit_verified_by_immutable_receipt_and_retry_exactly_once` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_commit_verified_by_immutable_receipt_and_retry_exactly_once` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2784,7 +2786,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 self.assertEqual(receipt.added_quantity, 1); self.assertEqual(receipt.line_price_minor, 50000); self.assertEqual(self.cart.add(command), receipt); self.assertEqual(CartService(self.database).retry(self.session, command.operation_id), receipt); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertRaises(psycopg.Error)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0414 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0459 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2805,11 +2807,11 @@ self.assertEqual(receipt.added_quantity, 1); self.assertEqual(receipt.line_price
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.045016+00:00
+**Execution Date:** 2026-11-03T04:03:15.893315+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_late_turn_cancel_and_precommit_cancellation_do_not_add](../tests/test_cart.py#L153), lines 153–169.
 
@@ -2820,7 +2822,7 @@ self.assertEqual(receipt.added_quantity, 1); self.assertEqual(receipt.line_price
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_late_turn_cancel_and_precommit_cancellation_do_not_add` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_late_turn_cancel_and_precommit_cancellation_do_not_add` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2829,7 +2831,7 @@ self.assertEqual(receipt.added_quantity, 1); self.assertEqual(receipt.line_price
 self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError); self.assertRaises(CartError); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0445 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0461 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2850,11 +2852,11 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.089525+00:00
+**Execution Date:** 2026-11-03T04:03:15.939402+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_new_intentional_add_and_old_receipt_remain_distinct](../tests/test_cart.py#L92), lines 92–100.
 
@@ -2865,7 +2867,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_new_intentional_add_and_old_receipt_remain_distinct` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_new_intentional_add_and_old_receipt_remain_distinct` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2874,7 +2876,7 @@ self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError
 self.assertEqual(self.cart.items(self.session), {'v-cheap': 2}); self.assertEqual(replay.resulting_quantity, first.resulting_quantity); self.assertEqual(replay.resulting_quantity, 1); self.assertEqual(self.cart.items(self.session), {'v-cheap': 2})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0424 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0434 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2895,11 +2897,11 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 2}); self.assertEqua
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.131888+00:00
+**Execution Date:** 2026-11-03T04:03:15.982793+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_parallel_duplicate_workers_apply_one_increment](../tests/test_cart.py#L81), lines 81–90.
 
@@ -2910,7 +2912,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 2}); self.assertEqua
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_parallel_duplicate_workers_apply_one_increment` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_parallel_duplicate_workers_apply_one_increment` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2919,7 +2921,7 @@ self.assertEqual(self.cart.items(self.session), {'v-cheap': 2}); self.assertEqua
 self.assertEqual(set(receipts), {command.operation_id}); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0621 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0633 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2940,11 +2942,11 @@ self.assertEqual(set(receipts), {command.operation_id}); self.assertEqual(self.c
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.193954+00:00
+**Execution Date:** 2026-11-03T04:03:16.046107+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_pending_precommit_outage_blocks_replacement_operation](../tests/test_cart.py#L207), lines 207–219.
 
@@ -2955,7 +2957,7 @@ self.assertEqual(set(receipts), {command.operation_id}); self.assertEqual(self.c
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_pending_precommit_outage_blocks_replacement_operation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_pending_precommit_outage_blocks_replacement_operation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -2964,7 +2966,7 @@ self.assertEqual(set(receipts), {command.operation_id}); self.assertEqual(self.c
 self.assertEqual(self.cart.pending(self.session), command.operation_id); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertRaises(OutcomeUnknown); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0381 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0396 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -2985,11 +2987,11 @@ self.assertEqual(self.cart.pending(self.session), command.operation_id); self.as
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.232020+00:00
+**Execution Date:** 2026-11-03T04:03:16.085707+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_result_ordinals_require_current_complete_presentation](../tests/test_cart.py#L269), lines 269–288.
 
@@ -3000,7 +3002,7 @@ self.assertEqual(self.cart.pending(self.session), command.operation_id); self.as
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_result_ordinals_require_current_complete_presentation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_result_ordinals_require_current_complete_presentation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3009,7 +3011,7 @@ self.assertEqual(self.cart.pending(self.session), command.operation_id); self.as
 self.assertTrue(self.sessions.mark_presented(self.session, listing.list_id, self.turn)); self.assertEqual(first.variant_id, listing.offers[0].variant_id); self.assertFalse(self.sessions.mark_presented(self.session, listing.list_id, self.turn)); self.assertNotEqual(replacement.list_id, listing.list_id); self.assertRaises(SessionError); self.assertRaises(SessionError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0340 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0343 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3030,11 +3032,11 @@ self.assertTrue(self.sessions.mark_presented(self.session, listing.list_id, self
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.266010+00:00
+**Execution Date:** 2026-11-03T04:03:16.119986+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_same_operation_different_payload_or_session_is_conflict](../tests/test_cart.py#L102), lines 102–115.
 
@@ -3045,7 +3047,7 @@ self.assertTrue(self.sessions.mark_presented(self.session, listing.list_id, self
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_same_operation_different_payload_or_session_is_conflict` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_same_operation_different_payload_or_session_is_conflict` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3054,7 +3056,7 @@ self.assertTrue(self.sessions.mark_presented(self.session, listing.list_id, self
 self.assertEqual(self.cart.items(other), {}); self.assertRaises(CartError); self.assertRaises(CartError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0385 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0399 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3075,11 +3077,11 @@ self.assertEqual(self.cart.items(other), {}); self.assertRaises(CartError); self
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.304525+00:00
+**Execution Date:** 2026-11-03T04:03:16.159916+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_session_isolation_and_expiry_cleanup](../tests/test_cart.py#L238), lines 238–267.
 
@@ -3090,7 +3092,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertRaises(CartError); self
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_session_isolation_and_expiry_cleanup` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_session_isolation_and_expiry_cleanup` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3099,7 +3101,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertRaises(CartError); self
 self.assertEqual(self.cart.items(other), {}); self.assertIsNone(self.cart.read_receipt(other, command.operation_id)); self.assertEqual(self.sessions.cleanup_expired(), 1); self.assertEqual(self.database.inspect()['product_count'], 3); self.assertRaises(SessionError); self.assertEqual(connection.execute('SELECT count(*) AS n FROM commands WHERE session_id=%s', (self.session,)).fetchone()['n'], 0); self.assertEqual(connection.execute('SELECT count(*) AS n FROM operation_receipts WHERE session_id=%s', (self.session,)).fetchone()['n'], 0)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0392 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0398 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3120,11 +3122,11 @@ self.assertEqual(self.cart.items(other), {}); self.assertIsNone(self.cart.read_r
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.343737+00:00
+**Execution Date:** 2026-11-03T04:03:16.199755+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_stop_after_commit_does_not_undo_receipt](../tests/test_cart.py#L171), lines 171–178.
 
@@ -3135,7 +3137,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertIsNone(self.cart.read_r
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_stop_after_commit_does_not_undo_receipt` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_stop_after_commit_does_not_undo_receipt` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3144,7 +3146,7 @@ self.assertEqual(self.cart.items(other), {}); self.assertIsNone(self.cart.read_r
 self.assertEqual(self.cart.read_receipt(self.session, command.operation_id), receipt); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0306 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0318 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3165,11 +3167,11 @@ self.assertEqual(self.cart.read_receipt(self.session, command.operation_id), rec
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.374384+00:00
+**Execution Date:** 2026-11-03T04:03:16.231622+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_unknown_outcome_keeps_identity_and_can_be_recovered_after_restart](../tests/test_cart.py#L191), lines 191–205.
 
@@ -3180,7 +3182,7 @@ self.assertEqual(self.cart.read_receipt(self.session, command.operation_id), rec
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_unknown_outcome_keeps_identity_and_can_be_recovered_after_restart` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_unknown_outcome_keeps_identity_and_can_be_recovered_after_restart` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3189,7 +3191,7 @@ self.assertEqual(self.cart.read_receipt(self.session, command.operation_id), rec
 self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1}); self.assertRaises(OutcomeUnknown)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0326 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0337 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3210,11 +3212,11 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.406997+00:00
+**Execution Date:** 2026-11-03T04:03:16.265379+00:00
 
 **Description:** Executable contract [tests.test_cart.CartIntegrationTests.test_whole_transaction_retry_uses_original_operation](../tests/test_cart.py#L221), lines 221–236.
 
@@ -3225,7 +3227,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_cart.CartIntegrationTests.test_whole_transaction_retry_uses_original_operation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_cart.CartIntegrationTests.test_whole_transaction_retry_uses_original_operation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3234,7 +3236,7 @@ self.assertEqual(receipt.operation_id, command.operation_id); self.assertEqual(s
 self.assertEqual(service.calls, 2); self.assertEqual(self.cart.items(self.session), {'v-cheap': 1})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0470 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0419 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3255,11 +3257,11 @@ self.assertEqual(service.calls, 2); self.assertEqual(self.cart.items(self.sessio
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.453993+00:00
+**Execution Date:** 2026-11-03T04:03:16.307353+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_duplicate_ids_skus_and_orphan_variants_fail_snapshot_creation](../tests/test_catalogue.py#L386), lines 386–395.
 
@@ -3270,7 +3272,7 @@ self.assertEqual(service.calls, 2); self.assertEqual(self.cart.items(self.sessio
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.ExactLookupAndSnapshotTests.test_duplicate_ids_skus_and_orphan_variants_fail_snapshot_creation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.ExactLookupAndSnapshotTests.test_duplicate_ids_skus_and_orphan_variants_fail_snapshot_creation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3300,11 +3302,11 @@ self.assertRaises(ValueError); self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454132+00:00
+**Execution Date:** 2026-11-03T04:03:16.307486+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_lookup_resolves_each_supported_identifier_kind](../tests/test_catalogue.py#L333), lines 333–344.
 
@@ -3315,7 +3317,7 @@ self.assertRaises(ValueError); self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_lookup_resolves_each_supported_identifier_kind` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_lookup_resolves_each_supported_identifier_kind` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3345,11 +3347,11 @@ self.assertEqual(ids(self.db.lookup(ExactIdentifier(kind, value))), expected)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454206+00:00
+**Execution Date:** 2026-11-03T04:03:16.307567+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_search_still_enforces_constraints_and_scopes_identity](../tests/test_catalogue.py#L354), lines 354–367.
 
@@ -3360,7 +3362,7 @@ self.assertEqual(ids(self.db.lookup(ExactIdentifier(kind, value))), expected)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_search_still_enforces_constraints_and_scopes_identity` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.ExactLookupAndSnapshotTests.test_exact_search_still_enforces_constraints_and_scopes_identity` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3390,11 +3392,11 @@ self.assertEqual(self.db.search(exact).status, SearchStatus.NO_MATCH); self.asse
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454277+00:00
+**Execution Date:** 2026-11-03T04:03:16.307639+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_lookup_is_case_sensitive_and_does_not_fuzzily_substitute](../tests/test_catalogue.py#L346), lines 346–352.
 
@@ -3405,7 +3407,7 @@ self.assertEqual(self.db.search(exact).status, SearchStatus.NO_MATCH); self.asse
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.ExactLookupAndSnapshotTests.test_lookup_is_case_sensitive_and_does_not_fuzzily_substitute` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.ExactLookupAndSnapshotTests.test_lookup_is_case_sensitive_and_does_not_fuzzily_substitute` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3435,11 +3437,11 @@ self.assertEqual(self.db.lookup(ExactIdentifier(IdentifierKind.SKU, 'sku-blk')),
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454312+00:00
+**Execution Date:** 2026-11-03T04:03:16.307673+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_raw_lookup_does_not_assert_availability](../tests/test_catalogue.py#L379), lines 379–384.
 
@@ -3450,7 +3452,7 @@ self.assertEqual(self.db.lookup(ExactIdentifier(IdentifierKind.SKU, 'sku-blk')),
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.ExactLookupAndSnapshotTests.test_raw_lookup_does_not_assert_availability` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.ExactLookupAndSnapshotTests.test_raw_lookup_does_not_assert_availability` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3480,11 +3482,11 @@ self.assertEqual(ids(db.lookup(identifier)), ('v1',)); self.assertTrue(db.search
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454367+00:00
+**Execution Date:** 2026-11-03T04:03:16.307727+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_unknown_identifier_in_complete_and_incomplete_sources](../tests/test_catalogue.py#L369), lines 369–377.
 
@@ -3495,7 +3497,7 @@ self.assertEqual(ids(db.lookup(identifier)), ('v1',)); self.assertTrue(db.search
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.ExactLookupAndSnapshotTests.test_unknown_identifier_in_complete_and_incomplete_sources` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.ExactLookupAndSnapshotTests.test_unknown_identifier_in_complete_and_incomplete_sources` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3525,11 +3527,11 @@ self.assertTrue(self.db.search(exact).can_claim_no_match); self.assertEqual(part
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454417+00:00
+**Execution Date:** 2026-11-03T04:03:16.307777+00:00
 
 **Description:** Executable contract [tests.test_catalogue.ExactLookupAndSnapshotTests.test_untyped_coverage_and_invalid_records_fail_instead_of_being_dropped](../tests/test_catalogue.py#L397), lines 397–401.
 
@@ -3540,7 +3542,7 @@ self.assertTrue(self.db.search(exact).can_claim_no_match); self.assertEqual(part
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.ExactLookupAndSnapshotTests.test_untyped_coverage_and_invalid_records_fail_instead_of_being_dropped` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.ExactLookupAndSnapshotTests.test_untyped_coverage_and_invalid_records_fail_instead_of_being_dropped` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3570,11 +3572,11 @@ self.assertRaises(TypeError); self.assertRaises(TypeError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454462+00:00
+**Execution Date:** 2026-11-03T04:03:16.307821+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_active_product_without_variants_blocks_complete_claim](../tests/test_catalogue.py#L65), lines 65–72.
 
@@ -3585,7 +3587,7 @@ self.assertRaises(TypeError); self.assertRaises(TypeError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_active_product_without_variants_blocks_complete_claim` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_active_product_without_variants_blocks_complete_claim` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3615,11 +3617,11 @@ self.assertFalse(db.search(request()).can_claim_catalogue_minimum); self.assertE
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454527+00:00
+**Execution Date:** 2026-11-03T04:03:16.307885+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_all_verified_nonmatches_prove_no_match](../tests/test_catalogue.py#L195), lines 195–200.
 
@@ -3630,7 +3632,7 @@ self.assertFalse(db.search(request()).can_claim_catalogue_minimum); self.assertE
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_all_verified_nonmatches_prove_no_match` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_all_verified_nonmatches_prove_no_match` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3660,11 +3662,11 @@ self.assertEqual(result.matches, ()); self.assertTrue(result.can_claim_no_match)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454565+00:00
+**Execution Date:** 2026-11-03T04:03:16.307924+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_coverage_defaults_to_unknown_even_for_well_formed_records](../tests/test_catalogue.py#L211), lines 211–216.
 
@@ -3675,7 +3677,7 @@ self.assertEqual(result.matches, ()); self.assertTrue(result.can_claim_no_match)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_coverage_defaults_to_unknown_even_for_well_formed_records` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_coverage_defaults_to_unknown_even_for_well_formed_records` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3705,11 +3707,11 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIn(IssueCod
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454599+00:00
+**Execution Date:** 2026-11-03T04:03:16.307956+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_currencies_are_not_compared_or_converted](../tests/test_catalogue.py#L218), lines 218–222.
 
@@ -3720,7 +3722,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIn(IssueCod
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_currencies_are_not_compared_or_converted` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_currencies_are_not_compared_or_converted` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3750,11 +3752,11 @@ self.assertEqual(ids(result.matches), ('inr',)); self.assertTrue(result.can_clai
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454635+00:00
+**Execution Date:** 2026-11-03T04:03:16.307993+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_description_cannot_fill_a_missing_structured_colour](../tests/test_catalogue.py#L137), lines 137–141.
 
@@ -3765,7 +3767,7 @@ self.assertEqual(ids(result.matches), ('inr',)); self.assertTrue(result.can_clai
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_description_cannot_fill_a_missing_structured_colour` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_description_cannot_fill_a_missing_structured_colour` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3795,11 +3797,11 @@ self.assertEqual(db.search(request()).status, SearchStatus.INCOMPLETE)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454666+00:00
+**Execution Date:** 2026-11-03T04:03:16.308023+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_discovery_is_explicitly_unsupported_not_structured_fallback](../tests/test_catalogue.py#L257), lines 257–267.
 
@@ -3810,7 +3812,7 @@ self.assertEqual(db.search(request()).status, SearchStatus.INCOMPLETE)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_discovery_is_explicitly_unsupported_not_structured_fallback` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_discovery_is_explicitly_unsupported_not_structured_fallback` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3840,11 +3842,11 @@ self.assertEqual(result.status, SearchStatus.UNSUPPORTED); self.assertEqual(resu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454694+00:00
+**Execution Date:** 2026-11-03T04:03:16.308051+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_empty_complete_catalogue_proves_no_match_but_not_a_minimum](../tests/test_catalogue.py#L189), lines 189–193.
 
@@ -3855,7 +3857,7 @@ self.assertEqual(result.status, SearchStatus.UNSUPPORTED); self.assertEqual(resu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_empty_complete_catalogue_proves_no_match_but_not_a_minimum` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_empty_complete_catalogue_proves_no_match_but_not_a_minimum` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3885,11 +3887,11 @@ self.assertEqual(result.status, SearchStatus.NO_MATCH); self.assertTrue(result.c
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454725+00:00
+**Execution Date:** 2026-11-03T04:03:16.308078+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_full_catalogue_finds_cheaper_poorly_described_item_beyond_top_k](../tests/test_catalogue.py#L40), lines 40–63.
 
@@ -3900,7 +3902,7 @@ self.assertEqual(result.status, SearchStatus.NO_MATCH); self.assertTrue(result.c
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_full_catalogue_finds_cheaper_poorly_described_item_beyond_top_k` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_full_catalogue_finds_cheaper_poorly_described_item_beyond_top_k` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3930,11 +3932,11 @@ self.assertEqual(min((v.price.minor_units for v in hypothetical_semantic_top_k))
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.454782+00:00
+**Execution Date:** 2026-11-03T04:03:16.308130+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_generated_complete_catalogues_agree_with_independent_full_set_oracle](../tests/test_catalogue.py#L269), lines 269–320.
 
@@ -3945,7 +3947,7 @@ self.assertEqual(min((v.price.minor_units for v in hypothetical_semantic_top_k))
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_generated_complete_catalogues_agree_with_independent_full_set_oracle` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_generated_complete_catalogues_agree_with_independent_full_set_oracle` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -3954,7 +3956,7 @@ self.assertEqual(min((v.price.minor_units for v in hypothetical_semantic_top_k))
 self.assertEqual(pair, expected[0] if expected else None); self.assertEqual(set(ids(result.matches)), {key for _, key in expected}); self.assertEqual(result.can_claim_no_match, not expected)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0114 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0115 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -3975,11 +3977,11 @@ self.assertEqual(pair, expected[0] if expected else None); self.assertEqual(set(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466154+00:00
+**Execution Date:** 2026-11-03T04:03:16.319610+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_insufficient_known_stock_and_inactive_records_are_excluded](../tests/test_catalogue.py#L240), lines 240–246.
 
@@ -3990,7 +3992,7 @@ self.assertEqual(pair, expected[0] if expected else None); self.assertEqual(set(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_insufficient_known_stock_and_inactive_records_are_excluded` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_insufficient_known_stock_and_inactive_records_are_excluded` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4020,11 +4022,11 @@ self.assertTrue(db.search(request(quantity=2)).can_claim_no_match); self.assertT
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466224+00:00
+**Execution Date:** 2026-11-03T04:03:16.319684+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_known_nonmatch_dominates_unrelated_unknown_facts](../tests/test_catalogue.py#L123), lines 123–131.
 
@@ -4035,7 +4037,7 @@ self.assertTrue(db.search(request(quantity=2)).can_claim_no_match); self.assertT
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_known_nonmatch_dominates_unrelated_unknown_facts` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_known_nonmatch_dominates_unrelated_unknown_facts` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4065,11 +4067,11 @@ self.assertEqual(ids(result.matches), ('backpack',)); self.assertTrue(result.can
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466272+00:00
+**Execution Date:** 2026-11-03T04:03:16.319735+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_known_zero_price_is_a_valid_minimum](../tests/test_catalogue.py#L224), lines 224–228.
 
@@ -4080,7 +4082,7 @@ self.assertEqual(ids(result.matches), ('backpack',)); self.assertTrue(result.can
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_known_zero_price_is_a_valid_minimum` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_known_zero_price_is_a_valid_minimum` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4110,11 +4112,11 @@ self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'free')
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466311+00:00
+**Execution Date:** 2026-11-03T04:03:16.319774+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_missing_price_is_unknown_and_blocks_global_claim](../tests/test_catalogue.py#L87), lines 87–96.
 
@@ -4125,7 +4127,7 @@ self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'free')
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_missing_price_is_unknown_and_blocks_global_claim` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_missing_price_is_unknown_and_blocks_global_claim` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4155,11 +4157,11 @@ self.assertEqual(ids(result.matches), ('known',)); self.assertEqual(result.statu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466352+00:00
+**Execution Date:** 2026-11-03T04:03:16.319815+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_only_missing_price_is_not_a_verified_no_match](../tests/test_catalogue.py#L98), lines 98–102.
 
@@ -4170,7 +4172,7 @@ self.assertEqual(ids(result.matches), ('known',)); self.assertEqual(result.statu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_only_missing_price_is_not_a_verified_no_match` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_only_missing_price_is_not_a_verified_no_match` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4200,11 +4202,11 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIsNone(resu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466391+00:00
+**Execution Date:** 2026-11-03T04:03:16.319853+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_paise_boundary_uses_integers_without_rounding](../tests/test_catalogue.py#L83), lines 83–85.
 
@@ -4215,7 +4217,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIsNone(resu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_paise_boundary_uses_integers_without_rounding` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_paise_boundary_uses_integers_without_rounding` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4245,11 +4247,11 @@ self.assertEqual(ids(db.search(request()).matches), ('below',))
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466428+00:00
+**Execution Date:** 2026-11-03T04:03:16.319890+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_partial_and_unknown_coverage_block_global_claims](../tests/test_catalogue.py#L202), lines 202–209.
 
@@ -4260,7 +4262,7 @@ self.assertEqual(ids(db.search(request()).matches), ('below',))
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_partial_and_unknown_coverage_block_global_claims` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_partial_and_unknown_coverage_block_global_claims` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4290,11 +4292,11 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(resul
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466517+00:00
+**Execution Date:** 2026-11-03T04:03:16.319976+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_price_ties_are_stable_for_every_input_permutation](../tests/test_catalogue.py#L182), lines 182–187.
 
@@ -4305,7 +4307,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(resul
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_price_ties_are_stable_for_every_input_permutation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_price_ties_are_stable_for_every_input_permutation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4335,11 +4337,11 @@ self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'a'); self
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466633+00:00
+**Execution Date:** 2026-11-03T04:03:16.320091+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_snapshot_does_not_change_when_input_lists_change](../tests/test_catalogue.py#L248), lines 248–255.
 
@@ -4350,7 +4352,7 @@ self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'a'); self
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_snapshot_does_not_change_when_input_lists_change` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_snapshot_does_not_change_when_input_lists_change` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4380,11 +4382,11 @@ self.assertEqual(db.search(request()).cheapest_qualifying_match.variant.variant_
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466667+00:00
+**Execution Date:** 2026-11-03T04:03:16.320125+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_stale_above_budget_price_cannot_prove_nonmatch](../tests/test_catalogue.py#L153), lines 153–158.
 
@@ -4395,7 +4397,7 @@ self.assertEqual(db.search(request()).cheapest_qualifying_match.variant.variant_
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_stale_above_budget_price_cannot_prove_nonmatch` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_stale_above_budget_price_cannot_prove_nonmatch` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4425,11 +4427,11 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(resul
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466698+00:00
+**Execution Date:** 2026-11-03T04:03:16.320158+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_stale_and_unverified_prices_are_not_qualified](../tests/test_catalogue.py#L143), lines 143–151.
 
@@ -4440,7 +4442,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(resul
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_stale_and_unverified_prices_are_not_qualified` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_stale_and_unverified_prices_are_not_qualified` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4470,11 +4472,11 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIsNone(resu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466755+00:00
+**Execution Date:** 2026-11-03T04:03:16.320216+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_strict_and_inclusive_price_boundaries](../tests/test_catalogue.py#L74), lines 74–81.
 
@@ -4485,7 +4487,7 @@ self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertIsNone(resu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_strict_and_inclusive_price_boundaries` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_strict_and_inclusive_price_boundaries` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4515,11 +4517,11 @@ self.assertEqual(strict.status, SearchStatus.NO_MATCH); self.assertTrue(strict.c
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466805+00:00
+**Execution Date:** 2026-11-03T04:03:16.320263+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_unknown_availability_and_multi_unit_stock_block_claims](../tests/test_catalogue.py#L230), lines 230–238.
 
@@ -4530,7 +4532,7 @@ self.assertEqual(strict.status, SearchStatus.NO_MATCH); self.assertTrue(strict.c
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_unknown_availability_and_multi_unit_stock_block_claims` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_unknown_availability_and_multi_unit_stock_block_claims` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4560,11 +4562,11 @@ self.assertTrue(single.can_claim_catalogue_minimum); self.assertEqual(result.sta
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466875+00:00
+**Execution Date:** 2026-11-03T04:03:16.320331+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_unknown_required_category_colour_or_size_never_matches](../tests/test_catalogue.py#L104), lines 104–117.
 
@@ -4575,7 +4577,7 @@ self.assertTrue(single.can_claim_catalogue_minimum); self.assertEqual(result.sta
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_unknown_required_category_colour_or_size_never_matches` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_unknown_required_category_colour_or_size_never_matches` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4605,11 +4607,11 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466952+00:00
+**Execution Date:** 2026-11-03T04:03:16.320407+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_unknown_unrequested_size_does_not_block_selection](../tests/test_catalogue.py#L119), lines 119–121.
 
@@ -4620,7 +4622,7 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_unknown_unrequested_size_does_not_block_selection` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_unknown_unrequested_size_does_not_block_selection` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4650,11 +4652,11 @@ self.assertTrue(result.can_claim_catalogue_minimum)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.466981+00:00
+**Execution Date:** 2026-11-03T04:03:16.320436+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_variant_identity_does_not_borrow_other_colour_price_or_stock](../tests/test_catalogue.py#L160), lines 160–180.
 
@@ -4665,7 +4667,7 @@ self.assertTrue(result.can_claim_catalogue_minimum)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_variant_identity_does_not_borrow_other_colour_price_or_stock` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_variant_identity_does_not_borrow_other_colour_price_or_stock` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4695,11 +4697,11 @@ self.assertTrue(small.can_claim_no_match); self.assertEqual(ids(any_size.matches
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.467038+00:00
+**Execution Date:** 2026-11-03T04:03:16.320492+00:00
 
 **Description:** Executable contract [tests.test_catalogue.StructuredSelectionTests.test_wrong_colour_dominates_unknown_category](../tests/test_catalogue.py#L133), lines 133–135.
 
@@ -4710,7 +4712,7 @@ self.assertTrue(small.can_claim_no_match); self.assertEqual(ids(any_size.matches
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_catalogue.StructuredSelectionTests.test_wrong_colour_dominates_unknown_category` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_catalogue.StructuredSelectionTests.test_wrong_colour_dominates_unknown_category` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4740,11 +4742,11 @@ self.assertIs(qualify(item, request().constraints).state, Eligibility.REJECTED)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.469583+00:00
+**Execution Date:** 2026-11-03T04:03:16.323351+00:00
 
 **Description:** Executable contract [tests.test_dataset.BrowserDatabaseTests.test_expired_source_never_displays_verified_availability](../tests/test_dataset.py#L79), lines 79–95.
 
@@ -4755,7 +4757,7 @@ self.assertIs(qualify(item, request().constraints).state, Eligibility.REJECTED)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_dataset.BrowserDatabaseTests.test_expired_source_never_displays_verified_availability` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_dataset.BrowserDatabaseTests.test_expired_source_never_displays_verified_availability` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4785,11 +4787,11 @@ self.assertTrue(result['items']); self.assertTrue(all((row['available'] is None 
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.485290+00:00
+**Execution Date:** 2026-11-03T04:03:16.339015+00:00
 
 **Description:** Executable contract [tests.test_dataset.BrowserDatabaseTests.test_historical_metadata_browsable_but_cannot_add](../tests/test_dataset.py#L109), lines 109–142.
 
@@ -4800,7 +4802,7 @@ self.assertTrue(result['items']); self.assertTrue(all((row['available'] is None 
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_dataset.BrowserDatabaseTests.test_historical_metadata_browsable_but_cannot_add` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_dataset.BrowserDatabaseTests.test_historical_metadata_browsable_but_cannot_add` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4809,7 +4811,7 @@ self.assertTrue(result['items']); self.assertTrue(all((row['available'] is None 
 self.assertGreater(result['total'], 1); self.assertEqual(len(result['items']), 1); self.assertFalse(result['items'][0]['can_add']); self.assertFalse(result['can_claim_global_minimum']); self.assertIsNotNone(result['cheapest']); self.assertEqual(CatalogueBrowser(self.database).search('', brand='Fixture', currency='INR')['total'], 1); self.assertEqual(CatalogueBrowser(self.database).search('', brand='Fixture')['total'], 1); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0186 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0191 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4830,11 +4832,11 @@ self.assertGreater(result['total'], 1); self.assertEqual(len(result['items']), 1
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.503939+00:00
+**Execution Date:** 2026-11-03T04:03:16.358171+00:00
 
 **Description:** Executable contract [tests.test_dataset.BrowserDatabaseTests.test_metadata_hybrid_generation_and_minimum_are_scoped](../tests/test_dataset.py#L97), lines 97–107.
 
@@ -4845,7 +4847,7 @@ self.assertGreater(result['total'], 1); self.assertEqual(len(result['items']), 1
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_dataset.BrowserDatabaseTests.test_metadata_hybrid_generation_and_minimum_are_scoped` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_dataset.BrowserDatabaseTests.test_metadata_hybrid_generation_and_minimum_are_scoped` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4854,7 +4856,7 @@ self.assertGreater(result['total'], 1); self.assertEqual(len(result['items']), 1
 self.assertIn('exact semantic', result['semantic_status']); self.assertFalse(result['can_claim_global_minimum']); self.assertIsNotNone(result['cheapest'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0142 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0137 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4875,11 +4877,11 @@ self.assertIn('exact semantic', result['semantic_status']); self.assertFalse(res
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.518159+00:00
+**Execution Date:** 2026-11-03T04:03:16.371903+00:00
 
 **Description:** Executable contract [tests.test_dataset.DatasetTests.test_historical_amount_equivalence_and_minor_boundaries](../tests/test_dataset.py#L16), lines 16–29.
 
@@ -4890,7 +4892,7 @@ self.assertIn('exact semantic', result['semantic_status']); self.assertFalse(res
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_dataset.DatasetTests.test_historical_amount_equivalence_and_minor_boundaries` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_dataset.DatasetTests.test_historical_amount_equivalence_and_minor_boundaries` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4920,11 +4922,11 @@ self.assertEqual(historical_usd(value), expected)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.518252+00:00
+**Execution Date:** 2026-11-03T04:03:16.371995+00:00
 
 **Description:** Executable contract [tests.test_dataset.DatasetTests.test_real_schema_normalization_provenance_duplicates_unknowns_and_hash](../tests/test_dataset.py#L31), lines 31–63.
 
@@ -4935,7 +4937,7 @@ self.assertEqual(historical_usd(value), expected)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_dataset.DatasetTests.test_real_schema_normalization_provenance_duplicates_unknowns_and_hash` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_dataset.DatasetTests.test_real_schema_normalization_provenance_duplicates_unknowns_and_hash` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -4944,7 +4946,7 @@ self.assertEqual(historical_usd(value), expected)
 self.assertEqual((report['imported'], report['duplicates'], report['rejected']), (1, 1, 1)); self.assertEqual(snapshot['variants'][0]['price']['currency'], 'USD'); self.assertIsNone(snapshot['variants'][0]['available']); self.assertEqual(snapshot['variants'][0]['price_freshness'], 'stale'); self.assertEqual(snapshot['metadata']['TEST-ONLY']['raw_price'], '4.25'); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0008 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0009 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -4965,11 +4967,11 @@ self.assertEqual((report['imported'], report['duplicates'], report['rejected']),
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519048+00:00
+**Execution Date:** 2026-11-03T04:03:16.372939+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_conflicting_budget_currency_is_rejected](../tests/test_domain.py#L50), lines 50–55.
 
@@ -4980,7 +4982,7 @@ self.assertEqual((report['imported'], report['duplicates'], report['rejected']),
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_conflicting_budget_currency_is_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_conflicting_budget_currency_is_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5010,11 +5012,11 @@ self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519082+00:00
+**Execution Date:** 2026-11-03T04:03:16.372973+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_contracts_are_immutable](../tests/test_domain.py#L95), lines 95–98.
 
@@ -5025,7 +5027,7 @@ self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_contracts_are_immutable` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_contracts_are_immutable` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5055,11 +5057,11 @@ self.assertRaises(FrozenInstanceError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519114+00:00
+**Execution Date:** 2026-11-03T04:03:16.373007+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_currency_is_explicit_and_not_silently_normalized](../tests/test_domain.py#L33), lines 33–36.
 
@@ -5070,7 +5072,7 @@ self.assertRaises(FrozenInstanceError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_currency_is_explicit_and_not_silently_normalized` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_currency_is_explicit_and_not_silently_normalized` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5079,7 +5081,7 @@ self.assertRaises(FrozenInstanceError)
 self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0000 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5100,11 +5102,11 @@ self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519164+00:00
+**Execution Date:** 2026-11-03T04:03:16.373062+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_descriptive_text_cannot_be_silently_treated_as_structured](../tests/test_domain.py#L123), lines 123–127.
 
@@ -5115,7 +5117,7 @@ self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_descriptive_text_cannot_be_silently_treated_as_structured` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_descriptive_text_cannot_be_silently_treated_as_structured` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5145,11 +5147,11 @@ self.assertRaises(ValueError); self.assertRaises(TypeError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519189+00:00
+**Execution Date:** 2026-11-03T04:03:16.373088+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_exact_route_requires_typed_identifier](../tests/test_domain.py#L104), lines 104–110.
 
@@ -5160,7 +5162,7 @@ self.assertRaises(ValueError); self.assertRaises(TypeError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_exact_route_requires_typed_identifier` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_exact_route_requires_typed_identifier` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5190,11 +5192,11 @@ self.assertRaises(ValueError); self.assertRaises(TypeError); self.assertRaises(V
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519212+00:00
+**Execution Date:** 2026-11-03T04:03:16.373113+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_identity_attributes_and_boolean_fields_are_validated](../tests/test_domain.py#L72), lines 72–89.
 
@@ -5205,7 +5207,7 @@ self.assertRaises(ValueError); self.assertRaises(TypeError); self.assertRaises(V
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_identity_attributes_and_boolean_fields_are_validated` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_identity_attributes_and_boolean_fields_are_validated` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5235,11 +5237,11 @@ self.assertRaises(ValueError); self.assertRaises((TypeError, ValueError))
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519296+00:00
+**Execution Date:** 2026-11-03T04:03:16.373202+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_money_is_nonnegative_bounded_integer](../tests/test_domain.py#L26), lines 26–31.
 
@@ -5250,7 +5252,7 @@ self.assertRaises(ValueError); self.assertRaises((TypeError, ValueError))
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_money_is_nonnegative_bounded_integer` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_money_is_nonnegative_bounded_integer` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5280,11 +5282,11 @@ self.assertEqual(Money(0, 'INR').minor_units, 0); self.assertEqual(Money(MAX_MIN
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519326+00:00
+**Execution Date:** 2026-11-03T04:03:16.373233+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_money_rejects_float_bool_and_string](../tests/test_domain.py#L21), lines 21–24.
 
@@ -5295,7 +5297,7 @@ self.assertEqual(Money(0, 'INR').minor_units, 0); self.assertEqual(Money(MAX_MIN
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_money_rejects_float_bool_and_string` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_money_rejects_float_bool_and_string` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5325,11 +5327,11 @@ self.assertRaises(TypeError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519362+00:00
+**Execution Date:** 2026-11-03T04:03:16.373270+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_price_operators_have_different_boundary_semantics](../tests/test_domain.py#L38), lines 38–42.
 
@@ -5340,7 +5342,7 @@ self.assertRaises(TypeError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_price_operators_have_different_boundary_semantics` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_price_operators_have_different_boundary_semantics` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5370,11 +5372,11 @@ self.assertFalse(PriceLimit(amount, PriceOperator.LT).permits(amount)); self.ass
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519380+00:00
+**Execution Date:** 2026-11-03T04:03:16.373289+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_quantity_must_be_positive_integer](../tests/test_domain.py#L57), lines 57–60.
 
@@ -5385,7 +5387,7 @@ self.assertFalse(PriceLimit(amount, PriceOperator.LT).permits(amount)); self.ass
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_quantity_must_be_positive_integer` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_quantity_must_be_positive_integer` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5415,11 +5417,11 @@ self.assertRaises((TypeError, ValueError))
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519426+00:00
+**Execution Date:** 2026-11-03T04:03:16.373336+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_route_mismatch_and_unsupported_fields_fail_explicitly](../tests/test_domain.py#L112), lines 112–121.
 
@@ -5430,7 +5432,7 @@ self.assertRaises((TypeError, ValueError))
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_route_mismatch_and_unsupported_fields_fail_explicitly` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_route_mismatch_and_unsupported_fields_fail_explicitly` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5460,11 +5462,11 @@ self.assertRaises(ValueError); self.assertRaises(TypeError); self.assertRaises(T
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519451+00:00
+**Execution Date:** 2026-11-03T04:03:16.373362+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_unknowns_stay_explicit_and_default_freshness_is_unknown](../tests/test_domain.py#L62), lines 62–70.
 
@@ -5475,7 +5477,7 @@ self.assertRaises(ValueError); self.assertRaises(TypeError); self.assertRaises(T
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_unknowns_stay_explicit_and_default_freshness_is_unknown` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_unknowns_stay_explicit_and_default_freshness_is_unknown` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5505,11 +5507,11 @@ self.assertIsNone(item.price); self.assertIsNone(item.colour); self.assertIsNone
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519470+00:00
+**Execution Date:** 2026-11-03T04:03:16.373382+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_untyped_operator_or_money_is_rejected](../tests/test_domain.py#L44), lines 44–48.
 
@@ -5520,7 +5522,7 @@ self.assertIsNone(item.price); self.assertIsNone(item.colour); self.assertIsNone
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_untyped_operator_or_money_is_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_untyped_operator_or_money_is_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5550,11 +5552,11 @@ self.assertRaises(TypeError); self.assertRaises(TypeError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519489+00:00
+**Execution Date:** 2026-11-03T04:03:16.373401+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_variant_cannot_be_joined_to_wrong_parent](../tests/test_domain.py#L100), lines 100–102.
 
@@ -5565,7 +5567,7 @@ self.assertRaises(TypeError); self.assertRaises(TypeError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_variant_cannot_be_joined_to_wrong_parent` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_variant_cannot_be_joined_to_wrong_parent` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5595,11 +5597,11 @@ self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.519509+00:00
+**Execution Date:** 2026-11-03T04:03:16.373423+00:00
 
 **Description:** Executable contract [tests.test_domain.MoneyAndContractTests.test_zero_stock_cannot_be_asserted_available](../tests/test_domain.py#L91), lines 91–93.
 
@@ -5610,7 +5612,7 @@ self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_domain.MoneyAndContractTests.test_zero_stock_cannot_be_asserted_available` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_domain.MoneyAndContractTests.test_zero_stock_cannot_be_asserted_available` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5620,6 +5622,141 @@ self.assertRaises(ValueError)
 ```
 
 **Actual Result:** All method assertions completed without a failure. Duration 0.0000 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-740B10AC — browser node and static summaries preserve scope
+
+**Test Case ID:** VC-740B10AC
+
+**Test Case Name:** EvidenceIntegrityTests.test_browser_node_and_static_summaries_preserve_scope
+
+**System/Sub-system:** tests.test_evidence_tools
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:16.373451+00:00
+
+**Description:** Executable contract [tests.test_evidence_tools.EvidenceIntegrityTests.test_browser_node_and_static_summaries_preserve_scope](../tests/test_evidence_tools.py#L26), lines 26–35.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `result = test_counts('  1 failed\n  7 passed (36.2s)\n')`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_evidence_tools.EvidenceIntegrityTests.test_browser_node_and_static_summaries_preserve_scope` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual((result['executed'], result['passed'], result['failed']), (8, 7, 1)); self.assertIsNone(result['errored']); self.assertEqual(test_counts('ℹ tests 2\nℹ pass 1\nℹ fail 1\nℹ skipped 0\n')['failed'], 1); self.assertIsNone(test_counts('Success: no issues found in 30 source files'))
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-843F64E4 — evidence write refuses overwrite and preserves original
+
+**Test Case ID:** VC-843F64E4
+
+**Test Case Name:** EvidenceIntegrityTests.test_evidence_write_refuses_overwrite_and_preserves_original
+
+**System/Sub-system:** tests.test_evidence_tools
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:16.373802+00:00
+
+**Description:** Executable contract [tests.test_evidence_tools.EvidenceIntegrityTests.test_evidence_write_refuses_overwrite_and_preserves_original](../tests/test_evidence_tools.py#L37), lines 37–44.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `See the source method and class setUp fixture.`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_evidence_tools.EvidenceIntegrityTests.test_evidence_write_refuses_overwrite_and_preserves_original` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(path.read_bytes(), original); self.assertRaises(FileExistsError)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-81E8C2C6 — source wheel counts are executions with failure skip and error
+
+**Test Case ID:** VC-81E8C2C6
+
+**Test Case Name:** EvidenceIntegrityTests.test_source_wheel_counts_are_executions_with_failure_skip_and_error
+
+**System/Sub-system:** tests.test_evidence_tools
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:16.374250+00:00
+
+**Description:** Executable contract [tests.test_evidence_tools.EvidenceIntegrityTests.test_source_wheel_counts_are_executions_with_failure_skip_and_error](../tests/test_evidence_tools.py#L11), lines 11–24.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `output = 'Ran 5 tests in 1.0s\n\nFAILED (failures=1, errors=1, skipped=1)\nRan 5 tests in 1.1s\n\nOK\n'`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_evidence_tools.EvidenceIntegrityTests.test_source_wheel_counts_are_executions_with_failure_skip_and_error` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(test_counts(output), {'framework': 'unittest', 'scope': 'execution totals, not distinct methods across source/wheel runs', 'executed': 10, 'passed': 7, 'failed': 1, 'errored': 1, 'skipped': 1})
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5640,11 +5777,11 @@ self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.521982+00:00
+**Execution Date:** 2026-11-03T04:03:16.376844+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.HTTPFoundationTests.test_duplicate_database_tenants_rejected](../tests/test_http_foundation.py#L109), lines 109–118.
 
@@ -5655,7 +5792,7 @@ self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_http_foundation.HTTPFoundationTests.test_duplicate_database_tenants_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_http_foundation.HTTPFoundationTests.test_duplicate_database_tenants_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5664,7 +5801,7 @@ self.assertRaises(ValueError)
 self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0105 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0106 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5685,11 +5822,11 @@ self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:51.532499+00:00
+**Execution Date:** 2026-11-03T04:03:16.387425+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.HTTPFoundationTests.test_health_origin_host_and_no_fake_endpoints](../tests/test_http_foundation.py#L68), lines 68–107.
 
@@ -5700,7 +5837,7 @@ self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_http_foundation.HTTPFoundationTests.test_health_origin_host_and_no_fake_endpoints` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_http_foundation.HTTPFoundationTests.test_health_origin_host_and_no_fake_endpoints` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5709,7 +5846,7 @@ self.assertRaises(ValueError)
 self.assertEqual(reply.status, 200); self.assertEqual(json.loads(reply.read())['status'], 'ok'); self.assertEqual(reply.status, 403); self.assertEqual(reply.status, 403)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5152 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5145 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5730,11 +5867,11 @@ self.assertEqual(reply.status, 200); self.assertEqual(json.loads(reply.read())['
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.047859+00:00
+**Execution Date:** 2026-11-03T04:03:16.901968+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.SecurityTests.test_capability_equivalence_tampering_roles_tenants_and_expiry](../tests/test_http_foundation.py#L20), lines 20–37.
 
@@ -5745,7 +5882,7 @@ self.assertEqual(reply.status, 200); self.assertEqual(json.loads(reply.read())['
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_http_foundation.SecurityTests.test_capability_equivalence_tampering_roles_tenants_and_expiry` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_http_foundation.SecurityTests.test_capability_equivalence_tampering_roles_tenants_and_expiry` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5754,7 +5891,7 @@ self.assertEqual(reply.status, 200); self.assertEqual(json.loads(reply.read())['
 self.assertEqual(auth.verify(token, 'one', 'customer'), 'session'); self.assertRaises(ValueError); self.assertRaises(AccessDenied)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0010 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0006 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5775,11 +5912,11 @@ self.assertEqual(auth.verify(token, 'one', 'customer'), 'session'); self.assertR
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.048930+00:00
+**Execution Date:** 2026-11-03T04:03:16.902609+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.SecurityTests.test_rate_limit_boundaries_and_bounded_storage](../tests/test_http_foundation.py#L39), lines 39–46.
 
@@ -5790,7 +5927,7 @@ self.assertEqual(auth.verify(token, 'one', 'customer'), 'session'); self.assertR
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_http_foundation.SecurityTests.test_rate_limit_boundaries_and_bounded_storage` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_http_foundation.SecurityTests.test_rate_limit_boundaries_and_bounded_storage` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5799,7 +5936,7 @@ self.assertEqual(auth.verify(token, 'one', 'customer'), 'session'); self.assertR
 self.assertTrue(rate.allow(('test',), 1, now=0)); self.assertFalse(rate.allow(('test',), 1, now=59.999)); self.assertTrue(rate.allow(('test',), 1, now=60)); self.assertLessEqual(len(rate.windows), 4096)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0103 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0091 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5820,11 +5957,11 @@ self.assertTrue(rate.allow(('test',), 1, now=0)); self.assertFalse(rate.allow(('
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.059250+00:00
+**Execution Date:** 2026-11-03T04:03:16.911764+00:00
 
 **Description:** Executable contract [tests.test_http_foundation.SecurityTests.test_trusted_service_hosts_are_explicit_and_not_default](../tests/test_http_foundation.py#L48), lines 48–59.
 
@@ -5835,7 +5972,7 @@ self.assertTrue(rate.allow(('test',), 1, now=0)); self.assertFalse(rate.allow(('
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_http_foundation.SecurityTests.test_trusted_service_hosts_are_explicit_and_not_default` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_http_foundation.SecurityTests.test_trusted_service_hosts_are_explicit_and_not_default` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5844,7 +5981,7 @@ self.assertTrue(rate.allow(('test',), 1, now=0)); self.assertFalse(rate.allow(('
 self.assertRaises(ValueError); self.assertEqual(parse_local_dsn('postgresql://db/test')['host'], 'db'); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0130 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0121 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5865,11 +6002,11 @@ self.assertRaises(ValueError); self.assertEqual(parse_local_dsn('postgresql://db
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.078812+00:00
+**Execution Date:** 2026-11-03T04:03:16.929472+00:00
 
 **Description:** Executable contract [tests.test_merchant.MerchantTests.test_adapter_exact_snapshot_add_replay_refresh_and_operation](../tests/test_merchant.py#L43), lines 43–61.
 
@@ -5880,7 +6017,7 @@ self.assertRaises(ValueError); self.assertEqual(parse_local_dsn('postgresql://db
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_merchant.MerchantTests.test_adapter_exact_snapshot_add_replay_refresh_and_operation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_merchant.MerchantTests.test_adapter_exact_snapshot_add_replay_refresh_and_operation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5889,7 +6026,7 @@ self.assertRaises(ValueError); self.assertEqual(parse_local_dsn('postgresql://db
 self.assertEqual(first, second); self.assertEqual(adapter.cart(session)['items'][0]['quantity'], 1); self.assertEqual(adapter.operation(session, operation)['status'], 'committed'); self.assertEqual(adapter.lookup('p-best')['revision'], 'fixture-1'); self.assertEqual(adapter.refresh_offers(['v-best'])[0]['offer']['price']['minor_units'], 150000); self.assertEqual(adapter.operation(session, str(uuid.uuid4()))['status'], 'unknown')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0697 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0692 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5910,11 +6047,11 @@ self.assertEqual(first, second); self.assertEqual(adapter.cart(session)['items']
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.148570+00:00
+**Execution Date:** 2026-11-03T04:03:16.998658+00:00
 
 **Description:** Executable contract [tests.test_merchant.MerchantTests.test_real_tenant_database_auth_session_and_catalogue_isolation](../tests/test_merchant.py#L63), lines 63–131.
 
@@ -5925,7 +6062,7 @@ self.assertEqual(first, second); self.assertEqual(adapter.cart(session)['items']
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_merchant.MerchantTests.test_real_tenant_database_auth_session_and_catalogue_isolation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_merchant.MerchantTests.test_real_tenant_database_auth_session_and_catalogue_isolation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -5934,7 +6071,7 @@ self.assertEqual(first, second); self.assertEqual(adapter.cart(session)['items']
 self.assertEqual(request('two', 'sessions', {}, TOKEN)[0], 403); self.assertEqual(status, 201); self.assertEqual(request('two', 'cart', {'session_id': result['session_id']}, second_token)[0], 409); self.assertEqual(request('two', 'lookup', {'product_id': 'p-best'}, second_token)[1]['product']['name'], 'Other tenant test-only product'); self.assertEqual(request('one', 'lookup', {'product_id': 'p-best'}, TOKEN)[1]['product']['name'], 'College backpack')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.8073 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.8431 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -5955,11 +6092,11 @@ self.assertEqual(request('two', 'sessions', {}, TOKEN)[0], 403); self.assertEqua
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.955865+00:00
+**Execution Date:** 2026-11-03T04:03:17.841819+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_action_evidence_cannot_be_a_substring_of_address](../tests/test_nlu.py#L176), lines 176–185.
 
@@ -5970,7 +6107,7 @@ self.assertEqual(request('two', 'sessions', {}, TOKEN)[0], 403); self.assertEqua
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_action_evidence_cannot_be_a_substring_of_address` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_action_evidence_cannot_be_a_substring_of_address` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6000,11 +6137,11 @@ self.assertRaises(InterpretationError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.955957+00:00
+**Execution Date:** 2026-11-03T04:03:17.841906+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_bool_extra_keys_and_fabricated_evidence_are_rejected](../tests/test_nlu.py#L121), lines 121–129.
 
@@ -6015,7 +6152,7 @@ self.assertRaises(InterpretationError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_bool_extra_keys_and_fabricated_evidence_are_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_bool_extra_keys_and_fabricated_evidence_are_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6045,11 +6182,11 @@ self.assertRaises(InterpretationError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.956124+00:00
+**Execution Date:** 2026-11-03T04:03:17.842061+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_control_requests_are_narrow_and_do_not_reuse_search_state](../tests/test_nlu.py#L196), lines 196–203.
 
@@ -6060,7 +6197,7 @@ self.assertRaises(InterpretationError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_control_requests_are_narrow_and_do_not_reuse_search_state` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_control_requests_are_narrow_and_do_not_reuse_search_state` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6090,11 +6227,11 @@ self.assertEqual(result.kind, 'cancel'); self.assertIsNone(result.search); self.
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.956188+00:00
+**Execution Date:** 2026-11-03T04:03:17.842109+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_critical_field_loss_and_operator_drift_are_rejected](../tests/test_nlu.py#L92), lines 92–106.
 
@@ -6105,7 +6242,7 @@ self.assertEqual(result.kind, 'cancel'); self.assertIsNone(result.search); self.
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_critical_field_loss_and_operator_drift_are_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_critical_field_loss_and_operator_drift_are_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6135,11 +6272,11 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError); 
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.956470+00:00
+**Execution Date:** 2026-11-03T04:03:17.842368+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_exact_identifier_and_ordinal_require_literal_evidence](../tests/test_nlu.py#L148), lines 148–174.
 
@@ -6150,7 +6287,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError); 
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_exact_identifier_and_ordinal_require_literal_evidence` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_exact_identifier_and_ordinal_require_literal_evidence` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6159,7 +6296,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError); 
 self.assertEqual(result.search.identifier.value, 'SKU-BLK-101'); self.assertEqual(result.ordinal, 2); self.assertIsNone(result.search); self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6180,11 +6317,11 @@ self.assertEqual(result.search.identifier.value, 'SKU-BLK-101'); self.assertEqua
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.956729+00:00
+**Execution Date:** 2026-11-03T04:03:17.842605+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_integer_money_and_strict_inclusive_bounds](../tests/test_nlu.py#L58), lines 58–90.
 
@@ -6195,7 +6332,7 @@ self.assertEqual(result.search.identifier.value, 'SKU-BLK-101'); self.assertEqua
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_integer_money_and_strict_inclusive_bounds` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_integer_money_and_strict_inclusive_bounds` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6204,7 +6341,7 @@ self.assertEqual(result.search.identifier.value, 'SKU-BLK-101'); self.assertEqua
 self.assertEqual(rupees_to_minor('1,50,000.25'), 15000025); self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 200000); self.assertEqual(result.search.constraints.price_limit.operator, PriceOperator(operator)); self.assertRaises((ValueError, TypeError))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6225,11 +6362,11 @@ self.assertEqual(rupees_to_minor('1,50,000.25'), 15000025); self.assertEqual(res
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.957090+00:00
+**Execution Date:** 2026-11-03T04:03:17.842931+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_negation_cannot_authorize_add_or_invert_colour](../tests/test_nlu.py#L108), lines 108–119.
 
@@ -6240,7 +6377,7 @@ self.assertEqual(rupees_to_minor('1,50,000.25'), 15000025); self.assertEqual(res
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_negation_cannot_authorize_add_or_invert_colour` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_negation_cannot_authorize_add_or_invert_colour` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6270,11 +6407,11 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.957186+00:00
+**Execution Date:** 2026-11-03T04:03:17.843018+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_quantity_and_total_budget_semantics](../tests/test_nlu.py#L131), lines 131–146.
 
@@ -6285,7 +6422,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_quantity_and_total_budget_semantics` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_quantity_and_total_budget_semantics` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6294,7 +6431,7 @@ self.assertRaises(InterpretationError); self.assertRaises(InterpretationError)
 self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 5001); self.assertRaises(InterpretationError); self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6315,11 +6452,11 @@ self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 5001)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.957445+00:00
+**Execution Date:** 2026-11-03T04:03:17.843254+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_structured_and_discovery_scopes_remain_distinct](../tests/test_nlu.py#L44), lines 44–56.
 
@@ -6330,7 +6467,7 @@ self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 5001)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_structured_and_discovery_scopes_remain_distinct` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_structured_and_discovery_scopes_remain_distinct` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6339,7 +6476,7 @@ self.assertEqual(result.search.constraints.price_limit.amount.minor_units, 5001)
 self.assertEqual(result.search.route, RetrievalRoute.STRUCTURED); self.assertEqual(result.search.route, RetrievalRoute.DISCOVERY); self.assertEqual(result.search.route, RetrievalRoute.DISCOVERY); self.assertIn('waterproof', result.search.semantic_query)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6360,11 +6497,11 @@ self.assertEqual(result.search.route, RetrievalRoute.STRUCTURED); self.assertEqu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.957602+00:00
+**Execution Date:** 2026-11-03T04:03:17.843398+00:00
 
 **Description:** Executable contract [tests.test_nlu.InterpretationTests.test_unknown_currency_and_ambiguous_bounds_need_clarification](../tests/test_nlu.py#L187), lines 187–194.
 
@@ -6375,7 +6512,7 @@ self.assertEqual(result.search.route, RetrievalRoute.STRUCTURED); self.assertEqu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.InterpretationTests.test_unknown_currency_and_ambiguous_bounds_need_clarification` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.InterpretationTests.test_unknown_currency_and_ambiguous_bounds_need_clarification` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6405,11 +6542,11 @@ self.assertRaises(InterpretationError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.957707+00:00
+**Execution Date:** 2026-11-03T04:03:17.843495+00:00
 
 **Description:** Executable contract [tests.test_nlu.LiteralSchemaTests.test_evidence_enums_are_independent_and_base_schema_is_unchanged](../tests/test_nlu.py#L335), lines 335–351.
 
@@ -6420,7 +6557,7 @@ self.assertRaises(InterpretationError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.LiteralSchemaTests.test_evidence_enums_are_independent_and_base_schema_is_unchanged` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.LiteralSchemaTests.test_evidence_enums_are_independent_and_base_schema_is_unchanged` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6450,11 +6587,11 @@ self.assertEqual(fields['category']['properties']['evidence']['enum'], ['bags'])
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.957921+00:00
+**Execution Date:** 2026-11-03T04:03:17.843689+00:00
 
 **Description:** Executable contract [tests.test_nlu.LocalTransportTests.test_external_url_credentials_paths_and_nonfinite_timeouts_rejected](../tests/test_nlu.py#L207), lines 207–221.
 
@@ -6465,7 +6602,7 @@ self.assertEqual(fields['category']['properties']['evidence']['enum'], ['bags'])
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.LocalTransportTests.test_external_url_credentials_paths_and_nonfinite_timeouts_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.LocalTransportTests.test_external_url_credentials_paths_and_nonfinite_timeouts_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6474,7 +6611,7 @@ self.assertEqual(fields['category']['properties']['evidence']['enum'], ['bags'])
 self.assertRaises(ValueError); self.assertRaises(ValueError); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6495,11 +6632,11 @@ self.assertRaises(ValueError); self.assertRaises(ValueError); self.assertRaises(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.964516+00:00
+**Execution Date:** 2026-11-03T04:03:17.849868+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_actual_transport_schema_and_independent_validation](../tests/test_nlu.py#L270), lines 270–275.
 
@@ -6510,7 +6647,7 @@ self.assertRaises(ValueError); self.assertRaises(ValueError); self.assertRaises(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.OllamaProtocolIntegrationTests.test_actual_transport_schema_and_independent_validation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.OllamaProtocolIntegrationTests.test_actual_transport_schema_and_independent_validation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6519,7 +6656,7 @@ self.assertRaises(ValueError); self.assertRaises(ValueError); self.assertRaises(
 self.assertEqual(interpreter.interpret('find backpack', VOCAB).kind, 'search'); self.assertFalse(self.server.payload['stream']); self.assertFalse(self.server.payload['format']['additionalProperties']); self.assertEqual(self.server.payload['options']['num_predict'], 768)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0018 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0019 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6540,11 +6677,11 @@ self.assertEqual(interpreter.interpret('find backpack', VOCAB).kind, 'search'); 
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.966373+00:00
+**Execution Date:** 2026-11-03T04:03:17.851768+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_embedding_http_shape_and_generation_are_checked](../tests/test_nlu.py#L277), lines 277–287.
 
@@ -6555,7 +6692,7 @@ self.assertEqual(interpreter.interpret('find backpack', VOCAB).kind, 'search'); 
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.OllamaProtocolIntegrationTests.test_embedding_http_shape_and_generation_are_checked` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.OllamaProtocolIntegrationTests.test_embedding_http_shape_and_generation_are_checked` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6564,7 +6701,7 @@ self.assertEqual(interpreter.interpret('find backpack', VOCAB).kind, 'search'); 
 self.assertEqual(encoder.encode(['college backpack']), [(0.6, 0.8)]); self.assertFalse(self.server.payload['truncate']); self.assertRaises(LocalServiceError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0014 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0016 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6585,11 +6722,11 @@ self.assertEqual(encoder.encode(['college backpack']), [(0.6, 0.8)]); self.asser
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.967761+00:00
+**Execution Date:** 2026-11-03T04:03:17.853411+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_explicit_metadata_encoder_prefix_preserves_small_token_budget](../tests/test_nlu.py#L289), lines 289–304.
 
@@ -6600,7 +6737,7 @@ self.assertEqual(encoder.encode(['college backpack']), [(0.6, 0.8)]); self.asser
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.OllamaProtocolIntegrationTests.test_explicit_metadata_encoder_prefix_preserves_small_token_budget` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.OllamaProtocolIntegrationTests.test_explicit_metadata_encoder_prefix_preserves_small_token_budget` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6609,7 +6746,7 @@ self.assertEqual(encoder.encode(['college backpack']), [(0.6, 0.8)]); self.asser
 self.assertLessEqual(len(self.server.payload['input'][0].encode()), 256); self.assertFalse(self.server.payload['truncate'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0006 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0007 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6630,11 +6767,11 @@ self.assertLessEqual(len(self.server.payload['input'][0].encode()), 256); self.a
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.968411+00:00
+**Execution Date:** 2026-11-03T04:03:17.854095+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_malformed_model_json_and_extra_fields_never_returns_plan](../tests/test_nlu.py#L321), lines 321–331.
 
@@ -6645,7 +6782,7 @@ self.assertLessEqual(len(self.server.payload['input'][0].encode()), 256); self.a
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.OllamaProtocolIntegrationTests.test_malformed_model_json_and_extra_fields_never_returns_plan` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.OllamaProtocolIntegrationTests.test_malformed_model_json_and_extra_fields_never_returns_plan` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6675,11 +6812,11 @@ self.assertRaises(InterpretationError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:52.971710+00:00
+**Execution Date:** 2026-11-03T04:03:17.857443+00:00
 
 **Description:** Executable contract [tests.test_nlu.OllamaProtocolIntegrationTests.test_wrong_digest_or_truncated_generation_never_returns_plan](../tests/test_nlu.py#L306), lines 306–319.
 
@@ -6690,7 +6827,7 @@ self.assertRaises(InterpretationError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_nlu.OllamaProtocolIntegrationTests.test_wrong_digest_or_truncated_generation_never_returns_plan` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_nlu.OllamaProtocolIntegrationTests.test_wrong_digest_or_truncated_generation_never_returns_plan` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6699,7 +6836,232 @@ self.assertRaises(InterpretationError)
 self.assertRaises(LocalServiceError); self.assertRaises(LocalServiceError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0023 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0024 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-3CEA6B1E — false action proposal is counted without dispatch
+
+**Test Case ID:** VC-3CEA6B1E
+
+**Test Case Name:** EvaluationIntegrityTests.test_false_action_proposal_is_counted_without_dispatch
+
+**System/Sub-system:** tests.test_nlu_evaluation
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:18.361006+00:00
+
+**Description:** Executable contract [tests.test_nlu_evaluation.EvaluationIntegrityTests.test_false_action_proposal_is_counted_without_dispatch](../tests/test_nlu_evaluation.py#L33), lines 33–48.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `interpreter = Mock(); interpreter.interpret.return_value = Intent('add', explicit_add=True); row = evaluate({'id': 'TEST-ACTION', 'text': 'find only', 'expected': {'kind': 'search'}, 'action_allowed': False}, interpreter)`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_nlu_evaluation.EvaluationIntegrityTests.test_false_action_proposal_is_counted_without_dispatch` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(metrics['false_action_authorization_count'], 1); self.assertEqual(metrics['false_action_authorization_rate'], 1); self.assertEqual(metrics['exact_expectation_matches'], 0)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0005 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-71839C2B — frozen bank ids unique and explicit action labels
+
+**Test Case ID:** VC-71839C2B
+
+**Test Case Name:** EvaluationIntegrityTests.test_frozen_bank_ids_unique_and_explicit_action_labels
+
+**System/Sub-system:** tests.test_nlu_evaluation
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:18.361517+00:00
+
+**Description:** Executable contract [tests.test_nlu_evaluation.EvaluationIntegrityTests.test_frozen_bank_ids_unique_and_explicit_action_labels](../tests/test_nlu_evaluation.py#L91), lines 91–101.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `bank = json.loads(Path(__file__).with_name('nlu_eval_v2.json').read_text())['cases']`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_nlu_evaluation.EvaluationIntegrityTests.test_frozen_bank_ids_unique_and_explicit_action_labels` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(len({r['id'] for r in bank}), len(bank)); self.assertTrue(all((type(r['action_allowed']) is bool and r['expected'] for r in bank)))
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0005 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-486B3A35 — malformed shape and unsafe action outputs are independently rejected
+
+**Test Case ID:** VC-486B3A35
+
+**Test Case Name:** EvaluationIntegrityTests.test_malformed_shape_and_unsafe_action_outputs_are_independently_rejected
+
+**System/Sub-system:** tests.test_nlu_evaluation
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:18.362075+00:00
+
+**Description:** Executable contract [tests.test_nlu_evaluation.EvaluationIntegrityTests.test_malformed_shape_and_unsafe_action_outputs_are_independently_rejected](../tests/test_nlu_evaluation.py#L81), lines 81–89.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `See the source method and class setUp fixture.`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_nlu_evaluation.EvaluationIntegrityTests.test_malformed_shape_and_unsafe_action_outputs_are_independently_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertRaises(InterpretationError)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-E2FB2BD4 — reject label distinguishes validation service and unknown errors
+
+**Test Case ID:** VC-E2FB2BD4
+
+**Test Case Name:** EvaluationIntegrityTests.test_reject_label_distinguishes_validation_service_and_unknown_errors
+
+**System/Sub-system:** tests.test_nlu_evaluation
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:18.362459+00:00
+
+**Description:** Executable contract [tests.test_nlu_evaluation.EvaluationIntegrityTests.test_reject_label_distinguishes_validation_service_and_unknown_errors](../tests/test_nlu_evaluation.py#L13), lines 13–31.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `case = {'id': 'TEST-EVAL', 'text': 'unsupported', 'expected': {'reject': True}, 'action_allowed': False}`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_nlu_evaluation.EvaluationIntegrityTests.test_reject_label_distinguishes_validation_service_and_unknown_errors` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(row['correct'], correct); self.assertEqual(row['outcome'], outcome)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0007 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-78ECE943 — slot micro counts missing wrong extra and correct
+
+**Test Case ID:** VC-78ECE943
+
+**Test Case Name:** EvaluationIntegrityTests.test_slot_micro_counts_missing_wrong_extra_and_correct
+
+**System/Sub-system:** tests.test_nlu_evaluation
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:18.363193+00:00
+
+**Description:** Executable contract [tests.test_nlu_evaluation.EvaluationIntegrityTests.test_slot_micro_counts_missing_wrong_extra_and_correct](../tests/test_nlu_evaluation.py#L50), lines 50–79.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `metrics = summarize([{'expected': {'kind': 'search', 'category': 'backpack', 'colour': 'blue', 'size': 'medium', 'ordinal': None}, 'observed': {'kind': 'search', 'category': 'backpack', 'colour': 'black', 'ordinal': 2}, 'outcome': 'accepted', 'correct': False, 'action_allowed': False, 'false_action_authorization': False, 'seconds': 1}])`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_nlu_evaluation.EvaluationIntegrityTests.test_slot_micro_counts_missing_wrong_extra_and_correct` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual((metrics['slot_tp'], metrics['slot_fp'], metrics['slot_fn']), (1, 2, 2)); self.assertAlmostEqual(metrics['slot_micro_f1'], 1 / 3); self.assertIsNone(metrics['p95_seconds'])
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6720,11 +7082,11 @@ self.assertRaises(LocalServiceError); self.assertRaises(LocalServiceError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.476277+00:00
+**Execution Date:** 2026-11-03T04:03:18.363420+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_complete_valid_fixture_and_unknown_values_remain_explicit](../tests/test_persistence.py#L24), lines 24–30.
 
@@ -6735,7 +7097,7 @@ self.assertRaises(LocalServiceError); self.assertRaises(LocalServiceError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.ImportValidationTests.test_complete_valid_fixture_and_unknown_values_remain_explicit` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.ImportValidationTests.test_complete_valid_fixture_and_unknown_values_remain_explicit` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6744,7 +7106,7 @@ self.assertRaises(LocalServiceError); self.assertRaises(LocalServiceError)
 self.assertIsNone(bundle.variants[0].price); self.assertIsNone(bundle.variants[0].available)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6765,11 +7127,11 @@ self.assertIsNone(bundle.variants[0].price); self.assertIsNone(bundle.variants[0
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.476693+00:00
+**Execution Date:** 2026-11-03T04:03:18.363762+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_database_config_cannot_redirect_to_remote_hosts](../tests/test_persistence.py#L53), lines 53–60.
 
@@ -6780,7 +7142,7 @@ self.assertIsNone(bundle.variants[0].price); self.assertIsNone(bundle.variants[0
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.ImportValidationTests.test_database_config_cannot_redirect_to_remote_hosts` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.ImportValidationTests.test_database_config_cannot_redirect_to_remote_hosts` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6789,7 +7151,7 @@ self.assertIsNone(bundle.variants[0].price); self.assertIsNone(bundle.variants[0
 self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0005 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6810,11 +7172,11 @@ self.assertRaises(ValueError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.477185+00:00
+**Execution Date:** 2026-11-03T04:03:18.364218+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_reject_duplicate_ids_skus_bad_prices_orphans_and_unknown_fields](../tests/test_persistence.py#L32), lines 32–45.
 
@@ -6825,7 +7187,7 @@ self.assertRaises(ValueError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.ImportValidationTests.test_reject_duplicate_ids_skus_bad_prices_orphans_and_unknown_fields` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.ImportValidationTests.test_reject_duplicate_ids_skus_bad_prices_orphans_and_unknown_fields` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6855,11 +7217,11 @@ self.assertRaises(ImportValidationError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.477801+00:00
+**Execution Date:** 2026-11-03T04:03:18.364828+00:00
 
 **Description:** Executable contract [tests.test_persistence.ImportValidationTests.test_vector_dimension_nonfinite_zero_and_mixed_types_rejected](../tests/test_persistence.py#L47), lines 47–51.
 
@@ -6870,7 +7232,7 @@ self.assertRaises(ImportValidationError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.ImportValidationTests.test_vector_dimension_nonfinite_zero_and_mixed_types_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.ImportValidationTests.test_vector_dimension_nonfinite_zero_and_mixed_types_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6879,7 +7241,7 @@ self.assertRaises(ImportValidationError)
 self.assertEqual(validate_vector([3, 4], 2), (0.6, 0.8)); self.assertRaises(ValueError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6900,11 +7262,11 @@ self.assertEqual(validate_vector([3, 4], 2), (0.6, 0.8)); self.assertRaises(Valu
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.486605+00:00
+**Execution Date:** 2026-11-03T04:03:18.370427+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_empty_import_can_only_assert_its_declared_source](../tests/test_persistence.py#L308), lines 308–319.
 
@@ -6915,7 +7277,7 @@ self.assertEqual(validate_vector([3, 4], 2), (0.6, 0.8)); self.assertRaises(Valu
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_empty_import_can_only_assert_its_declared_source` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_empty_import_can_only_assert_its_declared_source` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6924,7 +7286,7 @@ self.assertEqual(validate_vector([3, 4], 2), (0.6, 0.8)); self.assertRaises(Valu
 self.assertTrue(state['populated']); self.assertEqual(state['product_count'], 0); self.assertTrue(result.can_claim_no_match); self.assertEqual(self.database.snapshot().catalogue.coverage, Coverage.COMPLETE)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0316 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0300 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6945,11 +7307,11 @@ self.assertTrue(state['populated']); self.assertEqual(state['product_count'], 0)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.518220+00:00
+**Execution Date:** 2026-11-03T04:03:18.400411+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_expired_source_and_unknown_prices_block_action_claims](../tests/test_persistence.py#L208), lines 208–217.
 
@@ -6960,7 +7322,7 @@ self.assertTrue(state['populated']); self.assertEqual(state['product_count'], 0)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_expired_source_and_unknown_prices_block_action_claims` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_expired_source_and_unknown_prices_block_action_claims` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -6969,7 +7331,7 @@ self.assertTrue(state['populated']); self.assertEqual(state['product_count'], 0)
 self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(result.can_claim_catalogue_minimum)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0211 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0212 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -6990,11 +7352,11 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.539295+00:00
+**Execution Date:** 2026-11-03T04:03:18.421647+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_failed_publication_rolls_back_every_branch](../tests/test_persistence.py#L175), lines 175–184.
 
@@ -7005,7 +7367,7 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_failed_publication_rolls_back_every_branch` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_failed_publication_rolls_back_every_branch` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7014,7 +7376,7 @@ self.assertEqual(result.matches, ()); self.assertEqual(result.status, SearchStat
 self.assertEqual(state['revision'], 'fixture-1'); self.assertEqual(state['product_count'], 3); self.assertEqual(state['search_count'], 3); self.assertRaises(TypeError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0208 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0246 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7035,11 +7397,11 @@ self.assertEqual(state['revision'], 'fixture-1'); self.assertEqual(state['produc
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.560080+00:00
+**Execution Date:** 2026-11-03T04:03:18.446263+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_full_replace_and_stale_job_compare_and_set](../tests/test_persistence.py#L162), lines 162–173.
 
@@ -7050,7 +7412,7 @@ self.assertEqual(state['revision'], 'fixture-1'); self.assertEqual(state['produc
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_full_replace_and_stale_job_compare_and_set` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_full_replace_and_stale_job_compare_and_set` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7059,7 +7421,7 @@ self.assertEqual(state['revision'], 'fixture-1'); self.assertEqual(state['produc
 self.assertEqual(state['variant_count'], 1); self.assertEqual(state['search_count'], 1); self.assertEqual(state['revision'], 'fixture-2'); self.assertRaises(PublicationConflict)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0184 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0222 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7080,11 +7442,11 @@ self.assertEqual(state['variant_count'], 1); self.assertEqual(state['search_coun
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.578537+00:00
+**Execution Date:** 2026-11-03T04:03:18.468468+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_migrations_idempotent_empty_and_startup_inserts_no_products](../tests/test_persistence.py#L95), lines 95–107.
 
@@ -7095,7 +7457,7 @@ self.assertEqual(state['variant_count'], 1); self.assertEqual(state['search_coun
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_migrations_idempotent_empty_and_startup_inserts_no_products` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_migrations_idempotent_empty_and_startup_inserts_no_products` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7104,7 +7466,7 @@ self.assertEqual(state['variant_count'], 1); self.assertEqual(state['search_coun
 self.assertEqual(self.database.migrate(), []); self.assertEqual(state['product_count'], 0); self.assertEqual(state['variant_count'], 0); self.assertFalse(state['populated']); self.assertEqual(result.status, SearchStatus.INCOMPLETE); self.assertFalse(result.can_claim_no_match); self.assertEqual(self.database.inspect()['product_count'], 0)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0165 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0201 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7125,11 +7487,11 @@ self.assertEqual(self.database.migrate(), []); self.assertEqual(state['product_c
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.595028+00:00
+**Execution Date:** 2026-11-03T04:03:18.488561+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_parallel_publishers_cannot_overwrite_each_other](../tests/test_persistence.py#L196), lines 196–206.
 
@@ -7140,7 +7502,7 @@ self.assertEqual(self.database.migrate(), []); self.assertEqual(state['product_c
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_parallel_publishers_cannot_overwrite_each_other` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_parallel_publishers_cannot_overwrite_each_other` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7149,7 +7511,7 @@ self.assertEqual(self.database.migrate(), []); self.assertEqual(state['product_c
 self.assertEqual(results.count('conflict'), 1); self.assertIn(self.database.inspect()['revision'], ('writer-a', 'writer-b'))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0132 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0151 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7170,11 +7532,11 @@ self.assertEqual(results.count('conflict'), 1); self.assertIn(self.database.insp
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.608235+00:00
+**Execution Date:** 2026-11-03T04:03:18.503707+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_price_aware_winner_outside_text_top_k_gets_its_real_dense_feature](../tests/test_persistence.py#L236), lines 236–295.
 
@@ -7185,7 +7547,7 @@ self.assertEqual(results.count('conflict'), 1); self.assertIn(self.database.insp
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_price_aware_winner_outside_text_top_k_gets_its_real_dense_feature` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_price_aware_winner_outside_text_top_k_gets_its_real_dense_feature` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7194,7 +7556,7 @@ self.assertEqual(results.count('conflict'), 1); self.assertIn(self.database.insp
 self.assertEqual(result.overall_match.variant.variant_id, 'fixture-60'); self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'fixture-61'); self.assertFalse(result.can_claim_catalogue_minimum)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0216 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0231 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7215,11 +7577,11 @@ self.assertEqual(result.overall_match.variant.variant_id, 'fixture-60'); self.as
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.629851+00:00
+**Execution Date:** 2026-11-03T04:03:18.526797+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_readiness_rejects_missing_current_migration_marker](../tests/test_persistence.py#L144), lines 144–160.
 
@@ -7230,7 +7592,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'fixture-60'); self.as
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_readiness_rejects_missing_current_migration_marker` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_readiness_rejects_missing_current_migration_marker` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7239,7 +7601,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'fixture-60'); self.as
 self.assertRaises(DatabaseUnavailable)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0131 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0152 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7260,11 +7622,11 @@ self.assertRaises(DatabaseUnavailable)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.642964+00:00
+**Execution Date:** 2026-11-03T04:03:18.542031+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_real_pgvector_lexical_price_roles_and_hard_constraints](../tests/test_persistence.py#L219), lines 219–234.
 
@@ -7275,7 +7637,7 @@ self.assertRaises(DatabaseUnavailable)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_real_pgvector_lexical_price_roles_and_hard_constraints` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_real_pgvector_lexical_price_roles_and_hard_constraints` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7284,7 +7646,7 @@ self.assertRaises(DatabaseUnavailable)
 self.assertEqual(result.overall_match.variant.variant_id, 'v-best'); self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'v-cheap'); self.assertNotIn('v-accessory', {item.variant.variant_id for item in result.matches}); self.assertFalse(result.can_claim_catalogue_minimum); self.assertEqual(result.status, SearchStatus.INCOMPLETE)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0138 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0152 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7305,11 +7667,11 @@ self.assertEqual(result.overall_match.variant.variant_id, 'v-best'); self.assert
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.656749+00:00
+**Execution Date:** 2026-11-03T04:03:18.557280+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_real_publication_exact_structured_and_cheapest_oracle](../tests/test_persistence.py#L109), lines 109–132.
 
@@ -7320,7 +7682,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'v-best'); self.assert
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_real_publication_exact_structured_and_cheapest_oracle` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_real_publication_exact_structured_and_cheapest_oracle` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7329,7 +7691,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'v-best'); self.assert
 self.assertEqual({item.variant.variant_id for item in result.matches}, {'v-best', 'v-cheap'}); self.assertEqual(result.cheapest_qualifying_match.variant.variant_id, 'v-cheap'); self.assertTrue(result.can_claim_catalogue_minimum); self.assertEqual(catalogue.lookup(ExactIdentifier(IdentifierKind.SKU, 'SKU-BEST'))[0].variant.variant_id, 'v-best'); self.assertEqual(catalogue.lookup(ExactIdentifier(IdentifierKind.SKU, 'sku-best')), ()); self.assertEqual(self.database.vocabulary()['category']['backpacks'], 'backpack')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0193 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0218 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7350,11 +7712,11 @@ self.assertEqual({item.variant.variant_id for item in result.matches}, {'v-best'
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.676045+00:00
+**Execution Date:** 2026-11-03T04:03:18.579056+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_repeatable_read_does_not_mix_old_and_new_publication](../tests/test_persistence.py#L186), lines 186–194.
 
@@ -7365,7 +7727,7 @@ self.assertEqual({item.variant.variant_id for item in result.matches}, {'v-best'
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_repeatable_read_does_not_mix_old_and_new_publication` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_repeatable_read_does_not_mix_old_and_new_publication` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7374,7 +7736,7 @@ self.assertEqual({item.variant.variant_id for item in result.matches}, {'v-best'
 self.assertEqual(self.database.snapshot().state['revision'], 'fixture-2'); self.assertEqual(old.state['revision'], after.state['revision'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0201 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0215 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7395,11 +7757,11 @@ self.assertEqual(self.database.snapshot().state['revision'], 'fixture-2'); self.
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.696135+00:00
+**Execution Date:** 2026-11-03T04:03:18.600595+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_unconfigured_or_mismatched_semantics_is_not_silent_no_match](../tests/test_persistence.py#L297), lines 297–306.
 
@@ -7410,7 +7772,7 @@ self.assertEqual(self.database.snapshot().state['revision'], 'fixture-2'); self.
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_unconfigured_or_mismatched_semantics_is_not_silent_no_match` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_unconfigured_or_mismatched_semantics_is_not_silent_no_match` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7419,7 +7781,7 @@ self.assertEqual(self.database.snapshot().state['revision'], 'fixture-2'); self.
 self.assertFalse(result.can_claim_no_match); self.assertTrue(any(('generation' in issue.detail for issue in result.issues)))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0135 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0190 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7440,11 +7802,11 @@ self.assertFalse(result.can_claim_no_match); self.assertTrue(any(('generation' i
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.709696+00:00
+**Execution Date:** 2026-11-03T04:03:18.619576+00:00
 
 **Description:** Executable contract [tests.test_persistence.PostgreSQLIntegrationTests.test_vocabulary_cache_copies_and_publication_invalidation](../tests/test_persistence.py#L134), lines 134–142.
 
@@ -7455,7 +7817,7 @@ self.assertFalse(result.can_claim_no_match); self.assertTrue(any(('generation' i
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_persistence.PostgreSQLIntegrationTests.test_vocabulary_cache_copies_and_publication_invalidation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_persistence.PostgreSQLIntegrationTests.test_vocabulary_cache_copies_and_publication_invalidation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7464,7 +7826,7 @@ self.assertFalse(result.can_claim_no_match); self.assertTrue(any(('generation' i
 self.assertNotIn('injected', self.database.vocabulary()['category']); self.assertIn('new-category', self.database.vocabulary()['category'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0203 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0230 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7485,11 +7847,11 @@ self.assertNotIn('injected', self.database.vocabulary()['category']); self.asser
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.729981+00:00
+**Execution Date:** 2026-11-03T04:03:18.642553+00:00
 
 **Description:** Executable contract [tests.test_practical_contracts.PracticalContracts.test_amount_parser_and_number_loop_feasible_inputs](../tests/test_practical_contracts.py#L75), lines 75–101.
 
@@ -7500,7 +7862,7 @@ self.assertNotIn('injected', self.database.vocabulary()['category']); self.asser
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_practical_contracts.PracticalContracts.test_amount_parser_and_number_loop_feasible_inputs` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_practical_contracts.PracticalContracts.test_amount_parser_and_number_loop_feasible_inputs` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7530,11 +7892,11 @@ self.assertEqual(whole_number(text), expected); self.assertEqual(rupees_to_minor
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730153+00:00
+**Execution Date:** 2026-11-03T04:03:18.642734+00:00
 
 **Description:** Executable contract [tests.test_practical_contracts.PracticalContracts.test_eligibility_decision_table_rejected_dominates_unknown](../tests/test_practical_contracts.py#L39), lines 39–68.
 
@@ -7545,7 +7907,7 @@ self.assertEqual(whole_number(text), expected); self.assertEqual(rupees_to_minor
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_practical_contracts.PracticalContracts.test_eligibility_decision_table_rejected_dominates_unknown` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_practical_contracts.PracticalContracts.test_eligibility_decision_table_rejected_dominates_unknown` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7554,7 +7916,7 @@ self.assertEqual(whole_number(text), expected); self.assertEqual(rupees_to_minor
 self.assertIs(qualify(CatalogueItem(product(), replace(variant(price=None), colour='blue')), constraint).state, Eligibility.REJECTED); self.assertIs(qualify(item, constraint).state, state)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7575,11 +7937,11 @@ self.assertIs(qualify(CatalogueItem(product(), replace(variant(price=None), colo
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730329+00:00
+**Execution Date:** 2026-11-03T04:03:18.642879+00:00
 
 **Description:** Executable contract [tests.test_practical_contracts.PracticalContracts.test_money_text_three_feasible_return_paths](../tests/test_practical_contracts.py#L70), lines 70–73.
 
@@ -7590,7 +7952,7 @@ self.assertIs(qualify(CatalogueItem(product(), replace(variant(price=None), colo
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_practical_contracts.PracticalContracts.test_money_text_three_feasible_return_paths` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_practical_contracts.PracticalContracts.test_money_text_three_feasible_return_paths` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7620,11 +7982,11 @@ self.assertEqual(money_text(100, 'INR'), '1 rupees'); self.assertEqual(money_tex
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730359+00:00
+**Execution Date:** 2026-11-03T04:03:18.642903+00:00
 
 **Description:** Executable contract [tests.test_practical_contracts.PracticalContracts.test_price_equivalence_partitions_and_strict_inclusive_boundaries](../tests/test_practical_contracts.py#L21), lines 21–37.
 
@@ -7635,7 +7997,7 @@ self.assertEqual(money_text(100, 'INR'), '1 rupees'); self.assertEqual(money_tex
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_practical_contracts.PracticalContracts.test_price_equivalence_partitions_and_strict_inclusive_boundaries` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_practical_contracts.PracticalContracts.test_price_equivalence_partitions_and_strict_inclusive_boundaries` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7665,11 +8027,11 @@ self.assertIs(qualify(item, HardConstraints('INR')).state, Eligibility.UNKNOWN);
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730461+00:00
+**Execution Date:** 2026-11-03T04:03:18.642996+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_absent_ranking_policy_does_not_invent_overall_relevance](../tests/test_ranking.py#L52), lines 52–57.
 
@@ -7680,7 +8042,7 @@ self.assertIs(qualify(item, HardConstraints('INR')).state, Eligibility.UNKNOWN);
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_ranking.RankingBoundaryTests.test_absent_ranking_policy_does_not_invent_overall_relevance` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_ranking.RankingBoundaryTests.test_absent_ranking_policy_does_not_invent_overall_relevance` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7710,11 +8072,11 @@ self.assertIsNone(result.overall_match); self.assertIsNone(result.ranking_policy
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730551+00:00
+**Execution Date:** 2026-11-03T04:03:18.643073+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_only_hard_qualified_records_reach_ranking](../tests/test_ranking.py#L47), lines 47–50.
 
@@ -7725,7 +8087,7 @@ self.assertIsNone(result.overall_match); self.assertIsNone(result.ranking_policy
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_ranking.RankingBoundaryTests.test_only_hard_qualified_records_reach_ranking` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_ranking.RankingBoundaryTests.test_only_hard_qualified_records_reach_ranking` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7734,7 +8096,7 @@ self.assertIsNone(result.overall_match); self.assertIsNone(result.ranking_policy
 self.assertEqual(set(policy.seen), {'cheap', 'better-fit'})
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7755,11 +8117,11 @@ self.assertEqual(set(policy.seen), {'cheap', 'better-fit'})
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730716+00:00
+**Execution Date:** 2026-11-03T04:03:18.643141+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_overall_ranked_match_is_distinct_from_cheapest_match](../tests/test_ranking.py#L37), lines 37–45.
 
@@ -7770,7 +8132,7 @@ self.assertEqual(set(policy.seen), {'cheap', 'better-fit'})
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_ranking.RankingBoundaryTests.test_overall_ranked_match_is_distinct_from_cheapest_match` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_ranking.RankingBoundaryTests.test_overall_ranked_match_is_distinct_from_cheapest_match` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7800,11 +8162,11 @@ self.assertEqual(result.overall_match.variant.variant_id, 'better-fit'); self.as
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730795+00:00
+**Execution Date:** 2026-11-03T04:03:18.643198+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_policy_cannot_inject_unqualified_ids_drop_or_duplicate_matches](../tests/test_ranking.py#L71), lines 71–81.
 
@@ -7815,7 +8177,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'better-fit'); self.as
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_ranking.RankingBoundaryTests.test_policy_cannot_inject_unqualified_ids_drop_or_duplicate_matches` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_ranking.RankingBoundaryTests.test_policy_cannot_inject_unqualified_ids_drop_or_duplicate_matches` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7824,7 +8186,7 @@ self.assertEqual(result.overall_match.variant.variant_id, 'better-fit'); self.as
 self.assertRaises(RankingContractError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7845,11 +8207,11 @@ self.assertRaises(RankingContractError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.730954+00:00
+**Execution Date:** 2026-11-03T04:03:18.643346+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_policy_version_change_cannot_mislabel_a_result](../tests/test_ranking.py#L93), lines 93–102.
 
@@ -7860,7 +8222,7 @@ self.assertRaises(RankingContractError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_ranking.RankingBoundaryTests.test_policy_version_change_cannot_mislabel_a_result` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_ranking.RankingBoundaryTests.test_policy_version_change_cannot_mislabel_a_result` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7869,7 +8231,7 @@ self.assertRaises(RankingContractError)
 self.assertRaisesRegex(RankingContractError, 'version changed')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -7890,11 +8252,11 @@ self.assertRaisesRegex(RankingContractError, 'version changed')
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.731165+00:00
+**Execution Date:** 2026-11-03T04:03:18.643462+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_ranking_order_cannot_change_the_price_minimum](../tests/test_ranking.py#L59), lines 59–69.
 
@@ -7905,7 +8267,7 @@ self.assertRaisesRegex(RankingContractError, 'version changed')
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_ranking.RankingBoundaryTests.test_ranking_order_cannot_change_the_price_minimum` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_ranking.RankingBoundaryTests.test_ranking_order_cannot_change_the_price_minimum` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7935,11 +8297,11 @@ self.assertEqual(first.cheapest_qualifying_match, second.cheapest_qualifying_mat
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.731266+00:00
+**Execution Date:** 2026-11-03T04:03:18.643545+00:00
 
 **Description:** Executable contract [tests.test_ranking.RankingBoundaryTests.test_unversioned_and_untyped_policy_outputs_are_rejected](../tests/test_ranking.py#L83), lines 83–91.
 
@@ -7950,7 +8312,7 @@ self.assertEqual(first.cheapest_qualifying_match, second.cheapest_qualifying_mat
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_ranking.RankingBoundaryTests.test_unversioned_and_untyped_policy_outputs_are_rejected` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_ranking.RankingBoundaryTests.test_unversioned_and_untyped_policy_outputs_are_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -7980,11 +8342,11 @@ self.assertRaises(RankingContractError)
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.731417+00:00
+**Execution Date:** 2026-11-03T04:03:18.643668+00:00
 
 **Description:** Executable contract [tests.test_restore.RestoreTests.test_real_dump_restores_schema_catalogue_and_metadata](../tests/test_restore.py#L20), lines 20–74.
 
@@ -7995,7 +8357,7 @@ self.assertRaises(RankingContractError)
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_restore.RestoreTests.test_real_dump_restores_schema_catalogue_and_metadata` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_restore.RestoreTests.test_real_dump_restores_schema_catalogue_and_metadata` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8004,7 +8366,277 @@ self.assertRaises(RankingContractError)
 self.assertEqual(restored.inspect(), database.inspect()); self.assertEqual(config['host'], conninfo_to_dict(target)['host'])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.1638 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.1797 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-18058474 — body limits duplicate json and framing rejected
+
+**Test Case ID:** VC-18058474
+
+**Test Case Name:** ExtendedSecurityTests.test_body_limits_duplicate_json_and_framing_rejected
+
+**System/Sub-system:** tests.test_security_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:18.826539+00:00
+
+**Description:** Executable contract [tests.test_security_extended.ExtendedSecurityTests.test_body_limits_duplicate_json_and_framing_rejected](../tests/test_security_extended.py#L134), lines 134–146.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `See the source method and class setUp fixture.`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_security_extended.ExtendedSecurityTests.test_body_limits_duplicate_json_and_framing_rejected` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(self.raw('/api/local/search', body=body, headers=headers)[0], 400)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.5515 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-8D856E72 — compose probe matches strict host policy
+
+**Test Case ID:** VC-8D856E72
+
+**Test Case Name:** ExtendedSecurityTests.test_compose_probe_matches_strict_host_policy
+
+**System/Sub-system:** tests.test_security_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:19.378090+00:00
+
+**Description:** Executable contract [tests.test_security_extended.ExtendedSecurityTests.test_compose_probe_matches_strict_host_policy](../tests/test_security_extended.py#L122), lines 122–132.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `compose = (Path(__file__).resolve().parents[1] / 'compose.yaml').read_text(); port = self.server.server_address[1]`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_security_extended.ExtendedSecurityTests.test_compose_probe_matches_strict_host_policy` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertIn('VOICECART_PUBLIC_ORIGIN: http://localhost:8080', compose); self.assertIn("urlopen('http://localhost:8080/health'", compose); self.assertEqual(self.raw('/health', 'GET')[0], 403); self.assertEqual(self.raw('/health', 'GET', headers={'Host': f'localhost:{port}'})[0], 200)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.5548 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-44973919 — cookie scope https flag origin cors and expiry
+
+**Test Case ID:** VC-44973919
+
+**Test Case Name:** ExtendedSecurityTests.test_cookie_scope_https_flag_origin_cors_and_expiry
+
+**System/Sub-system:** tests.test_security_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:19.932946+00:00
+
+**Description:** Executable contract [tests.test_security_extended.ExtendedSecurityTests.test_cookie_scope_https_flag_origin_cors_and_expiry](../tests/test_security_extended.py#L87), lines 87–120.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `port = self.server.server_address[1]; origin = f'https://localhost:{port}'; identity = self.server.application.auth.from_cookie(self.cookie, 'local', 'customer')`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_security_extended.ExtendedSecurityTests.test_cookie_scope_https_flag_origin_cors_and_expiry` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(self.request('cart')[0], 403); self.assertEqual(status, 201); self.assertIn('Secure', headers['Set-Cookie']); self.assertIn('HttpOnly', headers['Set-Cookie']); self.assertIn('SameSite=Strict', headers['Set-Cookie']); self.assertNotIn('Access-Control-Allow-Origin', headers); self.assertEqual(self.raw('/api/local/sessions', headers={'Host': f'localhost:{port}', 'Origin': 'null'})[0], 403); self.assertRaises(AccessDenied)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.5678 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-6C32FC3F — every protected route requires correct role
+
+**Test Case ID:** VC-6C32FC3F
+
+**Test Case Name:** ExtendedSecurityTests.test_every_protected_route_requires_correct_role
+
+**System/Sub-system:** tests.test_security_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:20.500863+00:00
+
+**Description:** Executable contract [tests.test_security_extended.ExtendedSecurityTests.test_every_protected_route_requires_correct_role](../tests/test_security_extended.py#L40), lines 40–85.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `customers = {'POST': ['turns', 'search', 'query', 'ack', 'cancel', 'repeat', 'transcribe', 'speak', 'cart/add', 'cart/quantity', 'cart/retry'], 'GET': ['cart', 'operations']}; admins = {'POST': ['catalogue', 'import'], 'GET': ['export', 'imports', 'analytics', 'health']}; merchants = ['sessions', 'search', 'lookup', 'refresh', 'cart', 'add', 'quantity', 'operation']`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_security_extended.ExtendedSecurityTests.test_every_protected_route_requires_correct_role` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(self.raw('/api/local/admin/export', 'GET')[0], 403); self.assertEqual(self.raw('/api/local/merchant/' + name)[0], 403); self.assertEqual(self.raw('/api/local/' + name, method)[0], 403); self.assertEqual(self.raw('/api/local/admin/' + name, method)[0], 403)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.5744 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-F7AD0E5C — health outage sanitized and missing secrets fail startup
+
+**Test Case ID:** VC-F7AD0E5C
+
+**Test Case Name:** ExtendedSecurityTests.test_health_outage_sanitized_and_missing_secrets_fail_startup
+
+**System/Sub-system:** tests.test_security_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:21.075356+00:00
+
+**Description:** Executable contract [tests.test_security_extended.ExtendedSecurityTests.test_health_outage_sanitized_and_missing_secrets_fail_startup](../tests/test_security_extended.py#L160), lines 160–174.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `app = self.server.application.apps['local']`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_security_extended.ExtendedSecurityTests.test_health_outage_sanitized_and_missing_secrets_fail_startup` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(status, 503); self.assertNotIn('PRIVATE TEST SQL DETAIL', str(payload)); self.assertRaises((ValueError, KeyError))
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.5559 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-F5CCEA95 — malformed nested admin import is 400 without publication
+
+**Test Case ID:** VC-F5CCEA95
+
+**Test Case Name:** ExtendedSecurityTests.test_malformed_nested_admin_import_is_400_without_publication
+
+**System/Sub-system:** tests.test_security_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:21.631337+00:00
+
+**Description:** Executable contract [tests.test_security_extended.ExtendedSecurityTests.test_malformed_nested_admin_import_is_400_without_publication](../tests/test_security_extended.py#L148), lines 148–158.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `before = self.database.inspect()['revision']`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_security_extended.ExtendedSecurityTests.test_malformed_nested_admin_import_is_400_without_publication` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(status, 400); self.assertEqual(self.database.inspect()['revision'], before)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.5773 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8025,11 +8657,11 @@ self.assertEqual(restored.inspect(), database.inspect()); self.assertEqual(confi
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.895283+00:00
+**Execution Date:** 2026-11-03T04:03:22.208917+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_artifact_hash_zero_one_two_chunks_and_failure](../tests/test_syllabus.py#L108), lines 108–120.
 
@@ -8040,7 +8672,7 @@ self.assertEqual(restored.inspect(), database.inspect()); self.assertEqual(confi
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_syllabus.SyllabusPartitions.test_artifact_hash_zero_one_two_chunks_and_failure` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_syllabus.SyllabusPartitions.test_artifact_hash_zero_one_two_chunks_and_failure` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8049,7 +8681,7 @@ self.assertEqual(restored.inspect(), database.inspect()); self.assertEqual(confi
 self.assertEqual(FileArtifact(path, hashlib.sha256(data).hexdigest()).verify(), path); self.assertRaises(VoiceError); self.assertRaises(VoiceError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0037 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0133 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8070,11 +8702,11 @@ self.assertEqual(FileArtifact(path, hashlib.sha256(data).hexdigest()).verify(), 
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.898960+00:00
+**Execution Date:** 2026-11-03T04:03:22.222234+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_import_file_boundary_and_oversized_manifest_without_huge_allocation](../tests/test_syllabus.py#L61), lines 61–79.
 
@@ -8085,7 +8717,7 @@ self.assertEqual(FileArtifact(path, hashlib.sha256(data).hexdigest()).verify(), 
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_syllabus.SyllabusPartitions.test_import_file_boundary_and_oversized_manifest_without_huge_allocation` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_syllabus.SyllabusPartitions.test_import_file_boundary_and_oversized_manifest_without_huge_allocation` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8094,7 +8726,7 @@ self.assertEqual(FileArtifact(path, hashlib.sha256(data).hexdigest()).verify(), 
 self.assertEqual(load_import(source).revision, 'fixture-1'); source.read_text.assert_not_called(); self.assertRaises(ImportValidationError); self.assertRaises(ImportValidationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0004 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0009 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8115,11 +8747,11 @@ self.assertEqual(load_import(source).revision, 'fixture-1'); source.read_text.as
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.899391+00:00
+**Execution Date:** 2026-11-03T04:03:22.223163+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_money_min_max_bool_float_and_lt_lte_decision_table](../tests/test_syllabus.py#L20), lines 20–37.
 
@@ -8130,7 +8762,7 @@ self.assertEqual(load_import(source).revision, 'fixture-1'); source.read_text.as
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_syllabus.SyllabusPartitions.test_money_min_max_bool_float_and_lt_lte_decision_table` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_syllabus.SyllabusPartitions.test_money_min_max_bool_float_and_lt_lte_decision_table` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8139,7 +8771,7 @@ self.assertEqual(load_import(source).revision, 'fixture-1'); source.read_text.as
 self.assertEqual(Money(price, 'INR').minor_units, price); self.assertEqual(PriceLimit(Money(100, 'INR'), operator).permits(Money(price, 'INR')), expected); self.assertRaises((TypeError, ValueError))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8160,11 +8792,11 @@ self.assertEqual(Money(price, 'INR').minor_units, price); self.assertEqual(Price
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.899483+00:00
+**Execution Date:** 2026-11-03T04:03:22.223387+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_number_loop_zero_one_two_typical_scales_and_early_failure](../tests/test_syllabus.py#L39), lines 39–59.
 
@@ -8175,7 +8807,7 @@ self.assertEqual(Money(price, 'INR').minor_units, price); self.assertEqual(Price
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_syllabus.SyllabusPartitions.test_number_loop_zero_one_two_typical_scales_and_early_failure` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_syllabus.SyllabusPartitions.test_number_loop_zero_one_two_typical_scales_and_early_failure` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8184,7 +8816,7 @@ self.assertEqual(Money(price, 'INR').minor_units, price); self.assertEqual(Price
 self.assertEqual(whole_number(text), expected); self.assertRaises(InterpretationError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8205,11 +8837,11 @@ self.assertEqual(whole_number(text), expected); self.assertRaises(Interpretation
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.899566+00:00
+**Execution Date:** 2026-11-03T04:03:22.223608+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusPartitions.test_secret_provisioning_private_parent_and_container_readable_files](../tests/test_syllabus.py#L81), lines 81–106.
 
@@ -8220,7 +8852,7 @@ self.assertEqual(whole_number(text), expected); self.assertRaises(Interpretation
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_syllabus.SyllabusPartitions.test_secret_provisioning_private_parent_and_container_readable_files` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_syllabus.SyllabusPartitions.test_secret_provisioning_private_parent_and_container_readable_files` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8229,7 +8861,7 @@ self.assertEqual(whole_number(text), expected); self.assertRaises(Interpretation
 self.assertEqual(stat.S_IMODE(parent.stat().st_mode), 448); self.assertNotEqual(again.returncode, 0); self.assertEqual(stat.S_IMODE(path.stat().st_mode), 292); self.assertNotIn(path.read_text().strip(), result.stdout)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0500 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0777 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8250,11 +8882,11 @@ self.assertEqual(stat.S_IMODE(parent.stat().st_mode), 448); self.assertNotEqual(
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:53.952993+00:00
+**Execution Date:** 2026-11-03T04:03:22.304820+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusSQLLoops.test_publication_batch_zero_one_two_32_33_and_early_encoder_failure](../tests/test_syllabus.py#L162), lines 162–196.
 
@@ -8265,7 +8897,7 @@ self.assertEqual(stat.S_IMODE(parent.stat().st_mode), 448); self.assertNotEqual(
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_syllabus.SyllabusSQLLoops.test_publication_batch_zero_one_two_32_33_and_early_encoder_failure` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_syllabus.SyllabusSQLLoops.test_publication_batch_zero_one_two_32_33_and_early_encoder_failure` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8274,7 +8906,7 @@ self.assertEqual(stat.S_IMODE(parent.stat().st_mode), 448); self.assertNotEqual(
 self.assertEqual(self.database.inspect()['revision'], before); self.assertRaises(RuntimeError); self.assertEqual(self.database.inspect()['variant_count'], count)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0585 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0583 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8295,11 +8927,11 @@ self.assertEqual(self.database.inspect()['revision'], before); self.assertRaises
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.011549+00:00
+**Execution Date:** 2026-11-03T04:03:22.363096+00:00
 
 **Description:** Executable contract [tests.test_syllabus.SyllabusSQLLoops.test_session_min_max_and_exact_expiry_boundary](../tests/test_syllabus.py#L138), lines 138–160.
 
@@ -8310,7 +8942,7 @@ self.assertEqual(self.database.inspect()['revision'], before); self.assertRaises
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_syllabus.SyllabusSQLLoops.test_session_min_max_and_exact_expiry_boundary` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_syllabus.SyllabusSQLLoops.test_session_min_max_and_exact_expiry_boundary` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8319,7 +8951,7 @@ self.assertEqual(self.database.inspect()['revision'], before); self.assertRaises
 self.assertIsInstance(store.create(ttl_seconds=ttl), str); self.assertRaises((ValueError, SessionError)); self.assertEqual(str(store.require(connection, session)['session_id']), session); self.assertRaises(SessionError)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0166 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0172 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8340,11 +8972,11 @@ self.assertIsInstance(store.create(ttl_seconds=ttl), str); self.assertRaises((Va
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.028165+00:00
+**Execution Date:** 2026-11-03T04:03:22.380329+00:00
 
 **Description:** Executable contract [tests.test_telemetry.TelemetryTests.test_concurrent_traces_do_not_mix](../tests/test_telemetry.py#L26), lines 26–36.
 
@@ -8355,7 +8987,7 @@ self.assertIsInstance(store.create(ttl_seconds=ttl), str); self.assertRaises((Va
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_telemetry.TelemetryTests.test_concurrent_traces_do_not_mix` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_telemetry.TelemetryTests.test_concurrent_traces_do_not_mix` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8364,7 +8996,7 @@ self.assertIsInstance(store.create(ttl_seconds=ttl), str); self.assertRaises((Va
 self.assertEqual(list(pool.map(record, range(20))), list(map(str, range(20))))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0006 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0005 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8385,11 +9017,11 @@ self.assertEqual(list(pool.map(record, range(20))), list(map(str, range(20))))
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.028739+00:00
+**Execution Date:** 2026-11-03T04:03:22.380883+00:00
 
 **Description:** Executable contract [tests.test_telemetry.TelemetryTests.test_nested_failure_numeric_metrics_and_context_cleanup](../tests/test_telemetry.py#L10), lines 10–24.
 
@@ -8400,7 +9032,7 @@ self.assertEqual(list(pool.map(record, range(20))), list(map(str, range(20))))
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_telemetry.TelemetryTests.test_nested_failure_numeric_metrics_and_context_cleanup` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_telemetry.TelemetryTests.test_nested_failure_numeric_metrics_and_context_cleanup` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8410,6 +9042,321 @@ self.assertEqual(trace.spans[0]['outcome'], 'error'); self.assertEqual(trace.spa
 ```
 
 **Actual Result:** All method assertions completed without a failure. Duration 0.0001 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-651890F3 — failure before commit rolls back and original id recovers
+
+**Test Case ID:** VC-651890F3
+
+**Test Case Name:** ExtendedTransactionTests.test_failure_before_commit_rolls_back_and_original_id_recovers
+
+**System/Sub-system:** tests.test_transaction_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:22.383262+00:00
+
+**Description:** Executable contract [tests.test_transaction_extended.ExtendedTransactionTests.test_failure_before_commit_rolls_back_and_original_id_recovers](../tests/test_transaction_extended.py#L58), lines 58–81.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `management = self.seed_line(); operation = str(uuid.uuid4()); connect = self.database.connect`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_transaction_extended.ExtendedTransactionTests.test_failure_before_commit_rolls_back_and_original_id_recovers` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(management.overview(self.session)['items'][0]['quantity'], 1); self.assertIsNone(management.receipt(self.session, operation)); self.assertEqual(management.overview(self.session)['items'][0]['quantity'], 2); self.assertRaises(OutcomeUnknown)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0419 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-C301E793 — loss after commit reconciles authoritative adjustment
+
+**Test Case ID:** VC-C301E793
+
+**Test Case Name:** ExtendedTransactionTests.test_loss_after_commit_reconciles_authoritative_adjustment
+
+**System/Sub-system:** tests.test_transaction_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:22.425205+00:00
+
+**Description:** Executable contract [tests.test_transaction_extended.ExtendedTransactionTests.test_loss_after_commit_reconciles_authoritative_adjustment](../tests/test_transaction_extended.py#L83), lines 83–103.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `management = self.seed_line(); operation = str(uuid.uuid4()); connect = self.database.connect`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_transaction_extended.ExtendedTransactionTests.test_loss_after_commit_reconciles_authoritative_adjustment` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(receipt['status'], 'committed'); self.assertEqual(management.overview(self.session)['items'][0]['quantity'], 2)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0336 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-4D2E7689 — parallel target updates duplicate payload and immutable replay
+
+**Test Case ID:** VC-4D2E7689
+
+**Test Case Name:** ExtendedTransactionTests.test_parallel_target_updates_duplicate_payload_and_immutable_replay
+
+**System/Sub-system:** tests.test_transaction_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:22.458828+00:00
+
+**Description:** Executable contract [tests.test_transaction_extended.ExtendedTransactionTests.test_parallel_target_updates_duplicate_payload_and_immutable_replay](../tests/test_transaction_extended.py#L30), lines 30–56.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `management = self.seed_line(); operations = [str(uuid.uuid4()), str(uuid.uuid4())]; final = management.overview(self.session)['items'][0]['quantity']`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_transaction_extended.ExtendedTransactionTests.test_parallel_target_updates_duplicate_payload_and_immutable_replay` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertIn(final, (2, 3)); self.assertEqual(management.overview(self.session)['items'][0]['quantity'], final); self.assertEqual(receipt['quantity'], quantity); self.assertEqual(management.set_quantity(self.session, receipt['operation_id'], 'v-cheap', quantity, 'INR'), receipt); self.assertRaises(CartError)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0416 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-531EFE89 — postcommit receipt outage is unknown then same id replays
+
+**Test Case ID:** VC-531EFE89
+
+**Test Case Name:** ExtendedTransactionTests.test_postcommit_receipt_outage_is_unknown_then_same_id_replays
+
+**System/Sub-system:** tests.test_transaction_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:22.500396+00:00
+
+**Description:** Executable contract [tests.test_transaction_extended.ExtendedTransactionTests.test_postcommit_receipt_outage_is_unknown_then_same_id_replays](../tests/test_transaction_extended.py#L105), lines 105–123.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `management = self.seed_line(); operation = str(uuid.uuid4()); recovered = CartManagement(self.database).receipt(self.session, operation)`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_transaction_extended.ExtendedTransactionTests.test_postcommit_receipt_outage_is_unknown_then_same_id_replays` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(recovered['status'], 'committed'); self.assertEqual(management.set_quantity(self.session, operation, 'v-cheap', 2, 'INR'), recovered); self.assertEqual(management.overview(self.session)['items'][0]['quantity'], 2); self.assertRaises(OutcomeUnknown)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0343 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-3A859246 — product deactivation after search prevents add
+
+**Test Case ID:** VC-3A859246
+
+**Test Case Name:** ExtendedTransactionTests.test_product_deactivation_after_search_prevents_add
+
+**System/Sub-system:** tests.test_transaction_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:22.534713+00:00
+
+**Description:** Executable contract [tests.test_transaction_extended.ExtendedTransactionTests.test_product_deactivation_after_search_prevents_add](../tests/test_transaction_extended.py#L165), lines 165–178.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `command = self.command(); raw = fabricated_document('fixture-deactivated', 'fixture-1'); parent = next((v['product_id'] for v in raw['variants'] if v['variant_id'] == 'v-cheap'))`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_transaction_extended.ExtendedTransactionTests.test_product_deactivation_after_search_prevents_add` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(self.cart.items(self.session), {}); self.assertRaises(CartError)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0303 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-CE1AD344 — session expiry during quantity eligibility blocks write
+
+**Test Case ID:** VC-CE1AD344
+
+**Test Case Name:** ExtendedTransactionTests.test_session_expiry_during_quantity_eligibility_blocks_write
+
+**System/Sub-system:** tests.test_transaction_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:22.564999+00:00
+
+**Description:** Executable contract [tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_quantity_eligibility_blocks_write](../tests/test_transaction_extended.py#L144), lines 144–163.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `management = self.seed_line(); snapshot = self.database.snapshot_in; now = datetime.now(UTC)`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_quantity_eligibility_blocks_write` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(management.overview(self.session)['items'][0]['quantity'], 1); self.assertIsNone(management.receipt(self.session, operation)); self.assertRaises(SessionError)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0318 seconds.
+
+**Pass/Fail/Not Run:** Pass
+
+**Comments:** Subtest inputs/expected values are part of the exact source method. This outcome is not an inference/device/human-accessibility result.
+
+**Postconditions:** Per-test/class cleanup and the runner-owned service teardown preserve normal owner data.
+
+**Defect Reference:** None observed in this execution.
+
+
+## VC-29B52894 — session expiry during snapshot blocks add before write
+
+**Test Case ID:** VC-29B52894
+
+**Test Case Name:** ExtendedTransactionTests.test_session_expiry_during_snapshot_blocks_add_before_write
+
+**System/Sub-system:** tests.test_transaction_extended
+
+**Designed By:** VoiceCart engineering test automation
+
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
+
+**Executed By:** Python unittest runner
+
+**Execution Date:** 2026-11-03T04:03:22.596816+00:00
+
+**Description:** Executable contract [tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_snapshot_blocks_add_before_write](../tests/test_transaction_extended.py#L125), lines 125–142.
+
+**Preconditions:** Dedicated declared Python dependencies; scripts/test_report.py owns the temporary PostgreSQL server. Module-specific setup/fixtures are at the source link. No owner DB is used.
+
+**Concrete input arrangement:** `snapshot = self.database.snapshot_in; now = datetime.now(UTC)`
+
+**Test Steps / Step Number / Action:**
+
+1. Arrange the exact source fixture and input cases linked above.
+2. Execute `python -m scripts.run_tests tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_snapshot_blocks_add_before_write` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
+3. Evaluate the following exact source assertions and restore owned temporary state.
+
+**Expected Result:**
+
+```python
+self.assertEqual(self.cart.items(self.session), {}); self.assertEqual(expired.exception.code, 'invalid_or_expired_operation'); self.assertRaises(CartError)
+```
+
+**Actual Result:** All method assertions completed without a failure. Duration 0.0271 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8430,11 +9377,11 @@ self.assertEqual(trace.spans[0]['outcome'], 'error'); self.assertEqual(trace.spa
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.028814+00:00
+**Execution Date:** 2026-11-03T04:03:22.623950+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_all_response_codes_share_verified_output_path](../tests/test_voice_delivery.py#L21), lines 21–54.
 
@@ -8445,7 +9392,7 @@ self.assertEqual(trace.spans[0]['outcome'], 'error'); self.assertEqual(trace.spa
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_voice_delivery.DeliveryTests.test_all_response_codes_share_verified_output_path` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_voice_delivery.DeliveryTests.test_all_response_codes_share_verified_output_path` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8454,7 +9401,7 @@ self.assertEqual(trace.spans[0]['outcome'], 'error'); self.assertEqual(trace.spa
 self.assertEqual(result.kind, 'response_completed'); self.assertGreater(len(output.played_chunks), 0); self.assertFalse(controller.is_capture_gated); self.assertFalse(controller.process_transcript(Transcript(TranscriptKind.FINAL, 'add', controller.current_turn_id or 'expired')))
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.0002 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.0003 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8475,11 +9422,11 @@ self.assertEqual(result.kind, 'response_completed'); self.assertGreater(len(outp
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.029066+00:00
+**Execution Date:** 2026-11-03T04:03:22.624229+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_artifact_integrity_and_resource_cleanup_without_fake_onset](../tests/test_voice_delivery.py#L97), lines 97–135.
 
@@ -8490,7 +9437,7 @@ self.assertEqual(result.kind, 'response_completed'); self.assertGreater(len(outp
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_voice_delivery.DeliveryTests.test_artifact_integrity_and_resource_cleanup_without_fake_onset` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_voice_delivery.DeliveryTests.test_artifact_integrity_and_resource_cleanup_without_fake_onset` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8520,11 +9467,11 @@ self.assertIsNone(output.drain('t')); self.assertTrue(Stream.closed); self.asser
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.029728+00:00
+**Execution Date:** 2026-11-03T04:03:22.624958+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_playback_failure_uses_assistive_channel_and_never_claims_audible_delivery](../tests/test_voice_delivery.py#L74), lines 74–95.
 
@@ -8535,7 +9482,7 @@ self.assertIsNone(output.drain('t')); self.assertTrue(Stream.closed); self.asser
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_voice_delivery.DeliveryTests.test_playback_failure_uses_assistive_channel_and_never_claims_audible_delivery` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_voice_delivery.DeliveryTests.test_playback_failure_uses_assistive_channel_and_never_claims_audible_delivery` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8565,11 +9512,11 @@ self.assertEqual(delivery.kind, 'assistive_only'); self.assertIsNone(delivery.au
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.029777+00:00
+**Execution Date:** 2026-11-03T04:03:22.625008+00:00
 
 **Description:** Executable contract [tests.test_voice_delivery.DeliveryTests.test_tts_fallback_is_not_a_completed_product_list](../tests/test_voice_delivery.py#L56), lines 56–72.
 
@@ -8580,7 +9527,7 @@ self.assertEqual(delivery.kind, 'assistive_only'); self.assertIsNone(delivery.au
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_voice_delivery.DeliveryTests.test_tts_fallback_is_not_a_completed_product_list` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_voice_delivery.DeliveryTests.test_tts_fallback_is_not_a_completed_product_list` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8610,11 +9557,11 @@ self.assertEqual(result.kind, 'fallback_completed'); self.assertEqual(output.pla
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.032437+00:00
+**Execution Date:** 2026-11-03T04:03:22.627530+00:00
 
 **Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_cancelled_asr_final_cannot_reappear_or_mutate](../tests/test_web_customer.py#L168), lines 168–217.
 
@@ -8625,7 +9572,7 @@ self.assertEqual(result.kind, 'fallback_completed'); self.assertEqual(output.pla
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_web_customer.CustomerHTTPTests.test_cancelled_asr_final_cannot_reappear_or_mutate` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_web_customer.CustomerHTTPTests.test_cancelled_asr_final_cannot_reappear_or_mutate` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8634,7 +9581,7 @@ self.assertEqual(result.kind, 'fallback_completed'); self.assertEqual(output.pla
 self.assertTrue(entered.wait(2)); self.assertEqual(self.request('cancel', {})[0], 200); self.assertTrue(cancelled_seen.is_set()); self.assertEqual(result[0][0], 409); self.assertNotIn('STALE TEST TRANSCRIPT', str(result)); self.assertEqual(self.request('cart')[1]['items'], [])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5394 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5380 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8655,11 +9602,11 @@ self.assertTrue(entered.wait(2)); self.assertEqual(self.request('cancel', {})[0]
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:54.571926+00:00
+**Execution Date:** 2026-11-03T04:03:23.165628+00:00
 
 **Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_discovery_cannot_silently_drop_a_text_price_boundary](../tests/test_web_customer.py#L153), lines 153–166.
 
@@ -8670,7 +9617,7 @@ self.assertTrue(entered.wait(2)); self.assertEqual(self.request('cancel', {})[0]
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_web_customer.CustomerHTTPTests.test_discovery_cannot_silently_drop_a_text_price_boundary` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_web_customer.CustomerHTTPTests.test_discovery_cannot_silently_drop_a_text_price_boundary` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8679,7 +9626,7 @@ self.assertTrue(entered.wait(2)); self.assertEqual(self.request('cancel', {})[0]
 self.assertEqual(self.request('search', body)[0], 400); self.assertEqual(self.request('search', {**body, 'under_minor': 2000, 'inclusive': True})[0], 400); self.assertEqual(self.request('search', {**body, 'under_minor': '2000', 'inclusive': False})[0], 200)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5641 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5724 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8700,11 +9647,11 @@ self.assertEqual(self.request('search', body)[0], 400); self.assertEqual(self.re
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:55.136258+00:00
+**Execution Date:** 2026-11-03T04:03:23.738138+00:00
 
 **Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_registered_final_cancelled_before_arrival_cannot_execute](../tests/test_web_customer.py#L140), lines 140–151.
 
@@ -8715,7 +9662,7 @@ self.assertEqual(self.request('search', body)[0], 400); self.assertEqual(self.re
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_web_customer.CustomerHTTPTests.test_registered_final_cancelled_before_arrival_cannot_execute` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_web_customer.CustomerHTTPTests.test_registered_final_cancelled_before_arrival_cannot_execute` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8724,7 +9671,7 @@ self.assertEqual(self.request('search', body)[0], 400); self.assertEqual(self.re
 self.assertEqual(status, 201); self.assertEqual(status, 200); self.assertEqual(result['code'], 'cancelled'); self.assertEqual(self.request('cart')[1]['items'], [])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5807 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5818 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8745,11 +9692,11 @@ self.assertEqual(status, 201); self.assertEqual(status, 200); self.assertEqual(r
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:55.717013+00:00
+**Execution Date:** 2026-11-03T04:03:24.320050+00:00
 
 **Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_search_add_replay_quantity_remove_and_resume](../tests/test_web_customer.py#L67), lines 67–120.
 
@@ -8760,7 +9707,7 @@ self.assertEqual(status, 201); self.assertEqual(status, 200); self.assertEqual(r
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_web_customer.CustomerHTTPTests.test_search_add_replay_quantity_remove_and_resume` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_web_customer.CustomerHTTPTests.test_search_add_replay_quantity_remove_and_resume` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8769,7 +9716,7 @@ self.assertEqual(status, 201); self.assertEqual(status, 200); self.assertEqual(r
 self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1]['session_id'], session['session_id']); self.assertEqual(status, 200); self.assertEqual(self.request('cart/add', body)[1]['code'], 'added'); self.assertEqual(self.request('cart/add', body)[1]['code'], 'added'); self.assertEqual(self.request('cart')[1]['items'][0]['quantity'], 1); self.assertEqual(self.request('cart/add', changed)[0], 409); self.assertEqual(self.request('cart/quantity', {'operation_id': body['operation_id'], 'variant_id': item['variant_id'], 'quantity': 0, 'currency': 'INR'})[0], 409); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 2); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 2); self.assertEqual(self.request('cart/quantity', update)[1]['quantity'], 0); self.assertEqual(self.request('cart')[1]['items'], []); self.assertGreaterEqual(len(self.request('operations')[1]['operations']), 3); self.assertEqual(CartManagement(self.database).receipt(session['session_id'], update['operation_id'])['status'], 'committed')
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.6314 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.6453 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8790,11 +9737,11 @@ self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1][
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:56.348566+00:00
+**Execution Date:** 2026-11-03T04:03:24.965451+00:00
 
 **Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_unauthenticated_invalid_quantity_and_unknown_voice](../tests/test_web_customer.py#L122), lines 122–138.
 
@@ -8805,7 +9752,7 @@ self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1][
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_web_customer.CustomerHTTPTests.test_unauthenticated_invalid_quantity_and_unknown_voice` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_web_customer.CustomerHTTPTests.test_unauthenticated_invalid_quantity_and_unknown_voice` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8814,7 +9761,7 @@ self.assertEqual(status, 201); self.assertEqual(self.request('sessions', {})[1][
 self.assertEqual(self.request('cart')[0], 403); self.assertEqual(self.request('cart/quantity', {'operation_id': str(uuid.uuid4()), 'variant_id': 'v-best', 'quantity': True, 'currency': 'INR'})[0], 400); self.assertEqual(self.request('transcribe', {'pcm_base64': 'AAAAAA=='})[0], 503); self.assertEqual(self.request('search', {'query': 'x', 'limit': 101})[0], 400)
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5698 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5680 seconds.
 
 **Pass/Fail/Not Run:** Pass
 
@@ -8835,11 +9782,11 @@ self.assertEqual(self.request('cart')[0], 403); self.assertEqual(self.request('c
 
 **Designed By:** VoiceCart engineering test automation
 
-**Design Date:** 2026-11-02 (continued mapping; earlier source tests retain their historical design)
+**Design Date:** 2026-11-03 (current mapping review; see Git source history for original design)
 
 **Executed By:** Python unittest runner
 
-**Execution Date:** 2026-11-03T03:30:56.918389+00:00
+**Execution Date:** 2026-11-03T04:03:25.533487+00:00
 
 **Description:** Executable contract [tests.test_web_customer.CustomerHTTPTests.test_unknown_historical_inventory_never_enables_add](../tests/test_web_customer.py#L219), lines 219–237.
 
@@ -8850,7 +9797,7 @@ self.assertEqual(self.request('cart')[0], 403); self.assertEqual(self.request('c
 **Test Steps / Step Number / Action:**
 
 1. Arrange the exact source fixture and input cases linked above.
-2. Execute `python -m unittest tests.test_web_customer.CustomerHTTPTests.test_unknown_historical_inventory_never_enables_add` inside the guarded runner context (or execute `PYTHONPATH=. python scripts/test_report.py` for the complete safe driver).
+2. Execute `python -m scripts.run_tests tests.test_web_customer.CustomerHTTPTests.test_unknown_historical_inventory_never_enables_add` using the guarded runner (or execute `python -m scripts.test_report` for the complete safe driver).
 3. Evaluate the following exact source assertions and restore owned temporary state.
 
 **Expected Result:**
@@ -8859,7 +9806,7 @@ self.assertEqual(self.request('cart')[0], 403); self.assertEqual(self.request('c
 self.assertFalse(any((row['can_add'] for row in result['items']))); self.assertEqual(self.request('cart/add', body)[0], 409); self.assertEqual(self.request('cart')[1]['items'], [])
 ```
 
-**Actual Result:** All method assertions completed without a failure. Duration 0.5959 seconds.
+**Actual Result:** All method assertions completed without a failure. Duration 0.5954 seconds.
 
 **Pass/Fail/Not Run:** Pass
 

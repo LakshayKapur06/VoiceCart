@@ -1,0 +1,954 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "da32d05dde5bb282f4da36632c2884919aba9406a5212a0c78f97153697e0e35",
+  "recorded_at_utc": "2026-11-03T04:04:59.519772+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "method": "New derived summary from already recorded immutable logs, not a rerun or replacement. Nonzero measurement/probe outcomes remain visible. A completed model process is not quality acceptance. Static tools have no invented test count.",
+  "runs": [
+    {
+      "record": "docs/evidence/20261103_S16_baseline/RUN.json",
+      "label": "S16-baseline",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--coverage",
+        "--output-dir",
+        "docs/evidence/20261103_S16_baseline"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 386,
+        "passed": 386,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [
+        "Combined 5 files, skipped 1"
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_browser/RUN.json",
+      "label": "S16-browser",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        "npm",
+        "run",
+        "test:browser"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "playwright",
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0,
+        "errored": null,
+        "note": "Framework summary does not separate assertion failures from errors."
+      },
+      "warnings": [
+        "(node:25614) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_cases/RUN.json",
+      "label": "S16-test-records",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        ".venv/bin/python",
+        "scripts/test_report.py",
+        "--output-dir",
+        "docs/evidence/20261103_S16_cases"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 197,
+        "passed": 197,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_cfg/RUN.json",
+      "label": "S16-cfg",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        ".venv/bin/python",
+        "scripts/cfg_analysis.py",
+        "--output-dir",
+        "docs/evidence/20261103_S16_cfg"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_load/RUN.json",
+      "label": "S16-load",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        ".venv/bin/python",
+        "scripts/stress.py",
+        "--output-dir",
+        "docs/evidence/20261103_S16_load"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_practical/RUN.json",
+      "label": "S16-added-behavior",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_practical_contracts",
+        "-v"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 4,
+        "passed": 4,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_regression/RUN.json",
+      "label": "S16-regression",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--coverage",
+        "--output-dir",
+        "docs/evidence/20261103_S16_regression"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 394,
+        "passed": 394,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [
+        "Combined 5 files, skipped 1"
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_sdk/RUN.json",
+      "label": "S16-sdk",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        "npm",
+        "run",
+        "test:sdk"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "node:test",
+        "executed": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "errored": null
+      },
+      "warnings": [
+        "\u2139 skipped 0"
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S16_typescript/RUN.json",
+      "label": "S16-typescript",
+      "commit_sha": "997304592e422323dde59afac61e4c80a8df13a9",
+      "command": [
+        "node_modules/.bin/tsc",
+        "--strict",
+        "--noEmit",
+        "--target",
+        "es2022",
+        "--module",
+        "nodenext",
+        "--moduleResolution",
+        "nodenext",
+        "sdk/typecheck.mts"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S17_S18_verified/RUN.json",
+      "label": "S17-S18-final-regression",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--output-dir",
+        "docs/evidence/20261103_S17_S18_verified"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 416,
+        "passed": 416,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S17_corrected_regression/RUN.json",
+      "label": "S17-and-S18-regression",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--output-dir",
+        "docs/evidence/20261103_S17_corrected_regression"
+      ],
+      "exit_code": 1,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 411,
+        "passed": 410,
+        "failed": 0,
+        "errored": 1,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S17_evaluator/RUN.json",
+      "label": "S17-evaluator-tests",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_nlu_evaluation",
+        "-v"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S17_qwen06b/RUN.json",
+      "label": "S17-Qwen06B-frozen",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/nlu_evaluation.py",
+        "--model",
+        "qwen3:0.6b",
+        "--digest",
+        "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+        "--unload-first",
+        "--output-dir",
+        "docs/evidence/20261103_S17_qwen06b"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S17_qwen4b/RUN.json",
+      "label": "S17-Qwen4B-frozen",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/nlu_evaluation.py",
+        "--model",
+        "qwen3:4b-instruct-2507-q4_K_M",
+        "--digest",
+        "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+        "--unload-first",
+        "--output-dir",
+        "docs/evidence/20261103_S17_qwen4b"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S17_regression/RUN.json",
+      "label": "S17-regression",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--output-dir",
+        "docs/evidence/20261103_S17_regression"
+      ],
+      "exit_code": 1,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 404,
+        "passed": 403,
+        "failed": 0,
+        "errored": 1,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S18_deployment/RUN.json",
+      "label": "S18-deployment",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/deployment_probe.py",
+        "--output-dir",
+        "docs/evidence/20261103_S18_deployment"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S18_security/RUN.json",
+      "label": "S18-security-corrected",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/run_tests.py",
+        "tests.test_security_extended"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 6,
+        "passed": 6,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S18_security_initial/RUN.json",
+      "label": "S18-security-targeted",
+      "commit_sha": "4d58aa1cdba2bf043e2512e7f698a520b07a3d66",
+      "command": [
+        ".venv/bin/python",
+        "scripts/run_tests.py",
+        "tests.test_security_extended"
+      ],
+      "exit_code": 1,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 12,
+        "passed": 11,
+        "failed": 1,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S19_browser/RUN.json",
+      "label": "S19-browser-corrected",
+      "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+      "command": [
+        "npm",
+        "run",
+        "test:browser"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "playwright",
+        "executed": 8,
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0,
+        "errored": null,
+        "note": "Framework summary does not separate assertion failures from errors."
+      },
+      "warnings": [
+        "(node:36030) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S19_browser_initial/RUN.json",
+      "label": "S19-browser",
+      "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+      "command": [
+        "npm",
+        "run",
+        "test:browser"
+      ],
+      "exit_code": 1,
+      "reported_test_counts": {
+        "framework": "playwright",
+        "executed": 8,
+        "passed": 7,
+        "failed": 1,
+        "skipped": 0,
+        "errored": null,
+        "note": "Framework summary does not separate assertion failures from errors."
+      },
+      "warnings": [
+        "(node:35497) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+        "(node:35882) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S19_regression/RUN.json",
+      "label": "S19-regression",
+      "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--audit",
+        "--output-dir",
+        "docs/evidence/20261103_S19_regression"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 208,
+        "passed": 208,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S19_voice/RUN.json",
+      "label": "S19-actual-voice-http",
+      "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+      "command": [
+        ".venv/bin/python",
+        "tests/manual_voice_http.py",
+        "--output-dir",
+        "docs/evidence/20261103_S19_voice"
+      ],
+      "exit_code": 1,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S19_voice_diagnostic/RUN.json",
+      "label": "S19-voice-diagnostic",
+      "commit_sha": "eecc35ad977b6bbcf0427c0c7d6a94ceb3551e1c",
+      "command": [
+        ".venv/bin/python",
+        "tests/manual_voice_http.py",
+        "--output-dir",
+        "docs/evidence/20261103_S19_voice_diagnostic"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S20_load/RUN.json",
+      "label": "S20-search-and-concurrent-carts",
+      "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+      "command": [
+        ".venv/bin/python",
+        "scripts/stress.py",
+        "--cart-users",
+        "16",
+        "--output-dir",
+        "docs/evidence/20261103_S20_load"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S20_regression/RUN.json",
+      "label": "S20-regression",
+      "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--coverage",
+        "--output-dir",
+        "docs/evidence/20261103_S20_regression"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 430,
+        "passed": 430,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [
+        "Combined 5 files, skipped 1"
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S20_transactions/RUN.json",
+      "label": "S20-transactions",
+      "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+      "command": [
+        ".venv/bin/python",
+        "scripts/run_tests.py",
+        "tests.test_transaction_extended",
+        "tests.test_cart",
+        "tests.test_merchant"
+      ],
+      "exit_code": 1,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 25,
+        "passed": 24,
+        "failed": 0,
+        "errored": 1,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S20_transactions_verified/RUN.json",
+      "label": "S20-corrected-transactions",
+      "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+      "command": [
+        ".venv/bin/python",
+        "scripts/run_tests.py",
+        "tests.test_transaction_extended",
+        "tests.test_cart",
+        "tests.test_merchant"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 25,
+        "passed": 25,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_browser/RUN.json",
+      "label": "S21-final-browser",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "npm",
+        "run",
+        "test:browser"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "playwright",
+        "executed": 8,
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0,
+        "errored": null,
+        "note": "Framework summary does not separate assertion failures from errors."
+      },
+      "warnings": [
+        "(node:45394) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_cases/RUN.json",
+      "label": "S21-current-case-records",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "env",
+        "-u",
+        "PYTHONPATH",
+        ".venv/bin/python",
+        "scripts/test_report.py",
+        "--output-dir",
+        "docs/evidence/20261103_S21_cases"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 215,
+        "passed": 215,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_cfg/RUN.json",
+      "label": "S21-current-CFG",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "env",
+        "-u",
+        "PYTHONPATH",
+        ".venv/bin/python",
+        "scripts/cfg_analysis.py",
+        "--output-dir",
+        "docs/evidence/20261103_S21_cfg"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_direct_cfg/RUN.json",
+      "label": "S21-direct-cfg-compatibility",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "env",
+        "-u",
+        "PYTHONPATH",
+        ".venv/bin/python",
+        "scripts/cfg_analysis.py",
+        "--output-dir",
+        "docs/evidence/20261103_S21_direct_cfg"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_engineering/RUN.json",
+      "label": "S21-final-engineering",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "env",
+        "-u",
+        "PYTHONPATH",
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--coverage",
+        "--output-dir",
+        "docs/evidence/20261103_S21_engineering"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 436,
+        "passed": 436,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [
+        "Combined 5 files, skipped 1"
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_final/RUN.json",
+      "label": "S21-final-source-wheel",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "env",
+        "-u",
+        "PYTHONPATH",
+        ".venv/bin/python",
+        "scripts/verify.py",
+        "--postgres",
+        "--package",
+        "--audit",
+        "--coverage",
+        "--output-dir",
+        "docs/evidence/20261103_S21_final"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 430,
+        "passed": 430,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [
+        "Combined 5 files, skipped 1"
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_final_cases/RUN.json",
+      "label": "S21-final-method-records",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "env",
+        "-u",
+        "PYTHONPATH",
+        ".venv/bin/python",
+        "scripts/test_report.py",
+        "--output-dir",
+        "docs/evidence/20261103_S21_final_cases"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 218,
+        "passed": 218,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_integrity/RUN.json",
+      "label": "S21-evidence-integrity",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_evidence_tools",
+        "-v"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 3,
+        "passed": 3,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_license_inventory/RUN.json",
+      "label": "S21-license-inventory",
+      "commit_sha": "1fc178047948ae5a4630137ddb05680354600c71",
+      "command": [
+        ".venv/bin/python",
+        "scripts/license_inventory.py",
+        "--output-dir",
+        "docs/evidence/20261103_S21_license_inventory"
+      ],
+      "exit_code": 1,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_node_audit/RUN.json",
+      "label": "S21-final-node-audit",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "npm",
+        "audit",
+        "--omit=optional"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_practical/RUN.json",
+      "label": "S21-practical-contracts",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_practical_contracts",
+        "-v"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 4,
+        "passed": 4,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_professor_ce/RUN.json",
+      "label": "S21-professor-cause-effect",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "scripts.run_tests",
+        "tests.test_cart.CartIntegrationTests.test_commit_verified_by_immutable_receipt_and_retry_exactly_once",
+        "tests.test_cart.CartIntegrationTests.test_same_operation_different_payload_or_session_is_conflict",
+        "tests.test_cart.CartIntegrationTests.test_commit_reply_loss_reconciles_original_receipt",
+        "tests.test_transaction_extended.ExtendedTransactionTests.test_postcommit_receipt_outage_is_unknown_then_same_id_replays",
+        "tests.test_transaction_extended.ExtendedTransactionTests.test_session_expiry_during_snapshot_blocks_add_before_write"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "unittest",
+        "scope": "execution totals, not distinct methods across source/wheel runs",
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "errored": 0,
+        "skipped": 0
+      },
+      "warnings": [],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_sdk/RUN.json",
+      "label": "S21-final-sdk",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "npm",
+        "run",
+        "test:sdk"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": {
+        "framework": "node:test",
+        "executed": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "errored": null
+      },
+      "warnings": [
+        "\u2139 skipped 0"
+      ],
+      "historical_record_unchanged": true
+    },
+    {
+      "record": "docs/evidence/20261103_S21_ts/RUN.json",
+      "label": "S21-final-typescript",
+      "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+      "command": [
+        "node_modules/.bin/tsc",
+        "--strict",
+        "--noEmit",
+        "--target",
+        "es2022",
+        "--module",
+        "nodenext",
+        "--moduleResolution",
+        "nodenext",
+        "sdk/typecheck.mts"
+      ],
+      "exit_code": 0,
+      "reported_test_counts": null,
+      "warnings": [],
+      "historical_record_unchanged": true
+    }
+  ]
+}

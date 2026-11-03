@@ -1,0 +1,53 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "ab2538f9e1230b21b0c9d3d1c398e23a3e0a1f952b8bc07d03d2a1fd2a98f735",
+  "recorded_at_utc": "2026-11-03T03:54:34.702708+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S21-current-case-records",
+  "command": [
+    "env",
+    "-u",
+    "PYTHONPATH",
+    ".venv/bin/python",
+    "scripts/test_report.py",
+    "--output-dir",
+    "docs/evidence/20261103_S21_cases"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 15.199713958019856,
+  "unittest_runs": [
+    {
+      "count": 215,
+      "passed": 215,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 13.366,
+      "status": "OK"
+    }
+  ],
+  "log": "docs/evidence/20261103_S21_cases/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": []
+}

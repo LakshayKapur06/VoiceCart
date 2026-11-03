@@ -1,0 +1,3119 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "71bad754a236ecd040ab3608935e63bfeb7f213f375e0c4a11381b1afcba58e5",
+  "recorded_at_utc": "2026-11-03T03:52:26.155026+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "functions": [
+    {
+      "file": "voicecart/application.py",
+      "function": "money_text",
+      "start_line": 39,
+      "end_line": 43,
+      "nodes": 9,
+      "edges": 10,
+      "components": 1,
+      "edge_node_complexity": 3,
+      "predicate_equivalents": 2,
+      "predicate_complexity": 3,
+      "planar": true,
+      "region_count": 3,
+      "basis_paths": [
+        [
+          1,
+          8,
+          2,
+          0
+        ],
+        [
+          1,
+          8,
+          7,
+          6,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          8,
+          7,
+          6,
+          5,
+          3,
+          0
+        ]
+      ],
+      "basis_rank": 3,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return f'{amount} minor units {currency}'",
+          "line": 43
+        },
+        "3": {
+          "label": "return f'{rupees} rupees' + (f' and {paise} paise' if paise else '')",
+          "line": 42
+        },
+        "4": {
+          "label": "evaluate f' and {paise} paise'",
+          "line": 42
+        },
+        "5": {
+          "label": "evaluate ''",
+          "line": 42
+        },
+        "6": {
+          "label": "test paise",
+          "line": 42
+        },
+        "7": {
+          "label": "rupees, paise = divmod(amount, 100)",
+          "line": 41
+        },
+        "8": {
+          "label": "test currency == 'INR'",
+          "line": 40
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          8,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          4,
+          3,
+          ""
+        ],
+        [
+          5,
+          3,
+          ""
+        ],
+        [
+          6,
+          4,
+          "T"
+        ],
+        [
+          6,
+          5,
+          "F"
+        ],
+        [
+          7,
+          6,
+          ""
+        ],
+        [
+          8,
+          7,
+          "T"
+        ],
+        [
+          8,
+          2,
+          "F"
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/nlu.py",
+      "function": "rupees_to_minor",
+      "start_line": 118,
+      "end_line": 132,
+      "nodes": 14,
+      "edges": 18,
+      "components": 1,
+      "edge_node_complexity": 6,
+      "predicate_equivalents": 5,
+      "predicate_complexity": 6,
+      "planar": true,
+      "region_count": 6,
+      "basis_paths": [
+        [
+          1,
+          13,
+          11,
+          0
+        ],
+        [
+          1,
+          13,
+          12,
+          10,
+          9,
+          6,
+          5,
+          3,
+          2,
+          0
+        ],
+        [
+          1,
+          13,
+          12,
+          10,
+          9,
+          6,
+          4,
+          0
+        ],
+        [
+          1,
+          13,
+          12,
+          10,
+          9,
+          8,
+          7,
+          3,
+          2,
+          0
+        ],
+        [
+          1,
+          13,
+          12,
+          10,
+          9,
+          8,
+          6,
+          4,
+          0
+        ],
+        [
+          1,
+          13,
+          12,
+          11,
+          0
+        ]
+      ],
+      "basis_rank": 6,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return result",
+          "line": 132
+        },
+        "3": {
+          "label": "require_integer(result, 'amount_minor')",
+          "line": 131
+        },
+        "4": {
+          "label": "raise InterpretationError('Invalid amount') from exc",
+          "line": 128
+        },
+        "5": {
+          "label": "result = int(Decimal(cleaned.replace(',', '')) * 100)",
+          "line": 126
+        },
+        "6": {
+          "label": "try: normal or declared handled exception",
+          "line": 125
+        },
+        "7": {
+          "label": "result = whole_number(cleaned) * 100",
+          "line": 130
+        },
+        "8": {
+          "label": "test re.fullmatch('(?:\\\\d{1,3}(?:,\\\\d{3})+|\\\\d{1,2}(?:,\\\\d{2})*,\\\\d{3})(?:\\\\.\\\\d{1,2})?', cleaned)",
+          "line": 122
+        },
+        "9": {
+          "label": "test re.fullmatch('\\\\d+(?:\\\\.\\\\d{1,2})?', cleaned)",
+          "line": 122
+        },
+        "10": {
+          "label": "cleaned = text.strip()",
+          "line": 121
+        },
+        "11": {
+          "label": "raise InterpretationError('Invalid amount')",
+          "line": 120
+        },
+        "12": {
+          "label": "test len(text) > 100",
+          "line": 119
+        },
+        "13": {
+          "label": "test isinstance(text, str)",
+          "line": 119
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          13,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          2,
+          ""
+        ],
+        [
+          4,
+          0,
+          ""
+        ],
+        [
+          5,
+          3,
+          ""
+        ],
+        [
+          6,
+          5,
+          "normal"
+        ],
+        [
+          6,
+          4,
+          "handler 0"
+        ],
+        [
+          7,
+          3,
+          ""
+        ],
+        [
+          8,
+          6,
+          "T"
+        ],
+        [
+          8,
+          7,
+          "F"
+        ],
+        [
+          9,
+          6,
+          "T"
+        ],
+        [
+          9,
+          8,
+          "F"
+        ],
+        [
+          10,
+          9,
+          ""
+        ],
+        [
+          11,
+          0,
+          ""
+        ],
+        [
+          12,
+          11,
+          "T"
+        ],
+        [
+          12,
+          10,
+          "F"
+        ],
+        [
+          13,
+          12,
+          "T"
+        ],
+        [
+          13,
+          11,
+          "F"
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/search.py",
+      "function": "item_price",
+      "start_line": 41,
+      "end_line": 44,
+      "nodes": 5,
+      "edges": 5,
+      "components": 1,
+      "edge_node_complexity": 2,
+      "predicate_equivalents": 1,
+      "predicate_complexity": 2,
+      "planar": true,
+      "region_count": 2,
+      "basis_paths": [
+        [
+          1,
+          4,
+          2,
+          0
+        ],
+        [
+          1,
+          4,
+          3,
+          0
+        ]
+      ],
+      "basis_rank": 2,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return item.variant.price.minor_units",
+          "line": 44
+        },
+        "3": {
+          "label": "raise ValueError('Qualified candidate lacks price')",
+          "line": 43
+        },
+        "4": {
+          "label": "test item.variant.price is None",
+          "line": 42
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          4,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          4,
+          3,
+          "T"
+        ],
+        [
+          4,
+          2,
+          "F"
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/ranking.py",
+      "function": "rank_qualified",
+      "start_line": 27,
+      "end_line": 47,
+      "nodes": 17,
+      "edges": 22,
+      "components": 1,
+      "edge_node_complexity": 7,
+      "predicate_equivalents": 6,
+      "predicate_complexity": 7,
+      "planar": true,
+      "region_count": 7,
+      "basis_paths": [
+        [
+          1,
+          16,
+          15,
+          13,
+          0
+        ],
+        [
+          1,
+          16,
+          15,
+          14,
+          12,
+          11,
+          9,
+          8,
+          6,
+          5,
+          4,
+          2,
+          0
+        ],
+        [
+          1,
+          16,
+          15,
+          14,
+          12,
+          11,
+          9,
+          8,
+          6,
+          5,
+          3,
+          0
+        ],
+        [
+          1,
+          16,
+          15,
+          14,
+          12,
+          11,
+          9,
+          8,
+          6,
+          5,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          16,
+          15,
+          14,
+          12,
+          11,
+          9,
+          7,
+          0
+        ],
+        [
+          1,
+          16,
+          15,
+          14,
+          12,
+          11,
+          9,
+          8,
+          7,
+          0
+        ],
+        [
+          1,
+          16,
+          15,
+          14,
+          12,
+          11,
+          10,
+          0
+        ]
+      ],
+      "basis_rank": 7,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return (version, tuple((by_id[variant_id] for variant_id in ordered)))",
+          "line": 47
+        },
+        "3": {
+          "label": "raise RankingContractError('policy must return every qualified ID exactly once')",
+          "line": 46
+        },
+        "4": {
+          "label": "test set(ordered) != set(by_id)",
+          "line": 45
+        },
+        "5": {
+          "label": "test len(ordered) != len(by_id)",
+          "line": 45
+        },
+        "6": {
+          "label": "by_id = {item.variant.variant_id: item for item in qualified}",
+          "line": 44
+        },
+        "7": {
+          "label": "raise RankingContractError('policy must return a tuple of qualified variant IDs')",
+          "line": 41
+        },
+        "8": {
+          "label": "test any((not isinstance(x, str) for x in ordered))",
+          "line": 40
+        },
+        "9": {
+          "label": "test isinstance(ordered, tuple)",
+          "line": 40
+        },
+        "10": {
+          "label": "raise RankingContractError('policy version changed during ranking')",
+          "line": 39
+        },
+        "11": {
+          "label": "test policy.version != version",
+          "line": 38
+        },
+        "12": {
+          "label": "ordered = policy.rank(request, qualified)",
+          "line": 37
+        },
+        "13": {
+          "label": "raise RankingContractError(str(error)) from error",
+          "line": 36
+        },
+        "14": {
+          "label": "require_text(version, 'ranking policy version')",
+          "line": 34
+        },
+        "15": {
+          "label": "try: normal or declared handled exception",
+          "line": 33
+        },
+        "16": {
+          "label": "version = policy.version",
+          "line": 32
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          16,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          4,
+          3,
+          "T"
+        ],
+        [
+          4,
+          2,
+          "F"
+        ],
+        [
+          5,
+          3,
+          "T"
+        ],
+        [
+          5,
+          4,
+          "F"
+        ],
+        [
+          6,
+          5,
+          ""
+        ],
+        [
+          7,
+          0,
+          ""
+        ],
+        [
+          8,
+          7,
+          "T"
+        ],
+        [
+          8,
+          6,
+          "F"
+        ],
+        [
+          9,
+          8,
+          "T"
+        ],
+        [
+          9,
+          7,
+          "F"
+        ],
+        [
+          10,
+          0,
+          ""
+        ],
+        [
+          11,
+          10,
+          "T"
+        ],
+        [
+          11,
+          9,
+          "F"
+        ],
+        [
+          12,
+          11,
+          ""
+        ],
+        [
+          13,
+          0,
+          ""
+        ],
+        [
+          14,
+          12,
+          ""
+        ],
+        [
+          15,
+          14,
+          "normal"
+        ],
+        [
+          15,
+          13,
+          "handler 0"
+        ],
+        [
+          16,
+          15,
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/cart.py",
+      "function": "CartService.prepare",
+      "start_line": 146,
+      "end_line": 185,
+      "nodes": 22,
+      "edges": 27,
+      "components": 1,
+      "edge_node_complexity": 7,
+      "predicate_equivalents": 6,
+      "predicate_complexity": 7,
+      "planar": true,
+      "region_count": 7,
+      "basis_paths": [
+        [
+          1,
+          21,
+          20,
+          19,
+          18,
+          17,
+          4,
+          0
+        ],
+        [
+          1,
+          21,
+          20,
+          19,
+          18,
+          16,
+          15,
+          10,
+          8,
+          7,
+          5,
+          2,
+          0
+        ],
+        [
+          1,
+          21,
+          20,
+          19,
+          18,
+          16,
+          15,
+          14,
+          13,
+          11,
+          3,
+          0
+        ],
+        [
+          1,
+          21,
+          20,
+          19,
+          18,
+          16,
+          15,
+          10,
+          8,
+          7,
+          6,
+          4,
+          0
+        ],
+        [
+          1,
+          21,
+          20,
+          19,
+          18,
+          16,
+          15,
+          10,
+          9,
+          4,
+          0
+        ],
+        [
+          1,
+          21,
+          20,
+          19,
+          18,
+          16,
+          15,
+          14,
+          12,
+          4,
+          0
+        ],
+        [
+          1,
+          21,
+          20,
+          19,
+          18,
+          16,
+          15,
+          14,
+          13,
+          12,
+          4,
+          0
+        ]
+      ],
+      "basis_rank": 7,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "context exit: normal",
+          "line": 147
+        },
+        "3": {
+          "label": "context exit: return",
+          "line": 147
+        },
+        "4": {
+          "label": "context exit: explicit error",
+          "line": 147
+        },
+        "5": {
+          "label": "connection.execute(\"INSERT INTO commands(operation_id,session_id,turn_id,fingerprint,payload,status) VALUES (%s,%s,%s,%s,%s,'prepared')\", (command.operation_id, command.session_id,",
+          "line": 176
+        },
+        "6": {
+          "label": "raise CartError('resolve_previous_operation_first')",
+          "line": 175
+        },
+        "7": {
+          "label": "test pending",
+          "line": 174
+        },
+        "8": {
+          "label": "pending = connection.execute(\"SELECT operation_id FROM commands WHERE session_id=%s AND status='prepared'\", (command.session_id,)).fetchone()",
+          "line": 170
+        },
+        "9": {
+          "label": "raise CartError('turn_cancelled_or_superseded')",
+          "line": 169
+        },
+        "10": {
+          "label": "test str(session['active_turn']) != command.turn_id",
+          "line": 168
+        },
+        "11": {
+          "label": "return",
+          "line": 167
+        },
+        "12": {
+          "label": "raise CartError('operation_identity_conflict')",
+          "line": 166
+        },
+        "13": {
+          "label": "test existing['fingerprint'] != command.fingerprint",
+          "line": 164
+        },
+        "14": {
+          "label": "test str(existing['session_id']) != command.session_id",
+          "line": 163
+        },
+        "15": {
+          "label": "test existing",
+          "line": 161
+        },
+        "16": {
+          "label": "existing = connection.execute('SELECT * FROM commands WHERE operation_id=%s', (command.operation_id,)).fetchone()",
+          "line": 158
+        },
+        "17": {
+          "label": "raise CartError('operation_identity_conflict')",
+          "line": 157
+        },
+        "18": {
+          "label": "test connection.execute('SELECT 1 FROM cart_adjustments WHERE operation_id=%s', (command.operation_id,)).fetchone()",
+          "line": 153
+        },
+        "19": {
+          "label": "connection.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))', (command.operation_id,))",
+          "line": 149
+        },
+        "20": {
+          "label": "session = self.sessions.require(connection, command.session_id, lock=True)",
+          "line": 148
+        },
+        "21": {
+          "label": "context enter self.database.connect()",
+          "line": 147
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          21,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          4,
+          0,
+          ""
+        ],
+        [
+          5,
+          2,
+          ""
+        ],
+        [
+          6,
+          4,
+          ""
+        ],
+        [
+          7,
+          6,
+          "T"
+        ],
+        [
+          7,
+          5,
+          "F"
+        ],
+        [
+          8,
+          7,
+          ""
+        ],
+        [
+          9,
+          4,
+          ""
+        ],
+        [
+          10,
+          9,
+          "T"
+        ],
+        [
+          10,
+          8,
+          "F"
+        ],
+        [
+          11,
+          3,
+          ""
+        ],
+        [
+          12,
+          4,
+          ""
+        ],
+        [
+          13,
+          12,
+          "T"
+        ],
+        [
+          13,
+          11,
+          "F"
+        ],
+        [
+          14,
+          12,
+          "T"
+        ],
+        [
+          14,
+          13,
+          "F"
+        ],
+        [
+          15,
+          14,
+          "T"
+        ],
+        [
+          15,
+          10,
+          "F"
+        ],
+        [
+          16,
+          15,
+          ""
+        ],
+        [
+          17,
+          4,
+          ""
+        ],
+        [
+          18,
+          17,
+          "T"
+        ],
+        [
+          18,
+          16,
+          "F"
+        ],
+        [
+          19,
+          18,
+          ""
+        ],
+        [
+          20,
+          19,
+          ""
+        ],
+        [
+          21,
+          20,
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/sessions.py",
+      "function": "SessionStore.create",
+      "start_line": 51,
+      "end_line": 61,
+      "nodes": 10,
+      "edges": 10,
+      "components": 1,
+      "edge_node_complexity": 2,
+      "predicate_equivalents": 1,
+      "predicate_complexity": 2,
+      "planar": true,
+      "region_count": 2,
+      "basis_paths": [
+        [
+          1,
+          11,
+          10,
+          9,
+          0
+        ],
+        [
+          1,
+          11,
+          10,
+          8,
+          7,
+          6,
+          3,
+          2,
+          0
+        ]
+      ],
+      "basis_rank": 2,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return identifier",
+          "line": 61
+        },
+        "3": {
+          "label": "context exit: normal",
+          "line": 56
+        },
+        "6": {
+          "label": "connection.execute('INSERT INTO sessions(session_id,expires_at) VALUES (%s,%s)', (identifier, datetime.now(UTC) + timedelta(seconds=ttl_seconds)))",
+          "line": 57
+        },
+        "7": {
+          "label": "context enter self.database.connect()",
+          "line": 56
+        },
+        "8": {
+          "label": "identifier = str(uuid.uuid4())",
+          "line": 55
+        },
+        "9": {
+          "label": "raise SessionError('Session lifetime is at most one day')",
+          "line": 54
+        },
+        "10": {
+          "label": "test ttl_seconds > 86400",
+          "line": 53
+        },
+        "11": {
+          "label": "require_integer(ttl_seconds, 'ttl_seconds', 60)",
+          "line": 52
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          11,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          2,
+          ""
+        ],
+        [
+          6,
+          3,
+          ""
+        ],
+        [
+          7,
+          6,
+          ""
+        ],
+        [
+          8,
+          7,
+          ""
+        ],
+        [
+          9,
+          0,
+          ""
+        ],
+        [
+          10,
+          9,
+          "T"
+        ],
+        [
+          10,
+          8,
+          "F"
+        ],
+        [
+          11,
+          10,
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/audio.py",
+      "function": "_interval",
+      "start_line": 28,
+      "end_line": 31,
+      "nodes": 7,
+      "edges": 9,
+      "components": 1,
+      "edge_node_complexity": 4,
+      "predicate_equivalents": 3,
+      "predicate_complexity": 4,
+      "planar": true,
+      "region_count": 4,
+      "basis_paths": [
+        [
+          1,
+          6,
+          3,
+          0
+        ],
+        [
+          1,
+          6,
+          5,
+          4,
+          2,
+          0
+        ],
+        [
+          1,
+          6,
+          5,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          6,
+          5,
+          3,
+          0
+        ]
+      ],
+      "basis_rank": 4,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return end - start",
+          "line": 31
+        },
+        "3": {
+          "label": "return None",
+          "line": 30
+        },
+        "4": {
+          "label": "test end < start",
+          "line": 29
+        },
+        "5": {
+          "label": "test _finite_time(end)",
+          "line": 29
+        },
+        "6": {
+          "label": "test _finite_time(start)",
+          "line": 29
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          6,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          4,
+          3,
+          "T"
+        ],
+        [
+          4,
+          2,
+          "F"
+        ],
+        [
+          5,
+          4,
+          "T"
+        ],
+        [
+          5,
+          3,
+          "F"
+        ],
+        [
+          6,
+          5,
+          "T"
+        ],
+        [
+          6,
+          3,
+          "F"
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/voice.py",
+      "function": "FileArtifact.verify",
+      "start_line": 38,
+      "end_line": 49,
+      "nodes": 13,
+      "edges": 16,
+      "components": 1,
+      "edge_node_complexity": 5,
+      "predicate_equivalents": 4,
+      "predicate_complexity": 5,
+      "planar": true,
+      "region_count": 5,
+      "basis_paths": [
+        [
+          1,
+          14,
+          12,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          11,
+          10,
+          8,
+          5,
+          4,
+          2,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          11,
+          10,
+          8,
+          5,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          11,
+          10,
+          8,
+          9,
+          8,
+          5,
+          4,
+          2,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          12,
+          0
+        ]
+      ],
+      "basis_rank": 5,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return self.path",
+          "line": 49
+        },
+        "3": {
+          "label": "raise VoiceError('Local artifact integrity check failed')",
+          "line": 48
+        },
+        "4": {
+          "label": "test digest.hexdigest() != self.sha256",
+          "line": 47
+        },
+        "5": {
+          "label": "context exit: normal",
+          "line": 44
+        },
+        "8": {
+          "label": "loop (chunk := source.read(1024 * 1024))",
+          "line": 45
+        },
+        "9": {
+          "label": "digest.update(chunk)",
+          "line": 46
+        },
+        "10": {
+          "label": "context enter self.path.open('rb')",
+          "line": 44
+        },
+        "11": {
+          "label": "digest = hashlib.sha256()",
+          "line": 43
+        },
+        "12": {
+          "label": "raise VoiceError('A lowercase SHA-256 artifact digest is required')",
+          "line": 42
+        },
+        "13": {
+          "label": "test any((character not in '0123456789abcdef' for character in self.sha256))",
+          "line": 39
+        },
+        "14": {
+          "label": "test len(self.sha256) != 64",
+          "line": 39
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          14,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          4,
+          3,
+          "T"
+        ],
+        [
+          4,
+          2,
+          "F"
+        ],
+        [
+          5,
+          4,
+          ""
+        ],
+        [
+          8,
+          9,
+          "iteration"
+        ],
+        [
+          8,
+          5,
+          "done"
+        ],
+        [
+          9,
+          8,
+          ""
+        ],
+        [
+          10,
+          8,
+          ""
+        ],
+        [
+          11,
+          10,
+          ""
+        ],
+        [
+          12,
+          0,
+          ""
+        ],
+        [
+          13,
+          12,
+          "T"
+        ],
+        [
+          13,
+          11,
+          "F"
+        ],
+        [
+          14,
+          12,
+          "T"
+        ],
+        [
+          14,
+          13,
+          "F"
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/catalogue.py",
+      "function": "qualify",
+      "start_line": 44,
+      "end_line": 99,
+      "nodes": 45,
+      "edges": 63,
+      "components": 1,
+      "edge_node_complexity": 20,
+      "predicate_equivalents": 19,
+      "predicate_complexity": 20,
+      "planar": true,
+      "region_count": 20,
+      "basis_paths": [
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          4,
+          2,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          18,
+          12,
+          10,
+          9,
+          8,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          18,
+          12,
+          11,
+          9,
+          8,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          18,
+          17,
+          13,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          18,
+          17,
+          16,
+          15,
+          14,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          18,
+          17,
+          16,
+          15,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          18,
+          17,
+          16,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          21,
+          20,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          23,
+          22,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          29,
+          28,
+          25,
+          24,
+          23,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          37,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          37,
+          29,
+          28,
+          27,
+          26,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          37,
+          29,
+          28,
+          27,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          37,
+          29,
+          36,
+          35,
+          34,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          37,
+          29,
+          36,
+          35,
+          33,
+          30,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          37,
+          29,
+          36,
+          35,
+          33,
+          32,
+          31,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          37,
+          29,
+          36,
+          35,
+          33,
+          32,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ],
+        [
+          1,
+          44,
+          43,
+          42,
+          41,
+          40,
+          39,
+          38,
+          37,
+          29,
+          28,
+          25,
+          24,
+          21,
+          19,
+          7,
+          6,
+          5,
+          0
+        ]
+      ],
+      "basis_rank": 20,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return Qualification(Eligibility.QUALIFIED)",
+          "line": 99
+        },
+        "3": {
+          "label": "return Qualification(Eligibility.UNKNOWN, tuple(unknown))",
+          "line": 98
+        },
+        "4": {
+          "label": "test unknown",
+          "line": 97
+        },
+        "5": {
+          "label": "return Qualification(Eligibility.REJECTED, tuple(rejected + unknown))",
+          "line": 96
+        },
+        "6": {
+          "label": "test rejected",
+          "line": 95
+        },
+        "7": {
+          "label": "unknown.append(issue(IssueCode.MISSING_PRICE, 'Price/currency is missing'))",
+          "line": 81
+        },
+        "8": {
+          "label": "unknown.append(issue(code, 'A current price is not verified'))",
+          "line": 88
+        },
+        "9": {
+          "label": "code = IssueCode.STALE_PRICE if variant.price_freshness is Freshness.STALE else IssueCode.UNKNOWN_PRICE_FRESHNESS",
+          "line": 83
+        },
+        "10": {
+          "label": "evaluate IssueCode.STALE_PRICE",
+          "line": 83
+        },
+        "11": {
+          "label": "evaluate IssueCode.UNKNOWN_PRICE_FRESHNESS",
+          "line": 83
+        },
+        "12": {
+          "label": "test variant.price_freshness is Freshness.STALE",
+          "line": 85
+        },
+        "13": {
+          "label": "rejected.append(issue(IssueCode.CURRENCY_MISMATCH, 'Different currency'))",
+          "line": 90
+        },
+        "14": {
+          "label": "rejected.append(issue(IssueCode.OVER_BUDGET, 'Unit price fails budget'))",
+          "line": 93
+        },
+        "15": {
+          "label": "test constraints.price_limit.permits(variant.price)",
+          "line": 92
+        },
+        "16": {
+          "label": "test constraints.price_limit is not None",
+          "line": 91
+        },
+        "17": {
+          "label": "test variant.price.currency != constraints.currency",
+          "line": 89
+        },
+        "18": {
+          "label": "test variant.price_freshness is not Freshness.CURRENT",
+          "line": 82
+        },
+        "19": {
+          "label": "test variant.price is None",
+          "line": 80
+        },
+        "20": {
+          "label": "rejected.append(issue(IssueCode.INSUFFICIENT_STOCK, 'Insufficient quantity'))",
+          "line": 74
+        },
+        "21": {
+          "label": "test variant.stock_quantity < constraints.quantity",
+          "line": 73
+        },
+        "22": {
+          "label": "unknown.append(issue(IssueCode.UNKNOWN_STOCK, 'Multi-unit stock is unknown'))",
+          "line": 78
+        },
+        "23": {
+          "label": "test constraints.quantity > 1",
+          "line": 77
+        },
+        "24": {
+          "label": "test variant.stock_quantity is not None",
+          "line": 72
+        },
+        "25": {
+          "label": "rejected.append(issue(IssueCode.UNAVAILABLE, 'Variant is not available'))",
+          "line": 69
+        },
+        "26": {
+          "label": "unknown.append(issue(IssueCode.UNKNOWN_AVAILABILITY, 'Availability is unknown'))",
+          "line": 71
+        },
+        "27": {
+          "label": "test variant.available is None",
+          "line": 70
+        },
+        "28": {
+          "label": "test variant.available is False",
+          "line": 68
+        },
+        "29": {
+          "label": "loop next (field, actual) from (('category', product.category), ('colour', variant.colour), ('size', variant.size))",
+          "line": 55
+        },
+        "30": {
+          "label": "unknown.append(issue(IssueCode.UNKNOWN_ATTRIBUTE, f'Unknown {field}'))",
+          "line": 64
+        },
+        "31": {
+          "label": "rejected.append(issue(IssueCode.ATTRIBUTE_MISMATCH, f'Different {field}'))",
+          "line": 66
+        },
+        "32": {
+          "label": "test actual != expected",
+          "line": 65
+        },
+        "33": {
+          "label": "test actual is None",
+          "line": 63
+        },
+        "34": {
+          "label": "continue",
+          "line": 62
+        },
+        "35": {
+          "label": "test expected is None",
+          "line": 61
+        },
+        "36": {
+          "label": "expected = getattr(constraints, field)",
+          "line": 60
+        },
+        "37": {
+          "label": "rejected.append(issue(IssueCode.INACTIVE, 'Product or variant is inactive'))",
+          "line": 54
+        },
+        "38": {
+          "label": "test variant.active",
+          "line": 53
+        },
+        "39": {
+          "label": "test product.active",
+          "line": 53
+        },
+        "40": {
+          "label": "def issue(code: IssueCode, detail: str) -> SearchIssue:",
+          "line": 50
+        },
+        "41": {
+          "label": "unknown: list[SearchIssue] = []",
+          "line": 48
+        },
+        "42": {
+          "label": "rejected: list[SearchIssue] = []",
+          "line": 47
+        },
+        "43": {
+          "label": "product, variant = (item.product, item.variant)",
+          "line": 46
+        },
+        "44": {
+          "label": "'Combine predicates as three-valued AND: a known false dominates unknowns.'",
+          "line": 45
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          44,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          4,
+          3,
+          "T"
+        ],
+        [
+          4,
+          2,
+          "F"
+        ],
+        [
+          5,
+          0,
+          ""
+        ],
+        [
+          6,
+          5,
+          "T"
+        ],
+        [
+          6,
+          4,
+          "F"
+        ],
+        [
+          7,
+          6,
+          ""
+        ],
+        [
+          8,
+          6,
+          ""
+        ],
+        [
+          9,
+          8,
+          ""
+        ],
+        [
+          10,
+          9,
+          ""
+        ],
+        [
+          11,
+          9,
+          ""
+        ],
+        [
+          12,
+          10,
+          "T"
+        ],
+        [
+          12,
+          11,
+          "F"
+        ],
+        [
+          13,
+          6,
+          ""
+        ],
+        [
+          14,
+          6,
+          ""
+        ],
+        [
+          15,
+          6,
+          "T"
+        ],
+        [
+          15,
+          14,
+          "F"
+        ],
+        [
+          16,
+          15,
+          "T"
+        ],
+        [
+          16,
+          6,
+          "F"
+        ],
+        [
+          17,
+          13,
+          "T"
+        ],
+        [
+          17,
+          16,
+          "F"
+        ],
+        [
+          18,
+          12,
+          "T"
+        ],
+        [
+          18,
+          17,
+          "F"
+        ],
+        [
+          19,
+          7,
+          "T"
+        ],
+        [
+          19,
+          18,
+          "F"
+        ],
+        [
+          20,
+          19,
+          ""
+        ],
+        [
+          21,
+          20,
+          "T"
+        ],
+        [
+          21,
+          19,
+          "F"
+        ],
+        [
+          22,
+          19,
+          ""
+        ],
+        [
+          23,
+          22,
+          "T"
+        ],
+        [
+          23,
+          19,
+          "F"
+        ],
+        [
+          24,
+          21,
+          "T"
+        ],
+        [
+          24,
+          23,
+          "F"
+        ],
+        [
+          25,
+          24,
+          ""
+        ],
+        [
+          26,
+          24,
+          ""
+        ],
+        [
+          27,
+          26,
+          "T"
+        ],
+        [
+          27,
+          24,
+          "F"
+        ],
+        [
+          28,
+          25,
+          "T"
+        ],
+        [
+          28,
+          27,
+          "F"
+        ],
+        [
+          29,
+          36,
+          "iteration"
+        ],
+        [
+          29,
+          28,
+          "done"
+        ],
+        [
+          30,
+          29,
+          ""
+        ],
+        [
+          31,
+          29,
+          ""
+        ],
+        [
+          32,
+          31,
+          "T"
+        ],
+        [
+          32,
+          29,
+          "F"
+        ],
+        [
+          33,
+          30,
+          "T"
+        ],
+        [
+          33,
+          32,
+          "F"
+        ],
+        [
+          34,
+          29,
+          ""
+        ],
+        [
+          35,
+          34,
+          "T"
+        ],
+        [
+          35,
+          33,
+          "F"
+        ],
+        [
+          36,
+          35,
+          ""
+        ],
+        [
+          37,
+          29,
+          ""
+        ],
+        [
+          38,
+          29,
+          "T"
+        ],
+        [
+          38,
+          37,
+          "F"
+        ],
+        [
+          39,
+          38,
+          "T"
+        ],
+        [
+          39,
+          37,
+          "F"
+        ],
+        [
+          40,
+          39,
+          ""
+        ],
+        [
+          41,
+          40,
+          ""
+        ],
+        [
+          42,
+          41,
+          ""
+        ],
+        [
+          43,
+          42,
+          ""
+        ],
+        [
+          44,
+          43,
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/ingestion.py",
+      "function": "exact_keys",
+      "start_line": 44,
+      "end_line": 50,
+      "nodes": 6,
+      "edges": 8,
+      "components": 1,
+      "edge_node_complexity": 4,
+      "predicate_equivalents": 3,
+      "predicate_complexity": 4,
+      "planar": true,
+      "region_count": 4,
+      "basis_paths": [
+        [
+          1,
+          5,
+          2,
+          0
+        ],
+        [
+          1,
+          5,
+          4,
+          3,
+          2,
+          0
+        ],
+        [
+          1,
+          5,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          5,
+          4,
+          2,
+          0
+        ]
+      ],
+      "basis_rank": 4,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "raise ValueError('Missing or unsupported fields')",
+          "line": 50
+        },
+        "3": {
+          "label": "test set(value) - required - optional",
+          "line": 48
+        },
+        "4": {
+          "label": "test required <= set(value)",
+          "line": 47
+        },
+        "5": {
+          "label": "test isinstance(value, dict)",
+          "line": 46
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          5,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          3,
+          2,
+          "T"
+        ],
+        [
+          3,
+          0,
+          "F"
+        ],
+        [
+          4,
+          3,
+          "T"
+        ],
+        [
+          4,
+          2,
+          "F"
+        ],
+        [
+          5,
+          4,
+          "T"
+        ],
+        [
+          5,
+          2,
+          "F"
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/database.py",
+      "function": "Database.check_ready",
+      "start_line": 140,
+      "end_line": 170,
+      "nodes": 14,
+      "edges": 17,
+      "components": 1,
+      "edge_node_complexity": 5,
+      "predicate_equivalents": 4,
+      "predicate_complexity": 5,
+      "planar": true,
+      "region_count": 5,
+      "basis_paths": [
+        [
+          1,
+          14,
+          13,
+          9,
+          12,
+          11,
+          10,
+          4,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          9,
+          8,
+          7,
+          6,
+          2,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          9,
+          12,
+          11,
+          9,
+          12,
+          11,
+          10,
+          4,
+          0
+        ],
+        [
+          1,
+          14,
+          13,
+          9,
+          12,
+          9,
+          12,
+          11,
+          10,
+          4,
+          0
+        ]
+      ],
+      "basis_rank": 5,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "context exit: normal",
+          "line": 141
+        },
+        "4": {
+          "label": "context exit: explicit error",
+          "line": 141
+        },
+        "5": {
+          "label": "raise DatabaseUnavailable('pgvector extension is unavailable; run explicit migrations')",
+          "line": 168
+        },
+        "6": {
+          "label": "test extension",
+          "line": 167
+        },
+        "7": {
+          "label": "extension = connection.execute(\"SELECT extversion FROM pg_extension WHERE extname='vector'\").fetchone()",
+          "line": 164
+        },
+        "8": {
+          "label": "connection.execute('SELECT revision FROM catalogue_state WHERE singleton=true').fetchone()",
+          "line": 161
+        },
+        "9": {
+          "label": "loop next migration from resources.files('voicecart').joinpath('migrations').iterdir()",
+          "line": 148
+        },
+        "10": {
+          "label": "raise DatabaseUnavailable('Schema requires explicit checksummed migrations; run init-db')",
+          "line": 158
+        },
+        "11": {
+          "label": "test applied.get(migration.name) != hashlib.sha256(migration.read_text(encoding='utf-8').encode()).hexdigest()",
+          "line": 153
+        },
+        "12": {
+          "label": "test migration.name.endswith('.sql')",
+          "line": 152
+        },
+        "13": {
+          "label": "applied = {row['version']: row['sha256'] for row in connection.execute('SELECT version,sha256 FROM schema_migrations')}",
+          "line": 142
+        },
+        "14": {
+          "label": "context enter self.connect()",
+          "line": 141
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          14,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ],
+        [
+          4,
+          0,
+          ""
+        ],
+        [
+          5,
+          4,
+          ""
+        ],
+        [
+          6,
+          2,
+          "T"
+        ],
+        [
+          6,
+          5,
+          "F"
+        ],
+        [
+          7,
+          6,
+          ""
+        ],
+        [
+          8,
+          7,
+          ""
+        ],
+        [
+          9,
+          12,
+          "iteration"
+        ],
+        [
+          9,
+          8,
+          "done"
+        ],
+        [
+          10,
+          4,
+          ""
+        ],
+        [
+          11,
+          10,
+          "T"
+        ],
+        [
+          11,
+          9,
+          "F"
+        ],
+        [
+          12,
+          11,
+          "T"
+        ],
+        [
+          12,
+          9,
+          "F"
+        ],
+        [
+          13,
+          9,
+          ""
+        ],
+        [
+          14,
+          13,
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/merchant.py",
+      "function": "LocalMerchantAdapter.synchronize",
+      "start_line": 90,
+      "end_line": 93,
+      "nodes": 3,
+      "edges": 2,
+      "components": 1,
+      "edge_node_complexity": 1,
+      "predicate_equivalents": 0,
+      "predicate_complexity": 1,
+      "planar": true,
+      "region_count": 1,
+      "basis_paths": [
+        [
+          1,
+          2,
+          0
+        ]
+      ],
+      "basis_rank": 1,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "2": {
+          "label": "return self.database.publish(snapshot, encoder=self.application.catalogue.encoder)",
+          "line": 91
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          2,
+          ""
+        ],
+        [
+          2,
+          0,
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "voicecart/http_security.py",
+      "function": "RateLimiter.allow",
+      "start_line": 90,
+      "end_line": 99,
+      "nodes": 15,
+      "edges": 17,
+      "components": 1,
+      "edge_node_complexity": 4,
+      "predicate_equivalents": 3,
+      "predicate_complexity": 4,
+      "planar": true,
+      "region_count": 4,
+      "basis_paths": [
+        [
+          1,
+          16,
+          14,
+          13,
+          12,
+          11,
+          10,
+          8,
+          6,
+          5,
+          3,
+          0
+        ],
+        [
+          1,
+          16,
+          14,
+          13,
+          12,
+          11,
+          10,
+          8,
+          6,
+          7,
+          6,
+          5,
+          3,
+          0
+        ],
+        [
+          1,
+          16,
+          14,
+          13,
+          12,
+          11,
+          10,
+          9,
+          8,
+          6,
+          5,
+          3,
+          0
+        ],
+        [
+          1,
+          16,
+          15,
+          13,
+          12,
+          11,
+          10,
+          8,
+          6,
+          5,
+          3,
+          0
+        ]
+      ],
+      "basis_rank": 4,
+      "basis_execution": "Not inferred; concrete source tests/coverage are separate",
+      "nodes_detail": {
+        "0": {
+          "label": "Exit (return or propagated explicit error)",
+          "line": 0
+        },
+        "1": {
+          "label": "Entry",
+          "line": 0
+        },
+        "3": {
+          "label": "context exit: return",
+          "line": 92
+        },
+        "5": {
+          "label": "return count < limit",
+          "line": 99
+        },
+        "6": {
+          "label": "loop len(self.windows) > 4096",
+          "line": 97
+        },
+        "7": {
+          "label": "self.windows.popitem(last=False)",
+          "line": 98
+        },
+        "8": {
+          "label": "self.windows[key] = (start, count + 1)",
+          "line": 96
+        },
+        "9": {
+          "label": "start, count = (now, 0)",
+          "line": 95
+        },
+        "10": {
+          "label": "test now - start >= 60",
+          "line": 94
+        },
+        "11": {
+          "label": "start, count = self.windows.pop(key, (now, 0))",
+          "line": 93
+        },
+        "12": {
+          "label": "context enter self.lock",
+          "line": 92
+        },
+        "13": {
+          "label": "now = time.monotonic() if now is None else now",
+          "line": 91
+        },
+        "14": {
+          "label": "evaluate time.monotonic()",
+          "line": 91
+        },
+        "15": {
+          "label": "evaluate now",
+          "line": 91
+        },
+        "16": {
+          "label": "test now is None",
+          "line": 91
+        }
+      },
+      "edges_detail": [
+        [
+          1,
+          16,
+          ""
+        ],
+        [
+          3,
+          0,
+          ""
+        ],
+        [
+          5,
+          3,
+          ""
+        ],
+        [
+          6,
+          7,
+          "iteration"
+        ],
+        [
+          6,
+          5,
+          "done"
+        ],
+        [
+          7,
+          6,
+          ""
+        ],
+        [
+          8,
+          6,
+          ""
+        ],
+        [
+          9,
+          8,
+          ""
+        ],
+        [
+          10,
+          9,
+          "T"
+        ],
+        [
+          10,
+          8,
+          "F"
+        ],
+        [
+          11,
+          10,
+          ""
+        ],
+        [
+          12,
+          11,
+          ""
+        ],
+        [
+          13,
+          12,
+          ""
+        ],
+        [
+          14,
+          13,
+          ""
+        ],
+        [
+          15,
+          13,
+          ""
+        ],
+        [
+          16,
+          14,
+          "T"
+        ],
+        [
+          16,
+          15,
+          "F"
+        ]
+      ]
+    }
+  ]
+}

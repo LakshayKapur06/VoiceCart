@@ -8,7 +8,10 @@ from urllib.parse import urlsplit
 
 import yaml
 
-from scripts.evidence import identity, run_directory, write_new
+if __package__:
+    from scripts.evidence import identity, run_directory, write_new
+else:
+    from evidence import identity, run_directory, write_new
 
 
 def main():

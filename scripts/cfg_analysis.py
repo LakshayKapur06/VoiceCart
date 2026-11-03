@@ -241,7 +241,10 @@ def paths(graph, entry, exit_node):
 
 
 def main():
-    from scripts.evidence import identity, run_directory, write_new
+    if __package__:
+        from scripts.evidence import identity, run_directory, write_new
+    else:
+        from evidence import identity, run_directory, write_new
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path)

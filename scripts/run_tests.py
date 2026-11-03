@@ -3,7 +3,10 @@
 import argparse
 import unittest
 
-from scripts.verify import isolated_postgres
+if __package__:
+    from scripts.verify import isolated_postgres
+else:
+    from verify import isolated_postgres
 
 
 def main():

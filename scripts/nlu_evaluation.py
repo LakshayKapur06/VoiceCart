@@ -7,7 +7,10 @@ import statistics
 import time
 from pathlib import Path
 
-from scripts.evidence import identity, run_directory, write_new
+if __package__:
+    from scripts.evidence import identity, run_directory, write_new
+else:
+    from evidence import identity, run_directory, write_new
 from voicecart.local_http import LocalJSONClient, LocalServiceError
 from voicecart.nlu import PROMPT_VERSION, InterpretationError, OllamaInterpreter
 from voicecart.telemetry import measurements

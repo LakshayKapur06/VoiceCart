@@ -1,0 +1,51 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "da32d05dde5bb282f4da36632c2884919aba9406a5212a0c78f97153697e0e35",
+  "recorded_at_utc": "2026-11-03T04:09:36.679452+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "method": "Primary-source review with web open/find tool on2026-11-03; not a legal conclusion or exhaustive rights search.",
+  "sources": [
+    {
+      "url": "https://github.com/OHF-Voice/piper1-gpl/blob/main/COPYING",
+      "status": "read",
+      "observation": "GPLv3 text includes corresponding-source/non-source conveyance provisions; intended application distribution requires owner/counsel analysis."
+    },
+    {
+      "url": "https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023/blob/2b6d039ed471f2ba5fd2acb718bf33b0a7e5598e/README.md",
+      "status": "read",
+      "observation": "No license text match/declaration found in the inspected pinned card; absence is not blanket legal prohibition or permission."
+    },
+    {
+      "url": "https://amazon-reviews-2023.github.io/",
+      "status": "read",
+      "observation": "Official metadata/project description inspected; does not establish current inventory or redistribution permission."
+    },
+    {
+      "url": "https://huggingface.co/rhasspy/piper-voices/blob/5041a7a49ae5b3a0f30e6837769eb03fdbb231bd/en/en_US/ljspeech/medium/MODEL_CARD",
+      "status": "unavailable via web tool",
+      "observation": "Prior pinned-card facts remain historical; no fresh retrieval claimed."
+    },
+    {
+      "url": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "status": "web tool timeout",
+      "observation": "Used upstream Piper COPYING for available primary text instead."
+    }
+  ]
+}

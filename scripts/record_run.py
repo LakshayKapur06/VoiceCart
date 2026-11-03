@@ -7,7 +7,10 @@ import sys
 import time
 from pathlib import Path
 
-from scripts.evidence import identity, run_directory, write_new
+if __package__:
+    from scripts.evidence import identity, run_directory, test_counts, write_new
+else:
+    from evidence import identity, run_directory, test_counts, write_new
 
 
 def main():
@@ -60,6 +63,7 @@ def main():
             "exit_code": result.returncode,
             "elapsed_seconds": time.perf_counter() - start,
             "unittest_runs": runs,
+            "reported_test_counts": test_counts(output),
             "log": str(log),
             "limitations": [
                 "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",

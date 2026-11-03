@@ -1,0 +1,77 @@
+{
+  "runtime_versions": {
+    "psycopg": "3.3.6",
+    "coverage": "7.17.0",
+    "ruff": "0.14.2",
+    "mypy": "2.4.1",
+    "bandit": "1.9.4",
+    "pip-audit": "2.10.1",
+    "pgserver": "0.1.4",
+    "pywhispercpp": "1.5.1",
+    "piper-tts": "1.8.0",
+    "node": "v24.22.0",
+    "npm": "11.19.1"
+  },
+  "commit_sha": "8477528ca62cc86e1a75e0a71d2ddc5932a3f862",
+  "working_tree_dirty": true,
+  "source_tree_sha256": "da32d05dde5bb282f4da36632c2884919aba9406a5212a0c78f97153697e0e35",
+  "recorded_at_utc": "2026-11-03T04:02:16.138963+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "machine": "arm64",
+  "reproduction": "Fresh execution by the same coding agent; not an independent third-party audit.",
+  "label": "S21-final-engineering",
+  "command": [
+    "env",
+    "-u",
+    "PYTHONPATH",
+    ".venv/bin/python",
+    "scripts/verify.py",
+    "--postgres",
+    "--package",
+    "--audit",
+    "--coverage",
+    "--output-dir",
+    "docs/evidence/20261103_S21_engineering"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 55.14235487498809,
+  "unittest_runs": [
+    {
+      "count": 218,
+      "passed": 218,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 14.336,
+      "status": "OK"
+    },
+    {
+      "count": 218,
+      "passed": 218,
+      "failed": 0,
+      "errored": 0,
+      "skipped": 0,
+      "seconds": 13.345,
+      "status": "OK"
+    }
+  ],
+  "reported_test_counts": {
+    "framework": "unittest",
+    "scope": "execution totals, not distinct methods across source/wheel runs",
+    "executed": 436,
+    "passed": 436,
+    "failed": 0,
+    "errored": 0,
+    "skipped": 0
+  },
+  "log": "docs/evidence/20261103_S21_engineering/command.log",
+  "limitations": [
+    "Local disposable PostgreSQL is legacy development tooling, not a production deployment.",
+    "Model, physical-device, human, external-platform and legal acceptance are separate.",
+    "Tests that were not invoked are not passes."
+  ],
+  "warnings": [
+    "Combined 5 files, skipped 1"
+  ]
+}

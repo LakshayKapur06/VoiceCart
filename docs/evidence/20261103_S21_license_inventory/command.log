@@ -1,0 +1,58 @@
+Traceback (most recent call last):
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/request.py", line 1344, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/client.py", line 1386, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/client.py", line 1432, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/client.py", line 1381, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/client.py", line 1141, in _send_output
+    self.send(msg)
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/client.py", line 1085, in send
+    self.connect()
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/client.py", line 1051, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socket.py", line 865, in create_connection
+    raise exceptions[0]
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socket.py", line 850, in create_connection
+    sock.connect(sa)
+PermissionError: [Errno 1] Operation not permitted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/voicecart/local_http.py", line 98, in request
+    with self.opener.open(request, timeout=self.timeout) as response:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/request.py", line 1373, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Nilabh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/request.py", line 1347, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 1] Operation not permitted>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/scripts/license_inventory.py", line 93, in <module>
+    main()
+  File "/Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/scripts/license_inventory.py", line 59, in main
+    for item in client.request("/api/tags")["models"]:
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/voicecart/telemetry.py", line 59, in invoke
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Nilabh/Documents/ChatGPT/Voice-Cart/voicecart/voicecart/local_http.py", line 111, in request
+    raise LocalServiceError(
+voicecart.local_http.LocalServiceError: Local inference unavailable or invalid response

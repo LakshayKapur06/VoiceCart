@@ -9,7 +9,10 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from scripts.verify import isolated_postgres
+if __package__:
+    from scripts.verify import isolated_postgres
+else:
+    from verify import isolated_postgres
 from tests.database_support import fabricated_document, isolated_database
 from voicecart.domain import HardConstraints, SearchRequest
 from voicecart.ingestion import parse_import
@@ -17,7 +20,10 @@ from voicecart.search import PostgresCatalogue
 
 
 def main():
-    from scripts.evidence import identity, run_directory, write_new
+    if __package__:
+        from scripts.evidence import identity, run_directory, write_new
+    else:
+        from evidence import identity, run_directory, write_new
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path)
